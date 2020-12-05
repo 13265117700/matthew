@@ -1,0 +1,15 @@
+<view class="container">
+    <vtu-navbar title="我的关注" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
+    <van-tabs active="{{activeIndex}}" bind:change="onChange">
+        <!-- <van-tab
+            wx:for="{{tabsList}}"
+            wx:key="index"
+            title="{{item.title}}"
+            name="{{activeIndex}}">
+            <vtu-empty src="/images/myFollow/empty.png" fillScreen label="没有更多数据了~"></vtu-empty>
+        </van-tab> -->
+        <van-tab title="关注车辆" name="{{activeIndex}}"><vehicle-list></vehicle-list></van-tab>
+        <van-tab title="关注船源" name="{{activeIndex}}"><ship-list></ship-list></van-tab>
+        <van-tab title="关注货源" name="{{activeIndex}}"><resources-list></resources-list></van-tab>
+    </van-tabs>
+</view>

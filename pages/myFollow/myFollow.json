@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "vtu-btn": "/miniprogram_npm/vtuweapp/button/vtu-btn",
+    "vtu-empty": "/miniprogram_npm/vtuweapp/empty/vtu-empty",
+    "vtu-swiperPanel": "/miniprogram_npm/vtuweapp/swiperPanel/swiper/vtu-swiperPanel",
+    "vtu-swiperPanel-item": "/miniprogram_npm/vtuweapp/swiperPanel/item/vtu-swiperPanel-item",
+    "vehicle-list": "/components/myFollow/vehicle/vehicle",
+    "ship-list": "/components/myFollow/ship/ship",
+    "resources-list": "/components/myFollow/resources/resources"
+  }
+}
