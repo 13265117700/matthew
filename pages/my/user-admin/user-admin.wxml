@@ -1,0 +1,19 @@
+<view class="page-container">
+    <vtu-navbar 
+        title="{{navbarTitle}}" 
+        homeStyle="cachet" 
+        bgColor="#F0222FFF" 
+        fontColor="#ffffff" 
+        icon="iconfont icon-shangchuan"></vtu-navbar>
+    <view class="page-main">
+        <van-tabs animated active="{{ active }}" bind:click="onChange">
+            <van-tab
+                wx:for="{{tabList}}"
+                wx:key="index"
+                title="{{item.title}}"
+                name="{{item.title}}">
+                <component-user-admin status="{{index}}" seeId="{{id}}"></component-user-admin>
+            </van-tab>
+        </van-tabs>
+    </view>
+</view>

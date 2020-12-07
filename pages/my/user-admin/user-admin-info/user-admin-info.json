@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "user-admin-info":"/components/my/user-admin/user-admin-info/user-admin-info"
+  }
+}

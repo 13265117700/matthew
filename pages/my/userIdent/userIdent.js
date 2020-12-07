@@ -1,5 +1,5 @@
 const { $Toast } = require('../../../miniprogram_npm/iview-weapp/base/index')
-import upload from '../../../models/upload/upload'
+import upload from '../../../utils/upload'
 Page({
   data: {
     identitId:null,
@@ -93,10 +93,10 @@ Page({
 
    //身份证正面照片上传
    IdJustUpload(){
-    console.log('身份证正面上传')
-    upload.upload.chooseImage().then(filePath => {
-      let postfix = filePath.match(/\.[^.]+?$/)[0];
-      console.log(postfix)
+    let Authorization = wx.getStorageSync('Authorization');
+    console.log(Authorization)
+    upload.upload.chooseImage().then(file => {
+      console.log(file)
     })
   },
   //身份证反面照片上传

@@ -204,6 +204,7 @@ Page({
   ceilItem:function(event){
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
+    console.log(id)
     switch(id){
       // 身份认证
       case '112':
@@ -212,7 +213,14 @@ Page({
         });
         break
       case '115':
-        console.log('船管理')
+        wx.navigateTo({
+          url: '/pages/my/user-admin/user-admin?id='+id,
+        })
+        break
+      case '192':
+        wx.navigateTo({
+          url: '/pages/my/user-admin/user-admin?id='+id,
+        })
         break
     }
   },

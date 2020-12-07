@@ -13,7 +13,9 @@
         "pages/my/userSetUp/userSetUp",
         "pages/my/userSetUp/userSetUpItem/userSetUpItem",
         "pages/my/userIdent/userIdent",
-        "pages/my/userIdent/audit/audit"
+        "pages/my/userIdent/audit/audit",
+        "pages/my/user-admin/user-admin",
+        "pages/my/user-admin/user-admin-info/user-admin-info"
     ],
     "window": {
         "navigationStyle": "custom",

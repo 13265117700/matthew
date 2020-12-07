@@ -1,0 +1,110 @@
+<!--components/my/user-admin/user-admin-info/user-admin-info.wxml-->
+<view class="wrap">
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船舶名称：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>载货量A级：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                    <view class="item-input_tag">
+                        <text>吨</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>载货量B级：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                    <view class="item-input_tag">
+                        <text>吨</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>AIS码：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船舶类型：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                    <view class="item-input_tag">
+                        <image src="/images/my/ck@3x.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长姓名：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长电话：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+        </vtu-input-group>
+    </view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+    <view class="wrap-item"></view>
+</view>

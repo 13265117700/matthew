@@ -1,0 +1,55 @@
+/* components/my/user-admin/user-admin-info/user-admin-info.wxss */
+.wrap-item{
+    margin-top: 10px;
+}
+.Vtuzx_Input_Group_Center {
+    border-radius: 10px;
+}
+.wrap-item-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 14.5px;
+    height: 60px;
+    line-height: 60px;
+}
+.item-subTitle{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    font-size: 14px;
+}
+.item-subTitle_tag{
+    color: #E3211FFF;
+    padding-right: 10px;
+}
+.item-subTitle_text{
+    color: #454545FF;
+}
+.item-input{
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #E8E8E8FF;
+}
+vtu-input{
+    flex: 1;
+}
+.item-input_tag text{
+    font-size: 14px;
+    color: #191919FF;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+}
+.item-input_tag image{
+    width: 6.5px;
+    height: 10.5px;
+}
+
+.wrap-item-container:last-child .item-input{
+    border: none;
+}

@@ -1,0 +1,11 @@
+<view class="page-container">
+    <vtu-navbar 
+        title="{{navbarTitle}}" 
+        homeStyle="cachet" 
+        bgColor="#F0222FFF" 
+        fontColor="#ffffff" 
+        icon="iconfont icon-shangchuan"></vtu-navbar>
+    <view class="page-main">
+        <user-admin-info></user-admin-info>
+    </view>
+</view>

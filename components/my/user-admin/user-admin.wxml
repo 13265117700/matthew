@@ -1,0 +1,12 @@
+<!--components/my/userAdmin/userAdmin.wxml-->
+<view class="see-list">
+    <view class="see-item" wx:for="{{seeList}}" wx:key="index">
+        <view class="see-item_title">{{item.title}}</view>
+        <view class="see-item_status {{status === '1' ? 'active' : ''}}"
+            wx:if="{{status != '0'}}">{{status === '1' ? '已通过' : '查看原因'}}</view>
+        <view class="see-item_tag">
+          <image src="/images/my/ck@3x.png"></image>
+        </view>
+        <view class="see-item_hide" data-index="{{index}}" bindtap="handSee" wx:if="{{status === '2'}}"></view>
+    </view>
+</view>
