@@ -102,6 +102,13 @@ Page({
     }],
     loading: false
   },
+  onShow(){
+    if(typeof this.getTabBar === "function" && this.getTabBar()){
+      this.getTabBar().setData({
+        activeIndex:0
+      })
+    }
+  },
   bindChange: function(e) {
     this.setData({
       current: e.detail.current

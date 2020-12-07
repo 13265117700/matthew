@@ -1,11 +1,12 @@
-.deliver-container{
+/* .deliver-container{
     padding: 0 15px;
     margin: 18px 0 37px;
-}
+} */
 .current-time{
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    width: 345px;
+    margin: 10px auto 15px;
 }
 .current-time .number{
     font-size: 40px;

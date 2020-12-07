@@ -1,4 +1,5 @@
 const { $Toast } = require('../../../miniprogram_npm/iview-weapp/base/index')
+import upload from '../../../models/upload/upload'
 Page({
   data: {
     identitId:null,
@@ -89,14 +90,23 @@ Page({
       idenIput
     })
   },
+
+   //身份证正面照片上传
+   IdJustUpload(){
+    console.log('身份证正面上传')
+    upload.upload.chooseImage().then(filePath => {
+      let postfix = filePath.match(/\.[^.]+?$/)[0];
+      console.log(postfix)
+    })
+  },
+  //身份证反面照片上传
+  IdBackUpload(){
+    console.log('身份证反面上传')
+  },
+
   handleSubmit(){
     let identitId = this.data.identitId;
     let ahtcId = this.data.ahtcId;
-    // let ctsInput = this.data.ctsInput;
-    // let cpInput = this.data.cpInput;
-    // let nameInput = this.data.nameInput;
-    // let phoneInput = this.data.phoneInput;
-    // let idenIput = this.data.idenIput;
     if(this.data.checked === false){
       $Toast({
         content: '请勾选提交认证',

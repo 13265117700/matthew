@@ -78,14 +78,14 @@
               <image mode="aspectFit" wx:if="{{idenJustImg}}" src="{{idenJustImg}}"></image>
               <image mode="aspectFit" wx:if="{{!idenJustImg}}" src="/images/my/sfzzm@3x.png"></image>
             </view>
-            <view class="item-iden-photo_text">上传正面</view>
+            <view class="item-iden-photo_text" bindtap="IdJustUpload">上传正面</view>
           </view>
           <view class="item-iden-photo">
             <view class="item-iden-photo_img">
               <image mode="aspectFit" wx:if="{{idenBackImg}}" src="{{idenBackImg}}"></image>
               <image mode="aspectFit" wx:if="{{!idenBackImg}}" src="/images/my/sfzfm@3x.png"></image>
             </view>
-            <view class="item-iden-photo_text">上传反面</view>
+            <view class="item-iden-photo_text" bindtap="IdBackUpload">上传反面</view>
           </view>
         </view>
       </vtu-input-group>

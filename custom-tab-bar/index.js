@@ -76,12 +76,12 @@ Component({
               url: this.data.tabBar[index].pagePath,
             })
         },
-        init() {
-            const page = getCurrentPages().pop();
-            console.log(page.route)
-            this.setData({
-                activeIndex:this.data.tabBar.findIndex(item => item.pagePath === `/${page.route}`)
-            })
-        }
+        // init() {
+        //     const page = getCurrentPages().pop();
+        //     console.log(page.route)
+        //     this.setData({
+        //         activeIndex:this.data.tabBar.findIndex(item => item.pagePath === `/${page.route}`)
+        //     })
+        // }
     }
 })

@@ -77,6 +77,7 @@
     color: #FFFFFFFF;
     font-family: PingFang-SC-Heavy;
     font-weight: Heavy;
+    cursor: pointer;
   }
   .identit-form-item .item-license{
     padding: 0 14.5px 20px;

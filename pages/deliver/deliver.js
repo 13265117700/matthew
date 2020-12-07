@@ -25,6 +25,13 @@ Page({
     vehicleStatus:false,
     shipStatus:false
   },
+  onShow(){
+    if(typeof this.getTabBar === "function" && this.getTabBar()){
+      this.getTabBar().setData({
+        activeIndex:2
+      })
+    }
+  },
   showDialog(event){
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;

@@ -156,23 +156,27 @@ Page({
   },
 
   onShow(){
+    if(typeof this.getTabBar === "function" && this.getTabBar()){
+      this.getTabBar().setData({
+        activeIndex:4
+      })
+    }
+    
     let Authorization = wx.getStorageSync('Authorization');
     let uId ='';
-    console.log(Authorization)
-    let params = {
-      Authorization,
-      uId
-    }
-    User.userInfo(params).then(res => {
-      console.log(res)
-      if(res.data.state === 200){
-        this.setData({
-          userInfo:res.data.data
-        })
+    if(Authorization){
+      let params = {
+        Authorization,
+        uId
       }
-      console.log(this.data.userInfo)
-    })
-    
+      User.userInfo(params).then(res => {
+        if(res.data.state === 200){
+          this.setData({
+            userInfo:res.data.data
+          })
+        }
+      })
+    }
   },
   
   // 登录
