@@ -11,11 +11,12 @@ const randomString = (len) => {
 }
 
 const request = (method, url, data, header) => {
+  console.log(...data)
   let params = { 
     'Authorization': data.Authorization,
     'deviceId': randomString(),
-    'content-type': 'application/x-www-form-urlencoded',
-    'uId':data.uId,
+    'content-type':data.contentType,
+    'uId':data.uId
     }
   return new Promise((resolve, reject)=>{
     wx.request({

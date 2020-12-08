@@ -97,14 +97,396 @@
             </view>
         </vtu-input-group>
     </view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
-    <view class="wrap-item"></view>
+    <!-- 船长身份证 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="item-title">
+                <view class="item-title-tag">*</view>
+                <view class="item-title-text">船长身份证</view>
+                <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+            </view>
+            <view class="item-iden">
+                <van-uploader 
+                    max-count="1" 
+                    file-list="{{ idenJust }}" 
+                    bind:after-read="justAfterRead">
+                    <view class="item-iden-container">
+                        <view class="item-iden-image" wx:if="{{!idenJust}}">
+                            <view class="item-iden-image_icon">
+                                <image src="/images/my/tjzs@3x.png"></image>
+                            </view>
+                            <view class="item-iden-image_text">
+                                <text>上传身份证正面</text>
+                            </view>
+                        </view>
+                        <view class="item-iden-image" wx:if="{{idenJust}}">
+                            <image src="{{idenJust}}"></image>
+                        </view>
+                    </view>
+                </van-uploader>
+                <van-uploader 
+                    max-count="1" 
+                    file-list="{{ idenBack }}" 
+                    bind:after-read="backAfterRead">
+                    <view class="item-iden-container">
+                        <view class="item-iden-image" wx:if="{{!idenBack}}">
+                            <view class="item-iden-image_icon">
+                                <image src="/images/my/tjzs@3x.png"></image>
+                            </view>
+                            <view class="item-iden-image_text">
+                                <text>上传身份证反面</text>
+                            </view>
+                        </view>
+                        <view class="item-iden-image" wx:if="{{idenBack}}">
+                            <image src="{{idenBack}}"></image>
+                        </view>
+                    </view>
+                </van-uploader>
+            </view>
+        </vtu-input-group>
+    </view>
+    <!-- 上传船长特征 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="item-title">
+                <view class="item-title-tag">*</view>
+                <view class="item-title-text">上传船长特征</view>
+                <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+            </view>
+            <view class="item-iden">
+                <van-uploader
+                    file-list="{{ traitList }}"
+                    max-count="9"
+                    bind:after-read="handTrait"
+                    />
+            </view>
+        </vtu-input-group>
+    </view>
+    <!-- 上传船舶主要项目 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="item-title">
+                <view class="item-title-tag">*</view>
+                <view class="item-title-text">上传船舶主要项目</view>
+                <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+            </view>
+            <view class="item-iden">
+                <van-uploader
+                    file-list="{{ projectList }}"
+                    max-count="9"
+                    bind:after-read="handProject"
+                    />
+            </view>
+        </vtu-input-group>
+    </view>
+    <!-- AIS证书、内河适航证书 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="item-title">
+                <view class="item-title-tag">*</view>
+                <view class="item-title-text">AIS证书、内河适航证书</view>
+                <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+            </view>
+            <view class="item-iden">
+                <van-uploader 
+                    max-count="1" 
+                    file-list="{{ idenJust }}" 
+                    bind:after-read="justAfterRead">
+                    <view class="item-iden-container">
+                        <view class="item-iden-image" wx:if="{{!idenJust}}">
+                            <view class="item-iden-image_icon">
+                                <image src="/images/my/tjzs@3x.png"></image>
+                            </view>
+                            <view class="item-iden-image_text">
+                                <text>上传身份证正面</text>
+                            </view>
+                        </view>
+                        <view class="item-iden-image" wx:if="{{idenJust}}">
+                            <image src="{{idenJust}}"></image>
+                        </view>
+                    </view>
+                </van-uploader>
+                <van-uploader 
+                    max-count="1" 
+                    file-list="{{ idenBack }}" 
+                    bind:after-read="backAfterRead">
+                    <view class="item-iden-container">
+                        <view class="item-iden-image" wx:if="{{!idenBack}}">
+                            <view class="item-iden-image_icon">
+                                <image src="/images/my/tjzs@3x.png"></image>
+                            </view>
+                            <view class="item-iden-image_text">
+                                <text>上传身份证反面</text>
+                            </view>
+                        </view>
+                        <view class="item-iden-image" wx:if="{{idenBack}}">
+                            <image src="{{idenBack}}"></image>
+                        </view>
+                    </view>
+                </van-uploader>
+            </view>
+        </vtu-input-group>
+    </view>
+    <!-- 船舶运营证书、船舶年审合格证书 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="item-title">
+                <view class="item-title-tag">*</view>
+                <view class="item-title-text">船舶运营证书、船舶年审合格证书</view>
+                <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+            </view>
+            <view class="item-iden">
+                <van-uploader 
+                    max-count="1" 
+                    file-list="{{ idenJust }}" 
+                    bind:after-read="justAfterRead">
+                    <view class="item-iden-container">
+                        <view class="item-iden-image" wx:if="{{!idenJust}}">
+                            <view class="item-iden-image_icon">
+                                <image src="/images/my/tjzs@3x.png"></image>
+                            </view>
+                            <view class="item-iden-image_text">
+                                <text>上传身份证正面</text>
+                            </view>
+                        </view>
+                        <view class="item-iden-image" wx:if="{{idenJust}}">
+                            <image src="{{idenJust}}"></image>
+                        </view>
+                    </view>
+                </van-uploader>
+                <van-uploader 
+                    max-count="1" 
+                    file-list="{{ idenBack }}" 
+                    bind:after-read="backAfterRead">
+                    <view class="item-iden-container">
+                        <view class="item-iden-image" wx:if="{{!idenBack}}">
+                            <view class="item-iden-image_icon">
+                                <image src="/images/my/tjzs@3x.png"></image>
+                            </view>
+                            <view class="item-iden-image_text">
+                                <text>上传身份证反面</text>
+                            </view>
+                        </view>
+                        <view class="item-iden-image" wx:if="{{idenBack}}">
+                            <image src="{{idenBack}}"></image>
+                        </view>
+                    </view>
+                </van-uploader>
+            </view>
+        </vtu-input-group>
+    </view>
+    <!-- 上传船舶检验证书 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="item-title">
+                <view class="item-title-tag">*</view>
+                <view class="item-title-text">上传船舶检验证书</view>
+                <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+            </view>
+            <view class="item-iden">
+                <van-uploader
+                    file-list="{{ traitList }}"
+                    max-count="9"
+                    bind:after-read="handTrait"
+                    />
+            </view>
+        </vtu-input-group>
+    </view>
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船舶名称：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>载货量A级：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                    <view class="item-input_tag">
+                        <text>吨</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>载货量B级：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                    <view class="item-input_tag">
+                        <text>吨</text>
+                    </view>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>AIS码：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船舶类型：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                    <view class="item-input_tag">
+                        <image src="/images/my/ck@3x.png"></image>
+                    </view>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长姓名：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长电话：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长电话：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长电话：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长电话：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长电话：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+            <view class="wrap-item-container">
+                <view class="item-subTitle">
+                    <view class="item-subTitle_tag"><text>*</text></view>
+                    <view class="item-subTitle_text"><text>船长电话：</text></view>
+                </view>
+                <view class="item-input">
+                    <vtu-input 
+                        placeholder="请输入船舶名称" 
+                        type="input" 
+                        text-align="left"></vtu-input>
+                </view>
+            </view>
+        </vtu-input-group>
+    </view>
+    <!-- 添加船图片 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="item-title">
+                <view class="item-title-tag">*</view>
+                <view class="item-title-text">添加船图片</view>
+                <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+            </view>
+            <view class="item-iden">
+                <van-uploader
+                    file-list="{{ traitList }}"
+                    max-count="9"
+                    bind:after-read="handTrait"
+                    />
+            </view>
+        </vtu-input-group>
+    </view>
+    <!-- 添加船视频 -->
+    <view class="wrap-item">
+        <vtu-input-group>
+            <view class="wrap-resource" bindtap="handleVideo">
+                <view class="wrap-resource_add">
+                    <view class="item-title">
+                        <view class="item-title-tag">*</view>
+                        <view class="item-title-text">添加船视频</view>
+                    </view>
+                    <view class="item-image" wx:if="{{!shipVideo}}">
+                        <image src="/images/my/tjsp@3x.png"></image>
+                        <text>添加视频</text>
+                    </view>
+                    <view class="item-video" wx:if="{{shipVideo}}">
+                        <video src="{{shipVideo}}" controls="{{false}}" objectFit="cover"></video>
+                    </view>
+                </view>
+            </view>
+        </vtu-input-group>
+    </view>
+    <view class="wrap-item">
+        <view class="wrap-item_button" bindtap="handleSubmit">确认添加</view>
+    </view>
 </view>

@@ -7,7 +7,7 @@
     icon="iconfont icon-shangchuan"></vtu-navbar>
   <view class="identit-form enterprise">
     <!-- 企业认证统一社会信用代码 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === 'b1b2b3'}}">
+    <view class="identit-form-item" wx:if="{{ahtcId === '1'}}">
       <vtu-input-group>
         <view class="item-input">
           <view class="item-input-tag">*</view>
@@ -22,7 +22,7 @@
       </vtu-input-group>
     </view>
     <!-- 企业认证企业名 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === 'b1b2b3'}}">
+    <view class="identit-form-item" wx:if="{{ahtcId === '1'}}">
       <vtu-input-group>
         <vtu-input 
           title="企业名称:" 
@@ -37,10 +37,10 @@
     <view class="identit-form-item">
       <vtu-input-group>
           <vtu-input 
-            title="姓名：" 
+            title="联系人:" 
             must 
             border 
-            placeholder="请输入姓名" 
+            placeholder="{{ahtcId === '1' ? '请输入法人名字' : '请输入联系人名字'}}" 
             type="input" 
             text-align="left" 
             input-type="text"
@@ -49,7 +49,7 @@
             title="联系方式：" 
             must 
             border 
-            placeholder="请输入手机号" 
+            placeholder="{{ahtcId === '1' ? '请输入法人联系号码' : '请输入联系号码'}}" 
             type="input" 
             text-align="left" 
             input-type="number"
@@ -58,7 +58,7 @@
             title="身份证号：" 
             must 
             border 
-            placeholder="请输入证件号" 
+            placeholder="{{ahtcId === '1' ? '请输入法人身份证号码' : '请输入身份证号码'}}" 
             type="input" 
             text-align="left" 
             input-type="idcard"
@@ -69,8 +69,8 @@
       <vtu-input-group>
         <view class="item-title">
            <view class="item-title-tag">*</view>
-           <view class="item-title-text" wx:if="{{ahtcId === 'b1b2b3'}}">上传法人身份证照片</view>
-           <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view>
+           <view class="item-title-text">{{ ahtcId === '1'? '上传法人身份证照片' : '上传身份证照片'}}</view>
+           <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
         </view>
         <view class="item-iden">
           <view class="item-iden-photo">
@@ -91,7 +91,7 @@
       </vtu-input-group>
     </view>
     <!-- 企业认证上传营业执照 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === 'b1b2b3'}}">
+    <view class="identit-form-item" wx:if="{{ahtcId === '1'}}">
       <vtu-input-group>
         <view class="item-title">
            <view class="item-title-tag">*</view>
@@ -106,7 +106,7 @@
       </vtu-input-group>
     </view>
     <!-- 车主认证车牌号 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === 'a1a2a3' && identitId === '3'}}">
+    <view class="identit-form-item" wx:if="{{ahtcId === '0' && identity === '3'}}">
       <vtu-input-group>
         <view class="item-input">
           <view class="item-input-title">车牌号:</view>
@@ -114,13 +114,14 @@
             border 
             placeholder="请输入车牌号" 
             type="input" 
-            text-align="left"></vtu-input>
+            text-align="left"
+            bind:input="handNameInput"></vtu-input>
         </view>
       </vtu-input-group>
     </view>
     <!-- 车主认证上传驾驶证 -->
     <view class="identit-form-item" 
-      wx:if="{{ahtcId === 'a1a2a3' && identitId === '3'}}"
+      wx:if="{{ahtcId === '0' && identity === '3'}}"
       wx:for="{{dslImage}}"
       wx:key="index"
       data-index="{{index}}">
@@ -138,7 +139,7 @@
       </vtu-input-group>
     </view>
     <!-- 车主企业道路运输证照 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === 'b1b2b3' && identitId === '3'}}">
+    <view class="identit-form-item" wx:if="{{ahtcId === '1' && identity === '3'}}">
       <vtu-input-group>
         <view class="item-title">
            <view class="item-title-tag">*</view>

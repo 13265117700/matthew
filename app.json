@@ -67,7 +67,9 @@
         "i-load-more": "/miniprogram_npm/iview-weapp/load-more/index",
         "van-tab": "/miniprogram_npm/@vant/weapp/tab/index",
         "van-tabs": "/miniprogram_npm/@vant/weapp/tabs/index",
-        "i-toast": "/miniprogram_npm/iview-weapp/toast/index"
+        "i-toast": "/miniprogram_npm/iview-weapp/toast/index",
+        "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
+        "van-button": "/miniprogram_npm/@vant/weapp/button/index"
     },
     "sitemapLocation": "sitemap.json"
 }

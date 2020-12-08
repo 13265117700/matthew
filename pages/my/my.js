@@ -9,7 +9,7 @@ Page({
     // 认证方式开关
     ahtcShow:false,
     // 身份ID
-    identitId:null,
+    identity:null,
     // 认证方式ID
     ahtcId:null,
     // 身份认证方式标题
@@ -147,11 +147,11 @@ Page({
     ahtcList:[{
       name:'个人认证',
       active:false,
-      id:'a1a2a3'
+      id:'0'
     },{
       name:'企业认证',
       active:false,
-      id:'b1b2b3'
+      id:'1'
     }],
   },
 
@@ -167,7 +167,8 @@ Page({
     if(Authorization){
       let params = {
         Authorization,
-        uId
+        uId,
+        contentType: 'application/x-www-form-urlencoded',
       }
       User.userInfo(params).then(res => {
         if(res.data.state === 200){
@@ -241,12 +242,12 @@ Page({
     
     this.setData({
       identitList,
-      identitId:id
+      identity:id
     })
   },
   // 确认认证身份
   handIdentitOkay:function(){
-    let id = this.data.identitId;
+    let id = this.data.identity;
     if(id === null){
       $Toast({
         content: '未选择身份',
@@ -294,7 +295,7 @@ Page({
   },
   // 确认认证方式
   handAhctOkay(){
-    let identitId = this.data.identitId;
+    let identity = this.data.identity;
     let ahtcId = this.data.ahtcId;
     if(ahtcId === null){
       $Toast({
@@ -304,7 +305,7 @@ Page({
       return
     }else{
       wx.navigateTo({
-        url: '/pages/my/userIdent/userIdent?identitId='+identitId+'&ahtcId='+ahtcId,
+        url: '/pages/my/userIdent/userIdent?identity='+identity+'&ahtcId='+ahtcId,
       })
     }
   }
