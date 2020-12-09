@@ -3,6 +3,7 @@ import User from '../../models/user/user';
 
 Page({
   data: {
+    Authorization:null,
     userInfo:null,
     // 身份认证开关
     visible: false,
@@ -34,18 +35,30 @@ Page({
     }],
     ceilList:[
       {
+        state:true,
         ceilItem:[{
           icon:'/images/my/hzrz@3x.png',
           text:'身份认证',
           id:'112'
         }]
       },{
+        state:false,
+        status:'123',
+        ceilItem:[{
+          icon:'/images/my/hzrz@3x.png',
+          text:'我的认证资料',
+          id:'169'
+        }]
+      },{
+        state:true,
         ceilItem:[{
           icon:'/images/my/xxzx@3x.png',
           text:'我的好友',
           id:'113'
         }]
       },{
+        //船管理
+        state:false,
         ceilItem:[{
           icon:'/images/my/zjls@3x.png',
           text:'传动偏好设置',
@@ -70,8 +83,10 @@ Page({
           icon:'/images/my/wz@3x.png',
           text:'我发布的船源',
           id:'567'
-        },]
+        }]
       },{
+        //货管理
+        state:false,
         ceilItem:[{
           icon:'/images/my/fx@3x.png',
           text:'货主偏好设置',
@@ -94,6 +109,8 @@ Page({
           id:'855'
         }]
       },{
+        //车管理
+        state:false,
         ceilItem:[{
           icon:'/images/my/clgl@3x.png',
           text:'车辆管理',
@@ -116,12 +133,14 @@ Page({
           id:'609'
         }]
       },{
+        state:true,
         ceilItem:[{
           icon:'/images/my/wz@3x.png',
           text:'我的地址',
           id:'820'
         }]
       },{
+        state:true,
         ceilItem:[{
           icon:'/images/my/xycx@3x.png',
           text:'信用查询',
@@ -163,20 +182,49 @@ Page({
     }
     
     let Authorization = wx.getStorageSync('Authorization');
+    this.setData({
+      Authorization
+    })
     let uId ='';
     if(Authorization){
       let params = {
         Authorization,
-        uId,
-        // contentType: 'application/x-www-form-urlencoded',
+        uId
       }
       User.userInfo(params).then(res => {
-        console.log(res)
-        if(res.data.state === 200){
+        let user = res.data.data;
+        
+        if(user.mtCargoOwner.idNumber != null){
+          //货
+          user.idenID = user.mtCargoOwner.id;
           this.setData({
-            userInfo:res.data.data
+            userInfo:user,
+            ["ceilList[4].state"]:true
+          })
+        }else if(user.mtOwner.idNumber != null){
+          //车
+          user.idenID = user.mtOwner.id;
+          this.setData({
+            userInfo:user,
+            ["ceilList[5].state"]:true
+          })
+        }else if(user.mtShipowner.idNumber != null){
+           //船
+          user.idenID = user.mtShipowner.id;
+          this.setData({
+            userInfo:user,
+            ["ceilList[3].state"]:true
           })
         }
+        
+        if(user.idenID){
+          this.setData({
+            ["ceilList[0].state"]:false,
+            ["ceilList[1].state"]:true
+          })
+        }
+        console.log(this.data.ceilList)
+        console.log(this.data.userInfo)
       })
     }
   },

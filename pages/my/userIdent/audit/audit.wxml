@@ -21,42 +21,42 @@
             <view class="audit-list">
                 <view class="audit-item">
                     <view class="audit-item-title">姓名：</view>
-                    <view class="audit-item-text">{{auditList.name}}</view>
+                    <view class="audit-item-text">{{trialList.name}}</view>
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">联系方式：</view>
-                    <view class="audit-item-text">{{auditList.phone}}</view>
+                    <view class="audit-item-text">{{trialList.phone}}</view>
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">身份证号：</view>
-                    <view class="audit-item-text">{{auditList.iden}}</view>
+                    <view class="audit-item-text">{{trialList.iden}}</view>
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">社会统一信用代码：</view>
-                    <view class="audit-item-text">{{auditList.succ}}</view>
+                    <view class="audit-item-text">{{trialList.succ}}</view>
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">企业名称：</view>
-                    <view class="audit-item-text">{{auditList.enterp}}</view>
+                    <view class="audit-item-text">{{trialList.enterp}}</view>
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">身份证照片：</view>
                     <van-tag plain type="primary" size="large">已上传</van-tag>
-                    <!-- <view class="audit-item-text">{{auditList.IDphoto}}</view> -->
+                    <!-- <view class="audit-item-text">{{trialList.IDphoto}}</view> -->
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">营业执照：</view>
                     <van-tag plain type="primary" size="large">已上传</van-tag>
-                    <!-- <view class="audit-item-text">{{auditList.BsLs}}</view> -->
+                    <!-- <view class="audit-item-text">{{trialList.BsLs}}</view> -->
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">道路运输许可证：</view>
                     <van-tag plain type="primary" size="large">已上传</van-tag>
-                    <!-- <view class="audit-item-text">{{auditList.RTP}}</view> -->
+                    <!-- <view class="audit-item-text">{{trialList.RTP}}</view> -->
                 </view>
                 <view class="audit-item">
                     <view class="audit-item-title">不通过原因：</view>
-                    <view class="audit-item-text">{{auditList.describe}}</view>
+                    <view class="audit-item-text">{{trialList.describe}}</view>
                 </view>
             </view>
             <view class="audit-button">

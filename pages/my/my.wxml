@@ -59,7 +59,8 @@
         <view class="page-item" 
             wx:for="{{ceilList}}" 
             wx:for-item="ceilList" 
-            wx:key="index">
+            wx:key="index"
+            wx:if="{{ceilList.state === true || !Authorization}}">
             <view class="cell-item" 
                 wx:for="{{ceilList.ceilItem}}" 
                 wx:for-item="ceilItem" 

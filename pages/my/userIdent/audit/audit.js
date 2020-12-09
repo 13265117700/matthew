@@ -1,8 +1,9 @@
 // pages/my/userIdentit/audit/audit.js
 Page({
     data: {
+        idenID:null,
         navbarTitle:'审核资料中',
-        auditList:{
+        trialList:{
             name:'刘佩佩',
             phone:'186****3355',
             iden:'4897238********5236',
@@ -19,6 +20,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
+        console.log(options.idenID)
+        this.setData({
+            idenID:options.idenID
+        })
     },
 })

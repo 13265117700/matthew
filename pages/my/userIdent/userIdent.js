@@ -142,20 +142,20 @@ Page({
     
     //船东
     if(idenID === '1'){
-      this.mtShipownerUpdate()
+      this.mtShipownerUpdate(idenID)
     }
     // 货主
     if(idenID === '2'){
-      this.mtCargoOwnerUpdate()
+      this.mtCargoOwnerUpdate(idenID)
     }
     //车主
     if(idenID === '3'){
-      this.mtOwnerUpdate()
+      this.mtOwnerUpdate(idenID)
     }
   },
 
   //船东
-  mtShipownerUpdate(){
+  mtShipownerUpdate(idenID){
     console.log('船东',this.data.identity)
     let Authorization = wx.getStorageSync('Authorization')
     let identity = this.data.identity;//身份（0个人,1企业）
@@ -187,7 +187,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit',
+              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
             })
           }
         })
@@ -212,7 +212,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit',
+              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
             })
           }
         })
@@ -221,7 +221,7 @@ Page({
   },
 
   //货主
-  mtCargoOwnerUpdate(){
+  mtCargoOwnerUpdate(idenID){
     console.log('货主')
     let Authorization = wx.getStorageSync('Authorization')
     let identity = this.data.identity;//身份（0个人,1企业）
@@ -253,7 +253,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit',
+              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
             })
           }
         })
@@ -278,7 +278,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit',
+              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
             })
           }
         })
@@ -287,7 +287,7 @@ Page({
   },
 
   //车主
-  mtOwnerUpdate(){
+  mtOwnerUpdate(idenID){
     console.log('车主')
     let Authorization = wx.getStorageSync('Authorization')
     let identity = this.data.identity;//身份（0个人,1企业）
