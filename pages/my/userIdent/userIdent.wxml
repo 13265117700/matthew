@@ -7,7 +7,7 @@
     icon="iconfont icon-shangchuan"></vtu-navbar>
   <view class="identit-form enterprise">
     <!-- 企业认证统一社会信用代码 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === '1'}}">
+    <view class="identit-form-item" wx:if="{{identity === '1'}}">
       <vtu-input-group>
         <view class="item-input">
           <view class="item-input-tag">*</view>
@@ -17,12 +17,12 @@
             placeholder="请输入社会信用码" 
             type="input" 
             text-align="left"
-            bind:input="handCtsInput"></vtu-input>
+            bind:input="handcreditCode"></vtu-input>
         </view>
       </vtu-input-group>
     </view>
     <!-- 企业认证企业名 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === '1'}}">
+    <view class="identit-form-item" wx:if="{{identity === '1'}}">
       <vtu-input-group>
         <vtu-input 
           title="企业名称:" 
@@ -31,59 +31,60 @@
           placeholder="请输入企业全称" 
           type="input" 
           text-align="left"
-          bind:input="handCpInput"></vtu-input>
+          bind:input="handnameEnterprise"></vtu-input>
         </vtu-input-group>
     </view>
+    <!-- 列表输入框 -->
     <view class="identit-form-item">
       <vtu-input-group>
           <vtu-input 
             title="联系人:" 
             must 
             border 
-            placeholder="{{ahtcId === '1' ? '请输入法人名字' : '请输入联系人名字'}}" 
+            placeholder="{{identity === '1' ? '请输入法人名字' : '请输入联系人名字'}}" 
             type="input" 
             text-align="left" 
             input-type="text"
-            bind:input="handNameInput"></vtu-input>
+            bind:input="handContacts"></vtu-input>
           <vtu-input 
             title="联系方式：" 
             must 
             border 
-            placeholder="{{ahtcId === '1' ? '请输入法人联系号码' : '请输入联系号码'}}" 
+            placeholder="{{identity === '1' ? '请输入法人联系号码' : '请输入联系号码'}}" 
             type="input" 
             text-align="left" 
             input-type="number"
-            bind:input="handPhoneInput"></vtu-input>
+            bind:input="handPhone"></vtu-input>
           <vtu-input 
             title="身份证号：" 
             must 
             border 
-            placeholder="{{ahtcId === '1' ? '请输入法人身份证号码' : '请输入身份证号码'}}" 
+            placeholder="{{identity === '1' ? '请输入法人身份证号码' : '请输入身份证号码'}}" 
             type="input" 
             text-align="left" 
             input-type="idcard"
             bind:input="handIdenInput"></vtu-input>
       </vtu-input-group>
     </view>
+    <!-- 上传身份证照片 -->
     <view class="identit-form-item">
       <vtu-input-group>
         <view class="item-title">
            <view class="item-title-tag">*</view>
-           <view class="item-title-text">{{ ahtcId === '1'? '上传法人身份证照片' : '上传身份证照片'}}</view>
-           <!-- <view class="item-title-text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
+           <view class="item-title-text">{{ identity === '1'? '上传法人身份证照片' : '上传身份证照片'}}</view>
         </view>
         <view class="item-iden">
           <view class="item-iden-photo">
             <view class="item-iden-photo_img">
-              <image mode="aspectFit" wx:if="{{idenJustImg}}" src="{{idenJustImg}}"></image>
-              <image mode="aspectFit" wx:if="{{!idenJustImg}}" src="/images/my/sfzzm@3x.png"></image>
+              <image mode="aspectFit" wx:if="{{corporateId}}" src="{{corporateId}}"></image>
+              <image mode="aspectFit" wx:if="{{!corporateId}}" src="/images/my/sfzzm@3x.png"></image>
             </view>
             <view class="item-iden-photo_text" bindtap="IdJustUpload">上传正面</view>
           </view>
           <view class="item-iden-photo">
             <view class="item-iden-photo_img">
-              <image mode="aspectFit" wx:if="{{idenBackImg}}" src="{{idenBackImg}}"></image>
-              <image mode="aspectFit" wx:if="{{!idenBackImg}}" src="/images/my/sfzfm@3x.png"></image>
+              <image mode="aspectFit" wx:if="{{backViewIdCard}}" src="{{backViewIdCard}}"></image>
+              <image mode="aspectFit" wx:if="{{!backViewIdCard}}" src="/images/my/sfzfm@3x.png"></image>
             </view>
             <view class="item-iden-photo_text" bindtap="IdBackUpload">上传反面</view>
           </view>
@@ -91,7 +92,7 @@
       </vtu-input-group>
     </view>
     <!-- 企业认证上传营业执照 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === '1'}}">
+    <view class="identit-form-item" wx:if="{{identity === '1'}}">
       <vtu-input-group>
         <view class="item-title">
            <view class="item-title-tag">*</view>
@@ -99,14 +100,21 @@
         </view>
         <view class="item-license">
           <view class="item-license-img">
-            <image mode="aspectFit" src="/images/my/yyzzyb@3x.png"></image>
+            <image 
+              mode="aspectFit" 
+              wx:if="{{!businessLicense}}" 
+              src="/images/my/yyzzyb@3x.png"></image>
+            <image 
+              mode="aspectFit" 
+              wx:if="{{businessLicense}}"
+              src="{{businessLicense}}"></image>
           </view>
-          <view class="item-license-text">上传营业执照</view>
+          <view class="item-license-text" bindtap="businessLicenseUpload">上传营业执照</view>
         </view>
       </vtu-input-group>
     </view>
     <!-- 车主认证车牌号 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === '0' && identity === '3'}}">
+    <view class="identit-form-item" wx:if="{{identity === '0' && idenID === '3'}}">
       <vtu-input-group>
         <view class="item-input">
           <view class="item-input-title">车牌号:</view>
@@ -121,7 +129,7 @@
     </view>
     <!-- 车主认证上传驾驶证 -->
     <view class="identit-form-item" 
-      wx:if="{{ahtcId === '0' && identity === '3'}}"
+      wx:if="{{identity === '0' && idenID === '3'}}"
       wx:for="{{dslImage}}"
       wx:key="index"
       data-index="{{index}}">
@@ -139,7 +147,7 @@
       </vtu-input-group>
     </view>
     <!-- 车主企业道路运输证照 -->
-    <view class="identit-form-item" wx:if="{{ahtcId === '1' && identity === '3'}}">
+    <view class="identit-form-item" wx:if="{{identity === '1' && idenID === '3'}}">
       <vtu-input-group>
         <view class="item-title">
            <view class="item-title-tag">*</view>

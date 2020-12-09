@@ -52,8 +52,8 @@ Page({
                         encryptedData: e.detail.encryptedData,
                         iv: e.detail.iv,
                         parentId: parentId,
-                        Authorization:`Basic Y3M6Y3Nvbw==`,
-                        contentType: 'application/x-www-form-urlencoded',
+                        // Authorization:`Basic Y3M6Y3Nvbw==`,
+                        // contentType: 'application/x-www-form-urlencoded',
                       }
                       UserLogin.weChatLogin(data).then(data => {
                         console.log(data.data)

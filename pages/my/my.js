@@ -8,10 +8,10 @@ Page({
     visible: false,
     // 认证方式开关
     ahtcShow:false,
-    // 身份ID
-    identity:null,
+    // 认证身份ID
+    idenID:null,
     // 认证方式ID
-    ahtcId:null,
+    identity:null,
     // 身份认证方式标题
     ahtcTitle:null,
     // 用户查看列表
@@ -168,9 +168,10 @@ Page({
       let params = {
         Authorization,
         uId,
-        contentType: 'application/x-www-form-urlencoded',
+        // contentType: 'application/x-www-form-urlencoded',
       }
       User.userInfo(params).then(res => {
+        console.log(res)
         if(res.data.state === 200){
           this.setData({
             userInfo:res.data.data
@@ -242,12 +243,12 @@ Page({
     
     this.setData({
       identitList,
-      identity:id
+      idenID:id
     })
   },
   // 确认认证身份
   handIdentitOkay:function(){
-    let id = this.data.identity;
+    let id = this.data.idenID;
     if(id === null){
       $Toast({
         content: '未选择身份',
@@ -290,14 +291,14 @@ Page({
     
     this.setData({
       ahtcList,
-      ahtcId:id
+      identity:id
     })
   },
   // 确认认证方式
   handAhctOkay(){
+    let idenID = this.data.idenID;
     let identity = this.data.identity;
-    let ahtcId = this.data.ahtcId;
-    if(ahtcId === null){
+    if(identity === null){
       $Toast({
         content: '未选择认证方式',
         type: 'warning'
@@ -305,7 +306,7 @@ Page({
       return
     }else{
       wx.navigateTo({
-        url: '/pages/my/userIdent/userIdent?identity='+identity+'&ahtcId='+ahtcId,
+        url: '/pages/my/userIdent/userIdent?idenID='+idenID+'&identity='+identity,
       })
     }
   }

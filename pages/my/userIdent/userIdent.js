@@ -1,10 +1,10 @@
 const { $Toast } = require('../../../miniprogram_npm/iview-weapp/base/index');
 import upload from './../../../models/upload/upload';
+import User from './../../../models/user/user';
+import user from './../../../models/user/user';
 
 Page({
   data: {
-    identity:null,
-    ahtcId:null,
     navbarTitle:'',
     radioTitle:'提交认证',
     // disabled: false,
@@ -16,7 +16,8 @@ Page({
     },{
       src:'/images/my/scc@3x.png'
     }],
-
+    idenID:null,//认证身份ID
+    identity:null,//认证方式ID
     creditCode:'',// 统一社会信用代码
     nameEnterprise:'',//企业名称
     contacts:'',//联系人
@@ -32,11 +33,11 @@ Page({
   },
   onLoad: function (options) {
     this.setData({
-      identity:options.identity,
-      ahtcId:options.ahtcId
+      idenID:options.idenID,
+      identity:options.identity
     })
-    let identity = this.data.identity;
-    switch(identity){
+    let idenID = this.data.idenID;
+    switch(idenID){
       case '1':
         this.setData({
           navbarTitle:'申请船东认证'
@@ -53,8 +54,8 @@ Page({
         })
         break;
     }
-    console.log(this.data.identity,'认证身份')
-    console.log(this.data.ahtcId,'认证方式')
+    console.log(this.data.idenID,'认证身份')
+    console.log(this.data.identity,'认证方式')
   },
   handleAnimalChange({ detail = {} }) {
     this.setData({
@@ -77,14 +78,15 @@ Page({
     })
   },
   // 姓名input
-  handcontacts(e){
+  handContacts(e){
     let contacts = e.detail.value;
+    console.log(contacts,12323)
     this.setData({
       contacts
     })
   },
   //联系方式input
-  handphone(e){
+  handPhone(e){
     let phone = e.detail.value;
     this.setData({
       phone
@@ -101,6 +103,7 @@ Page({
    //身份证正面照片上传
    IdJustUpload(){
     upload.upload.chooseImage().then(file => {
+      console.log(file)
       this.setData({
         corporateId:file
       })
@@ -115,93 +118,190 @@ Page({
       })
     })
   },
+  //营业执照上传
+  businessLicenseUpload(){
+    upload.upload.chooseImage().then(file => {
+      this.setData({
+        businessLicense:file
+      })
+    })
+  },
 
+
+  //提交按钮
   handleSubmit(){
-    let identity = this.data.identity;
-    let ahtcId = this.data.ahtcId;
+    let idenID = this.data.idenID;
+    console.log(this.data.identity)
     if(this.data.checked === false){
       $Toast({
         content: '请勾选提交认证',
         type: 'warning'
       })
       return
-    }else{
-      if(ahtcId === '0'){
-        this.IndividAuth(identity,ahtcId)
-      }else{
-        this.EnterpAuth(identity,ahtcId)
-      }
     }
-  },
-  
-
-
-  //个人认证
-  IndividAuth(identity,ahtcId){
-    let Authorization = wx.getStorageSync('Authorization')
-    let contacts = this.data.contacts;//联系人
-    let phone = this.data.phone;//联系电话
-    let idNumber = this.data.idNumber;//身份证号码
-    let idenJust = this.data.corporateId;//身份证正面
-    let idenBack = this.data.backViewIdCard;//身份证反面
-    let licensePlate = this.data.licensePlate;//车牌号码
-    let driveJust = this.data.driveJust;//驾照正面
-    let driveBack = this.data.driveBack;//驾照反面
+    
     //船东
-    let shipOwner = identity === '1' && ahtcId === '0'
-    //货主
-    let cargoOwner = identity === '2' && ahtcId === '0'
-    if(shipOwner || cargoOwner){
-      console.log('船东','货主')
-      if( !contacts || !phone || !idNumber || !idenJust || !idenBack ){
-        $Toast({
-          content: '红色*号为必填项目',
-          type: 'warning'
-        })
-        return
-      }else{
-        console.log('提交船或货认证')
-      }
+    if(idenID === '1'){
+      this.mtShipownerUpdate()
     }
-
+    // 货主
+    if(idenID === '2'){
+      this.mtCargoOwnerUpdate()
+    }
     //车主
-    if(identity === '3' && ahtcId === '0'){
-      if( !contacts || !phone || !idNumber || !idenJust || !idenBack || !licensePlate || !driveJust || !driveBack ){
-        $Toast({
-          content: '红色*号为必填项目',
-          type: 'warning'
-        })
-        return
-      }else{
-        console.log('提交车认证')
-      }
+    if(idenID === '3'){
+      this.mtOwnerUpdate()
     }
   },
 
-
-
-
-  // 企业认证
-  EnterpAuth(identity,ahtcId){
+  //船东
+  mtShipownerUpdate(){
+    console.log('船东',this.data.identity)
     let Authorization = wx.getStorageSync('Authorization')
+    let identity = this.data.identity;//身份（0个人,1企业）
     let creditCode = this.data.creditCode;//统一信用代码
     let nameEnterprise = this.data.nameEnterprise;//企业名称
     let contacts = this.data.contacts;//联系人
     let phone = this.data.phone;//联系电话
     let idNumber = this.data.idNumber;//身份证号码
-    let idenJust = this.data.corporateId;//身份证正面
-    let idenBack = this.data.backViewIdCard;//身份证反面
+    let corporateId = this.data.corporateId;//身份证正面
+    let backViewIdCard = this.data.backViewIdCard;//身份证反面
     let businessLicense = this.data.businessLicense;//营业执照
-    let transportPermit = this.data.transportPermit;//道路许可证照片
-    //船东
-    let shipOwner = identity === '1' && ahtcId === '1'
-    //货主
-    let cargoOwner = identity === '2' && ahtcId === '1'
-    if(shipOwner || cargoOwner){
-      console.log('船东企业','货主企业')
-      if( !creditCode || !nameEnterprise|| !contacts || !phone || !idNumber || !idenJust || !idenBack ){
-        console.log(Authorization)
+    if(this.data.identity === '0'){
+      console.log('个人')
+      let personalParams = {
+        Authorization,
+        identity,
+        contacts,
+        phone,
+        idNumber,
+        corporateId,
+        backViewIdCard
+      }
+
+      if(!contacts || !phone || !idNumber || !corporateId || !backViewIdCard){
+        return $Toast({ content: '带红*号的都是必填项目',type: 'warning' })
+      }else{
+        user.mtShipownerUpdate(personalParams).then(res => {
+          console.log(res)
+          if(res.statusCode === 200){
+            $Toast({content: '提交成功',type: 'success'})
+            wx.navigateTo({
+              url: '/pages/my/userIdent/audit/audit',
+            })
+          }
+        })
+      }
+    } else {
+      console.log('企业')
+      let personalParams = {
+        Authorization,
+        identity,
+        creditCode,
+        nameEnterprise,
+        contacts,phone,
+        idNumber,
+        corporateId,
+        backViewIdCard,
+        businessLicense
+      }
+      if(!creditCode || !contacts || !phone || !idNumber || !corporateId || !backViewIdCard || !businessLicense){
+          return $Toast({ content: '带红*号的都是必填项目',type: 'warning' })
+      }else{
+        User.mtShipownerUpdate(personalParams).then(res => {
+          if(res.statusCode === 200){
+            $Toast({content: '提交成功',type: 'success'})
+            wx.navigateTo({
+              url: '/pages/my/userIdent/audit/audit',
+            })
+          }
+        })
       }
     }
+  },
+
+  //货主
+  mtCargoOwnerUpdate(){
+    console.log('货主')
+    let Authorization = wx.getStorageSync('Authorization')
+    let identity = this.data.identity;//身份（0个人,1企业）
+    let creditCode = this.data.creditCode;//统一信用代码
+    let nameEnterprise = this.data.nameEnterprise;//企业名称
+    let contacts = this.data.contacts;//联系人
+    let phone = this.data.phone;//联系电话
+    let idNumber = this.data.idNumber;//身份证号码
+    let corporateId = this.data.corporateId;//身份证正面
+    let backViewIdCard = this.data.backViewIdCard;//身份证反面
+    let businessLicense = this.data.businessLicense;//营业执照
+    if(this.data.identity === '0'){
+      console.log('个人')
+      let personalParams = {
+        Authorization,
+        identity,
+        contacts,
+        phone,
+        idNumber,
+        corporateId,
+        backViewIdCard
+      }
+
+      if(!contacts || !phone || !idNumber || !corporateId || !backViewIdCard){
+        return $Toast({ content: '带红*号的都是必填项目',type: 'warning' })
+      }else{
+        user.mtCargoOwnerUpdate(personalParams).then(res => {
+          console.log(res)
+          if(res.statusCode === 200){
+            $Toast({content: '提交成功',type: 'success'})
+            wx.navigateTo({
+              url: '/pages/my/userIdent/audit/audit',
+            })
+          }
+        })
+      }
+    } else {
+      console.log('企业')
+      let personalParams = {
+        Authorization,
+        identity,
+        creditCode,
+        nameEnterprise,
+        contacts,phone,
+        idNumber,
+        corporateId,
+        backViewIdCard,
+        businessLicense
+      }
+      if(!creditCode || !contacts || !phone || !idNumber || !corporateId || !backViewIdCard || !businessLicense){
+          return $Toast({ content: '带红*号的都是必填项目',type: 'warning' })
+      }else{
+        User.mtCargoOwnerUpdate(personalParams).then(res => {
+          if(res.statusCode === 200){
+            $Toast({content: '提交成功',type: 'success'})
+            wx.navigateTo({
+              url: '/pages/my/userIdent/audit/audit',
+            })
+          }
+        })
+      }
+    }
+  },
+
+  //车主
+  mtOwnerUpdate(){
+    console.log('车主')
+    let Authorization = wx.getStorageSync('Authorization')
+    let identity = this.data.identity;//身份（0个人,1企业）
+    let creditCode = this.data.creditCode;//统一信用代码
+    let nameEnterprise = this.data.nameEnterprise;//企业名称
+    let contacts = this.data.contacts;//联系人
+    let phone = this.data.phone;//联系电话
+    let idNumber = this.data.idNumber;//身份证号码
+    let corporateId = this.data.corporateId;//身份证正面
+    let backViewIdCard = this.data.backViewIdCard;//身份证反面
+    let licensePlate = this.data.licensePlate;//车牌号码
+    let driveJust = this.data.driveJust;//驾照正面
+    let driveBack = this.data.driveBack;//驾照反面
+    let businessLicense = this.data.businessLicense;//营业执照
+    let transportPermit = this.data.transportPermit;//道路许可证照片
   },
 })
