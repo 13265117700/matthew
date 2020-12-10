@@ -13,5 +13,8 @@ export default{
     },
     mtOwnerUpdate:function(data){
         return request.post(api.mtOwnerUpdate, data)
+    },
+    myFriendsRequestFriends:function(data){
+        return request.get(api.myFriendsRequestFriends, data)
     }
 }

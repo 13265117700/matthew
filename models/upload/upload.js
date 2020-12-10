@@ -59,9 +59,30 @@ const upload = {
                 }
             })
         })
+    },
+    uploadFile:function(filePath){
+        console.log(filePath)
+        return new Promise((resolve, reject) => {
+            wx.uploadFile({
+              filePath: filePath,
+              name: 'file',
+              url: api.upload,
+              formData:{
+                'name':'file'
+              },
+              success:(res) => {
+                let data = JSON.parse(res.data).name
+                resolve(data)
+              },
+              fail:(error) => {
+                  reject(error)
+              }
+            })
+        })
     }
 }
 
+
 export default {
-    upload
+    upload,
 }

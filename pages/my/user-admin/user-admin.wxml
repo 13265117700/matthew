@@ -12,8 +12,12 @@
                 wx:key="index"
                 title="{{item.title}}"
                 name="{{item.title}}">
-                <component-user-admin status="{{index}}" seeId="{{id}}"></component-user-admin>
+                <component-user-admin status="{{status}}"></component-user-admin>
             </van-tab>
         </van-tabs>
+        <view class="addButton" bindtap="addButton">
+            <view class="addButton-Semicircle"></view>
+            添加船舶
+        </view>
     </view>
 </view>

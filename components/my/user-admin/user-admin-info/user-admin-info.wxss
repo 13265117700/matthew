@@ -1,11 +1,11 @@
 /* components/my/user-admin/user-admin-info/user-admin-info.wxss */
-.wrap-item{
+.info-group{
     margin-top: 10px;
 }
 .Vtuzx_Input_Group_Center {
     border-radius: 10px;
 }
-.wrap-item-container{
+.info-group_item{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,17 +50,17 @@ vtu-input{
     height: 10.5px;
 }
 
-.wrap-item-container:last-child .item-input{
+.info-group_item:last-child .item-input{
     border: none;
 }
 
-.wrap-item .item-title{
+.info-group .info-group-title{
     display: flex;
     align-items: center;
     height: 52.5px;
     padding: 0 14.5px;
 }
-.wrap-item .item-title-tag{
+.info-group .info-group-title_tag{
     color: #E3211FFF;
     font-size: 14px;
     font-family: PingFang-SC-Medium;
@@ -69,34 +69,34 @@ vtu-input{
     text-align: center;
     border-left: 4px solid #E3211FFF;
 }
-.wrap-item .item-iden{
+.info-group .info-group-image{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 14.5px 20px;
 }
-.item-iden-image{
+.item-upload{
     width: 166px;
     height: 100px;
     background:#FFF4F4FF;
     border: 0.5px solid #E5E5E5FF;
     position: relative;
 }
-.item-iden-image image{
+.item-upload image{
     width: 166px;
     height: 100px;
 }
-.item-iden-image .item-iden-image_icon{
+.item-upload .item-upload_icon{
     position: absolute;
     top: 30%;
     left: 50%;
     transform: translateX(-50%);
 }
-.item-iden-image .item-iden-image_icon image{
+.item-upload .item-upload_icon image{
     width: 17px;
     height: 17px;
 }
-.item-iden-image .item-iden-image_text{
+.item-upload .item-upload_text{
     position: absolute;
     bottom: 30%;
     left: 50%;
@@ -110,28 +110,28 @@ vtu-input{
 
 
 
-.wrap-item .item-image{
+.info-group .item-image{
     display: flex;
     flex-direction: column;
     align-items: center;
     height: 86px;
     text-align: center;
 }
-.wrap-item .wrap-resource_add image{
+.info-group .wrap-resource_add image{
     width: 35px;
     height: 30.5px;
 }
-.wrap-item .wrap-resource_add text{
+.info-group .wrap-resource_add text{
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
     color: #666666FF;
     font-size: 12px;
 }
-.wrap-item .wrap-resource_add .item-video{
+.info-group .wrap-resource_add .item-video{
     width: 300px;
     margin: 0 auto;
 }
-.wrap-item_button{
+.info-group_button{
     background: tomato;
     color: #ffffff;
     text-align: center;

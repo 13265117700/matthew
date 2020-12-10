@@ -1,1 +1,58 @@
 /* pages/my/userAdmin/userAdmin.wxss */
+
+.page-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.page-main{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+van-tabs{
+    flex: 1;
+}
+.addButton{
+    height: 50px;
+    line-height: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: #E3211FFF;
+    color: #FFFFFFFF;
+    font-family: PingFang-SC-Bold;
+    font-weight: Bold;
+    font-size: 16px;
+    text-align: center;
+    position: relative;
+}
+.addButton-Semicircle{
+    width: 60px;
+    height: 30px;
+    background: #E3211FFF;
+    border-radius: 100px 100px 0 0;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.addButton-Semicircle::after{
+    content: '';
+    height: 17px;
+    width: 3px;
+    background: #FFFFFFFF;
+    position: absolute;
+    top:20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.addButton-Semicircle::before{
+    content: '';
+    width: 17px;
+    height: 3px;
+    background: #FFFFFFFF;
+    position: absolute;
+    top: 27px;
+    left: 50%;
+    transform: translateX(-50%);
+}

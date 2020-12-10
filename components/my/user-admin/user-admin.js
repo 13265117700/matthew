@@ -1,11 +1,11 @@
 // components/my/userAdmin/userAdmin.js
+import User from '../../../models/user/user'
 Component({
     /**
      * 组件的属性列表
      */
     properties: {
-        status:String,
-        seeId:Number
+        status:Number,
     },
 
     /**
@@ -13,7 +13,8 @@ Component({
      */
     data: {
         status:null,
-        seeId:null,
+        page:null,
+        rows:null,
         seeList:[{
             title:'运输舰'
         },{
@@ -22,16 +23,23 @@ Component({
             title:'巡航舰'
         }]
     },
-
-    observers:{
-        'status':function(status){
-            this.data.status = status
-        },
-        'seeId':function(seeId){
-            console.log(seeId)
-            this.data.seeId = seeId
+    lifetimes:{
+        attached:function(){
+            let Authorization = wx.getStorageSync('Authorization');
+            let status = this.data.status;
+            let page = 1;
+            let rows = 10;
+            let params = {Authorization,status,page,rows}
+            console.log(this.data.status)
+            User.myFriendsRequestFriends(params).then(res => {
+                console.log(res)
+                if(res.statusCode === 200){
+                    let datas = res.data.data;
+                }
+            })
         }
     },
+
     /**
      * 组件的方法列表
      */
@@ -40,16 +48,14 @@ Component({
             let dataset = e.currentTarget.dataset;
             let index = dataset.index;
             let status = this.data.status;
-            let seeId = this.data.seeId;
             console.log('当前项'+index)
             console.log('状态'+status)
-            console.log(seeId)
 
-            let mode = JSON.stringify({ index, status, seeId })
+            let mode = JSON.stringify({ index, status })
             console.log(mode)
-            wx.navigateTo({
-              url: '/pages/my/user-admin/user-admin-info/user-admin-info?mode=' + mode,
-            })
+            // wx.navigateTo({
+            //   url: '/pages/my/user-admin/user-admin-info/user-admin-info?mode=' + mode,
+            // })
         }
     }
 })

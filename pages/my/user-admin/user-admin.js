@@ -45,12 +45,19 @@ Page({
     },
 
     onChange(event) {
+        // console.log(event.detail.index)
         this.setData({
-            status:event.detail.index
+            status:event.detail.index,
         })
+        
         wx.showToast({
             title: `切换到标签 ${event.detail.name}`,
             icon: 'none',
         });
     },
+    addButton(){
+        wx.navigateTo({
+          url: '/pages/my/user-admin/user-admin-info/user-admin-info',
+        })
+    }
 })

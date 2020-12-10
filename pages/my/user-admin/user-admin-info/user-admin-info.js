@@ -9,22 +9,21 @@ Page({
         index:null,
         status:null,
         seeId:null,
-        shipInfo1:[{
-            
-        }]
+        shipInfo1:[]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        let list = JSON.parse(options.mode);
-        this.setData({
-            index:list.index,
-            status:list.status,
-            seeId:list.seeId
-        })
-        console.log(this.data.index,this.data.status,this.data.seeId)
+        console.log(options)
+        // let list = JSON.parse(options.mode);
+        // this.setData({
+        //     index:list.index,
+        //     status:list.status,
+        //     seeId:list.seeId
+        // })
+        // console.log(this.data.index,this.data.status,this.data.seeId)
     },
 
     /**

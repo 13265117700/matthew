@@ -11,4 +11,6 @@ export default {
     mtCargoOwnerUpdate:`${PREFIX}/user/information/mtCargoOwnerUpdate`,//货主信息修改
     mtOwnerUpdate:`${PREFIX}/user/information/mtOwnerUpdate`,//车主信息修改
     
+    myFriendsRequestFriends:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
+    
 }

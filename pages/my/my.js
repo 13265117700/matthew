@@ -42,8 +42,7 @@ Page({
           id:'112'
         }]
       },{
-        state:false,
-        status:'123',
+        state:true,
         ceilItem:[{
           icon:'/images/my/hzrz@3x.png',
           text:'我的认证资料',
@@ -58,7 +57,7 @@ Page({
         }]
       },{
         //船管理
-        state:false,
+        state:true,
         ceilItem:[{
           icon:'/images/my/zjls@3x.png',
           text:'传动偏好设置',
@@ -86,7 +85,7 @@ Page({
         }]
       },{
         //货管理
-        state:false,
+        state:true,
         ceilItem:[{
           icon:'/images/my/fx@3x.png',
           text:'货主偏好设置',
@@ -110,7 +109,7 @@ Page({
         }]
       },{
         //车管理
-        state:false,
+        state:true,
         ceilItem:[{
           icon:'/images/my/clgl@3x.png',
           text:'车辆管理',
@@ -152,15 +151,15 @@ Page({
     identitList:[{
       name:'船东认证',
       status:false,
-      id:'1'
+      id:'153'
     },{
       name:'货主认证',
       status:false,
-      id:'2'
+      id:'151'
     },{
       name:'车主认证',
       status:false,
-      id:'3'
+      id:'152'
     }],
     // 认证方式列表
     ahtcList:[{
@@ -182,6 +181,7 @@ Page({
     }
     
     let Authorization = wx.getStorageSync('Authorization');
+    console.log(Authorization)
     this.setData({
       Authorization
     })
@@ -199,32 +199,45 @@ Page({
           user.idenID = user.mtCargoOwner.id;
           this.setData({
             userInfo:user,
-            ["ceilList[4].state"]:true
+            ["ceilList[5].state"]:false,
+            ["ceilList[3].state"]:false,
           })
         }else if(user.mtOwner.idNumber != null){
           //车
           user.idenID = user.mtOwner.id;
           this.setData({
             userInfo:user,
-            ["ceilList[5].state"]:true
+            ["ceilList[4].state"]:false,
+            ["ceilList[3].state"]:false,
           })
         }else if(user.mtShipowner.idNumber != null){
            //船
           user.idenID = user.mtShipowner.id;
           this.setData({
             userInfo:user,
-            ["ceilList[3].state"]:true
+            ["ceilList[4].state"]:false,
+            ["ceilList[5].state"]:false,
           })
         }
         
         if(user.idenID){
+          console.log('有idenID')
           this.setData({
             ["ceilList[0].state"]:false,
             ["ceilList[1].state"]:true
           })
+        }else{
+          console.log('没有idenID')
+          this.setData({
+            ["ceilList[1].state"]:false
+          })
         }
         console.log(this.data.ceilList)
         console.log(this.data.userInfo)
+      })
+    }else{
+      this.setData({
+        ["ceilList[1].state"]:false
       })
     }
   },
@@ -252,15 +265,28 @@ Page({
   },
   // 进入不同celiItem页面
   ceilItem:function(event){
+    let userInfo = this.data.userInfo;
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
     console.log(id)
     switch(id){
       // 身份认证
       case '112':
-        this.setData({
-          visible: true
-        });
+        let Authorization = wx.getStorageSync('Authorization');
+        if(Authorization){
+          this.setData({
+            visible: true
+          });
+        }else{
+          wx.navigateTo({
+            url: '/pages/logs/logs',
+          })
+        }
+        break
+      case '169':
+        wx.navigateTo({
+          url: '/pages/my/userIdent/audit/audit?idenID=' + userInfo.idenID,
+        })
         break
       case '115':
         wx.navigateTo({

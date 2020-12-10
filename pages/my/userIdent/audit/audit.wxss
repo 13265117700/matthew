@@ -28,9 +28,15 @@
     color: #191919FF;
     line-height: 24px;
 }
+.audit-describe.active{
+    color: #3A74ADFF;
+}
 .audit-status{
     line-height: 24px;
     color: #F0222FFF;
+}
+.audit-status.active{
+    color: #3A74ADFF;
 }
 
 .audit-item{
