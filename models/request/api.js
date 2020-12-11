@@ -7,11 +7,13 @@ export default {
     videoUpload: `${PREFIX}/oss/file/videoUpload`,//视频上传
 
     //用户信息
-    userInfo: `${PREFIX}/user/information/mtUserIdS`,
+    userInfo: `${PREFIX}/user/information/mtUserIdS`,//用户查询
     mtShipownerUpdate:`${PREFIX}/user/information/mtShipownerUpdate`,//船东信息修改
     mtCargoOwnerUpdate:`${PREFIX}/user/information/mtCargoOwnerUpdate`,//货主信息修改
     mtOwnerUpdate:`${PREFIX}/user/information/mtOwnerUpdate`,//车主信息修改
     
+    //船API
     myFriendsRequestFriends:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
+    mtShipSave:`${PREFIX}/user/ship/mtShipSave`,//添加船舶
     
 }

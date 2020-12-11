@@ -269,36 +269,37 @@ Page({
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
     console.log(id)
-    switch(id){
-      // 身份认证
-      case '112':
-        let Authorization = wx.getStorageSync('Authorization');
-        if(Authorization){
+    let Authorization = wx.getStorageSync('Authorization');
+    if(Authorization){
+      switch(id){
+        // 身份认证
+        case '112':
           this.setData({
             visible: true
           });
-        }else{
+          break
+        case '169':
           wx.navigateTo({
-            url: '/pages/logs/logs',
+            url: '/pages/my/userIdent/audit/audit?idenID=' + userInfo.idenID,
           })
-        }
-        break
-      case '169':
-        wx.navigateTo({
-          url: '/pages/my/userIdent/audit/audit?idenID=' + userInfo.idenID,
-        })
-        break
-      case '115':
-        wx.navigateTo({
-          url: '/pages/my/user-admin/user-admin?id='+id,
-        })
-        break
-      case '192':
-        wx.navigateTo({
-          url: '/pages/my/user-admin/user-admin?id='+id,
-        })
-        break
+          break
+        case '115':
+          wx.navigateTo({
+            url: '/pages/my/user-admin/user-admin?id='+id,
+          })
+          break
+        case '192':
+          wx.navigateTo({
+            url: '/pages/my/user-admin/user-admin?id='+id,
+          })
+          break
+      }
+    }else{
+      wx.navigateTo({
+        url: '/pages/logs/logs',
+      })
     }
+    
   },
   // 关闭身份认证
   handleClose:function(){

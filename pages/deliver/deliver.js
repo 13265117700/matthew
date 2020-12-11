@@ -21,7 +21,7 @@ Page({
       ENGname: 'RELEASE OPTIONS'
     }],
     deliverId:null,
-    show: false,
+    // show: false,
     vehicleStatus:false,
     shipStatus:false
   },
@@ -35,36 +35,37 @@ Page({
   showDialog(event){
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
-    this.setData({
-      deliverId:id,
-      show:true
-    })
+    console.log(id)
+    // this.setData({
+    //   deliverId:id,
+    //   show:true
+    // })
   },
-  handMode(event){
-    let dataset = event.currentTarget.dataset;
-    let index = dataset.index;
-    switch(index){
-      case '1':
-        let shipStatus = this.data.shipStatus =! this.data.shipStatus;
-        this.setData({
-          vehicleStatus:false,
-          shipStatus
-        })
-        break
-      case '2':
-        let vehicleStatus = this.data.vehicleStatus =! this.data.vehicleStatus;
-        this.setData({
-          shipStatus:false,
-          vehicleStatus
-        })
-        break
-    }
-  },
-  handDialog(event){
-    console.log(event.detail);
-    console.log(this.data.deliverId)
-  },
-  onClose() {
-    this.setData({ close: false });
-  },
+  // handMode(event){
+  //   let dataset = event.currentTarget.dataset;
+  //   let index = dataset.index;
+  //   switch(index){
+  //     case '1':
+  //       let shipStatus = this.data.shipStatus =! this.data.shipStatus;
+  //       this.setData({
+  //         vehicleStatus:false,
+  //         shipStatus
+  //       })
+  //       break
+  //     case '2':
+  //       let vehicleStatus = this.data.vehicleStatus =! this.data.vehicleStatus;
+  //       this.setData({
+  //         shipStatus:false,
+  //         vehicleStatus
+  //       })
+  //       break
+  //   }
+  // },
+  // handDialog(event){
+  //   console.log(event.detail);
+  //   console.log(this.data.deliverId)
+  // },
+  // onClose() {
+  //   this.setData({ close: false });
+  // },
 })

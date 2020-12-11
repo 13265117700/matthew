@@ -1,5 +1,6 @@
 // components/my/user-admin/user-admin-info/user-admin-info.js
-import upload from "../../../../models/upload/upload"
+import upload from "../../../../models/upload/upload";
+import Ship from "../../../../models/ship/ship"
 Component({
     /**
      * 组件的属性列表
@@ -15,33 +16,33 @@ Component({
         //信息分组1
         infoGroupOne:[{
             title:'船舶名称：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入船舶名称',
             type:'input',
             arrow:false
         },{
             title:'载货量A级：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入航区载货量',
             type:'input',
             arrow:false,
             after:'吨'
         },{
             title:'载货量B级：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入航区载货量',
             type:'input',
             arrow:false,
             after:'吨'
         },{
             title:'AIS码：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入AIS码',
             type:'input',
             arrow:false,
         },{
             title:'船舶类型：',
-            vlaue:'',
+            value:'',
             placeholder:'请选择船舶类型',
             type:'picker',
             list:[{
@@ -57,23 +58,24 @@ Component({
                 type:4,
                 label:'补给舰'
             }],
+            rangeKey:'label',
             arrow:true
         },{
             title:'船长姓名：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入船长姓名',
             type:'input',
             arrow:false
         },{
             title:'船长电话：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入船长联系方式',
             type:'input',
             arrow:false
         }],
         infoGroupTwo:[{
             title:'封仓设备：',
-            vlaue:'',
+            value:'',
             placeholder:'请选择封仓设备',
             list:[{
                 type:1,
@@ -82,61 +84,62 @@ Component({
                 type:2,
                 label:'烂设备'
             }],
-            type:'picker',
+            rangeKey:'label',
             mode:'selector',
+            type:'picker',
             arrow:true
         },{
             title:'船龄：',
-            vlaue:'',
+            value:'',
             placeholder:'请选择船舶建造日期',
             type:'picker',
             mode:'date',
             arrow:true
         },{
             title:'船籍港:',
-            vlaue:'',
+            value:'',
             placeholder:'请输入船籍港',
             type:'input',
             arrow:false
         },{
             title:'船总吨位：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入船总吨位',
             type:'input',
             arrow:false
         },{
             title:'船总长：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入船总长',
             type:'input',
             arrow:false
         },{
             title:'船总宽:',
-            vlaue:'',
+            value:'',
             placeholder:'请输入船总宽',
             type:'input',
             arrow:false
         },{
             title:'船总高：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入最大船高',
             type:'input',
             arrow:false
         },{
             title:'满载吃水：',
-            vlaue:'',
+            value:'',
             placeholder:'请输入满载吃水',
             type:'input',
             arrow:false
         },{
             title:'型深:',
-            vlaue:'',
+            value:'',
             placeholder:'请输入型深',
             type:'input',
             arrow:false
         },{
             title:'监控装备：',
-            vlaue:'',
+            value:'',
             placeholder:'请选择监控装备',
             list:[{
                 type:1,
@@ -145,12 +148,13 @@ Component({
                 type:2,
                 label:'宝马级'
             }],
+            rangeKey:'label',
             type:'picker',
             mode:'selector',
             arrow:true
         },{
             title:'船舶保险:',
-            vlaue:'',
+            value:'',
             placeholder:'请选择船舶保险',
             list:[{
                 type:1,
@@ -162,12 +166,13 @@ Component({
                 type:3,
                 label:'太平洋险种'
             }],
+            rangeKey:'label',
             type:'picker',
             mode:'selector',
             arrow:true
         },{
             title:'可拉货物：',
-            vlaue:'',
+            value:'',
             placeholder:'请选择可拉货物',
             list:[{
                 type:1,
@@ -179,6 +184,7 @@ Component({
                 type:3,
                 label:'生鲜'
             }],
+            rangeKey:'label',
             type:'picker',
             mode:'selector',
             arrow:true
@@ -236,18 +242,61 @@ Component({
             let index = dataset.index;
             let infoGroupOne = this.data.infoGroupOne;
             let listIndex = e.detail.value;
-            console.log(index,listIndex)
-            console.log(infoGroupOne[index].list[listIndex].label)
+            let typeShip = infoGroupOne[index].list[listIndex].label;
+
+            this.setData({
+                [`infoGroupOne[${index}].placeholder`]:typeShip,
+                typeShip
+            })
         },
-        //信息分组下拉框
+        //信息分组2下拉框
         infoGroupTwoDropDown(e){
             let dataset = e.currentTarget.dataset;
             let index = dataset.index;
             let infoGroupTwo = this.data.infoGroupTwo;
             let liseIndex = e.detail.value;
-            console.log(index,liseIndex)
+
             if(index != 1){
-                console.log(infoGroupTwo[index].list[liseIndex].label)
+                let value = infoGroupTwo[index].list[liseIndex].label;
+                this.setData({
+                    [`infoGroupTwo[${index}].placeholder`]:value
+                })
+            }else{
+                this.setData({
+                    [`infoGroupTwo[${index}].placeholder`]:liseIndex
+                })
+            }
+
+            switch(index){
+                case 0:
+                    let sealingEquipment = infoGroupTwo[index].list[liseIndex].label;
+                    this.setData({
+                        sealingEquipment
+                    })
+                    break
+                case 1:
+                    this.setData({
+                        ageShip:liseIndex
+                    })
+                    break
+                case 9:
+                    let monitoring = infoGroupTwo[index].list[liseIndex].label;
+                    this.setData({
+                        monitoring
+                    })
+                    break
+                case 10:
+                    let insurance = infoGroupTwo[index].list[liseIndex].label;
+                    this.setData({
+                        insurance
+                    })
+                    break
+                case 11:
+                    let kola = infoGroupTwo[index].list[liseIndex].label;
+                    this.setData({
+                        kola
+                    })
+                    break
             }
         },
 
@@ -256,13 +305,81 @@ Component({
             let dataset = e.currentTarget.dataset;
             let index = dataset.index;
             let value = e.detail.value;
-            console.log(index,value)
+            switch(index){
+                case 0:
+                    this.setData({
+                        nameVessel:value
+                    })
+                    break
+                case 1:
+                    this.setData({
+                        ladenA:value
+                    })
+                    break
+                case 2:
+                    this.setData({
+                        ladenB:value
+                    })
+                    break
+                case 3:
+                    this.setData({
+                        ais:value
+                    })
+                    break
+                case 5:
+                    this.setData({
+                        captainName:value
+                    })
+                    break
+                case 6:
+                    this.setData({
+                        captainPhone:value
+                    })
+                    break
+            }
         },
+        //信息分组2输入框
         infoGroupTwoInput(e){
             let dataset = e.currentTarget.dataset;
             let index = dataset.index;
             let value = e.detail.value;
-            console.log(index,value)
+            switch(index){
+                case 2:
+                    this.setData({
+                        membership:value
+                    })
+                    break
+                case 3:
+                    this.setData({
+                        tonnage:value
+                    })
+                    break
+                case 4:
+                    this.setData({
+                        chief:value
+                    })
+                    break
+                case 5:
+                    this.setData({
+                        breadth:value
+                    })
+                    break
+                case 6:
+                    this.setData({
+                        shipHeight:value
+                    })
+                    break
+                case 7:
+                    this.setData({
+                        typeDepth:value
+                    })
+                    break
+                case 8:
+                    this.setData({
+                        depthProfile:value
+                    })
+                    break
+            }
         },
 
         // 身份证正面
@@ -385,11 +502,49 @@ Component({
         handleVideo(){
             console.log('添加船视频')
             upload.upload.chooseVideo().then(res => {
-                console.log(res)
+                this.setData({
+                    shipVideo:res
+                })
             })
         },
         handleSubmit(){
-            console.log('添加1')
+            let params = {
+                Authorization:wx.getStorageSync('Authorization'),
+                nameVessel: this.data.nameVessel,
+                ladenA: this.data.ladenA,
+                ladenB: this.data.ladenB,
+                ais: this.data.ais,
+                typeShip: this.data.typeShip,
+                captainName: this.data.captainName,
+                captainPhone: this.data.captainPhone,
+                idenJust: this.data.idenJust,
+                idenBack: this.data.idenBack,
+                traitList: this.data.traitList,
+                projectList: this.data.projectList,
+                aisCertificate: this.data.aisCertificate,
+                hanoiCertificate: this.data.hanoiCertificate,
+                shipOperationCertificate: this.data.shipOperationCertificate,
+                shipAnnualCertificate: this.data.shipAnnualCertificate,
+                shipTestCertificate: this.data.shipTestCertificate,
+                sealingEquipment: this.data.sealingEquipment,
+                ageShip: this.data.ageShip,
+                membership: this.data.membership,
+                tonnage: this.data.tonnage,
+                chief: this.data.chief,
+                breadth: this.data.breadth,
+                shipHeight: this.data.shipHeight,
+                typeDepth: this.data.typeDepth,
+                depthProfile: this.data.depthProfile,
+                monitoring: this.data.monitoring,
+                insurance: this.data.insurance,
+                kola: this.data.kola,
+                shipChart: this.data.shipChart,
+                shipVideo: this.data.shipVideo,
+            }
+            console.log(params)
+            Ship.mtShipSave(params).then(res => {
+                console.log(res)
+            })
         }
     }
 })

@@ -186,24 +186,23 @@
     <!-- 信息分组2 -->
     <view class="info-group">
         <vtu-input-group>
-            <view class="info-group_item" wx:for="{{infoGroupTwo}}" wx:key="index">
+            <view class="info-group_item" wx:for="{{infoGroupTwo}}" wx:key="index" wx:for-item="infoTwo">
                 <view class="item-subTitle">
                     <view class="item-subTitle_tag"><text>*</text></view>
-                    <view class="item-subTitle_text"><text>{{item.title}}</text></view>
+                    <view class="item-subTitle_text"><text>{{infoTwo.title}}</text></view>
                 </view>
                 <view class="item-input">
                     <vtu-input 
-                        placeholder="{{item.placeholder}}" 
-                        type="{{item.type}}" 
-                        arrow="{{item.arrow}}"
-                        range="{{item.list}}"
-                        range-key="label"
+                        placeholder="{{infoTwo.placeholder}}" 
+                        type="{{infoTwo.type}}" 
+                        arrow="{{infoTwo.arrow}}"
+                        range="{{infoTwo.list}}"
+                        range-key="{{infoTwo.rangeKey}}"
                         text-align="left"
-                        mode="{{item.mode}}"
+                        mode="{{infoTwo.mode}}"
                         data-index="{{index}}"
                         bind:input="infoGroupTwoInput"
                         bindchange="infoGroupTwoDropDown"></vtu-input>
-                        <!-- bind:click="clickInfoGroupTwoDropDown" -->
                 </view>
             </view>
         </vtu-input-group>

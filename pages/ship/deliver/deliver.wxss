@@ -1,0 +1,12 @@
+.release-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #E5E5E5FF;
+    margin-left: 15px;
+}
+.release-input{
+    flex: 1;
+}

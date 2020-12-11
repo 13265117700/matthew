@@ -38,6 +38,10 @@ const upload = {
               success:(res) => {
                 let tempFilePath = res.tempFilePath;
                 console.log(tempFilePath)
+                wx.showLoading({ 
+                    title: '上传中',
+                    mask: true
+                });
                 wx.uploadFile({
                   filePath: tempFilePath,
                   name: 'file',
@@ -52,6 +56,9 @@ const upload = {
                   },
                   fail:(error) => {
                       reject(error)
+                  },
+                  complete:() => {
+                    wx.hideLoading()
                   }
                 })
               }

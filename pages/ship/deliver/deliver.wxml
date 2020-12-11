@@ -1,0 +1,67 @@
+<view class="page-container">
+    <view class="navbar">
+        <vtu-navbar title="发布船源" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
+    </view>
+    <view class="page-main">
+        <view class="release-list">
+            <vtu-input-group>
+                <view class="release-item">
+                    <view class="release-subTitle">
+                        <text>{{shipSelection.title}}</text>
+                    </view>
+                    <view class="release-input">
+                        <vtu-input 
+                            placeholder="{{shipSelection.placeholder}}" 
+                            type="{{shipSelection.type}}" 
+                            range="{{shipSelection.list}}"
+                            range-key="{{shipSelection.rangekey}}"
+                            text-align="left"
+                            arrow
+                            bindchange="handShipSelection"></vtu-input>
+                    </view>
+                </view>
+                <view class="release-item">
+                    <view class="release-subTitle">
+                        <text>空船港</text>
+                    </view>
+                    <view class="release-input">
+                        <vtu-input 
+                            type="default" 
+                            value="123123"
+                            text-align="left"
+                            arrow
+                            bind:click="handAirport"></vtu-input>
+                    </view>
+                    <vtu-prop 
+                        show="{{show}}" 
+                        position="right"
+                        show-cancel 
+                        cancel-type="primary" 
+                        cancel-label="完成">
+                        <view class="prop-content">
+                            <view class="prop-title">
+                                <text>请选择地区</text>
+                            </view>
+                            <view class="prop-list"></view>
+                        </view>
+                    </vtu-prop>
+                </view>
+                <view class="release-item">
+                    <view class="release-subTitle">
+                        <text>{{infoGroupOne.title}}</text>
+                    </view>
+                    <view class="release-input">
+                        <vtu-input 
+                            placeholder="{{infoGroupOne.placeholder}}" 
+                            type="{{infoGroupOne.type}}" 
+                            range="{{infoGroupOne.list}}"
+                            range-key="{{infoGroupOne.rangekey}}"
+                            text-align="left"
+                            arrow
+                            bindchange="infoGroupOneDropDown"></vtu-input>
+                    </view>
+                </view>
+            </vtu-input-group>
+        </view>
+    </view>
+</view>

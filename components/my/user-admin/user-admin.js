@@ -1,5 +1,5 @@
 // components/my/userAdmin/userAdmin.js
-import User from '../../../models/user/user'
+import Ship from '../../../models/ship/ship'
 Component({
     /**
      * 组件的属性列表
@@ -31,10 +31,11 @@ Component({
             let rows = 10;
             let params = {Authorization,status,page,rows}
             console.log(this.data.status)
-            User.myFriendsRequestFriends(params).then(res => {
+            Ship.myFriendsRequestFriends(params).then(res => {
                 console.log(res)
                 if(res.statusCode === 200){
                     let datas = res.data.data;
+                    console.log(datas)
                 }
             })
         }

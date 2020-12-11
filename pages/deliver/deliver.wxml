@@ -17,8 +17,9 @@
             <image src="{{item.image}}"></image>
             <text class="deliver-item-CHNname">{{item.CHNname}}</text>
             <text class="deliver-item-ENGname">{{item.ENGname}}</text>
+            <view class="deliver-item-tag"></view>
         </view>
-        <van-dialog
+        <!-- <van-dialog
             use-slot
             title="请选择货运方式"
             show="{{ show }}"
@@ -37,6 +38,6 @@
                     data-index="2"
                     bindtap="handMode">车运货物</view>
             </view>
-        </van-dialog>
+        </van-dialog> -->
     </view>
 </view>

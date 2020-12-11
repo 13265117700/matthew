@@ -52,6 +52,14 @@
     font-weight: bold;
     color: #ffffff;
 }
+.deliver-item-tag{
+    width: 22px;
+    height: 4px;
+    background: #ffffff;
+    position: absolute;
+    left: 15px;
+    bottom: 36.5px;
+}
 .mode-status{
     display: flex;
     justify-content: space-evenly;
