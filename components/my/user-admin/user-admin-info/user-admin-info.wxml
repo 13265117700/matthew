@@ -13,7 +13,7 @@
                         placeholder="{{item.placeholder}}" 
                         type="{{item.type}}" 
                         arrow="{{item.arrow}}"
-                        range="{{shipType}}"
+                        range="{{item.list}}"
                         range-key="label"
                         text-align="left"
                         data-index="{{index}}"
@@ -196,14 +196,14 @@
                         placeholder="{{item.placeholder}}" 
                         type="{{item.type}}" 
                         arrow="{{item.arrow}}"
-                        range="{{infoGroupDropDown}}"
+                        range="{{item.list}}"
                         range-key="label"
                         text-align="left"
                         mode="{{item.mode}}"
                         data-index="{{index}}"
                         bind:input="infoGroupTwoInput"
-                        bind:click="infoGroupTwoDropDown"></vtu-input>
-                        <!-- bindchange="infoGroupTwoDropDown" -->
+                        bindchange="infoGroupTwoDropDown"></vtu-input>
+                        <!-- bind:click="clickInfoGroupTwoDropDown" -->
                 </view>
             </view>
         </vtu-input-group>
@@ -369,13 +369,12 @@
             <view class="info-group-title">
                 <view class="info-group-title_tag">*</view>
                 <view class="info-group-title_text">添加船图片</view>
-                <!-- <view class="info-group-title_text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
             </view>
             <view class="info-group-image">
                 <van-uploader
-                    file-list="{{ traitList }}"
+                    file-list="{{ shipChart }}"
                     max-count="9"
-                    bind:after-read="handTrait"
+                    bind:after-read="handShipChartUpload"
                     />
             </view>
         </vtu-input-group>
