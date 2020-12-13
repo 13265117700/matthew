@@ -15,5 +15,5 @@ export default {
     //船API
     myFriendsRequestFriends:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
     mtShipSave:`${PREFIX}/user/ship/mtShipSave`,//添加船舶
-    
+    findAll:`${PREFIX}/reception/mtWharf/findAll`,//码头列表
 }

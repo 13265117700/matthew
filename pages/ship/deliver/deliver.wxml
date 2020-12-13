@@ -3,22 +3,29 @@
         <vtu-navbar title="发布船源" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
     </view>
     <view class="page-main">
-        <view class="release-list">
+        <view class="release-section">
             <vtu-input-group>
                 <view class="release-item">
                     <view class="release-subTitle">
-                        <text>{{shipSelection.title}}</text>
+                        <text>选择船舶</text>
                     </view>
                     <view class="release-input">
                         <vtu-input 
-                            placeholder="{{shipSelection.placeholder}}" 
-                            type="{{shipSelection.type}}" 
-                            range="{{shipSelection.list}}"
-                            range-key="{{shipSelection.rangekey}}"
+                            type="default" 
+                            value="请选择船舶"
                             text-align="left"
                             arrow
-                            bindchange="handShipSelection"></vtu-input>
+                            bind:click="handShipChooseShow"></vtu-input>
                     </view>
+                    <van-popup
+                        show="{{ shipChooseShow }}"
+                        round
+                        position="bottom"
+                        custom-style="height: 45%"
+                        bind:close="onClose">
+                        <van-picker columns="{{ shipChooseList }}" bind:change="onShipChoose" />
+                        <vtu-btn type="danger">确认</vtu-btn>
+                    </van-popup>
                 </view>
                 <view class="release-item">
                     <view class="release-subTitle">
@@ -27,41 +34,52 @@
                     <view class="release-input">
                         <vtu-input 
                             type="default" 
-                            value="123123"
+                            value="请选择空船港"
                             text-align="left"
                             arrow
-                            bind:click="handAirport"></vtu-input>
+                            bind:click="handAirportShow"></vtu-input>
                     </view>
-                    <vtu-prop 
-                        show="{{show}}" 
-                        position="right"
-                        show-cancel 
-                        cancel-type="primary" 
-                        cancel-label="完成">
-                        <view class="prop-content">
-                            <view class="prop-title">
-                                <text>请选择地区</text>
-                            </view>
-                            <view class="prop-list"></view>
-                        </view>
-                    </vtu-prop>
+                    <van-popup
+                        show="{{ portChooseShow }}"
+                        round
+                        position="bottom"
+                        custom-style="height: 45%"
+                        bind:before-enter="portList"
+                        bind:close="onClose">
+                        <van-picker columns="{{ portChooseList }}" bind:change="portChoose" />
+                        <vtu-btn type="danger">确认</vtu-btn>
+                    </van-popup>
                 </view>
                 <view class="release-item">
                     <view class="release-subTitle">
-                        <text>{{infoGroupOne.title}}</text>
+                        <text>空船期</text>
                     </view>
                     <view class="release-input">
                         <vtu-input 
-                            placeholder="{{infoGroupOne.placeholder}}" 
-                            type="{{infoGroupOne.type}}" 
-                            range="{{infoGroupOne.list}}"
-                            range-key="{{infoGroupOne.rangekey}}"
+                            placeholder="如2020-08-12 ±1天" 
+                            value="{{pickerDate}}"
+                            type="picker" 
+                            mode="date"
                             text-align="left"
                             arrow
-                            bindchange="infoGroupOneDropDown"></vtu-input>
+                            bindchange="pickerDateChange"></vtu-input>
                     </view>
                 </view>
             </vtu-input-group>
+        </view>
+        <view class="remarks-section">
+            <vtu-input-group>
+                <vtu-input 
+                    title="备注" 
+                    placeholder="请输入想对货主说的内容" 
+                    type="textarea" 
+                    text-align="left" 
+                    text-height="100px" 
+                    show-max-label="{{false}}"></vtu-input>
+            </vtu-input-group>
+        </view>
+        <view class="submit-section">
+            <vtu-btn type="danger">发布船期</vtu-btn>
         </view>
     </view>
 </view>

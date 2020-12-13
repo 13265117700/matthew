@@ -7,5 +7,8 @@ export default {
     },
     mtShipSave:function(data){
         return request.post(api.mtShipSave, data)
+    },
+    findAll:function(data){
+        return request.get(api.findAll, data)
     }
 }
