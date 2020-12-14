@@ -17,7 +17,12 @@
         </van-tabs>
         <view class="addButton" bindtap="addButton">
             <view class="addButton-Semicircle"></view>
-            添加船舶
+            {{addButtonText}}
         </view>
     </view>
+    <van-empty
+        class="custom-image"
+        image="https://img.yzcdn.cn/vant/custom-empty-image.png"
+        description="描述文字"
+        />
 </view>

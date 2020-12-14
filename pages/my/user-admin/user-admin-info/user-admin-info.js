@@ -5,11 +5,8 @@ Page({
      * 页面的初始数据
      */
     data: {
-        navbarTitle:'修改船舶信息',
-        index:null,
-        status:null,
-        seeId:null,
-        shipInfo1:[]
+        id:null,
+        navbarTitle:null,
     },
 
     /**
@@ -17,13 +14,21 @@ Page({
      */
     onLoad: function (options) {
         console.log(options)
-        // let list = JSON.parse(options.mode);
-        // this.setData({
-        //     index:list.index,
-        //     status:list.status,
-        //     seeId:list.seeId
-        // })
-        // console.log(this.data.index,this.data.status,this.data.seeId)
+        switch(options.id){
+            case '115':
+                this.setData({
+                    navbarTitle:'添加船舶信息'
+                })
+                break
+            case '192':
+                this.setData({
+                    navbarTitle:'添加车辆'
+                })
+                break
+        }
+        this.setData({
+            id:options.id
+        })
     },
 
     /**

@@ -1,11 +1,11 @@
 // pages/ship/deliver/deliver.js
 import FindAll from '../../../models/ship/ship'
 Page({
-
     /**
      * 页面的初始数据
      */
     data: {
+        navbarTitle:'发布船源',
         choiceShipIndex:'',
         //选择船
         shipChooseShow:false,
@@ -17,10 +17,11 @@ Page({
             '粤清远货 123123'
         ],
 
-        //选择港
-        portChooseShow:false,
-        portChooseList:[],
-
+        //地区面包屑
+        popupCrumbs:[],
+        //地区列表
+        popupList:[],
+        popupactive:'tab1',
 
         ship:null,
         port:null,
@@ -60,16 +61,22 @@ Page({
         })
     },
     portList(){
+        this.setData({
+            navbarTitle:'选择空船港'
+        })
         let pId = 0;
         let page = 1;
-        let rows = 100;
+        let rows = 10;
         let sortInt = 1;
         let params = {pId,page,rows,sortInt}
         FindAll.findAll(params).then(res => {
             let datas = res.data.data;
             let rows = datas.rows;
-            
-            
+            console.log(rows)
+            this.setData({
+                popupList:rows
+            })
+
             // this.setData({
             //     portChooseList:[{
             //         values:Object.values(rows),
@@ -90,15 +97,19 @@ Page({
             // })
         })
     },
-    portChoose(event){
+    handPopupPitch(event){
         console.log(event)
+        this.setData({
+            popupactive:event.detail.key
+        })
     },
 
     // 点屏幕取消弹出框
     onClose(){
         this.setData({
             shipChooseShow:false,
-            portChooseShow:false
+            portChooseShow:false,
+            navbarTitle:'发布船源'
         })
     }
 })

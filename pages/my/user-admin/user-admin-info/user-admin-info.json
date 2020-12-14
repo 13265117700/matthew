@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "user-admin-info":"/components/my/user-admin/user-admin-info/user-admin-info"
+    "ship-info":"/components/my/user-admin/ship-info/ship-info",
+    "car-info":"/components/my/user-admin/car-info/car-info"
   }
 }

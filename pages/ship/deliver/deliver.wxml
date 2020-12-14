@@ -1,6 +1,6 @@
 <view class="page-container">
     <view class="navbar">
-        <vtu-navbar title="发布船源" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
+        <vtu-navbar title="{{navbarTitle}}" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
     </view>
     <view class="page-main">
         <view class="release-section">
@@ -23,7 +23,16 @@
                         position="bottom"
                         custom-style="height: 45%"
                         bind:close="onClose">
-                        <van-picker columns="{{ shipChooseList }}" bind:change="onShipChoose" />
+                        <!-- <view class="popup-subTitle">请选择船舶</view> -->
+                        <van-picker
+                            title="标题"
+                            show-toolbar
+                            default-index="2"
+                            confirm-button-text=""
+                            cancel-button-text=""
+                            visible-item-count="5"
+                            columns="{{ shipChooseList }}" 
+                            bind:change="onShipChoose" />
                         <vtu-btn type="danger">确认</vtu-btn>
                     </van-popup>
                 </view>
@@ -41,13 +50,35 @@
                     </view>
                     <van-popup
                         show="{{ portChooseShow }}"
-                        round
-                        position="bottom"
-                        custom-style="height: 45%"
-                        bind:before-enter="portList"
-                        bind:close="onClose">
-                        <van-picker columns="{{ portChooseList }}" bind:change="portChoose" />
-                        <vtu-btn type="danger">确认</vtu-btn>
+                        position="right"
+                        custom-style="height: 100%;width: 100%;"
+                        bind:before-enter="portList">
+                        <view class="popup-content">
+                            <view class="popup-title"><text>请选择地区</text><van-icon name="close" bind:click="onClose" /></view>
+                            <!-- <van-tabs active="{{ popupactive }}" tab-class="popup-tabs" bind:change="handPopupPitch">
+                                <van-tab title="标签 1">内容 1</van-tab>
+                                <van-tab title="标签 2">内容 2</van-tab>
+                                <van-tab title="标签 3">内容 3</van-tab>
+                                <van-tab title="标签 4">内容 4</van-tab>
+                            </van-tabs> -->
+                            <view class="popup-crumbs">
+                                <view class="popup-crumbs-item active">广东</view>
+                                <view class="popup-crumbs-item">请选择</view>
+                            </view>
+                            <view class="popup-list">
+                                <view class="popup-item" 
+                                    wx:for="{{ popupList }}" 
+                                    wx:key="index" 
+                                    bindtap="portChoose"
+                                    data-index="{{index}}"
+                                    id="{{item.id}}">
+                                    <view class="popup-item_icon">
+                                        <image src="/images/deliver/xz@3x.png"></image>
+                                    </view>
+                                    <text>{{item.name}}</text>
+                                </view>
+                            </view>
+                        </view>
                     </van-popup>
                 </view>
                 <view class="release-item">

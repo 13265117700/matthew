@@ -1,4 +1,5 @@
 // pages/my/userAdmin/userAdmin.js
+import User from '../../../models/user/user'
 Page({
 
     /**
@@ -7,6 +8,7 @@ Page({
     data: {
         id:null,
         navbarTitle:'船舶管理',
+        addButtonText:'添加船舶',
         active: 1,
         tabList:[{
             title:'审核中'
@@ -26,13 +28,15 @@ Page({
         if(id === '115'){
             this.setData({
                 id,
-                navbarTitle:'船舶管理'
+                navbarTitle:'船舶管理',
+                addButtonText:'添加船舶'
             })
             return
         }else{
             this.setData({
                 id,
-                navbarTitle:'车辆管理'
+                navbarTitle:'车辆管理',
+                addButtonText:'添加车辆'
             })
         }
     },
@@ -41,7 +45,13 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        let Authorization = wx.getStorageSync('Authorization');
+        let page = 1;
+        let rows = 10;
+        let params = {Authorization,page,rows}
+        User.myFriendsRequestFriends(params).then(res => {
+            console.log(res)
+        })
     },
 
     onChange(event) {
@@ -56,8 +66,10 @@ Page({
         });
     },
     addButton(){
+        let id = this.data.id;
+        console.log(id)
         wx.navigateTo({
-          url: '/pages/my/user-admin/user-admin-info/user-admin-info',
+          url: '/pages/my/user-admin/user-admin-info/user-admin-info?id=' + id,
         })
     }
 })

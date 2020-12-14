@@ -38,17 +38,17 @@ Page({
     })
     let idenID = this.data.idenID;
     switch(idenID){
-      case '1':
+      case '153':
         this.setData({
           navbarTitle:'申请船东认证'
         })
         break;
-      case '2':
+      case '151':
         this.setData({
           navbarTitle:'申请货主认证'
         })
         break;
-      case '3':
+      case '152':
         this.setData({
           navbarTitle:'申请车主认证'
         })
@@ -131,6 +131,7 @@ Page({
   //提交按钮
   handleSubmit(){
     let idenID = this.data.idenID;
+    console.log(idenID)
     console.log(this.data.identity)
     if(this.data.checked === false){
       $Toast({
@@ -141,15 +142,15 @@ Page({
     }
     
     //船东
-    if(idenID === '1'){
+    if(idenID === '153'){
       this.mtShipownerUpdate(idenID)
     }
     // 货主
-    if(idenID === '2'){
+    if(idenID === '151'){
       this.mtCargoOwnerUpdate(idenID)
     }
     //车主
-    if(idenID === '3'){
+    if(idenID === '152'){
       this.mtOwnerUpdate(idenID)
     }
   },

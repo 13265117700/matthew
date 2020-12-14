@@ -541,6 +541,41 @@ Component({
                 shipChart: this.data.shipChart,
                 shipVideo: this.data.shipVideo,
             }
+
+            if(
+                !this.data.nameVessel ||
+                !this.data.ladenA ||
+                !this.data.ladenB ||
+                !this.data.ais ||
+                !this.data.typeShip ||
+                !this.data.captainName ||
+                !this.data.captainPhone ||
+                !this.data.idenJust ||
+                !this.data.idenBack ||
+                !this.data.traitList ||
+                !this.data.projectList ||
+                !this.data.aisCertificate ||
+                !this.data.hanoiCertificate ||
+                !this.data.shipOperationCertificate ||
+                !this.data.shipAnnualCertificate ||
+                !this.data.shipTestCertificate ||
+                !this.data.sealingEquipment ||
+                !this.data.ageShip ||
+                !this.data.membership ||
+                !this.data.tonnage ||
+                !this.data.chief ||
+                !this.data.breadth ||
+                !this.data.shipHeight ||
+                !this.data.typeDepth ||
+                !this.data.depthProfile ||
+                !this.data.monitoring ||
+                !this.data.insurance ||
+                !this.data.kola ||
+                !this.data.shipChart ||
+                !this.data.shipVideo 
+            ){
+                console.log(123)
+            }
             console.log(params)
             Ship.mtShipSave(params).then(res => {
                 console.log(res)

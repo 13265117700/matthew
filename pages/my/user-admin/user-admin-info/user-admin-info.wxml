@@ -6,6 +6,7 @@
         fontColor="#ffffff" 
         icon="iconfont icon-shangchuan"></vtu-navbar>
     <view class="page-main">
-        <user-admin-info></user-admin-info>
+        <ship-info wx:if="{{ id === '115' }}"></ship-info>
+        <car-info wx:if="{{ id === '192' }}"></car-info>
     </view>
 </view>

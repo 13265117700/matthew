@@ -1,6 +1,5 @@
 {
     "pages": [
-        "pages/ship/deliver/deliver",
         "pages/index/index",
         "pages/logs/logs",
         "pages/myFollow/myFollow",
@@ -16,8 +15,8 @@
         "pages/my/userIdent/userIdent",
         "pages/my/userIdent/audit/audit",
         "pages/my/user-admin/user-admin",
-        "pages/my/user-admin/user-admin-info/user-admin-info"
-        
+        "pages/my/user-admin/user-admin-info/user-admin-info",
+        "pages/ship/deliver/deliver"
     ],
     "window": {
         "navigationStyle": "custom",

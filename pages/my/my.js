@@ -197,43 +197,46 @@ Page({
         if(user.mtCargoOwner.idNumber != null){
           //货
           user.idenID = user.mtCargoOwner.id;
+          user.status = user.mtCargoOwner.status;
           this.setData({
             userInfo:user,
-            ["ceilList[5].state"]:false,
-            ["ceilList[3].state"]:false,
+            // ["ceilList[5].state"]:false,
+            // ["ceilList[3].state"]:false,
           })
         }else if(user.mtOwner.idNumber != null){
           //车
           user.idenID = user.mtOwner.id;
+          user.status = user.mtOwner.status;
           this.setData({
             userInfo:user,
-            ["ceilList[4].state"]:false,
-            ["ceilList[3].state"]:false,
+            // ["ceilList[4].state"]:false,
+            // ["ceilList[3].state"]:false,
           })
         }else if(user.mtShipowner.idNumber != null){
            //船
           user.idenID = user.mtShipowner.id;
+          user.status = user.mtShipowner.status;
           this.setData({
             userInfo:user,
-            ["ceilList[4].state"]:false,
-            ["ceilList[5].state"]:false,
+            // ["ceilList[4].state"]:false,
+            // ["ceilList[5].state"]:false,
           })
         }
-        
-        if(user.idenID){
-          console.log('有idenID')
-          this.setData({
-            ["ceilList[0].state"]:false,
-            ["ceilList[1].state"]:true
-          })
-        }else{
-          console.log('没有idenID')
-          this.setData({
-            ["ceilList[1].state"]:false
-          })
-        }
-        console.log(this.data.ceilList)
-        console.log(this.data.userInfo)
+
+
+        //如果已申请认证显示对应模块
+        // if(user.idenID){
+        //   console.log('有idenID')
+        //   this.setData({
+        //     ["ceilList[0].state"]:false,
+        //     ["ceilList[1].state"]:true
+        //   })
+        // }else{
+        //   console.log('没有idenID')
+        //   this.setData({
+        //     ["ceilList[1].state"]:false
+        //   })
+        // }
       })
     }else{
       this.setData({
@@ -266,8 +269,10 @@ Page({
   // 进入不同celiItem页面
   ceilItem:function(event){
     let userInfo = this.data.userInfo;
+    let status = userInfo.status;
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
+    console.log(status)
     console.log(id)
     let Authorization = wx.getStorageSync('Authorization');
     if(Authorization){
@@ -324,6 +329,7 @@ Page({
   // 确认认证身份
   handIdentitOkay:function(){
     let id = this.data.idenID;
+    console.log(id)
     if(id === null){
       $Toast({
         content: '未选择身份',
@@ -332,21 +338,21 @@ Page({
       return
     }
     switch(id){
-      case '1':
+      case '153':
         this.setData({
           ahtcTitle:'请选择船东认证方式',
           visible: false,
           ahtcShow:true,
         })
         break;
-      case '2':
+      case '151':
         this.setData({
           ahtcTitle:'请选择货主认证方式',
           visible: false,
           ahtcShow:true,
         })
         break;
-      case '3':
+      case '152':
         this.setData({
           ahtcTitle:'请选择车主认证方式',
           visible: false,
@@ -354,6 +360,7 @@ Page({
         })
         break;
     }
+    console.log(this.data.ahtcShow)
   },
   // 认证方式选择
   handAhct(e){
