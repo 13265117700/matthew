@@ -11,9 +11,10 @@ export default {
     mtShipownerUpdate:`${PREFIX}/user/information/mtShipownerUpdate`,//船东信息修改
     mtCargoOwnerUpdate:`${PREFIX}/user/information/mtCargoOwnerUpdate`,//货主信息修改
     mtOwnerUpdate:`${PREFIX}/user/information/mtOwnerUpdate`,//车主信息修改
+    myFriendsRequestFriends:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
     
     //船API
-    myFriendsRequestFriends:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
+    mtNameGoodsFriends:`${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`,
     mtShipSave:`${PREFIX}/user/ship/mtShipSave`,//添加船舶
     findAll:`${PREFIX}/reception/mtWharf/findAll`,//码头列表
 }

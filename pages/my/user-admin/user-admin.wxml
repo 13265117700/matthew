@@ -5,14 +5,25 @@
         bgColor="#F0222FFF" 
         fontColor="#ffffff" 
         icon="iconfont icon-shangchuan"></vtu-navbar>
-    <view class="page-main">
+    <view class="page-main" wx:if="{{emptyState}}">
         <van-tabs animated active="{{ active }}" bind:click="onChange">
             <van-tab
                 wx:for="{{tabList}}"
                 wx:key="index"
                 title="{{item.title}}"
                 name="{{item.title}}">
-                <component-user-admin status="{{status}}"></component-user-admin>
+                <!-- <component-user-admin status="{{status}}"></component-user-admin> -->
+                <view class="see-list">
+                    <view class="see-item" wx:for="{{seeList}}" wx:key="index">
+                        <view class="see-item_title">{{item.title}}</view>
+                        <view class="see-item_status {{status === '1' ? 'active' : ''}}"
+                            wx:if="{{status != 0}}">{{status === '1' ? '已通过' : '查看原因'}}</view>
+                        <view class="see-item_tag">
+                        <image src="/images/my/ck@3x.png"></image>
+                        </view>
+                        <view class="see-item_hide" data-index="{{index}}" wx:if="{{status === '2'}}"></view>
+                    </view>
+                </view>
             </van-tab>
         </van-tabs>
         <view class="addButton" bindtap="addButton">
@@ -21,8 +32,9 @@
         </view>
     </view>
     <van-empty
+        wx:if="{{!emptyState}}"
         class="custom-image"
-        image="https://img.yzcdn.cn/vant/custom-empty-image.png"
-        description="描述文字"
+        image="/images/my/qsy@3x.png"
+        description="暂时没有数据"
         />
 </view>

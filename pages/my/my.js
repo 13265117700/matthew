@@ -3,7 +3,6 @@ import User from '../../models/user/user';
 
 Page({
   data: {
-    Authorization:null,
     userInfo:null,
     // 身份认证开关
     visible: false,
@@ -174,17 +173,23 @@ Page({
   },
 
   onShow(){
+    this.showtabBar()
+    this.displayModule();
+  },
+
+  showtabBar:function(){
     if(typeof this.getTabBar === "function" && this.getTabBar()){
       this.getTabBar().setData({
         activeIndex:4
       })
     }
-    
+  },
+
+  //如果申请认证区分显示模块
+  displayModule:function(){
     let Authorization = wx.getStorageSync('Authorization');
     console.log(Authorization)
-    this.setData({
-      Authorization
-    })
+
     let uId ='';
     if(Authorization){
       let params = {
@@ -269,10 +274,8 @@ Page({
   // 进入不同celiItem页面
   ceilItem:function(event){
     let userInfo = this.data.userInfo;
-    let status = userInfo.status;
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
-    console.log(status)
     console.log(id)
     let Authorization = wx.getStorageSync('Authorization');
     if(Authorization){
@@ -296,6 +299,11 @@ Page({
         case '192':
           wx.navigateTo({
             url: '/pages/my/user-admin/user-admin?id='+id,
+          })
+          break
+        case '855':
+          wx.navigateTo({
+            url: '/pages/my/user-admin/user-admin-info/user-admin-info?id='+id,
           })
           break
       }

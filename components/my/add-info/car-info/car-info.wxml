@@ -318,7 +318,7 @@
         <vtu-input-group>
             <view class="info-group-title">
                 <view class="info-group-title_tag">*</view>
-                <view class="info-group-title_text">添加船图片</view>
+                <view class="info-group-title_text">添加车图片</view>
             </view>
             <view class="info-group-image">
                 <van-uploader
@@ -336,7 +336,7 @@
                 <view class="wrap-resource_add">
                     <view class="info-group-title">
                         <view class="info-group-title_tag">*</view>
-                        <view class="info-group-title_text">添加船视频</view>
+                        <view class="info-group-title_text">添加车视频</view>
                     </view>
                     <view class="item-image" wx:if="{{!videoFile}}">
                         <image src="/images/my/tjsp@3x.png"></image>

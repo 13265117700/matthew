@@ -1,5 +1,5 @@
 <!--components/my/userAdmin/userAdmin.wxml-->
-<view class="see-list">
+<!-- <view class="see-list">
     <view class="see-item" wx:for="{{seeList}}" wx:key="index">
         <view class="see-item_title">{{item.title}}</view>
         <view class="see-item_status {{status === '1' ? 'active' : ''}}"
@@ -9,4 +9,4 @@
         </view>
         <view class="see-item_hide" data-index="{{index}}" bindtap="handSee" wx:if="{{status === '2'}}"></view>
     </view>
-</view>
+</view> -->

@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "ship-info":"/components/my/user-admin/ship-info/ship-info",
-    "car-info":"/components/my/user-admin/car-info/car-info"
+    "ship-info":"/components/my/add-info/ship-info/ship-info",
+    "car-info":"/components/my/add-info/car-info/car-info",
+    "cargo-info":"/components/my/release-info/cargo-info/cargo-info"
   }
 }

@@ -9,18 +9,54 @@
                     <view class="item-subTitle_text"><text>{{item.title}}</text></view>
                 </view>
                 <view class="item-input">
-                    <vtu-input 
+                    <vtu-input wx:if="{{item.type != 'default'}}"
                         placeholder="{{item.placeholder}}" 
                         type="{{item.type}}" 
+                        arrow="{{item.arrow}}"
+                        text-align="left"
+                        data-index="{{index}}"
+                        bind:input="infoGroupOneInput">
+                    </vtu-input>
+                    <vtu-input wx:if="{{item.type === 'default'}}"
+                        type="{{item.type}}" 
+                        value="{{item.placeholder}}"
                         arrow="{{item.arrow}}"
                         range="{{item.list}}"
                         range-key="label"
                         text-align="left"
-                        data-index="{{index}}"
-                        bindchange="infoGroupOneDropDown"
-                        bind:input="infoGroupOneInput"></vtu-input>
+                        bind:click="handShipTypeChoose">
+                    </vtu-input>
                 </view>
             </view>
+            <van-popup
+                show="{{ shipTypeShow }}"
+                round
+                position="bottom">
+                <view class="popup-title">
+                    <view class="popup-title_cancel" bindtap="onClose">取消</view>
+                    <view class="popup-title_confirm" bindtap="handShipTypeConfirm">确认</view>
+                </view>
+                <view class="popup-selector">
+                    <van-picker
+                        default-index="2"
+                        columns="{{ typeList }}" 
+                        value-key="{{typeList.id}}"
+                        bind:cancel="onClose"
+                        bind:change="handleType" />
+                </view>
+                <view class="popup-input">
+                    <van-field
+                        label="其它："
+                        label-class="popup-input_label"
+                        input-class="popup-input_text"
+                        value="{{addvalue}}"
+                        type="textarea"
+                        placeholder="如以上没有您需要的选项请在此输入"
+                        border="{{ false }}"
+                        bind:input="addShipType"
+                        autosize/>
+                </view>
+            </van-popup>
         </vtu-input-group>
     </view>
     <!-- 船长身份证 -->
@@ -86,7 +122,7 @@
             </view>
             <view class="info-group-image">
                 <van-uploader
-                    file-list="{{ projectList }}"
+                    file-list="{{ mainItemsShip }}"
                     max-count="9"
                     bind:after-read="handProject"
                     />
@@ -192,7 +228,7 @@
                     <view class="item-subTitle_text"><text>{{infoTwo.title}}</text></view>
                 </view>
                 <view class="item-input">
-                    <vtu-input 
+                    <vtu-input wx:if="{{infoTwo.type != 'default'}}"
                         placeholder="{{infoTwo.placeholder}}" 
                         type="{{infoTwo.type}}" 
                         arrow="{{infoTwo.arrow}}"
@@ -202,9 +238,57 @@
                         mode="{{infoTwo.mode}}"
                         data-index="{{index}}"
                         bind:input="infoGroupTwoInput"
-                        bindchange="infoGroupTwoDropDown"></vtu-input>
+                        bindchange="infoGroupTwoDropDown">
+                    </vtu-input>
+                    <vtu-input wx:if="{{infoTwo.type === 'default'}}"
+                        type="{{infoTwo.type}}" 
+                        value="{{infoTwo.placeholder}}"
+                        arrow="{{infoTwo.arrow}}"
+                        range="{{infoTwo.list}}"
+                        data-index="{{index}}"
+                        range-key="label"
+                        text-align="left"
+                        bind:click="infoGroupTwoChoose">
+                    </vtu-input>
                 </view>
             </view>
+            <van-popup show="{{ shipSealShow }}" round position="bottom">
+                <view class="popup-title">
+                    <view class="popup-title_cancel" bindtap="onClose">取消</view>
+                    <view class="popup-title_confirm" bindtap="handShipSealConfirm">确认</view>
+                </view>
+                <view class="popup-selector">
+                    <van-picker
+                        default-index="1"
+                        columns="{{ sealList }}" 
+                        bind:cancel="onClose"
+                        bind:change="handleSeal" />
+                </view>
+                <view class="popup-input">
+                    <van-field
+                        label="其它："
+                        label-class="popup-input_label"
+                        input-class="popup-input_text"
+                        value="{{addvalue}}"
+                        type="textarea"
+                        placeholder="如以上没有您需要的选项请在此输入"
+                        border="{{ false }}"
+                        bind:confirm="addShipSeal"
+                        autosize/>
+                </view>
+            </van-popup>
+            <van-popup show="{{ shipCargoShow }}" round position="bottom">
+                <view class="popup-title">
+                    <view class="popup-title_cancel" bindtap="onClose">取消</view>
+                    <view class="popup-title_confirm" bindtap="handShipCargoConfirm">确认</view>
+                </view>
+                <van-checkbox-group value="{{ kola }}" bind:change="onChange">
+                    <van-checkbox 
+                        wx:for="{{checkboxList}}" wx:key="index" wx:for-item="checkbox"
+                        data-index="{{index}}"
+                        name="{{checkbox.name}}" checked-color="#F0222FFF">{{checkbox.name}}</van-checkbox>
+                </van-checkbox-group>
+            </van-popup>
         </vtu-input-group>
         <!-- <vtu-input-group>
             <view class="info-group_item">

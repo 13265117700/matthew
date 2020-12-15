@@ -105,7 +105,8 @@ vtu-input{
     font-weight: Medium;
     color: #191919FF;
     font-size: 12px;
-    width: 84px;
+    width: 110px;
+    text-align: center;
 }
 
 
@@ -144,4 +145,55 @@ vtu-input{
     border-top-right-radius: 10px;
     margin-top: 20px;
     cursor: pointer;
+}
+
+.popup-input{
+    margin: 20px 12.5px;
+    border: 1px solid #0A6EE8FF;
+    border-radius: 9px;
+}
+.popup-input_label{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #191919FF;
+    font-size: 17px;
+}
+.popup-input_text{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #999999FF;
+    font-size: 14px;
+}
+.popup-title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 58px;
+    line-height: 58px;
+    border: 0.5px solid #E5E5E5FF;
+    padding: 0 20.5px;
+    font-size: 17px;
+}
+.popup-title_cancel{
+    color: #666666FF;
+}
+.popup-title_confirm{
+    color: #F0222FFF;
+}
+
+van-checkbox-group{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 22px;
+    height: 108px;
+    overflow-y: auto;
+}
+van-checkbox{
+    width: 185px;
+    margin-bottom: 23px;
+    font-size: 16px;
+    color: #191919FF;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
 }

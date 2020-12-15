@@ -10,5 +10,8 @@ export default {
     },
     findAll:function(data){
         return request.get(api.findAll, data)
+    },
+    mtNameGoodsFriends:function(data){
+        return request.get(api.mtNameGoodsFriends, data)
     }
 }

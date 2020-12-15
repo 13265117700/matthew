@@ -24,21 +24,21 @@ Component({
         }]
     },
     lifetimes:{
-        attached:function(){
-            let Authorization = wx.getStorageSync('Authorization');
-            let status = this.data.status;
-            let page = 1;
-            let rows = 10;
-            let params = {Authorization,status,page,rows}
-            console.log(this.data.status)
-            Ship.myFriendsRequestFriends(params).then(res => {
-                console.log(res)
-                if(res.statusCode === 200){
-                    let datas = res.data.data;
-                    console.log(datas)
-                }
-            })
-        }
+        // attached:function(){
+        //     let Authorization = wx.getStorageSync('Authorization');
+        //     let status = this.data.status;
+        //     let page = 1;
+        //     let rows = 10;
+        //     let params = {Authorization,status,page,rows}
+        //     console.log(this.data.status)
+        //     Ship.myFriendsRequestFriends(params).then(res => {
+        //         console.log(res)
+        //         if(res.statusCode === 200){
+        //             let datas = res.data.data;
+        //             console.log(datas)
+        //         }
+        //     })
+        // }
     },
 
     /**

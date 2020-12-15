@@ -14,6 +14,13 @@ Page({
      */
     onLoad: function (options) {
         console.log(options)
+        this.tabBarTitle(options)
+        this.setData({
+            id:options.id
+        })
+    },
+
+    tabBarTitle(options){
         switch(options.id){
             case '115':
                 this.setData({
@@ -25,10 +32,12 @@ Page({
                     navbarTitle:'添加车辆'
                 })
                 break
+            case '567':
+                this.setData({
+                    navbarTitle:'发布货源'
+                })
+                break
         }
-        this.setData({
-            id:options.id
-        })
     },
 
     /**
