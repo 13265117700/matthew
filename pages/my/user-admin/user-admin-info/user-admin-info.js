@@ -37,6 +37,11 @@ Page({
                     navbarTitle:'发布货源'
                 })
                 break
+            case '855':
+                this.setData({
+                    navbarTitle:'发布货源'
+                })
+                break
         }
     },
 

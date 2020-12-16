@@ -1,5 +1,5 @@
 <!--components/my/user-admin/car-info/car-info.wxml-->
-<view class="info-container">
+<view class="add-carInfo-container">
     <!-- 信息分组1 -->
     <view class="info-group">
         <vtu-input-group>

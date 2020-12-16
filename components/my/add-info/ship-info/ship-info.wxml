@@ -1,5 +1,5 @@
 <!--components/my/user-admin/user-admin-info/user-admin-info.wxml-->
-<view class="info-container">
+<view class="add-shipInfo-container">
     <!-- 信息分组1 -->
     <view class="info-group">
         <vtu-input-group>

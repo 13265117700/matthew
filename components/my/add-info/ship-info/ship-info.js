@@ -1,6 +1,6 @@
 // components/my/user-admin/user-admin-info/user-admin-info.js
 import upload from "../../../../models/upload/upload";
-import Ship from "../../../../models/ship/ship"
+import Ship from "../../../../models/ship/ship";
 Component({
     /**
      * 组件的属性列表
@@ -587,7 +587,7 @@ Component({
             console.log(event)
             this.setData({
                 kola: event.detail,
-                ["infoGroupTwo[11].placeholder"]:event.detail
+                ["infoGroupTwo[12].placeholder"]:event.detail
             });
         },
         handShipCargoConfirm(){
@@ -668,44 +668,67 @@ Component({
             }
             
             console.log(params)
-            
 
-            // if(
-            //     !this.data.nameVessel ||
-            //     !this.data.ladenA ||
-            //     !this.data.ladenB ||
-            //     !this.data.ais ||
-            //     !this.data.typeShip ||
-            //     !this.data.captainName ||
-            //     !this.data.captainPhone ||
-            //     !this.data.idenJust ||
-            //     !this.data.idenBack ||
-            //     !this.data.traitList ||
-            //     !this.data.mainItemsShip  ||
-            //     !this.data.aisCertificate ||
-            //     !this.data.hanoiCertificate ||
-            //     !this.data.shipOperationCertificate ||
-            //     !this.data.shipAnnualCertificate ||
-            //     !this.data.shipTestCertificate ||
-            //     !this.data.closure ||
-            //     !this.data.ageShip ||
-            //     !this.data.membership ||
-            //     !this.data.tonnage ||
-            //     !this.data.chief ||
-            //     !this.data.breadth ||
-            //     !this.data.shipHeight ||
-            //     !this.data.typeDepth ||
-            //     !this.data.depthProfile ||
-            //     !this.data.monitoring ||
-            //     !this.data.insurance ||
-            //     !this.data.kola ||
-            //     !this.data.shipChart ||
-            //     !this.data.shipVideo 
-            // ){
-            //     console.log(123)
-            // }
+            if(
+                !this.data.nameVessel ||
+                !this.data.ladenA ||
+                !this.data.ladenB ||
+                !this.data.ais ||
+                !this.data.typeShip ||
+                !this.data.captainName ||
+                !this.data.captainPhone ||
+                !this.data.idenJust ||
+                !this.data.idenBack ||
+                !this.data.traitList ||
+                !this.data.mainItemsShip  ||
+                !this.data.aisCertificate ||
+                !this.data.hanoiCertificate ||
+                !this.data.shipOperationCertificate ||
+                !this.data.shipAnnualCertificate ||
+                !this.data.shipTestCertificate ||
+                !this.data.closure ||
+                !this.data.ageShip ||
+                !this.data.membership ||
+                !this.data.tonnage ||
+                !this.data.chief ||
+                !this.data.breadth ||
+                !this.data.shipHeight ||
+                !this.data.typeDepth ||
+                !this.data.depthProfile ||
+                !this.data.monitoring ||
+                !this.data.insurance ||
+                !this.data.kola ||
+                !this.data.shipChart ||
+                !this.data.shipVideo 
+            ){
+                wx.showLoading({
+                  title: '请认真填写所有必填项',
+                })
+                setTimeout(function() {
+                    wx.hideLoading()
+                }, 2000)
+                return
+            }
+
             Ship.mtShipSave(params).then(res => {
                 console.log(res)
+                if(!res.data.data){
+                    wx.showLoading({
+                        title: res.data.message,
+                    });
+                    setTimeout(function () {
+                        wx.hideLoading()
+                        wx.navigateBack({ changed:true })
+                    }, 2000)
+                }else if(res.data.state === 200){
+                    wx.showLoading({
+                      title: '添加成功',
+                    });
+                    setTimeout(function() {
+                        wx.hideLoading();
+                        wx.navigateBack({ changed:true })
+                    }, 2000)
+                }
             })
         }
     }
