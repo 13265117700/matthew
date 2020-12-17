@@ -32,17 +32,18 @@
                 show="{{ shipTypeShow }}"
                 round
                 position="bottom">
-                <view class="popup-title">
+                <!-- <view class="popup-title">
                     <view class="popup-title_cancel" bindtap="onClose">取消</view>
                     <view class="popup-title_confirm" bindtap="handShipTypeConfirm">确认</view>
-                </view>
+                </view> -->
                 <view class="popup-selector">
                     <van-picker
                         default-index="2"
+                        show-toolbar
                         columns="{{ typeList }}" 
                         value-key="{{typeList.id}}"
                         bind:cancel="onClose"
-                        bind:change="handleType" />
+                        bind:confirm="handleType" />
                 </view>
                 <view class="popup-input">
                     <van-field

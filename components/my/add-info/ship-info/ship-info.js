@@ -1,6 +1,7 @@
 // components/my/user-admin/user-admin-info/user-admin-info.js
 import upload from "../../../../models/upload/upload";
-import Ship from "../../../../models/ship/ship";
+import mtWharf from "../../../../models/frontEnd/mtWharf";
+import User from "../../../../models/user/user"
 Component({
     /**
      * 组件的属性列表
@@ -8,11 +9,7 @@ Component({
     properties: {
 
     },
-    lifetimes:{
-        attached:function(){
-            this.mtNameGoodsFriends()
-        }
-    },
+    
     /**
      * 组件的初始数据
      */
@@ -231,15 +228,20 @@ Component({
         dump:null,
     },
 
+    lifetimes:{
+        attached:function(){
+            this.frontDeskShipTypeList()
+        }
+    },
     /**
      * 组件的方法列表
      */
     methods: {
         //获取船舶类型
-        mtNameGoodsFriends(){
+        frontDeskShipTypeList(){
             let page = 1;
             let rows = 10;
-            Ship.mtNameGoodsFriends({page,rows}).then(res => {
+            mtWharf.frontDeskShipTypeList({page,rows}).then(res => {
                 console.log(res)
                 let rows = res.data.data.rows;
                 let typeList = rows.map(data => data.name);
@@ -248,6 +250,7 @@ Component({
                     typeList,
                     typeRows:rows
                 })
+                console.log(this.data.typeRows)
             })
         },
         // 关闭弹出层
@@ -304,46 +307,35 @@ Component({
                 shipTypeShow:true
             })
         },
-        handleType(e){
-            console.log(e)
-            let typeRows = this.data.typeRows;
-            let index = e.detail.index;
-            console.log(typeRows)
-            let typeShiId = typeRows[index].id;
-            console.log(typeShiId)
-            this.setData({
-                popupSelectorValue:e.detail.value,
-                typeShiId
-            })
-        },
         addShipType(e){
             this.setData({
                 popupInputvalue:e.detail
             })
         },
-        handShipTypeConfirm(){
-            let popupSelectorValue = this.data.popupSelectorValue;
+        handleType(e){
+            console.log(e)
+            let typeRows = this.data.typeRows;
+            let index = e.detail.index;
             let popupInputvalue = this.data.popupInputvalue;
+            let typeShiId = typeRows[index].id;
             if(popupInputvalue != null && popupInputvalue != ''){
                 console.log('input有值')
                 this.setData({
                     typeShip:popupInputvalue,
-                    ["infoGroupOne[4].placeholder"]:popupInputvalue
+                    ["infoGroupOne[4].placeholder"]:popupInputvalue,
+                    typeShiId,
+                    shipTypeShow:false
                 })
             }else{
                 console.log('input没有值')
                 this.setData({
-                    typeShip:popupSelectorValue,
-                    ["infoGroupOne[4].placeholder"]:popupSelectorValue
+                    typeShip:e.detail.value,
+                    ["infoGroupOne[4].placeholder"]:e.detail.value,
+                    typeShiId,
+                    shipTypeShow:false
                 })
             }
-
-            this.setData({
-                shipTypeShow:false
-            })
         },
-
-
 
          // 身份证正面
          justAfterRead(){
@@ -709,8 +701,8 @@ Component({
                 }, 2000)
                 return
             }
-
-            Ship.mtShipSave(params).then(res => {
+            userAddShip
+            User.userAddShip(params).then(res => {
                 console.log(res)
                 if(!res.data.data){
                     wx.showLoading({

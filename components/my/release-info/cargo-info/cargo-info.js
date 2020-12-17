@@ -1,4 +1,4 @@
-import Cargo from '../../../../models/cargo/cargo'
+import mtWharf from '../../../../models/frontEnd/mtWharf'
 Component({
     /**
      * 组件的属性列表
@@ -23,7 +23,7 @@ Component({
             rate:false,
             title:'货物代码：',
             placeholder:'货物分类代码自动生成',
-            type:'input',
+            type:'default',
             arrow:false
         },{
             rate:true,
@@ -37,12 +37,14 @@ Component({
             placeholder:'请选择装货地',
             type:'default',
             arrow:true,
+            id:147741
         },{
             rate:true,
             title:'达到港：',
             placeholder:'请选择目的港',
             type:'default',
-            arrow:true
+            arrow:true,
+            id:123321
         }],
         //信息分组2
         infoGroupTwo:[{
@@ -145,13 +147,18 @@ Component({
             type:'default',
             arrow:true
         }],
-        cargoNameShow:false,
-        cargoNameList:[],
+        pickerOneShow:false,//分组1弹框
+
+        //分组1弹框标题
+        cargoNameList:[],//货名name列表
+        cargoNameRows:[],//货名列表
+        cargoNameId:null,//货名ID
+        cargoCode:null,//货物代码
     },
 
     lifetimes:{
         attached:function(){
-            this.mtNameGoodsFriends()
+            // this.frontDeskCargoList()
         }
     },
 
@@ -160,16 +167,17 @@ Component({
      */
     methods: {
         //获取货物列表
-        mtNameGoodsFriends(){
+        frontDeskCargoList(){
             let page = 1;
             let rows = 10;
-            Cargo.mtNameGoodsFriends({page,rows}).then(res => {
-                console.log(res)
+            mtWharf.frontDeskCargoList({page,rows}).then(res => {
                 let rows = res.data.data.rows;
+                console.log(rows)
                 let cargoNameList = rows.map(data => data.name);
                 console.log(cargoNameList)
                 this.setData({
-                    cargoNameList
+                    cargoNameList,
+                    cargoNameRows:rows,
                 })
             })
         },
@@ -182,25 +190,48 @@ Component({
         // 分组1弹框
         GroupOneClick(e){
             console.log(e)
+            let id = e.currentTarget.dataset.id;
             let index = e.currentTarget.dataset.index;
             if(index === 0){
                 this.setData({
-                    cargoNameShow:true
+                    cargoNameShow:true,
+                })
+                this.frontDeskCargoList();
+            }else if( index != 1 && index != 0 ){
+                wx.navigateTo({
+                  url: '/pages/wharf/wharf?id=' + id,
                 })
             }
         },
         handObtainGoods(e){
             console.log(e)
-        },
-
-
-
-        handleSwith(e){
-            console.log(e)
+            let index = e.detail.index;
+            let cargoNameId = this.data.cargoNameRows[index].id;
+            let cargoCode = this.data.cargoNameRows[index].cargoCode;
+            let name = this.data.cargoNameList[index];
+            // console.log(name,cargoNameId)
             this.setData({
-                ['infoGroupThree[0].off']:e.detail.value
+                cargoNameId,
+                ['infoGroupOne[0].placeholder']:name,
+                cargoNameShow:false,
+                cargoCode,
+                ['infoGroupOne[1].placeholder']:cargoCode
             })
         },
+        infoGroupOneInput(e){
+            console.log(e)
+            let index = e.currentTarget.dataset.index;
+            switch(index){
+                case 1:
+                    console.log(1)
+                    break
+                case 2:
+                    console.log(2)
+                    break
+            }
+        },
+
+        //信息分组2单选框
         onChangeRadio(e){
             console.log(e)
             let index = e.currentTarget.dataset.index;
@@ -234,6 +265,14 @@ Component({
                 }
             }
             console.log(this.data.infoGroupTwo)
-        }
+        },
+
+        //赔偿约定开关
+        handleSwith(e){
+            console.log(e)
+            this.setData({
+                ['infoGroupThree[0].off']:e.detail.value
+            })
+        },
     }
 })

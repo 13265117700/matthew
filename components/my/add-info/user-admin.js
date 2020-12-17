@@ -1,5 +1,5 @@
 // components/my/userAdmin/userAdmin.js
-import Ship from '../../../models/ship/ship'
+// import Ship from '../../../models/ship/ship'
 Component({
     /**
      * 组件的属性列表

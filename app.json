@@ -16,7 +16,8 @@
         "pages/my/userIdent/audit/audit",
         "pages/my/user-admin/user-admin",
         "pages/my/user-admin/user-admin-info/user-admin-info",
-        "pages/ship/deliver/deliver"
+        "pages/ship/deliver/deliver",
+        "pages/wharf/wharf"
     ],
     "window": {
         "navigationStyle": "custom",

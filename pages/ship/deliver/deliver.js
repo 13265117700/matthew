@@ -1,5 +1,5 @@
 // pages/ship/deliver/deliver.js
-import FindAll from '../../../models/ship/ship'
+// import FindAll from '../../../models/ship/ship'
 Page({
     /**
      * 页面的初始数据
@@ -69,33 +69,33 @@ Page({
         let rows = 10;
         let sortInt = 1;
         let params = {pId,page,rows,sortInt}
-        FindAll.findAll(params).then(res => {
-            let datas = res.data.data;
-            let rows = datas.rows;
-            console.log(rows)
-            this.setData({
-                popupList:rows
-            })
+        // FindAll.findAll(params).then(res => {
+        //     let datas = res.data.data;
+        //     let rows = datas.rows;
+        //     console.log(rows)
+        //     this.setData({
+        //         popupList:rows
+        //     })
 
-            // this.setData({
-            //     portChooseList:[{
-            //         values:Object.values(rows),
-            //         className: 'column1',
-            //     },{
-            //         values:rows[0].mtWharfList,
-            //         className: 'column2',
-            //         defaultIndex: 2,
-            //     },{
-            //         values:rows[0].mtWharfList[0].mtWharfList,
-            //         className: 'column3',
-            //         defaultIndex: 1,
-            //     },{
-            //         values:rows[0].mtWharfList[0].mtWharfList[0].mtWharfList,
-            //         className: 'column4',
-            //         defaultIndex: 1,
-            //     }]
-            // })
-        })
+        //     this.setData({
+        //         portChooseList:[{
+        //             values:Object.values(rows),
+        //             className: 'column1',
+        //         },{
+        //             values:rows[0].mtWharfList,
+        //             className: 'column2',
+        //             defaultIndex: 2,
+        //         },{
+        //             values:rows[0].mtWharfList[0].mtWharfList,
+        //             className: 'column3',
+        //             defaultIndex: 1,
+        //         },{
+        //             values:rows[0].mtWharfList[0].mtWharfList[0].mtWharfList,
+        //             className: 'column4',
+        //             defaultIndex: 1,
+        //         }]
+        //     })
+        // })
     },
     handPopupPitch(event){
         console.log(event)

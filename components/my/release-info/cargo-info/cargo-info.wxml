@@ -13,6 +13,7 @@
                         placeholder="{{ GroupOne.placeholder }}" 
                         type="{{ GroupOne.type }}" 
                         arrow="{{ GroupOne.arrow }}"
+                        data-index="{{ index }}"
                         text-align="left"
                         bind:input="infoGroupOneInput">
                     </vtu-input>
@@ -20,6 +21,7 @@
                         type="{{ GroupOne.type }}" 
                         value="{{ GroupOne.placeholder }}"
                         arrow="{{ GroupOne.arrow }}"
+                        data-id="{{ GroupOne.id }}"
                         data-index="{{ index }}"
                         text-align="left"
                         bind:click="GroupOneClick">
@@ -30,17 +32,19 @@
                 show="{{ cargoNameShow }}"
                 round
                 position="bottom">
-                <view class="popup-title">
+                <!-- <view class="popup-title" wx:if="{{ pickerOne.index != 0 }}">
                     <view class="popup-title_cancel" bindtap="onClose">取消</view>
                     <view class="popup-title_text" bindtap="onClose">请选择货名</view>
                     <view class="popup-title_confirm" bindtap="handShipTypeConfirm">确认</view>
-                </view>
+                </view> -->
                 <view class="popup-selector">
-                    <van-picker
+                    <van-picker 
                         default-index="0"
+                        show-toolbar
+                        title="请选择货名"
                         columns="{{ cargoNameList }}" 
                         bind:cancel="onClose"
-                        bind:change="handObtainGoods" />
+                        bind:confirm="handObtainGoods" />
                 </view>
                 <!-- <view class="popup-input">
                     <van-field

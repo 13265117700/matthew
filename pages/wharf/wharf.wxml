@@ -1,0 +1,47 @@
+<!--pages/wharf/wharf.wxml-->
+<view class="wharf-container">
+    <view class="page-header">
+        <vtu-navbar 
+            title="{{ navbarTitle }}" 
+            homeStyle="cachet" 
+            bgColor="#F0222FFF" 
+            fontColor="#ffffff" 
+            icon="iconfont icon-shangchuan"></vtu-navbar>
+    </view>
+    <view class="page-main">
+        <view class="region-container">
+            <view class="region-title">请选择地区</view>
+            <view class="region-crumbs">
+                <view class="region-crumbs_item active">广东</view>
+                <view class="region-crumbs_item">请选择</view>
+            </view>
+            <view class="region-list">
+                <view class="region-item" 
+                    wx:for="{{ regionList }}" 
+                    wx:key="index" 
+                    wx:for-item="region"
+                    data-index="{{ index }}"
+                    data-id="{{ region.id }}"
+                    bindtap="handRegionChoose">
+                    <view class="region-item-img" wx:if="{{ region.active }}">
+                        <image src="/images/my/region/xz@3x.png"></image>
+                    </view>
+                    <view class="region-item-text">
+                        <text>{{ region.name }}</text>
+                    </view>
+                </view>
+                <!-- <view class="region-item">湖南</view>
+                <view class="region-item">北京</view> -->
+            </view>
+            <view class="region-button">
+                <van-button 
+                    type="primary" 
+                    square 
+                    size="large" 
+                    type="danger" 
+                    custom-style="{{buttonStyle}}"
+                    bind:click="">确认</van-button>
+            </view>
+        </view>
+    </view>
+</view>
