@@ -59,6 +59,82 @@
                         autosize/>
                 </view> -->
             </van-popup>
+            <van-popup
+                show="{{ addressShow }}"
+                custom-style="height: 100%;width: 100%;padding-top:60px;"
+                round
+                position="right">
+                <view class="region-container">
+                    <view class="region-title">
+                        <text>请选择地区</text>
+                        <view class="region-title-close" bindtap="onCloseAddress">
+                            <image src="/images/my/region/gb@1.png"></image>
+                        </view>
+                    </view>
+                    <view class="region-crumbs">
+                        <view class="region-crumbs_item {{ crumbsList.active ? 'active' : ''}}" 
+                            wx:for="{{ crumbs }}" 
+                            wx:key="index" 
+                            wx:for-item="crumbsList">{{ crumbsList.name }}</view>
+                        <view class="region-crumbs_item">{{ crumbs.length === 3 ? '请选择码头':'请选择地区'}}</view>
+                    </view>
+                    <view class="region-list">
+                        <view class="region-item" wx:if="{{ crumbs.length < 3 }}"
+                            wx:for="{{ regionList }}" 
+                            wx:key="index" 
+                            wx:for-item="region"
+                            data-index="{{ index }}"
+                            data-id="{{ region.id }}"
+                            data-name="{{ region.name }}"
+                            bindtap="handRegionChoose">
+                            <view class="region-item-img" wx:if="{{ region.active }}">
+                                <image src="/images/my/region/xz@3x.png"></image>
+                            </view>
+                            <view class="region-item-text">
+                                <text>{{ region.name }}</text>
+                            </view>
+                        </view>
+                        <van-cell-group wx:if="{{ crumbs.length >= 3 }}" border="{{ false }}">
+                            <van-cell title="{{ addressTitle }}" border="{{ false }}" custom-class="region-cell" is-link bind:click="wharfShow" />
+                            <van-popup
+                                show="{{ wharfShow }}"
+                                round
+                                position="bottom"
+                                bind:close="wharfShow">
+                                <view class="popup-selector">
+                                    <van-picker 
+                                        default-index="0"
+                                        show-toolbar
+                                        columns="{{ columns }}" 
+                                        bind:cancel="onClose"
+                                        bind:confirm="handObtainWharf" />
+                                </view>
+                                <view class="popup-input">
+                                    <van-field
+                                        label="其它："
+                                        label-class="popup-input_label"
+                                        input-class="popup-input_text"
+                                        value="{{addvalue}}"
+                                        type="textarea"
+                                        placeholder="如以上没有您需要的选项请在此输入"
+                                        border="{{ false }}"
+                                        bind:input="handInputWharf"
+                                        autosize/>
+                                </view>
+                            </van-popup>
+                        </van-cell-group>
+                    </view>
+                    <view class="region-button" wx:if="{{ crumbs.length >= 3 }}">
+                        <van-button 
+                            type="primary" 
+                            square 
+                            size="large" 
+                            type="danger" 
+                            custom-style="{{buttonStyle}}"
+                            bind:click="handConfirmButton">确认</van-button>
+                    </view>
+                </view>
+            </van-popup>
         </vtu-input-group>
     </view>
     <!-- 信息分组2 -->
@@ -77,14 +153,17 @@
                             arrow="{{ GroupTwo.arrow }}"
                             mode="{{ GroupTwo.mode }}"
                             text-align="left"
+                            data-index="{{index}}"
+                            bindchange="infoGroupTwoDate"
                             bind:input="infoGroupTwoInput">
                         </vtu-input>
                         <vtu-input wx:if="{{ GroupTwo.type === 'default' }}"
                             type="{{ GroupTwo.type }}" 
                             value="{{ GroupTwo.placeholder }}"
                             arrow="{{ GroupTwo.arrow }}"
+                            data-id="{{ GroupTwo.id }}"
                             text-align="left"
-                            bind:click="infoGroupTwoChoose">
+                            bind:click="totalPicker">
                         </vtu-input>
                     </view>
                     <view class="item-input-child" wx:if="{{ GroupTwo.list }}">
@@ -103,8 +182,9 @@
                             <vtu-input
                                 placeholder="{{ groupTwoInput.placeholder }}" 
                                 type="{{ groupTwoInput.type }}" 
+                                data-id="{{ groupTwoInput.id }}"
                                 text-align="left"
-                                bind:input="infoGroupOneInput">
+                                bind:input="infoGroupTwoListInput">
                             </vtu-input>
                             <view class="input-child-wrap_msg">{{ groupTwoInput.msg }}</view>
                         </view>
@@ -146,17 +226,18 @@
                             <vtu-input
                                 placeholder="{{ groupThreeInput.placeholder }}" 
                                 type="{{ groupThreeInput.type }}" 
+                                data-index="{{ index }}"
                                 text-align="left"
-                                bind:input="infoGroupOneInput">
+                                bind:input="compensationInput">
                             </vtu-input>
                             <view class="input-child-wrap_msg">{{ groupThreeInput.msg }}</view>
                         </view>
                     </view>
                     <view class="item-input-child" wx:if="{{ GroupThree.on }}">
                         <view class="input-child-wrap">
-                            <vtu-input placeholder="请输入" type="input" text-align="left"></vtu-input>
+                            <vtu-input placeholder="请输入" type="input" text-align="center" bind:input="vesselMinimum"></vtu-input>
                             至
-                            <vtu-input type="input" text-align="left"></vtu-input>
+                            <vtu-input type="input" text-align="center" bind:input="vesselMaximum"></vtu-input>
                             吨
                         </view>
                     </view>
@@ -172,8 +253,9 @@
                             type="{{ GroupThree.type }}" 
                             value="{{ GroupThree.placeholder }}"
                             arrow="{{ GroupThree.arrow }}"
+                            data-id="{{ GroupThree.id }}"
                             text-align="left"
-                            bind:click="infoGroupTwoChoose">
+                            bind:click="totalPicker">
                         </vtu-input>
                     </view>
                 </view>
@@ -192,6 +274,40 @@
                 text-height="100px"></vtu-input>
         </vtu-input-group>
     </view>
+    <!-- 功能弹框 -->
+    <view class="info-group">
+        <van-popup
+            show="{{ shipTypeShow }}"
+            round
+            position="bottom">
+            <!-- <view class="popup-title">
+                <view class="popup-title_cancel" bindtap="onClose">取消</view>
+                <view class="popup-title_confirm" bindtap="handShipTypeConfirm">确认</view>
+            </view> -->
+            <view class="popup-selector">
+                <van-picker
+                    default-index="0"
+                    show-toolbar
+                    columns="{{ pickerList }}" 
+                    value-key="{{ pickerListRows }}"
+                    bind:cancel="onClose"
+                    bind:confirm="handlePickerConfirm" />
+            </view>
+            <view class="popup-input">
+                <van-field
+                    label="其它："
+                    label-class="popup-input_label"
+                    input-class="popup-input_text"
+                    value="{{addvalue}}"
+                    type="textarea"
+                    placeholder="如以上没有您需要的选项请在此输入"
+                    border="{{ false }}"
+                    bind:input="addShipType"
+                    autosize/>
+            </view>
+        </van-popup>
+    </view>
+    <!-- 添加按钮 -->
     <view class="info-group">
         <van-button type="danger" size="large" square custom-style="{{buttonStyle}}">警告按钮</van-button>
     </view>

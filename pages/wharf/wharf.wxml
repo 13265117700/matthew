@@ -12,16 +12,20 @@
         <view class="region-container">
             <view class="region-title">请选择地区</view>
             <view class="region-crumbs">
-                <view class="region-crumbs_item active">广东</view>
-                <view class="region-crumbs_item">请选择</view>
+                <view class="region-crumbs_item {{ crumbsList.active ? 'active' : ''}}" 
+                    wx:for="{{ crumbs }}" 
+                    wx:key="index" 
+                    wx:for-item="crumbsList">{{ crumbsList.name }}</view>
+                <view class="region-crumbs_item">{{ crumbs.length === 3 ? '请选择码头':'请选择地区'}}</view>
             </view>
             <view class="region-list">
-                <view class="region-item" 
+                <view class="region-item" wx:if="{{ crumbs.length < 3 }}"
                     wx:for="{{ regionList }}" 
                     wx:key="index" 
                     wx:for-item="region"
                     data-index="{{ index }}"
                     data-id="{{ region.id }}"
+                    data-name="{{ region.name }}"
                     bindtap="handRegionChoose">
                     <view class="region-item-img" wx:if="{{ region.active }}">
                         <image src="/images/my/region/xz@3x.png"></image>
@@ -30,17 +34,44 @@
                         <text>{{ region.name }}</text>
                     </view>
                 </view>
-                <!-- <view class="region-item">湖南</view>
-                <view class="region-item">北京</view> -->
+                <van-cell-group wx:if="{{ crumbs.length >= 3 }}" border="{{ false }}">
+                    <van-cell title="单元格" border="{{ false }}" custom-class="region-cell" is-link bind:click="wharfShow" />
+                    <van-popup
+                        show="{{ wharfShow }}"
+                        round
+                        position="bottom"
+                        bind:close="wharfShow">
+                        <view class="popup-selector">
+                            <van-picker 
+                                default-index="0"
+                                show-toolbar
+                                columns="{{ columns }}" 
+                                bind:cancel="onClose"
+                                bind:confirm="handObtainWharf" />
+                        </view>
+                        <view class="popup-input">
+                            <van-field
+                                label="其它："
+                                label-class="popup-input_label"
+                                input-class="popup-input_text"
+                                value="{{addvalue}}"
+                                type="textarea"
+                                placeholder="如以上没有您需要的选项请在此输入"
+                                border="{{ false }}"
+                                bind:input="handInputWharf"
+                                autosize/>
+                        </view>
+                    </van-popup>
+                </van-cell-group>
             </view>
-            <view class="region-button">
+            <view class="region-button" wx:if="{{ crumbs.length >= 3 }}">
                 <van-button 
                     type="primary" 
                     square 
                     size="large" 
                     type="danger" 
                     custom-style="{{buttonStyle}}"
-                    bind:click="">确认</van-button>
+                    bind:click="handConfirmButton">确认</van-button>
             </view>
         </view>
     </view>

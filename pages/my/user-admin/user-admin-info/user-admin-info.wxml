@@ -8,6 +8,6 @@
     <view class="page-main">
         <ship-info wx:if="{{ id === '115' }}"></ship-info>
         <car-info wx:if="{{ id === '192' }}"></car-info>
-        <cargo-info wx:if="{{ id === '855' }}"></cargo-info>
+        <cargo-info wx:if="{{ id === '855' }}" bind:myevent="onMyEvent"></cargo-info>
     </view>
 </view>
