@@ -1,4 +1,5 @@
-import mtWharf from '../../../../models/frontEnd/mtWharf'
+import mtWharf from '../../../../models/frontEnd/mtWharf';
+import User from '../../../../models/user/user';
 Component({
     /**
      * 组件的属性列表
@@ -100,7 +101,7 @@ Component({
             id:999,
             rate:true,
             title:'船舶类型：',
-            placeholder:'其它费用',
+            placeholder:'请选择船舶类型',
             type:'default',
             arrow:true
         },{
@@ -136,7 +137,7 @@ Component({
         },{
             rate:false,
             title:'封仓要求：',
-            placeholder:'请选择封仓要求',
+            placeholder:'请输入封仓要求',
             type:'input',
             arrow:false
         },{
@@ -156,23 +157,35 @@ Component({
         }],
         pickerOneShow:false,//分组1弹框
         addressShow:false,//地区选择弹框
-        shipTypeShow:false,//船类型弹框
-
+        
         pickerListRows:[],//弹框Picker所有数据
         pickerList:[],//弹框Picker列表
         pickerItemId:null,//弹框Picker当前项ID
+        handlePickerInput:null,//弹框Picker输入框值
+        handlePickerShow:false,//弹框Picker显示开关
 
         cargoNameList:[],//货名name列表
         cargoNameRows:[],//货名列表
         cargoCode:null,//货物代码
+
+        //确认按钮
+        confirmButton:[{
+            name:'不指定',
+            active:false,
+            id:'0'
+        },{
+            name:'指定船东',
+            active:true,
+            id:'1'
+        }],
         
-        // buttonStyle:'border-top-left-radius: 10px;border-top-right-radius: 10px;',
         crumbs:[],
         crumbsTitle:'请选择',
         regionList:[],
         wharfShow:false,
+        visible: false,//提示框
         columns:[],//码头选择Picker
-        inputValue:'',
+        inputValue:'',//码头输入框
         address:[],
         addressID:null,
         addressTitle:'请选择码头',
@@ -181,27 +194,29 @@ Component({
         nameGoodsId:null,//货名ID
         number:null,//数量(吨)
         portDepartureAddress:null,//起运港详细地址
-        portDepartureId:null,//起运港Id
+        portDepartureId:0,//起运港Id
         portArrivalAddress:null,//到达港详细地址
-        portArrivalId:null,//到达港Id
+        portArrivalId:0,//到达港Id
         loadingDate :null,//装货日期(时间戳)
-        freightRate:null,//运价类型
+        freightRate:1,//运价类型
         freightAmount:null,//运价金额
         otherExpenses:null,//其它费用
-        lagPeriodType:null,//滞期约定类型 1.天 2.小时
+        lagPeriodType:1,//滞期约定类型 1.天 2.小时
         delayedLoading:null,//滞期装货(天/小时)
         delayedDischarge:null,//滞期卸货(天/小时)
         delayedCost:null,//滞期费用
-        lagPeriodType:null,//滞期约定类型 1.天 2.小时
         typeShip:null,//船舶类型文字
         mtTypeShipId:null,//船舶类型Id
         deliveryGoods:null,//货物交接
         compensation:null,//货物赔偿约定(0.否，1是)
-        lossGoods:null,//货物损耗
-        goodsDamages:null,//货物赔偿金额
+        lossGoods:0,//货物损耗
+        goodsDamages:0,//货物赔偿金额
         vesselMinimum:null,//船舶最小值
         vesselMaximum:null,//船舶最大值
         warehouse:null,//封仓要求
+        loadingMethod:null,//装货方式
+        unloadingMode:null,//卸货方式
+        remarks:null,//船东留言
     },
 
     lifetimes:{
@@ -238,7 +253,7 @@ Component({
             this.setData({
                 cargoNameShow:false,
                 wharfShow:false,
-                shipTypeShow:false
+                handlePickerShow:false
             })
         },
         // 分组1弹框
@@ -371,7 +386,6 @@ Component({
         //码头选择器
         handObtainWharf(e){
             let value = e.detail.value;
-            console.log(value)
             let index = e.detail.index;
             let regionList = this.data.regionList;
             let inputValue = this.data.inputValue;
@@ -405,6 +419,7 @@ Component({
                     console.log(address)
                     this.setData({
                         address,
+                        addressID:0,
                         addressTitle:inputValue,
                         wharfShow:false
                     })
@@ -413,6 +428,7 @@ Component({
                     console.log(address)
                     this.setData({
                         address,
+                        addressID,
                         addressTitle:value,
                         wharfShow:false
                     })
@@ -471,10 +487,9 @@ Component({
             console.log(e)
             let index = e.currentTarget.dataset.index;
             let value = e.detail.value;
-            // let infoGroupTwo = this.data.infoGroupTwo;
-            // console.log(infoGroupTwo[index].placeholder)
             let date = new Date(value);
             let loadingDate = Date.parse(date);
+            console.log(loadingDate)
             this.setData({
                 [`infoGroupTwo[${index}].placeholder`]:value,
                 loadingDate
@@ -490,18 +505,18 @@ Component({
             })
             if(index === 1){
                 if(e.detail != '1'){
-                    let freightRate = infoGroupTwo[index].list.radio[1].name;
-                    console.log(freightRate)
+                    // let freightRate = infoGroupTwo[index].list.radio[1].name;
+                    console.log(2)
                     this.setData({
                         [`infoGroupTwo[${index}].list.input[0].msg`]:'元/船',
-                        freightRate
+                        freightRate:2
                     })
                 }else{
-                    let freightRate = infoGroupTwo[index].list.radio[0].name;
-                    console.log(freightRate)
+                    // let freightRate = infoGroupTwo[index].list.radio[0].name;
+                    console.log(1)
                     this.setData({
                         [`infoGroupTwo[${index}].list.input[0].msg`]:'元/吨',
-                        freightRate
+                        freightRate:1
                     })
                 }
             }else{
@@ -617,15 +632,12 @@ Component({
                 vesselMaximum:e.detail.value
             })
         },
-
-
-
         //总弹框显示
         totalPicker(e){
             console.log(e)
             let id = e.currentTarget.dataset.id;
             this.setData({
-                shipTypeShow:true
+                handlePickerShow:true
             })
             switch(id){
                 case 999:
@@ -639,25 +651,76 @@ Component({
                     break
             }
         },
+        //总弹框输入框
+        handlePickerInput(e){
+            console.log(e)
+            this.setData({
+                handlePickerInput:e.detail
+            })
+        },
         //总弹框确认按钮
         handlePickerConfirm(e){
-            console.log(this.data.pickerItemId)
-            console.log(e)
             let pickerItemId = this.data.pickerItemId;
+            console.log(pickerItemId)
+            console.log(this.data.infoGroupThree)
+            let handlePickerInput = this.data.handlePickerInput;
             let value = e.detail.value;
             let index = e.detail.index;
-            switch(pickerItemId){
-                case 999:
-                    let pickerListRows = this.data.pickerListRows;
-                    console.log(pickerListRows[index])
-                    this.setData({
-                        typeShip:value,
-                        mtTypeShipId:pickerListRows[index].id
-                    })
-                    break
+            if(handlePickerInput != null && handlePickerInput != ''){
+                switch(pickerItemId){
+                    case 999:
+                        let pickerListRows = this.data.pickerListRows;
+                        console.log(pickerListRows[index])
+                        this.setData({
+                            typeShip:handlePickerInput,
+                            mtTypeShipId:pickerListRows[index].id,
+                            ['infoGroupTwo[4].placeholder']:handlePickerInput,
+                            handlePickerShow:false
+                        })
+                        break
+                    case 888:
+                        this.setData({
+                            loadingMethod:handlePickerInput,
+                            ['infoGroupThree[3].placeholder']:handlePickerInput,
+                            handlePickerShow:false
+                        })
+                        break
+                    case 777:
+                        this.setData({
+                            unloadingMode:handlePickerInput,
+                            ['infoGroupThree[4].placeholder']:handlePickerInput,
+                            handlePickerShow:false
+                        })
+                        break
+                }
+            }else{
+                switch(pickerItemId){
+                    case 999:
+                        let pickerListRows = this.data.pickerListRows;
+                        this.setData({
+                            typeShip:value,
+                            mtTypeShipId:pickerListRows[index].id,
+                            ['infoGroupTwo[4].placeholder']:value,
+                            handlePickerShow:false
+                        })
+                        break
+                    case 888:
+                        this.setData({
+                            loadingMethod:value,
+                            ['infoGroupThree[3].placeholder']:value,
+                            handlePickerShow:false
+                        })
+                        break
+                    case 777:
+                        this.setData({
+                            unloadingMode:value,
+                            ['infoGroupThree[4].placeholder']:value,
+                            handlePickerShow:false
+                        })
+                        break
+                }
             }
         },
-        
         //船舶类型
         frontDeskShipTypeList(id){
             let page = 1;
@@ -675,15 +738,111 @@ Component({
         },
         //装货方式
         loadingMethod(id){
+            let pickerList = ['挖机','汽车自卸','传输带','自卸船','过驳','岸吊']
             this.setData({
-                pickerItemId:id
+                pickerItemId:id,
+                pickerList
             })
         },
         //卸货方式
         unloadingMode(id){
+            let pickerList = ['挖机','汽车自卸','传输带','自卸船','过驳','岸吊']
             this.setData({
-                pickerItemId:id
+                pickerItemId:id,
+                pickerList
             })
+        },
+
+
+        
+        /**
+         * 信息分组4
+         */
+        infoGroupFour(e){
+            console.log(e)
+            this.setData({
+                remarks:e.detail.value
+            })
+        },
+
+        //添加按钮
+        handleCargoRelease(){
+            let params = {
+                Authorization:wx.getStorageSync('Authorization'),
+                nameGoodsId:this.data.nameGoodsId,
+                number:this.data.number,
+                portDepartureAddress:this.data.portDepartureAddress,
+                portDepartureId:this.data.portDepartureId,
+                portArrivalAddress:this.data.portArrivalAddress,
+                portArrivalId:this.data.portArrivalId,
+                loadingDate:this.data.loadingDate,
+                freightRate:this.data.freightRate,
+                freightAmount:this.data.freightAmount,
+                otherExpenses:this.data.otherExpenses,
+                lagPeriodType:this.data.lagPeriodType,
+                delayedLoading:this.data.delayedLoading,
+                delayedDischarge:this.data.delayedDischarge,
+                delayedCost:this.data.delayedCost,
+                lagPeriodType:this.data.lagPeriodType,
+                typeShip:this.data.typeShip,
+                mtTypeShipId:this.data.mtTypeShipId,
+                deliveryGoods:this.data.deliveryGoods,
+                compensation:this.data.compensation,
+                lossGoods:this.data.lossGoods,
+                goodsDamages:this.data.goodsDamages,
+                vesselMinimum:this.data.vesselMinimum,
+                vesselMaximum:this.data.vesselMaximum,
+                warehouse:this.data.warehouse,
+                loadingMethod:this.data.loadingMethod,
+                unloadingMode:this.data.unloadingMode,
+                remarks:this.data.remarks
+            }
+            console.log(params)
+            // if(
+            //     !this.data.nameGoodsId ||
+            //     !this.data.number || 
+            //     !this.data.portDepartureAddress || 
+            //     !this.data.portArrivalAddress || 
+            //     !this.data.loadingDate || 
+            //     !this.data.freightRate || 
+            //     !this.data.freightAmount || 
+            //     !this.data.otherExpenses || 
+            //     !this.data.lagPeriodType || 
+            //     !this.data.delayedLoading || 
+            //     !this.data.delayedDischarge || 
+            //     !this.data.delayedCost || 
+            //     !this.data.lagPeriodType ||
+            //     !this.data.typeShip || 
+            //     !this.data.deliveryGoods || 
+            //     !this.data.compensation ||
+            //     !this.data.vesselMinimum || 
+            //     !this.data.vesselMaximum || 
+            //     !this.data.warehouse || 
+            //     !this.data.loadingMethod || 
+            //     !this.data.unloadingMode || 
+            //     !this.data.remarks
+            // ){
+            //     wx.showToast({
+            //       title: '请认真填写所有资料',
+            //       duration: 2000
+            //     })
+            //     return
+            // }
+            // User.UserMtCargoSave(params).then(res => {
+            //     console.log(res)
+            // })
+            this.setData({
+                visible: true
+            });
+        },
+        handleconfirmButton(e){
+            console.log(e)
+            let index = e.currentTarget.dataset.index;
+            if(index === 0){
+                console.log(11111)
+            }else{
+                console.log('jjq')
+            }
         }
     }
 })

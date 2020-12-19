@@ -25,5 +25,8 @@ export default{
     //用户添加船舶
     userAddShip:function(data){
         return request.post(api.userAddShip, data)
+    },
+    UserMtCargoSave:function(data){
+        return request.post(api.UserMtCargoSave, data)
     }
 }

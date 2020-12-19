@@ -267,17 +267,17 @@
         <vtu-input-group>
             <vtu-input 
                 placeholder="请输入留言给船东"
-                value="" 
                 type="textarea" 
                 text-align="left" 
                 show-max-label="{{false}}" 
-                text-height="100px"></vtu-input>
+                text-height="100px"
+                bind:input="infoGroupFour"></vtu-input>
         </vtu-input-group>
     </view>
     <!-- 功能弹框 -->
     <view class="info-group">
         <van-popup
-            show="{{ shipTypeShow }}"
+            show="{{ handlePickerShow }}"
             round
             position="bottom">
             <!-- <view class="popup-title">
@@ -298,17 +298,35 @@
                     label="其它："
                     label-class="popup-input_label"
                     input-class="popup-input_text"
-                    value="{{addvalue}}"
                     type="textarea"
                     placeholder="如以上没有您需要的选项请在此输入"
                     border="{{ false }}"
-                    bind:input="addShipType"
+                    bind:input="handlePickerInput"
                     autosize/>
             </view>
         </van-popup>
     </view>
     <!-- 添加按钮 -->
     <view class="info-group">
-        <van-button type="danger" size="large" square custom-style="{{buttonStyle}}">警告按钮</van-button>
+        <van-button type="danger" 
+            size="large" 
+            square 
+            custom-style="{{buttonStyle}}"
+            bind:click="handleCargoRelease">发布货源</van-button>
     </view>
+    <van-dialog
+        use-slot
+        title="是否指定船东"
+        show="{{ visible }}"
+        show-cancel-button="{{ false }}"
+        show-confirm-button="{{ false }}">
+        <view class="button-container">
+            <view class="button-item {{ button.active === true ? 'active':'' }}" 
+                wx:for="{{ confirmButton }}"
+                wx:key="index"
+                wx:for-item="button"
+                data-index="{{ index }}"
+                bindtap="handleconfirmButton">{{button.name}}</view>
+        </view>
+    </van-dialog>
 </view>

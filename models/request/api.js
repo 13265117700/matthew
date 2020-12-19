@@ -14,6 +14,7 @@ export default {
     mtOwnerUpdate:`${PREFIX}/user/information/mtOwnerUpdate`,//车主信息修改
     myFriendsRequestFriends:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
     userAddShip:`${PREFIX}/user/ship/mtShipSave`,//用户添加船舶
+    UserMtCargoSave:`${PREFIX}/user/cargo/mtCargoSave`,//用户货源添加
 
 
     //前端API
