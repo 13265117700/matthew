@@ -5,7 +5,7 @@
         bgColor="#F0222FFF" 
         fontColor="#ffffff" 
         icon="iconfont icon-shangchuan"></vtu-navbar>
-    <view class="page-main" wx:if="{{emptyState}}">
+    <view class="page-main">
         <van-tabs animated active="{{ active }}" bind:click="onChange">
             <van-tab
                 wx:for="{{tabList}}"
@@ -13,7 +13,7 @@
                 title="{{item.title}}"
                 name="{{item.title}}">
                 <!-- <component-user-admin status="{{status}}"></component-user-admin> -->
-                <view class="see-list">
+                <view class="see-list" wx:if="{{emptyState}}">
                     <view class="see-item" wx:for="{{seeList}}" wx:key="index">
                         <view class="see-item_title">{{item.title}}</view>
                         <view class="see-item_status {{status === '1' ? 'active' : ''}}"
@@ -24,6 +24,12 @@
                         <view class="see-item_hide" data-index="{{index}}" wx:if="{{status === '2'}}"></view>
                     </view>
                 </view>
+                <van-empty
+                    wx:if="{{!emptyState}}"
+                    class="custom-image"
+                    image="/images/my/qsy@3x.png"
+                    description="暂时没有数据"
+                    />
             </van-tab>
         </van-tabs>
         <view class="addButton" bindtap="addButton">
@@ -31,10 +37,4 @@
             {{addButtonText}}
         </view>
     </view>
-    <van-empty
-        wx:if="{{!emptyState}}"
-        class="custom-image"
-        image="/images/my/qsy@3x.png"
-        description="暂时没有数据"
-        />
 </view>

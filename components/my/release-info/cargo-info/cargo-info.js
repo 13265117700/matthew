@@ -766,7 +766,67 @@ Component({
         },
 
         //添加按钮
-        handleCargoRelease(){
+        handleCargoRelease(){   
+            console.log(this.data.compensation)
+            if(this.data.compensation === 1){
+                let lossGoods = this.data.lossGoods;
+                let goodsDamages = this.data.goodsDamages;
+                if(!lossGoods || !goodsDamages){
+                    wx.showToast({
+                        title: '请输入约定赔偿',
+                        image:'/images/my/region/gb@1.png',
+                        duration: 2000
+                      })
+                      return
+                }
+            }
+            if(
+                !this.data.nameGoodsId ||
+                !this.data.number || 
+                !this.data.portDepartureAddress || 
+                !this.data.portArrivalAddress || 
+                !this.data.loadingDate || 
+                !this.data.freightRate || 
+                !this.data.freightAmount || 
+                !this.data.otherExpenses || 
+                !this.data.lagPeriodType || 
+                !this.data.delayedLoading || 
+                !this.data.delayedDischarge || 
+                !this.data.delayedCost || 
+                !this.data.lagPeriodType ||
+                !this.data.typeShip || 
+                !this.data.deliveryGoods || 
+                !this.data.compensation ||
+                !this.data.vesselMinimum || 
+                !this.data.vesselMaximum || 
+                !this.data.warehouse || 
+                !this.data.loadingMethod || 
+                !this.data.unloadingMode || 
+                !this.data.remarks
+            ){
+                wx.showToast({
+                  title: '请认真填写所有资料',
+                  image:'/images/my/region/gb@1.png',
+                  duration: 2000
+                })
+                return
+            }
+
+            this.setData({
+                visible: true
+            });
+        },
+        handleconfirmButton(e){
+            console.log(e)
+            let index = e.currentTarget.dataset.index;
+            if(index === 0){
+                this.handNospecified()
+            }else{
+                this.handspecified()
+            }
+        },
+        // 不指定船东
+        handNospecified(){
             let params = {
                 Authorization:wx.getStorageSync('Authorization'),
                 nameGoodsId:this.data.nameGoodsId,
@@ -798,51 +858,30 @@ Component({
                 remarks:this.data.remarks
             }
             console.log(params)
-            // if(
-            //     !this.data.nameGoodsId ||
-            //     !this.data.number || 
-            //     !this.data.portDepartureAddress || 
-            //     !this.data.portArrivalAddress || 
-            //     !this.data.loadingDate || 
-            //     !this.data.freightRate || 
-            //     !this.data.freightAmount || 
-            //     !this.data.otherExpenses || 
-            //     !this.data.lagPeriodType || 
-            //     !this.data.delayedLoading || 
-            //     !this.data.delayedDischarge || 
-            //     !this.data.delayedCost || 
-            //     !this.data.lagPeriodType ||
-            //     !this.data.typeShip || 
-            //     !this.data.deliveryGoods || 
-            //     !this.data.compensation ||
-            //     !this.data.vesselMinimum || 
-            //     !this.data.vesselMaximum || 
-            //     !this.data.warehouse || 
-            //     !this.data.loadingMethod || 
-            //     !this.data.unloadingMode || 
-            //     !this.data.remarks
-            // ){
-            //     wx.showToast({
-            //       title: '请认真填写所有资料',
-            //       duration: 2000
-            //     })
-            //     return
-            // }
-            // User.UserMtCargoSave(params).then(res => {
-            //     console.log(res)
-            // })
-            this.setData({
-                visible: true
-            });
+            User.UserMtCargoSave(params).then(res => {
+                console.log(res)
+                let datas = res.data.data;
+                if(datas.state === 200){
+                    wx.showToast({
+                      title: '已发布成功',
+                      duration: 2000
+                    })
+                }else{
+                    wx.showToast({
+                        title: datas.message,
+                        duration: 2000
+                    })
+                }
+            })
         },
-        handleconfirmButton(e){
-            console.log(e)
-            let index = e.currentTarget.dataset.index;
-            if(index === 0){
-                console.log(11111)
-            }else{
-                console.log('jjq')
-            }
+        // 指定船东
+        handspecified(){
+            this.setData({
+                visible: false
+            })
+            wx.navigateTo({
+              url: '/views/ship/shipList/shipList',
+            })
         }
     }
 })

@@ -18,7 +18,8 @@
     "pages/my/user-admin/user-admin-info/user-admin-info",
     "pages/ship/deliver/deliver",
     "pages/wharf/wharf",
-    "views/ship/shipList/shipList"
+    "views/ship/shipList/shipList",
+    "views/ReleaseAdmin/ReleaseAdmin"
   ],
   "window": {
     "navigationStyle": "custom",

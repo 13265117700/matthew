@@ -198,6 +198,7 @@ Page({
       }
       User.userInfo(params).then(res => {
         let user = res.data.data;
+        console.log(user)
         
         if(user.mtCargoOwner.idNumber != null){
           //货
@@ -301,9 +302,21 @@ Page({
             url: '/pages/my/user-admin/user-admin?id='+id,
           })
           break
-        case '855':
+        case '567':
+          console.log(567)
           wx.navigateTo({
-            url: '/pages/my/user-admin/user-admin-info/user-admin-info?id='+id,
+            url: '/views/ReleaseAdmin/ReleaseAdmin?id=' + id,
+          })
+          break
+        case '855':
+          console.log(855)
+          wx.navigateTo({
+            url: '/views/ReleaseAdmin/ReleaseAdmin?id=' + id,
+          })
+          break
+        case '609':
+          wx.navigateTo({
+            url: '/views/ReleaseAdmin/ReleaseAdmin?id=' + id,
           })
           break
       }

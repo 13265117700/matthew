@@ -1,0 +1,116 @@
+<view class="page-container">
+  <view class="page-navbar">
+    <vtu-navbar title="选择船东" 
+        homeStyle="cachet" 
+        bgColor="#F0222FFF"
+        fontColor="#ffffff" 
+        icon="iconfont icon-shangchuan"></vtu-navbar>
+  </view>
+  <view class="page-main">
+    <van-tabs bind:click="switchButton">
+      <van-tab 
+        wx:for="{{ statusList }}"
+        wx:key="index"
+        wx:for-item="statusItem"
+        name="{{ statusItem.status }}"
+        title="{{statusItem.title}}">
+          <view class="release-list">
+            <view class="release-item">
+              <view class="release-container">
+                <view class="release-cell">
+                  <view class="release-cell_title">
+                    <text>xxxxx船名称</text>
+                  </view>
+                  <view class="release-cell_btu">
+                    <view class="shelf" wx:if="{{ upAndDownState === 2 }}">
+                      <vtu-btn 
+                        plain="true" 
+                        type="danger" 
+                        round="true" 
+                        size="small">上架船源</vtu-btn>
+                    </view>
+                    <view class="out" wx:if="{{ upAndDownState != 2 }}">
+                      <vtu-btn 
+                        plain="true" 
+                        type="danger" 
+                        round="true" 
+                        size="small">下架船源</vtu-btn>
+                    </view>
+                    <view class="del" wx:if="{{ upAndDownState === 2 }}">
+                      <image src="/images/myFollow/sc@3x.png"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="release-cell">
+                  <view class="release-cell-container">
+                    <view class="release-cell_item">
+                      <view class="release-cell_item_hd">空船港</view>
+                      <view class="release-cell_item_bd">广州</view>
+                      <view class="release-cell_item_ft">化学品船</view>
+                    </view>
+                    <view class="release-cell_item">
+                      <view class="release-cell_item_hd">空船期</view>
+                      <view class="release-cell_item_bd">2020-03-25  ±1天</view>
+                      <view class="release-cell_item_ft">18000吨</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+            <view class="release-item">
+              <view class="release-image">
+                <image src="/images/my/logo@3x.png"></image>
+              </view>
+              <view class="release-container">
+                <view class="release-cell">
+                  <view class="release-cell_title">
+                    <text>名称</text><text class="number">31890.90吨</text>
+                  </view>
+                  <view class="release-cell_btu">
+                    <view class="shelf" wx:if="{{ upAndDownState === 2 }}">
+                      <vtu-btn 
+                        plain="true" 
+                        type="danger" 
+                        round="true" 
+                        size="small">上架船源</vtu-btn>
+                    </view>
+                    <view class="out" wx:if="{{ upAndDownState != 2 }}">
+                      <vtu-btn 
+                        plain="true" 
+                        type="danger" 
+                        round="true" 
+                        size="small">下架船源</vtu-btn>
+                    </view>
+                    <view class="del" wx:if="{{ upAndDownState === 2 }}">
+                      <image src="/images/myFollow/sc@3x.png"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="release-cell">
+                  <view class="release-cell-container">
+                    <view class="release-cell_item">
+                      <view class="start">
+                        <view class="start-icon">始</view>
+                        <view class="start-subtitle">广州黄埔装货港</view>
+                      </view>
+                      <view class="arrow">
+                        <image class="arrow-img" src="/images/myFollow/item-info_img2.png"></image>
+                      </view>
+                      <view class="end">
+                        <view class="end-icon">终</view>
+                        <view class="end-subtitle">珠海大湾区目的港</view>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </van-tab>
+    </van-tabs>
+    <view class="addButton" bindtap="addButton">
+        <view class="addButton-Semicircle"></view>
+        添加船源
+    </view>
+  </view>
+</view>

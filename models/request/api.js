@@ -15,6 +15,7 @@ export default {
     myFriendsRequestFriends:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
     userAddShip:`${PREFIX}/user/ship/mtShipSave`,//用户添加船舶
     UserMtCargoSave:`${PREFIX}/user/cargo/mtCargoSave`,//用户货源添加
+    userAppointFriends:`${PREFIX}/user/appoint/appointFriends`,//船东\货主接单查询
 
 
     //前端API

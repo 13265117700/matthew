@@ -40,9 +40,10 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        this.myFriendsRequestFriends()
+        this.DiscriminatingController()
     },
-
+    
+    
     //修改导航栏标题
     navbarTitle:function(options){
         this.setData({
@@ -64,6 +65,19 @@ Page({
             })
         }
     },
+    //区分船、货、车控制器
+    DiscriminatingController(){
+        console.log(this.data.id)
+        let id = this.data.id;
+        switch(id){
+            case '115':
+                this.myFriendsRequestFriends();
+                break
+            case '192':
+                this.vehicleAdminList();
+                break
+        }
+    },
 
     //获取船列表
     myFriendsRequestFriends(){
@@ -72,15 +86,24 @@ Page({
         let rows = 10;
         let params = {Authorization,page,rows}
         User.myFriendsRequestFriends(params).then(res => {
-            console.log(res)
             let datas = res.data.data;
+            console.log(datas)
             if(datas.total === 0){
-                // this.setData({
-                //     emptyState:false
-                // })
+                this.setData({
+                    emptyState:false
+                })
                 console.log(this.data.emptyState)
+            }else{
+                console.log(datas)
+                this.setData({
+                    seeList:datas.rows
+                })
             }
         })
+    },
+    //获取车辆列表
+    vehicleAdminList(){
+
     },
 
     onChange(event) {
