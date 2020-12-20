@@ -1,10 +1,12 @@
 <view class="page-container">
-    <vtu-navbar 
+    <view class="page-navbar">
+        <vtu-navbar 
         title="{{navbarTitle}}" 
         homeStyle="cachet" 
         bgColor="#F0222FFF" 
         fontColor="#ffffff" 
         icon="iconfont icon-shangchuan"></vtu-navbar>
+    </view>
     <view class="page-main">
         <ship-info wx:if="{{ id === '115' }}"></ship-info>
         <car-info wx:if="{{ id === '192' }}"></car-info>

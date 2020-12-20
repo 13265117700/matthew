@@ -1,5 +1,12 @@
 <view class="page-container">
-  <vtu-navbar title="个人设置" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
+  <view class="page-navbar">
+    <vtu-navbar 
+      title="个人设置" 
+      homeStyle="cachet" 
+      bgColor="#F0222FFF" 
+      fontColor="#ffffff" 
+      icon="iconfont icon-shangchuan"></vtu-navbar>
+  </view>
   <view class="user-setUp">
     <view class="user-setUp_list">
       <view class="user-setUp_item"

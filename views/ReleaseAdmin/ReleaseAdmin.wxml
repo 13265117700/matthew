@@ -1,6 +1,6 @@
 <view class="page-container">
   <view class="page-navbar">
-    <vtu-navbar title="选择船东" 
+    <vtu-navbar title="{{ navBarTitle }}" 
         homeStyle="cachet" 
         bgColor="#F0222FFF"
         fontColor="#ffffff" 
@@ -15,7 +15,7 @@
         name="{{ statusItem.status }}"
         title="{{statusItem.title}}">
           <view class="release-list">
-            <view class="release-item">
+            <view class="release-item" wx:if="{{ id === '567' }}">
               <view class="release-container">
                 <view class="release-cell">
                   <view class="release-cell_title">
@@ -57,7 +57,7 @@
                 </view>
               </view>
             </view>
-            <view class="release-item">
+            <view class="release-item" wx:if="{{ id === '855' }}">
               <view class="release-image">
                 <image src="/images/my/logo@3x.png"></image>
               </view>
@@ -105,12 +105,54 @@
                 </view>
               </view>
             </view>
+            <view class="release-item" wx:if="{{ id === '609' }}">
+              <view class="release-container">
+                <view class="release-cell">
+                  <view class="release-cell_title">
+                    <text>xxxxx船名称</text>
+                  </view>
+                  <view class="release-cell_btu">
+                    <view class="shelf" wx:if="{{ upAndDownState === 2 }}">
+                      <vtu-btn 
+                        plain="true" 
+                        type="danger" 
+                        round="true" 
+                        size="small">上架船源</vtu-btn>
+                    </view>
+                    <view class="out" wx:if="{{ upAndDownState != 2 }}">
+                      <vtu-btn 
+                        plain="true" 
+                        type="danger" 
+                        round="true" 
+                        size="small">下架船源</vtu-btn>
+                    </view>
+                    <view class="del" wx:if="{{ upAndDownState === 2 }}">
+                      <image src="/images/myFollow/sc@3x.png"></image>
+                    </view>
+                  </view>
+                </view>
+                <view class="release-cell">
+                  <view class="release-cell-container">
+                    <view class="release-cell_item">
+                      <view class="release-cell_item_hd">空船港</view>
+                      <view class="release-cell_item_bd">广州</view>
+                      <view class="release-cell_item_ft">化学品船</view>
+                    </view>
+                    <view class="release-cell_item">
+                      <view class="release-cell_item_hd">空船期</view>
+                      <view class="release-cell_item_bd">2020-03-25  ±1天</view>
+                      <view class="release-cell_item_ft">18000吨</view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
           </view>
         </van-tab>
     </van-tabs>
     <view class="addButton" bindtap="addButton">
         <view class="addButton-Semicircle"></view>
-        添加船源
+        {{ addButton }}
     </view>
   </view>
 </view>

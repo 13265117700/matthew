@@ -1,6 +1,5 @@
 {
   "usingComponents": {
-    "component-user-admin": "/components/my/add-info/user-admin",
     "van-empty": "/miniprogram_npm/@vant/weapp/empty/index"
   }
 }

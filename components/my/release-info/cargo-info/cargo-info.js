@@ -866,10 +866,8 @@ Component({
                       title: '已发布成功',
                       duration: 2000
                     })
-                }else{
-                    wx.showToast({
-                        title: datas.message,
-                        duration: 2000
+                    wx.navigateBack({
+                        data:1
                     })
                 }
             })

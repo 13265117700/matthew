@@ -1,5 +1,4 @@
-// pages/my/userAdmin/userAdmin.js
-import User from '../../../models/user/user'
+import User from '../../models/user/user'
 Page({
 
     /**
@@ -121,7 +120,7 @@ Page({
         let id = this.data.id;
         console.log(id)
         wx.navigateTo({
-          url: '/pages/my/user-admin/user-admin-info/user-admin-info?id=' + id,
+          url: '/views/ResourceAdd/ResourceAdd?id=' + id,
         })
     }
 })

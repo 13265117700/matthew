@@ -261,7 +261,7 @@ Page({
   userSetUp:function(){
     console.log('用户设置')
     wx.navigateTo({
-      url: '/pages/my/userSetUp/userSetUp',
+      url: '/views/UserSettings/UserSettings',
     })
   },
   // 人工智能服务
@@ -294,12 +294,12 @@ Page({
           break
         case '115':
           wx.navigateTo({
-            url: '/pages/my/user-admin/user-admin?id='+id,
+            url: '/views/ResourcesAdmin/ResourcesAdmin?id='+id,
           })
           break
         case '192':
           wx.navigateTo({
-            url: '/pages/my/user-admin/user-admin?id='+id,
+            url: '/views/ResourcesAdmin/ResourcesAdmin?id='+id,
           })
           break
         case '567':
@@ -409,7 +409,7 @@ Page({
       return
     }else{
       wx.navigateTo({
-        url: '/pages/my/userIdent/userIdent?idenID='+idenID+'&identity='+identity,
+        url: '/views/UserAuthentication/UserAuthentication?idenID='+idenID+'&identity='+identity,
       })
     }
   }

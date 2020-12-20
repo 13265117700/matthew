@@ -1,5 +1,4 @@
-// pages/my/userIdentit/audit/audit.js
-import User from '../../../../models/user/user'
+import User from '../../models/user/user'
 Page({
     data: {
         idenID:null,
@@ -7,22 +6,8 @@ Page({
         imageUrl:null,
         describe:null,
         statusText:null,
-        trialList:{
-            // name:'刘佩佩',
-            // phone:'186****3355',
-            // iden:'4897238********5236',
-            // succ:'698754231478971256',
-            // enterp:'企业',
-            // IDphoto:'已上传',
-            // BsLs:'已上传',
-            // RTP:'已上传',
-            // describe:'不通过原因描述不通过原因描述不通过 原因描述'
-        }
+        trialList:{}
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
         console.log(options.idenID)
         let Authorization = wx.getStorageSync('Authorization');

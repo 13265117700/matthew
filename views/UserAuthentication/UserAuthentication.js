@@ -1,7 +1,7 @@
-const { $Toast } = require('../../../miniprogram_npm/iview-weapp/base/index');
-import upload from './../../../models/upload/upload';
-import User from './../../../models/user/user';
-import user from './../../../models/user/user';
+const { $Toast } = require('../../miniprogram_npm/iview-weapp/base/index');
+import upload from '../../models/upload/upload';
+import User from '../../models/user/user';
+import user from '../../models/user/user';
 
 Page({
   data: {
@@ -188,7 +188,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
+              url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + idenID,
             })
           }
         })
@@ -213,7 +213,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
+              url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + idenID,
             })
           }
         })
@@ -254,7 +254,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
+              url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + idenID,
             })
           }
         })
@@ -279,7 +279,7 @@ Page({
           if(res.statusCode === 200){
             $Toast({content: '提交成功',type: 'success'})
             wx.navigateTo({
-              url: '/pages/my/userIdent/audit/audit?idenID=' + idenID,
+              url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + idenID,
             })
           }
         })

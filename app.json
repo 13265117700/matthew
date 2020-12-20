@@ -10,16 +10,16 @@
     "components/myFollow/vehicle/vehicle",
     "components/myFollow/ship/ship",
     "components/myFollow/resources/resources",
-    "pages/my/userSetUp/userSetUp",
-    "pages/my/userSetUp/userSetUpItem/userSetUpItem",
-    "pages/my/userIdent/userIdent",
-    "pages/my/userIdent/audit/audit",
-    "pages/my/user-admin/user-admin",
-    "pages/my/user-admin/user-admin-info/user-admin-info",
     "pages/ship/deliver/deliver",
     "pages/wharf/wharf",
     "views/ship/shipList/shipList",
-    "views/ReleaseAdmin/ReleaseAdmin"
+    "views/ReleaseAdmin/ReleaseAdmin",
+    "views/ResourcesAdmin/ResourcesAdmin",
+    "views/ResourceAdd/ResourceAdd",
+    "views/UserAuthentication/UserAuthentication",
+    "views/UserAuthenticationInfo/UserAuthenticationInfo",
+    "views/UserSettings/UserSettings",
+    "views/UserSettingsItem/UserSettingsItem"
   ],
   "window": {
     "navigationStyle": "custom",
