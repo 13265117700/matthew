@@ -1,0 +1,12 @@
+<view class="page-container">
+    <view class="page-navbar">
+        <vtu-navbar title="{{ navBarTitle }}" 
+            homeStyle="cachet" 
+            bgColor="#F0222FFF"
+            fontColor="#ffffff" 
+            icon="iconfont icon-shangchuan"></vtu-navbar>
+    </view>
+    <view class="page-main">
+        <address-selection></address-selection>
+    </view>
+</view>

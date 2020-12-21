@@ -1,7 +1,8 @@
+/* views/AddressOfThePort/AddressOfThePort.wxss */
 .page-container{
+    height: 100%;
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 .page-main{
     flex: 1;

@@ -1,7 +1,7 @@
 // components/my/user-admin/user-admin-info/user-admin-info.js
-import upload from "../../../../models/upload/upload";
-import mtWharf from "../../../../models/frontEnd/mtWharf";
-import User from "../../../../models/user/user"
+import upload from "../../../models/upload/upload";
+import mtWharf from "../../../models/frontEnd/mtWharf";
+import User from "../../../models/user/user"
 Component({
     /**
      * 组件的属性列表

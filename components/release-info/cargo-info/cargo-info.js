@@ -1,5 +1,5 @@
-import mtWharf from '../../../../models/frontEnd/mtWharf';
-import User from '../../../../models/user/user';
+import mtWharf from '../../../models/frontEnd/mtWharf';
+import User from '../../../models/user/user';
 Component({
     /**
      * 组件的属性列表

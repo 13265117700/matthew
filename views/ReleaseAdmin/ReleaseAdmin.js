@@ -83,7 +83,7 @@ Page({
     let id = this.data.id;
     console.log(id)
     wx.navigateTo({
-      url: '/pages/my/user-admin/user-admin-info/user-admin-info?id=' + id,
+      url: '/views/ResourceAdd/ResourceAdd?id=' + id,
     })
   }
 })

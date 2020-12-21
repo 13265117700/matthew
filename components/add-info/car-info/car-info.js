@@ -1,5 +1,5 @@
 // components/my/user-admin/car-info/car-info.js
-import upload from "../../../../models/upload/upload";
+import upload from "../../../models/upload/upload";
 Component({
     /**
      * 组件的属性列表
