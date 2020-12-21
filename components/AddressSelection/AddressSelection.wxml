@@ -10,10 +10,10 @@
             data-index="{{ index }}"
             data-id="{{ addressNameItem.id }}"
             bindtap="clickCrumbs">{{ addressNameItem.name }}</view>
-        <view class="address-crumbs_item">{{ crumbsLength === 3 ? '请选择码头':'请选择地区'}}</view>
+        <view class="address-crumbs_item" wx:if="{{ crumbsLength < 4 }}">请选择地区</view>
     </view>
     <view class="address-list">
-        <view class="address-item" wx:if="{{ addressName.length < 3 }}"
+        <view class="address-item" wx:if="{{ addressName.length < 4 }}"
             wx:for="{{ address }}"
             wx:key="index"
             wx:for-item="addressItem"
@@ -27,7 +27,7 @@
                 <text>{{ addressItem.name }}</text>
             </view>
         </view>
-        <van-cell-group wx:if="{{ addressName.length >= 3 }}">
+        <van-cell-group wx:if="{{ addressName.length >= 4 }}">
             <van-cell title="{{ cellValue }}" border="{{ false }}" custom-class="region-cell" is-link bind:click="getWharfList" />
         </van-cell-group>
         <van-popup

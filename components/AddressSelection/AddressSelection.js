@@ -49,13 +49,22 @@ Component({
             let rows = 10;
             let sortInt = 1;
             let params = { pId,page,rows,sortInt }
-            console.log(address)
-            if(addressName.length < 3){
-                addressName.push(address[index]);
+            if(addressName.length <= 3){
+                if(addressName.length === 2){
+                    addressName.push(address[index],{name:'请选择码头'});
+                    console.log(addressName)
+                }else{
+                    if(addressName.length === 3){
+                        console.log(addressName)
+                        addressName.splice(2,1,address[index])
+                        addressName.push({name:'请选择码头'})
+                    }else{
+                        addressName.push(address[index]);
+                    }
+                }
                 addressName.forEach(a => a.active = false);
                 address.forEach(b => b.active = false)
                 address[index].active = !address[index].active;
-                console.log(addressName)
                 mtWharf.frontDeskWharfList(params).then(res => {
                     let rows = res.data.data.rows;
                     let pro =[]
@@ -129,30 +138,64 @@ Component({
         clickCrumbs(e){
             let addressName = this.data.addressName;
             let number = e.currentTarget.dataset.index;
-            console.log(number)
-            if(number >= 0 && number < 2){
-                let id = e.currentTarget.dataset.id;
-                console.log(id)
-                let index = e.currentTarget.dataset.index;
-                let childID = addressName[index+1].id;
+            let index = number-1;
+            if(index < 0){
+                let pId = 0;
+                let page = 1;
+                let rows = 10;
+                let sortInt = 1;
+                let params = { pId,page,rows,sortInt };
+                mtWharf.frontDeskWharfList(params).then(res => {
+                    let rows = res.data.data.rows;
+                    let address = [];
+                    rows.forEach(data => {
+                        if(data.id === addressName[number].id){
+                            data.active = true
+                        }else{
+                            data.active = false
+                        }
+                        address.push(data)
+                    })
+                    
+                    this.setData({
+                        address,
+                        addressName:[],
+                        crumbsLength:0
+                    })
+                })
+            }else if(number === 1){
                 let mtWharfList = addressName[index].mtWharfList;
-                let pro = [];
                 mtWharfList.forEach(data => {
-                    if(data.id === childID){
+                    if(data.id === addressName[number].id){
                         data.active = true
                     }else{
                         data.active = false
                     }
-                    pro.push(data)
                 })
-                console.log(pro)
-                if(number === 0){
-                    // addressName.splice(2,2)
-                    console.log(addressName)
-                }else if(number === 1){
-                    addressName.splice(2,1)
-                    console.log(addressName)
-                }
+                addressName.splice(2,1)
+                addressName.splice(2,1)
+                console.log(1231)
+                this.setData({
+                    address:mtWharfList,
+                    addressName,
+                    crumbsLength:addressName.length
+                })
+            }else if(number === 2){
+                let mtWharfList = addressName[index].mtWharfList;
+                mtWharfList.forEach(data => {
+                    if(data.id === addressName[number].id){
+                        data.active = true
+                    }else{
+                        data.active = false
+                    }
+                })
+                addressName.splice(3,1)
+                this.setData({
+                    address:mtWharfList,
+                    addressName,
+                    crumbsLength:addressName.length
+                })
+                console.log(mtWharfList)
             }
         },
 

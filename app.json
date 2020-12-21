@@ -1,6 +1,5 @@
 {
     "pages": [
-        "views/AddressOfThePort/AddressOfThePort",
         "pages/index/index",
         "pages/logs/logs",
         "pages/myFollow/myFollow",
@@ -19,8 +18,8 @@
         "views/UserAuthentication/UserAuthentication",
         "views/UserAuthenticationInfo/UserAuthenticationInfo",
         "views/UserSettings/UserSettings",
-        "views/UserSettingsItem/UserSettingsItem"
-        
+        "views/UserSettingsItem/UserSettingsItem",
+        "views/AddressOfThePort/AddressOfThePort"
     ],
     "window": {
         "navigationStyle": "custom",
