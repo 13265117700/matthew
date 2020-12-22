@@ -1,75 +1,55 @@
 import User from '../../models/user/user'
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         id:null,
         navbarTitle:'船舶管理',
         addButtonText:'添加船舶',
-        active: 1,
+        tabsStatus:0,
         tabsList:[{
-            id:5000001,
+            status:0,
             title:'审核中'
         },{
-            id:5000002,
+            status:1,
             title:'已通过'
         },{
-            id:5000003,
+            status:2,
             title:'未通过'
         }],
-        status:null,
-        emptyState:true,
-        seeList:[{
-            title:'运输舰'
-        },{
-            title:'驱逐舰'
-        },{
-            title:'巡航舰'
-        }]
+        resourcesList:[],//资源列表
+        resourcesShow:false,
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
-        console.log(options)
-        this.navbarTitle(options)
+        this.setData({
+            id:options.id
+        })
+        
     },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow: function () {
+        this.navbarTitle()
         this.DiscriminatingController()
     },
     
-    
     //修改导航栏标题
-    navbarTitle:function(options){
-        this.setData({
-            status:options.status
-        })
-        let id = options.id;
-        if(id === '115'){
-            this.setData({
-                id,
-                navbarTitle:'船舶管理',
-                addButtonText:'添加船舶'
-            })
-            return
-        }else{
-            this.setData({
-                id,
-                navbarTitle:'车辆管理',
-                addButtonText:'添加车辆'
-            })
+    navbarTitle:function(){
+        let id = this.data.id;
+        switch(id){
+            case '115':
+                this.setData({
+                    navbarTitle:'船舶管理',
+                    addButtonText:'添加船舶'
+                })
+                break
+            case '192':
+                this.setData({
+                    navbarTitle:'车辆管理',
+                    addButtonText:'添加车辆'
+                })
+                break
         }
     },
+
     //区分船、货、车控制器
     DiscriminatingController(){
-        console.log(this.data.id)
         let id = this.data.id;
         switch(id){
             case '115':
@@ -80,10 +60,13 @@ Page({
                 break
         }
     },
-    handleGetState(e){
-        console.log(e)
+    //获取资源
+    handleGetResources(e){
+        let tabsStatus = e.detail.name;
+        this.setData({
+            tabsStatus
+        })
     },
-
     //获取船列表
     myFriendsRequestFriends(){
         let Authorization = wx.getStorageSync('Authorization');
@@ -92,36 +75,96 @@ Page({
         let params = {Authorization,page,rows}
         User.myFriendsRequestFriends(params).then(res => {
             let datas = res.data.data;
-            console.log(datas)
-            if(datas.total === 0){
-                this.setData({
-                    emptyState:false
-                })
-                console.log(this.data.emptyState)
-            }else{
-                console.log(datas)
-                this.setData({
-                    seeList:datas.rows
-                })
-            }
+            let resourcesList = [{
+                id:7000001,
+                status:0,
+                title:'运输舰'
+            },{
+                id:7000002,
+                status:1,
+                title:'驱逐舰'
+            },{
+                id:7000003,
+                status:2,
+                title:'巡航舰'
+            },{
+                id:7000003,
+                status:2,
+                title:'民船'
+            },{
+                id:7000003,
+                status:2,
+                title:'渔船'
+            },{
+                id:7000001,
+                status:0,
+                title:'快艇'
+            },]
+            this.setData({
+                resourcesList
+            })
+            console.log(resourcesList)
+            // if(datas.total === 0){
+            //     this.setData({
+            //         emptyState:false
+            //     })
+            //     console.log(this.data.emptyState)
+            // }else{
+            //     console.log(datas)
+            //     this.setData({
+            //         seeList:datas.rows
+            //     })
+            // }
         })
     },
     //获取车辆列表
     vehicleAdminList(){
-
-    },
-
-    onChange(event) {
-        // console.log(event.detail.index)
+        let resourcesList = [{
+            id:6000001,
+            status:0,
+            title:'粤B 888888'
+        },{
+            id:6000002,
+            status:1,
+            title:'浙G 965413'
+        },{
+            id:6000003,
+            status:2,
+            title:'粤B 369874'
+        },{
+            id:6000003,
+            status:2,
+            title:'粤A 369874'
+        },{
+            id:6000003,
+            status:2,
+            title:'粤C 369874'
+        },{
+            id:6000002,
+            status:1,
+            title:'浙B 965413'
+        },{
+            id:6000002,
+            status:1,
+            title:'浙M 965413'
+        }]
         this.setData({
-            status:event.detail.index,
+            resourcesList
         })
-        
-        wx.showToast({
-            title: `切换到标签 ${event.detail.name}`,
-            icon: 'none',
-        });
     },
+
+    getResourcesItem(e){
+        console.log(e)
+        this.setData({
+            resourcesShow:true
+        })
+    },
+    onClosePopup(){
+        this.setData({
+            resourcesShow:false
+        })
+    },
+
     addButton(){
         let id = this.data.id;
         console.log(id)

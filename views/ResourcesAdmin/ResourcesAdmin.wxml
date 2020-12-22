@@ -8,33 +8,49 @@
         icon="iconfont icon-shangchuan"></vtu-navbar>
   </view>
   <view class="page-main">
-    <van-tabs bind:click="handleGetState">
-      <van-tab
-        wx:for="{{ tabsList }}"
-        wx:key="index"
-        wx:for-item="tabsItem"
-        title="{{tabsItem.title}}"
-        name="{{tabsItem.id}}">
-        <view class="see-list" wx:if="{{emptyState}}">
-            <view class="see-item" wx:for="{{seeList}}" wx:key="index">
-                <view class="see-item_title">{{item.title}}</view>
-                <view class="see-item_status {{status === '1' ? 'active' : ''}}"
-                    wx:if="{{status != 0}}">{{status === '1' ? '已通过' : '查看原因'}}</view>
-                <view class="see-item_tag">
+    <view class="page-tabs">
+      <van-tabs bind:click="handleGetResources">
+        <van-tab
+          wx:for="{{ tabsList }}"
+          wx:key="index"
+          wx:for-item="tabsItem"
+          title="{{tabsItem.title}}"
+          name="{{tabsItem.status}}">
+          <view class="resources-list">
+            <view class="resources-item" 
+              wx:for="{{ resourcesList }}"
+              wx:key="index"
+              wx:for-item="resourcesItem"
+              data-id="{{ resourcesItem.id }}"
+              wx:if="{{ resourcesItem.status === tabsStatus }}"
+              bindtap="getResourcesItem">
+              <view class="resources-title">{{ resourcesItem.title }}</view>
+              <view class="resources-describe" wx:if="{{ tabsStatus != 0 }}">查看原因</view>
+              <view class="resources-icon">
                 <image src="/images/my/ck@3x.png"></image>
-                </view>
-                <view class="see-item_hide" data-index="{{index}}" wx:if="{{status === '2'}}"></view>
+              </view>
             </view>
+          </view>
+          <!-- <view class="emptyData">
+            <van-empty
+              wx:if="{{!emptyState}}"
+              class="custom-image"
+              image="/images/my/qsy@3x.png"
+              description="暂时没有数据"/>
+          </view> -->
+        </van-tab>
+      </van-tabs>
+      <van-popup
+        show="{{ resourcesShow }}"
+        custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;"
+        round
+        position="right">
+        <view class="popup-close" bindtap="onClosePopup">
+            <image src="/images/my/region/gb@1.png"></image>
         </view>
-        <view class="emptyData">
-          <van-empty
-            wx:if="{{!emptyState}}"
-            class="custom-image"
-            image="/images/my/qsy@3x.png"
-            description="暂时没有数据"/>
-        </view>
-      </van-tab>
-    </van-tabs>
+        <resources-info></resources-info>
+      </van-popup>
+    </view>
     <view class="addButton" bindtap="addButton">
         <view class="addButton-Semicircle"></view>
         {{addButtonText}}
