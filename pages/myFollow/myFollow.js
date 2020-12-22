@@ -6,39 +6,23 @@ Page({
      */
     data: {
         activeIndex:0,
-        tabsList:[
-            {
-                pagePath:'/components/myFollow/vehicle/vehicle',
-                title:'关注车辆'
-            },
-            {
-                pagePath:'/components/myFollow/ship/ship',
-                title:'关注船源'
-            },
-            {
-                pagePath:'/components/myFollow/resources/resources',
-                title:'关注货源'
-            }
-        ]
+        tabsList:[{
+            id:1011001,
+            title:'关注车辆',
+        },{
+            id:1011002,
+            title:'关注船源',
+        },{
+            id:1011003,
+            title:'关注货源',
+        }],
+        id:1011001,
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
 
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow: function () {
         if(typeof this.getTabBar === "function" && this.getTabBar()){
             this.getTabBar().setData({
@@ -47,45 +31,17 @@ Page({
         }
     },
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    },
-
-    onChange(e){
+    onClickTabs(e){
+        console.log(e)
         let index = e.detail.index;
+        let name = e.detail.name;
+        let title = e.detail.title;
         this.setData({
-            activeIndex:index
+            id:name
         })
+        // let index = e.detail.index;
+        // this.setData({
+        //     activeIndex:index
+        // })
     }
 })

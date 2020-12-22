@@ -1,9 +1,0 @@
-/* views/AddressOfThePort/AddressOfThePort.wxss */
-.page-container{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.page-main{
-    flex: 1;
-}

@@ -8,13 +8,13 @@
         icon="iconfont icon-shangchuan"></vtu-navbar>
   </view>
   <view class="page-main">
-    <van-tabs bind:click="switchButton">
+    <van-tabs bind:click="handleGetState">
       <van-tab
-        wx:for="{{tabList}}"
+        wx:for="{{ tabsList }}"
         wx:key="index"
-        title="{{item.title}}"
-        name="{{item.title}}">
-        <!-- <component-user-admin status="{{status}}"></component-user-admin> -->
+        wx:for-item="tabsItem"
+        title="{{tabsItem.title}}"
+        name="{{tabsItem.id}}">
         <view class="see-list" wx:if="{{emptyState}}">
             <view class="see-item" wx:for="{{seeList}}" wx:key="index">
                 <view class="see-item_title">{{item.title}}</view>

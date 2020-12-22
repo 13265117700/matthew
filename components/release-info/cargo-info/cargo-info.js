@@ -15,37 +15,40 @@ Component({
         buttonStyle:'border-top-left-radius: 10px;border-top-right-radius: 10px;',
         //信息分组1
         infoGroupOne:[{
+            id:1000001,
             rate:true,
             title:'货名：',
             placeholder:'请选择货名',
             type:'default',
             arrow:true
         },{
+            id:1000002,
             rate:false,
             title:'货物代码：',
             placeholder:'货物分类代码自动生成',
             type:'default',
             arrow:false
         },{
+            id:1000003,
             rate:true,
             title:'数量(吨)：',
             placeholder:'请输入吨数',
             type:'input',
             arrow:false,
         },{
+            id:1000004,
             rate:true,
             title:'起运港：',
             placeholder:'请选择装货地',
             type:'default',
-            arrow:true,
-            id:147741
+            arrow:true
         },{
+            id:1000005,
             rate:true,
             title:'达到港：',
             placeholder:'请选择目的港',
             type:'default',
-            arrow:true,
-            id:123321
+            arrow:true
         }],
         //信息分组2
         infoGroupTwo:[{
@@ -155,7 +158,8 @@ Component({
             type:'default',
             arrow:true
         }],
-        pickerOneShow:false,//分组1弹框
+        infoGroupOneIndexID:null,//分组1当前项ID
+
         addressShow:false,//地区选择弹框
         
         pickerListRows:[],//弹框Picker所有数据
@@ -179,40 +183,33 @@ Component({
             id:'1'
         }],
         
-        crumbs:[],
-        crumbsTitle:'请选择',
-        regionList:[],
-        wharfShow:false,
         visible: false,//提示框
-        columns:[],//码头选择Picker
-        inputValue:'',//码头输入框
-        address:[],
-        addressID:null,
-        addressTitle:'请选择码头',
-        infoGroupOneIndex:null,//分组1弹框当前项
+        specifiedShow:false,//指定船东弹框
+
+        // infoGroupOneIndex:null,//分组1弹框当前项
 
         nameGoodsId:null,//货名ID
-        number:null,//数量(吨)
+        number:0,//数量(吨)
         portDepartureAddress:null,//起运港详细地址
         portDepartureId:0,//起运港Id
         portArrivalAddress:null,//到达港详细地址
         portArrivalId:0,//到达港Id
         loadingDate :null,//装货日期(时间戳)
         freightRate:1,//运价类型
-        freightAmount:null,//运价金额
-        otherExpenses:null,//其它费用
+        freightAmount:0,//运价金额
+        otherExpenses:0,//其它费用
         lagPeriodType:1,//滞期约定类型 1.天 2.小时
-        delayedLoading:null,//滞期装货(天/小时)
-        delayedDischarge:null,//滞期卸货(天/小时)
+        delayedLoading:0,//滞期装货(天/小时)
+        delayedDischarge:0,//滞期卸货(天/小时)
         delayedCost:null,//滞期费用
         typeShip:null,//船舶类型文字
         mtTypeShipId:null,//船舶类型Id
         deliveryGoods:null,//货物交接
-        compensation:null,//货物赔偿约定(0.否，1是)
+        compensation:1,//货物赔偿约定(0.否，1是)
         lossGoods:0,//货物损耗
         goodsDamages:0,//货物赔偿金额
-        vesselMinimum:null,//船舶最小值
-        vesselMaximum:null,//船舶最大值
+        vesselMinimum:0,//船舶最小值
+        vesselMaximum:0,//船舶最大值
         warehouse:null,//封仓要求
         loadingMethod:null,//装货方式
         unloadingMode:null,//卸货方式
@@ -221,7 +218,6 @@ Component({
 
     lifetimes:{
         attached:function(){
-            // this.frontDeskWharfList();
         }
     },
 
@@ -229,6 +225,30 @@ Component({
      * 组件的方法列表
      */
     methods: {
+        onMyEvent(e){
+            console.log(e)
+            let detailedAddress = e.detail.detailedAddress;
+            let propID = e.detail.propID;
+            let wharfID = e.detail.wharfID;
+            if(detailedAddress != null){
+                if(propID === '1000004'){
+                    this.setData({
+                        ['infoGroupOne[3].placeholder']:detailedAddress,
+                        portDepartureAddress:detailedAddress,
+                        portDepartureId:wharfID,
+                        addressShow:false
+                    })
+                }else if(propID === '1000005'){
+                    this.setData({
+                        ['infoGroupOne[4].placeholder']:detailedAddress,
+                        portArrivalAddress:detailedAddress,
+                        portArrivalId:wharfID,
+                        addressShow:false
+                    })
+                }
+            }
+            console.log(this.data.addressShow)
+        },
 
         /**
          * 信息分组1
@@ -252,13 +272,15 @@ Component({
         onClose(){
             this.setData({
                 cargoNameShow:false,
-                wharfShow:false,
                 handlePickerShow:false
             })
         },
         // 分组1弹框
         GroupOneClick(e){
+            console.log(e)
             let index = e.currentTarget.dataset.index;
+            let id = e.currentTarget.dataset.id;
+            console.log(id)
             switch(index){
                 case 0:
                     this.setData({
@@ -269,24 +291,18 @@ Component({
                 case 3:
                     this.setData({
                         addressShow:true,
-                        infoGroupOneIndex:index,
-                        crumbs:[],
-                        regionList:[],
-                        addressTitle:'请选择码头',
+                        infoGroupOneIndexID:id
+                        // infoGroupOneIndex:index,
                     })
                     this.triggerEvent('myevent','选择装货港')
-                    this.frontDeskWharfList();
                     break
                 case 4:
                     this.setData({
                         addressShow:true,
-                        infoGroupOneIndex:index,
-                        crumbs:[],
-                        regionList:[],
-                        addressTitle:'请选择码头',
+                        infoGroupOneIndexID:id
+                        // infoGroupOneIndex:index,
                     })
                     this.triggerEvent('myevent','选择目的港')
-                    this.frontDeskWharfList();
                     break
             }
         },
@@ -310,172 +326,12 @@ Component({
                 number:e.detail.value
             })
         }, 
-        //获取地区码头
-        frontDeskWharfList(){
-            let pId = 0;
-            let page = 1;
-            let rows = 10;
-            let sortInt = 1;
-            let params = { pId,page,rows,sortInt };
-            mtWharf.frontDeskWharfList(params).then(res => {
-                let region = res.data.data.rows;
-                let pro = [];
-                region.forEach(data => {
-                    console.log(data)
-                    data.active = false
-                    pro.push(data)
-                });
-                console.log(pro)
-                this.setData({
-                    regionList:pro
-                })
-            })
-        },
-        //地区点击事件
-        handRegionChoose(event){
-            console.log(event)
-            let that = this;
-            let index = event.currentTarget.dataset.index;
-            let pId = event.currentTarget.dataset.id;
-            let regionList = that.data.regionList;
-            let crumbs = that.data.crumbs;
-            let page = 1;
-            let rows = 10;
-            let sortInt = 1;
-            let params = { pId,page,rows,sortInt }
-
-            if(crumbs.length < 3){
-                crumbs.push(regionList[index])
-                crumbs.forEach(a => a.active = false);
-                regionList.forEach( d => d.active = false );
-                regionList[index].active = !regionList[index].active;
-                setTimeout(function() {
-                    mtWharf.frontDeskWharfList(params).then(res => {
-                        console.log(res)
-                        let region = res.data.data.rows;
-                        let pro = [];
-                        region.forEach(data => {
-                            data.active = false
-                            pro.push(data)
-                        });
-                        that.setData({
-                            regionList:pro
-                        })
-                    })
-                },500)
-            }
-
-            that.setData({
-                regionList,
-                crumbs
-            })
-
-            console.log(regionList[index])
-        },
-        //码头选择显示
-        wharfShow(){
-            let regionList = this.data.regionList;
-            console.log(regionList)
-            let columns = regionList.map(data => data.name);
-            console.log(columns)
-            this.setData({
-                columns,
-                wharfShow:true
-            })
-        },
-        //码头选择器
-        handObtainWharf(e){
-            let value = e.detail.value;
-            let index = e.detail.index;
-            let regionList = this.data.regionList;
-            let inputValue = this.data.inputValue;
-            let crumbs = this.data.crumbs;
-            let arr = crumbs.map(data => data.name)
-            let address = this.data.address;//地址
-            console.log(regionList[index].id)
-            let addressID = regionList[index].id;//地址ID
-            if(address.length === 0){
-                console.log(123123)
-                if(inputValue != null && inputValue != ''){
-                    arr.push(inputValue)
-                    this.setData({
-                        address:arr,
-                        addressID:0,
-                        addressTitle:inputValue,
-                        wharfShow:false,
-                    })
-                }else{
-                    arr.push(value)
-                    this.setData({
-                        address:arr,
-                        addressID,
-                        addressTitle:value,
-                        wharfShow:false,
-                    })
-                }
-            }else{
-                if(inputValue != null && inputValue != ''){
-                    address.splice(3,1,inputValue)
-                    console.log(address)
-                    this.setData({
-                        address,
-                        addressID:0,
-                        addressTitle:inputValue,
-                        wharfShow:false
-                    })
-                }else{
-                    address.splice(3,1,value)
-                    console.log(address)
-                    this.setData({
-                        address,
-                        addressID,
-                        addressTitle:value,
-                        wharfShow:false
-                    })
-                }
-            }
-        },
-        //输入码头
-        handInputWharf(e){
-            let value = e.detail;
-            this.setData({
-                inputValue:value
-            })
-        },
-        //关闭地区选择
         onCloseAddress(){
             this.setData({
                 addressShow:false,
+                specifiedShow:false
             })
             this.triggerEvent('myevent','发布货源');
-        },
-        //确认地区
-        handConfirmButton(){
-            let address = this.data.address;
-            if(address.length === 0){
-                console.log('请选择码头')
-            }else{
-                let a = address.toString();
-                let b = a.replace(/,/g,'');
-                console.log(b)
-                let infoGroupOneIndex = this.data.infoGroupOneIndex;
-                let addressID = this.data.addressID;
-               if(infoGroupOneIndex === 3){
-                    this.setData({
-                        portDepartureAddress:b,
-                        portDepartureId:addressID,
-                        [`infoGroupOne[${infoGroupOneIndex}].placeholder`]:b,
-                        addressShow:false
-                    })
-               }else{
-                    this.setData({
-                        portArrivalAddress:b,
-                        portArrivalId:addressID,
-                        [`infoGroupOne[${infoGroupOneIndex}].placeholder`]:b,
-                        addressShow:false
-                    })
-               }
-            }
         },
 
 
@@ -767,10 +623,31 @@ Component({
 
         //添加按钮
         handleCargoRelease(){   
-            console.log(this.data.compensation)
+            let compensation = this.data.compensation;
+            let lossGoods = this.data.lossGoods;
+            let goodsDamages = this.data.goodsDamages;
+            let nameGoodsId = this.data.nameGoodsId;
+            let number = this.data.number;
+            let portDepartureAddress = this.data.portDepartureAddress;
+            let portArrivalAddress = this.data.portArrivalAddress;
+            let loadingDate = this.data.loadingDate;
+            let freightRate = this.data.freightRate;
+            let freightAmount = this.data.freightAmount;
+            let otherExpenses = this.data.otherExpenses;
+            let lagPeriodType = this.data.lagPeriodType;
+            let delayedLoading = this.data.delayedLoading;
+            let delayedDischarge = this.data.delayedDischarge;
+            let delayedCost = this.data.delayedCost;
+            let typeShip = this.data.typeShip;
+            let deliveryGoods = this.data.deliveryGoods;
+            let vesselMinimum = this.data.vesselMinimum;
+            let vesselMaximum = this.data.vesselMaximum;
+            let warehouse = this.data.warehouse;
+            let loadingMethod = this.data.loadingMethod;
+            let unloadingMode = this.data.unloadingMode;
+            let remarks = this.data.remarks;
+            
             if(this.data.compensation === 1){
-                let lossGoods = this.data.lossGoods;
-                let goodsDamages = this.data.goodsDamages;
                 if(!lossGoods || !goodsDamages){
                     wx.showToast({
                         title: '请输入约定赔偿',
@@ -780,30 +657,10 @@ Component({
                       return
                 }
             }
-            if(
-                !this.data.nameGoodsId ||
-                !this.data.number || 
-                !this.data.portDepartureAddress || 
-                !this.data.portArrivalAddress || 
-                !this.data.loadingDate || 
-                !this.data.freightRate || 
-                !this.data.freightAmount || 
-                !this.data.otherExpenses || 
-                !this.data.lagPeriodType || 
-                !this.data.delayedLoading || 
-                !this.data.delayedDischarge || 
-                !this.data.delayedCost || 
-                !this.data.lagPeriodType ||
-                !this.data.typeShip || 
-                !this.data.deliveryGoods || 
-                !this.data.compensation ||
-                !this.data.vesselMinimum || 
-                !this.data.vesselMaximum || 
-                !this.data.warehouse || 
-                !this.data.loadingMethod || 
-                !this.data.unloadingMode || 
-                !this.data.remarks
-            ){
+
+            if(!nameGoodsId || !number || !portDepartureAddress || !portArrivalAddress || !loadingDate || !freightRate || !freightAmount ||
+                !otherExpenses || !lagPeriodType || !delayedLoading || !delayedDischarge ||  !delayedCost || !typeShip || !deliveryGoods ||  !vesselMinimum ||  
+                !vesselMaximum || !warehouse || !loadingMethod || !unloadingMode || !remarks){
                 wx.showToast({
                   title: '请认真填写所有资料',
                   image:'/images/my/region/gb@1.png',
@@ -811,7 +668,7 @@ Component({
                 })
                 return
             }
-
+            
             this.setData({
                 visible: true
             });
@@ -861,24 +718,25 @@ Component({
             User.UserMtCargoSave(params).then(res => {
                 console.log(res)
                 let datas = res.data.data;
-                if(datas.state === 200){
-                    wx.showToast({
-                      title: '已发布成功',
-                      duration: 2000
-                    })
-                    wx.navigateBack({
-                        data:1
-                    })
-                }
+                wx.navigateBack({
+                    data:1
+                })
+                // if(datas.state === 200){
+                //     wx.showToast({
+                //       title: '已发布成功',
+                //       duration: 2000
+                //     })
+                //     wx.navigateBack({
+                //         data:1
+                //     })
+                // }
             })
         },
         // 指定船东
         handspecified(){
             this.setData({
-                visible: false
-            })
-            wx.navigateTo({
-              url: '/views/ship/shipList/shipList',
+                visible: false,
+                specifiedShow:true
             })
         }
     }

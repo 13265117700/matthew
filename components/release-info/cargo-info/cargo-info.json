@@ -10,6 +10,8 @@
         "van-field": "/miniprogram_npm/@vant/weapp/field/index",
         "van-cell": "/miniprogram_npm/@vant/weapp/cell/index",
         "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
-        "i-modal": "/miniprogram_npm/iview-weapp/modal/index"
+        "i-modal": "/miniprogram_npm/iview-weapp/modal/index",
+        "address-selection":"/components/AddressSelection/AddressSelection",
+        "shipowner-list":"/components/ShipownerList/ShipownerList"
     }
 }

@@ -289,7 +289,7 @@ Page({
           break
         case '169':
           wx.navigateTo({
-            url: '/pages/my/userIdent/audit/audit?idenID=' + userInfo.idenID,
+            url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + userInfo.idenID,
           })
           break
         case '115':

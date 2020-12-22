@@ -7,19 +7,13 @@
         "pages/order/order",
         "pages/my/my",
         "custom-tab-bar/index",
-        "components/myFollow/vehicle/vehicle",
-        "components/myFollow/ship/ship",
-        "components/myFollow/resources/resources",
-        "pages/wharf/wharf",
-        "views/ship/shipList/shipList",
         "views/ReleaseAdmin/ReleaseAdmin",
         "views/ResourcesAdmin/ResourcesAdmin",
         "views/ResourceAdd/ResourceAdd",
         "views/UserAuthentication/UserAuthentication",
         "views/UserAuthenticationInfo/UserAuthenticationInfo",
         "views/UserSettings/UserSettings",
-        "views/UserSettingsItem/UserSettingsItem",
-        "views/AddressOfThePort/AddressOfThePort"
+        "views/UserSettingsItem/UserSettingsItem"
     ],
     "window": {
         "navigationStyle": "custom",

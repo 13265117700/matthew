@@ -9,11 +9,14 @@ Page({
         navbarTitle:'船舶管理',
         addButtonText:'添加船舶',
         active: 1,
-        tabList:[{
+        tabsList:[{
+            id:5000001,
             title:'审核中'
         },{
+            id:5000002,
             title:'已通过'
         },{
+            id:5000003,
             title:'未通过'
         }],
         status:null,
@@ -76,6 +79,9 @@ Page({
                 this.vehicleAdminList();
                 break
         }
+    },
+    handleGetState(e){
+        console.log(e)
     },
 
     //获取船列表

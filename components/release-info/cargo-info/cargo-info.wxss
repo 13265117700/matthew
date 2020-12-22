@@ -281,9 +281,11 @@ van-checkbox{
     padding: 30px 20px;
 }
 .region-title-close{
-    float: right;
+    position: absolute;
+    right: 30px;
+    top: 80px;
 }
-.region-title image{
+.region-title-close image{
     width: 16px;
     height: 16px;
 }

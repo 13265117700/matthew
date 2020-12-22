@@ -30,3 +30,12 @@
 .info-input{
     margin-left: 5px !important;
 }
+.region-title-close{
+    position: absolute;
+    right: 20px;
+    top: 75px;
+}
+.region-title-close image{
+    width: 16px;
+    height: 16px;
+}

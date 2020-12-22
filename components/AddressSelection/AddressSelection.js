@@ -1,7 +1,7 @@
 import mtWharf from '../../models/frontEnd/mtWharf';
 Component({
     properties: {
-
+        propID:String
     },
     lifetimes:{
         attached:function(){
@@ -18,6 +18,7 @@ Component({
         popupInputValue:null,//弹框input输入框
         pickerList:[],//选择列表
         detailedAddress:null,//详细地址
+        wharfID:null,//地址ID
     },
     methods: {
         //获取地区
@@ -107,6 +108,7 @@ Component({
             let popupInputValue = this.data.popupInputValue;
             let addressName = this.data.addressName;
             let address = this.data.address;
+            console.log(address[index])
             if(popupInputValue != null && popupInputValue != ''){
                 if(addressName.length > 3){
                     addressName.splice(3,1)
@@ -117,6 +119,7 @@ Component({
                 this.setData({
                     detailedAddress,
                     cellValue:popupInputValue,
+                    wharfID:address[index].id,
                     popupShow:false
                 })
             }else{
@@ -129,6 +132,7 @@ Component({
                 this.setData({
                     detailedAddress,
                     cellValue:value,
+                    wharfID:address[index].id,
                     popupShow:false
                 })
             }
@@ -197,10 +201,45 @@ Component({
                 })
                 console.log(mtWharfList)
             }
+            this.setData({
+                cellValue:'请选择码头',
+            })
         },
 
         bindleConfirm(){
-            console.log(this.data.detailedAddress)
+            let detailedAddress = this.data.detailedAddress;
+            let propID = this.data.propID;
+            let wharfID = this.data.wharfID;
+            let onMyEvent = {
+                detailedAddress,
+                propID,
+                wharfID
+            }
+            this.triggerEvent('myevent',onMyEvent)
+
+            if(detailedAddress != null){
+                let pId = 0;
+                let page = 1;
+                let rows = 10;
+                let sortInt = 1;
+                let params = { pId,page,rows,sortInt };
+                mtWharf.frontDeskWharfList(params).then(res => {
+                    let rows = res.data.data.rows;
+                    let address = [];
+                    rows.forEach(data => {
+                        data.active = false;
+                        address.push(data)
+                    });
+                    this.setData({
+                        address,
+                        addressName:[],
+                        crumbsLength:null,
+                        cellValue:'请选择码头',
+                        detailedAddress:null,
+                        wharfID:null
+                    })
+                })
+            }
         }
     }
 })
