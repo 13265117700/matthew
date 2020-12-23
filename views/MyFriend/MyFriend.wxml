@@ -1,0 +1,16 @@
+<view class="page-tabbar">
+    <vtu-tabbar active-icon-color="orange" current="{{activeIndex}}" custom-class="tabbar-content" mode="page" navbar-height="{{navBarHeight}}">
+        <vtu-tabbar-item
+            wx:for="{{ tabBar }}"
+            wx:key="index"
+            wx:for-item="tabbarItem"
+            label="{{ tabbarItem.name }}" 
+            src="{{ tabbarItem.icon.normal }}" 
+            active-src="{{ tabbarItem.icon.active }}" 
+            name="{{ tabbarItem.tips }}" 
+            bind:click="handleClickTabbar" 
+            data-index="{{index}}"></vtu-tabbar-item>
+        <chat-block slot="chat"></chat-block>
+        <friend-block slot="friend"></friend-block>
+    </vtu-tabbar>
+</view>

@@ -1,5 +1,6 @@
 {
     "pages": [
+        "views/MyFriend/MyFriend",
         "pages/index/index",
         "pages/logs/logs",
         "pages/myFollow/myFollow",
@@ -16,6 +17,7 @@
         "views/UserSettingsItem/UserSettingsItem",
         "views/MyAddress/MyAddress",
         "views/MyAddressAdd/MyAddressAdd"
+        
     ],
     "window": {
         "navigationStyle": "custom",

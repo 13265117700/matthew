@@ -287,6 +287,11 @@ Page({
             visible: true
           });
           break
+        case '113':
+          wx.navigateTo({
+            url: '/views/MyFriend/MyFriend',
+          })
+          break
         case '169':
           wx.navigateTo({
             url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + userInfo.idenID,
