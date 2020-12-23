@@ -254,16 +254,17 @@
                 </view>
             </view>
             <van-popup show="{{ shipSealShow }}" round position="bottom">
-                <view class="popup-title">
+                <!-- <view class="popup-title">
                     <view class="popup-title_cancel" bindtap="onClose">取消</view>
                     <view class="popup-title_confirm" bindtap="handShipSealConfirm">确认</view>
-                </view>
+                </view> -->
                 <view class="popup-selector">
                     <van-picker
                         default-index="1"
+                        show-toolbar
                         columns="{{ sealList }}" 
                         bind:cancel="onClose"
-                        bind:change="handleSeal" />
+                        bind:confirm="handShipSealConfirm" />
                 </view>
                 <view class="popup-input">
                     <van-field
@@ -274,7 +275,7 @@
                         type="textarea"
                         placeholder="如以上没有您需要的选项请在此输入"
                         border="{{ false }}"
-                        bind:confirm="addShipSeal"
+                        bind:input="addShipSeal"
                         autosize/>
                 </view>
             </van-popup>

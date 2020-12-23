@@ -16,7 +16,7 @@
           wx:for-item="tabsItem"
           title="{{tabsItem.title}}"
           name="{{tabsItem.status}}">
-          <view class="resources-list">
+          <view class="resources-list" wx:if="{{ total != 0 }}">
             <view class="resources-item" 
               wx:for="{{ resourcesList }}"
               wx:key="index"
@@ -24,20 +24,20 @@
               data-id="{{ resourcesItem.id }}"
               wx:if="{{ resourcesItem.status === tabsStatus }}"
               bindtap="getResourcesItem">
-              <view class="resources-title">{{ resourcesItem.title }}</view>
+              <view class="resources-title">{{ resourcesItem.nameVessel }}</view>
               <view class="resources-describe" wx:if="{{ tabsStatus != 0 }}">查看原因</view>
               <view class="resources-icon">
                 <image src="/images/my/ck@3x.png"></image>
               </view>
             </view>
           </view>
-          <!-- <view class="emptyData">
+          <view class="emptyData">
             <van-empty
-              wx:if="{{!emptyState}}"
+              wx:if="{{ total === 0 }}"
               class="custom-image"
               image="/images/my/qsy@3x.png"
               description="暂时没有数据"/>
-          </view> -->
+          </view>
         </van-tab>
       </van-tabs>
       <van-popup

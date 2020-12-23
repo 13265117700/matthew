@@ -6,6 +6,20 @@ export default{
     userInfo:function(data){
         return request.get(api.userInfo, data)
     },
+     //用户添加船舶
+     UserShipAdd:function(data){
+        return request.post(api.UserShipAdd, data)
+    },
+     //用户船列表查询
+     UserShipQuery:function(data){
+        return request.get(api.UserShipQuery, data)
+    },
+    //用户船信息查询
+    UserShipInfoQuery:function(data){
+        return request.get(api.UserShipInfoQuery, data)
+    },
+
+
     //船东信息修改
     mtShipownerUpdate:function(data){
         return request.post(api.mtShipownerUpdate, data)
@@ -18,14 +32,8 @@ export default{
     mtOwnerUpdate:function(data){
         return request.post(api.mtOwnerUpdate, data)
     },
-    //用户船列表查询
-    myFriendsRequestFriends:function(data){
-        return request.get(api.myFriendsRequestFriends, data)
-    },
-    //用户添加船舶
-    userAddShip:function(data){
-        return request.post(api.userAddShip, data)
-    },
+   
+   
     //用户货源添加
     UserMtCargoSave:function(data){
         return request.post(api.UserMtCargoSave, data)

@@ -191,7 +191,6 @@ Component({
             name:'大米'
         }],
 
-        popupSelectorValue:null,//弹出层选择器值
         popupInputvalue:null,//弹出层input值
 
         nameVessel:'',// 船名称
@@ -318,6 +317,7 @@ Component({
             let index = e.detail.index;
             let popupInputvalue = this.data.popupInputvalue;
             let typeShiId = typeRows[index].id;
+            console.log(typeShiId)
             if(popupInputvalue != null && popupInputvalue != ''){
                 console.log('input有值')
                 this.setData({
@@ -538,20 +538,15 @@ Component({
         },
 
 
-        //封仓设备
-        handleSeal(e){
-            console.log('封仓设备')
-            this.setData({
-                popupSelectorValue:e.detail.value
-            })
-        },
         addShipSeal(e){
+            console.log(e)
             this.setData({
                 popupInputvalue:e.detail
             })
         },
-        handShipSealConfirm(){
-            let popupSelectorValue = this.data.popupSelectorValue;
+        handShipSealConfirm(e){
+            console.log(e)
+            let value = e.detail.value;
             let popupInputvalue = this.data.popupInputvalue;
             
             if(popupInputvalue != null && popupInputvalue != ''){
@@ -563,8 +558,8 @@ Component({
             }else{
                 console.log('input没有值')
                 this.setData({
-                    closure:popupSelectorValue,
-                    ["infoGroupTwo[0].placeholder"]:popupSelectorValue
+                    closure:value,
+                    ["infoGroupTwo[0].placeholder"]:value
                 })
             }
 
@@ -701,8 +696,8 @@ Component({
                 }, 2000)
                 return
             }
-            userAddShip
-            User.userAddShip(params).then(res => {
+
+            User.UserShipAdd(params).then(res => {
                 console.log(res)
                 if(!res.data.data){
                     wx.showLoading({

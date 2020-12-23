@@ -200,49 +200,49 @@ Page({
         let user = res.data.data;
         console.log(user)
         
-        if(user.mtCargoOwner.idNumber != null){
+        if(user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' '){
           //货
           user.idenID = user.mtCargoOwner.id;
           user.status = user.mtCargoOwner.status;
           this.setData({
             userInfo:user,
-            // ["ceilList[5].state"]:false,
-            // ["ceilList[3].state"]:false,
+            ["ceilList[5].state"]:false,
+            ["ceilList[3].state"]:false,
           })
-        }else if(user.mtOwner.idNumber != null){
+        }else if(user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' '){
           //车
           user.idenID = user.mtOwner.id;
           user.status = user.mtOwner.status;
           this.setData({
             userInfo:user,
-            // ["ceilList[4].state"]:false,
-            // ["ceilList[3].state"]:false,
+            ["ceilList[4].state"]:false,
+            ["ceilList[3].state"]:false,
           })
-        }else if(user.mtShipowner.idNumber != null){
+        }else if(user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' '){
            //船
           user.idenID = user.mtShipowner.id;
           user.status = user.mtShipowner.status;
           this.setData({
             userInfo:user,
-            // ["ceilList[4].state"]:false,
-            // ["ceilList[5].state"]:false,
+            ["ceilList[4].state"]:false,
+            ["ceilList[5].state"]:false,
           })
         }
 
 
-        //如果已申请认证显示对应模块
-        // if(user.idenID){
-        //   console.log('有idenID')
-        //   this.setData({
-        //     ["ceilList[0].state"]:false,
-        //     ["ceilList[1].state"]:true
-        //   })
-        // }else{
-        //   console.log('没有idenID')
-        //   this.setData({
-        //     ["ceilList[1].state"]:false
-        //   })
-        // }
+        如果已申请认证显示对应模块
+        if(user.idenID){
+          console.log('有idenID')
+          this.setData({
+            ["ceilList[0].state"]:false,
+            ["ceilList[1].state"]:true
+          })
+        }else{
+          console.log('没有idenID')
+          this.setData({
+            ["ceilList[1].state"]:false
+          })
+        }
       })
     }else{
       this.setData({
@@ -319,6 +319,10 @@ Page({
             url: '/views/ReleaseAdmin/ReleaseAdmin?id=' + id,
           })
           break
+          case '820':
+            wx.navigateTo({
+              url: '/views/MyAddress/MyAddress',
+            })
       }
     }else{
       wx.navigateTo({

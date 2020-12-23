@@ -9,14 +9,16 @@ Page({
             status:0,
             title:'审核中'
         },{
-            status:1,
+            status:2,
             title:'已通过'
         },{
-            status:2,
+            status:1,
             title:'未通过'
         }],
         resourcesList:[],//资源列表
         resourcesShow:false,
+        total:0,
+        // resourcesID:null,//资源ID
     },
     onLoad: function (options) {
         this.setData({
@@ -62,6 +64,7 @@ Page({
     },
     //获取资源
     handleGetResources(e){
+        console.log(e)
         let tabsStatus = e.detail.name;
         this.setData({
             tabsStatus
@@ -73,48 +76,14 @@ Page({
         let page = 1;
         let rows = 10;
         let params = {Authorization,page,rows}
-        User.myFriendsRequestFriends(params).then(res => {
-            let datas = res.data.data;
-            let resourcesList = [{
-                id:7000001,
-                status:0,
-                title:'运输舰'
-            },{
-                id:7000002,
-                status:1,
-                title:'驱逐舰'
-            },{
-                id:7000003,
-                status:2,
-                title:'巡航舰'
-            },{
-                id:7000003,
-                status:2,
-                title:'民船'
-            },{
-                id:7000003,
-                status:2,
-                title:'渔船'
-            },{
-                id:7000001,
-                status:0,
-                title:'快艇'
-            },]
-            this.setData({
-                resourcesList
-            })
+        User.UserShipQuery(params).then(res => {
+            let total = res.data.data.total;
+            let resourcesList = res.data.data.rows;
             console.log(resourcesList)
-            // if(datas.total === 0){
-            //     this.setData({
-            //         emptyState:false
-            //     })
-            //     console.log(this.data.emptyState)
-            // }else{
-            //     console.log(datas)
-            //     this.setData({
-            //         seeList:datas.rows
-            //     })
-            // }
+            this.setData({
+                resourcesList,
+                total
+            })
         })
     },
     //获取车辆列表
@@ -155,9 +124,15 @@ Page({
 
     getResourcesItem(e){
         console.log(e)
-        this.setData({
-            resourcesShow:true
+        let id = e.currentTarget.dataset.id;
+        let Authorization = wx.getStorageSync('Authorization');
+        User.UserShipInfoQuery({Authorization,id}).then(res => {
+            console.log(res)
         })
+        // this.setData({
+        //     resourcesID:id,
+        //     resourcesShow:true
+        // })
     },
     onClosePopup(){
         this.setData({
