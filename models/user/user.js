@@ -29,6 +29,11 @@ export default{
         return request.get(api.UserMtCargoQuery, data)
     },
 
+    //用户好友列表
+    UserFriendsListL:function(data){
+        return request.get(api.UserFriendsListL, data)
+    },
+
 
 
 

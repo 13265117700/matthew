@@ -1,4 +1,4 @@
-// views/MyFriend/MyFriend.js
+import User from '../../models/user/user'
 Page({
     data: {
         activeIndex:0,
@@ -22,8 +22,20 @@ Page({
         show:false
     },
     onShow: function () {
-        
+        this.getUserFriendList()
     },
+
+    getUserFriendList(){
+        let Authorization = wx.getStorageSync('Authorization');
+        let page = 1;
+        let rows = 10;
+        let params = {Authorization, page, rows};
+        User.UserFriendsListL(params).then(res => {
+            console.log(res)
+        })
+    },
+
+
      //点击底部导航
      handleClickTabbar(event){
         console.log(event)

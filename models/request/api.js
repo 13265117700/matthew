@@ -16,6 +16,8 @@ export default {
     UserMtCargoSave:`${PREFIX}/user/cargo/mtCargoSave`,//用户货源添加
     UserMtCargoQuery:`${PREFIX}/user/cargo/mtCargoFriends`,//用户货源列表查询
 
+    UserFriendsListL:`${PREFIX}/user/friend/myFriendFriends`,//用户好友列表
+
     
     mtShipownerUpdate:`${PREFIX}/user/information/mtShipownerUpdate`,//船东信息修改
     mtCargoOwnerUpdate:`${PREFIX}/user/information/mtCargoOwnerUpdate`,//货主信息修改
