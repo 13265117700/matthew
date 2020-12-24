@@ -20,6 +20,18 @@ export default{
     },
 
 
+     //用户货源添加
+     UserMtCargoSave:function(data){
+        return request.post(api.UserMtCargoSave, data)
+    },
+    //用户货源列表查询
+    UserMtCargoQuery:function(data){
+        return request.get(api.UserMtCargoQuery, data)
+    },
+
+
+
+
     //船东信息修改
     mtShipownerUpdate:function(data){
         return request.post(api.mtShipownerUpdate, data)
@@ -34,10 +46,7 @@ export default{
     },
    
    
-    //用户货源添加
-    UserMtCargoSave:function(data){
-        return request.post(api.UserMtCargoSave, data)
-    },
+   
     //船东\货主接单查询
     userAppointFriends:function(data){
         return request.get(api.userAppointFriends, data)

@@ -230,7 +230,7 @@ Page({
         }
 
 
-        如果已申请认证显示对应模块
+        // 如果已申请认证显示对应模块
         if(user.idenID){
           console.log('有idenID')
           this.setData({
@@ -245,6 +245,7 @@ Page({
         }
       })
     }else{
+      console.log(12312)
       this.setData({
         ["ceilList[1].state"]:false
       })

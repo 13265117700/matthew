@@ -12,11 +12,14 @@ export default {
     UserShipAdd:`${PREFIX}/user/ship/mtShipSave`,//用户添加船舶
     UserShipQuery:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
     UserShipInfoQuery:`${PREFIX}/user/ship/findByShipId`,//用户船信息查询
+
+    UserMtCargoSave:`${PREFIX}/user/cargo/mtCargoSave`,//用户货源添加
+    UserMtCargoQuery:`${PREFIX}/user/cargo/mtCargoFriends`,//用户货源列表查询
+
     
     mtShipownerUpdate:`${PREFIX}/user/information/mtShipownerUpdate`,//船东信息修改
     mtCargoOwnerUpdate:`${PREFIX}/user/information/mtCargoOwnerUpdate`,//货主信息修改
     mtOwnerUpdate:`${PREFIX}/user/information/mtOwnerUpdate`,//车主信息修改
-    UserMtCargoSave:`${PREFIX}/user/cargo/mtCargoSave`,//用户货源添加
     userAppointFriends:`${PREFIX}/user/appoint/appointFriends`,//船东\货主接单查询
 
 

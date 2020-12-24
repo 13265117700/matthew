@@ -1,4 +1,4 @@
-// views/ReleaseAdmin/ReleaseAdmin.js
+import User from "../../models/user/user"
 Page({
   data: {
     navBarTitle:'我发布的船源',
@@ -61,11 +61,11 @@ Page({
 
   //货源管理
   cargoSourceAdmin(){
-    let upAndDownState = this.data.upAndDownState;
-    console.log(upAndDownState)
-    this.setData({
-      navBarTitle:'我发布的货源',
-      addButton:'添加货源',
+    let Authorization = wx.getStorageSync('Authorization');
+    let page = 1;
+    let rows = 10;
+    User.UserMtCargoQuery({Authorization,page,rows}).then(res => {
+      console.log(res)
     })
   },
 
