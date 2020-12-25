@@ -17,6 +17,10 @@ export default {
     UserMtCargoQuery:`${PREFIX}/user/cargo/mtCargoFriends`,//用户货源列表查询
 
     UserFriendsListL:`${PREFIX}/user/friend/myFriendFriends`,//用户好友列表
+    UserFriendSearch:`${PREFIX}/user/friend/searchFriends`,//用户好友搜索
+    UserFriendRequest:`${PREFIX}/user/friend/friendApplication`,//用户好友申请
+    UserFriendRequestList:`${PREFIX}/user/friend/myFriendsRequestFriends`,//用户好友申请列表
+    UserFriendVerification:`${PREFIX}/user/friend/agreeOrRefuse`,//用户好友验证
 
     
     mtShipownerUpdate:`${PREFIX}/user/information/mtShipownerUpdate`,//船东信息修改

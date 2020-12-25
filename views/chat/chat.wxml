@@ -32,8 +32,7 @@
                     slot="after" 
                     type="primary" 
                     size="medium" 
-                    wx:if="{{ inputValue === '' }}" 
-                    wx:if="{{ userInfo.idenID === 151 }}"
+                    wx:if="{{ inputValue === '' && userInfo.idenID === 151 }}" 
                     bind:click="gotoCrewList">选择船员</vtu-btn>
             </vtu-input>
         </view>

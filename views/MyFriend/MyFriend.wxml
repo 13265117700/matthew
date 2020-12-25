@@ -11,11 +11,7 @@
         <view class="user-container">
             <view class="user-chat" wx:if="{{ activeIndex === 0 }}">
                 <view class="user-search">
-                    <van-search
-                        value="{{ value }}"
-                        input-align="center"
-                        placeholder="搜索用户名/手机号"
-                        />
+                    <van-search input-align="center" clearable  shape="round" background="#fff" placeholder="请输入搜索关键词" /> 
                 </view>
                 <view class="user-list">
                     <view class="user-item" bindtap="gotoChat">
@@ -58,13 +54,13 @@
             </view>
             <view class="user-friend" wx:if="{{ activeIndex === 1 }}">
                 <view class="user-search">
-                    <van-search value="{{ value }}" input-align="center" placeholder="搜索用户名/手机号" />
-                    <view class="user-add" bindtap="showSearchFriends">
+                    <van-search input-align="center" clearable  shape="round" background="#fff" placeholder="搜索用户名/手机号" />
+                    <view class="user-search_btu" bindtap="showSearchFriends">
                         <image src="/images/my/MyFriend/tjhy@3x.png"></image>
                     </view>
                 </view>
                 <view class="user-list">
-                    <view class="user-item">
+                    <view class="user-item" bindtap="newFriendAgreeShow">
                         <view class="user-avatar">
                             <van-image round width="40px" height="40px" src="/images/my/MyFriend/add.png" />
                         </view>
@@ -99,10 +95,80 @@
             custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;"
             round
             position="right">
-            <view class="user-search">
-                <van-search value="{{ value }}" input-align="center" placeholder="搜索手机号" />
-                <view class="close-btu" bindtap="onCloseAddress">
+            <view class="user-search friend-search">
+                <van-search value="{{ value }}" input-align="center" clearable  shape="round" background="#fff" placeholder="搜索手机号/用户名" bind:search="getUserFriendSearch" /> 
+                <view class="user-search_btu" bindtap="onCloseAddress">
                     <text>取消</text>
+                </view>
+            </view>
+            <view class="friend-list" wx:if="{{ !friendQequest }}">
+                <view class="friend-item" wx:for="{{ searchOf.rows }}" wx:key="index" wx:for-item="friendSearch">
+                    <view class="friend-avatar">
+                        <vtu-avatar src="{{ friendSearch.faceImage }}" circle></vtu-avatar>
+                    </view>
+                    <view class="friend-name">
+                        <text>{{ friendSearch.nickName }}</text>
+                    </view>
+                    <view class="friend-btu">
+                        <vtu-btn 
+                            size="medium" 
+                            type="{{ state === false ? 'danger':''}}" 
+                            font-color="{{ state === false ? '#ffffff':'#B3B3B3' }}"
+                            round="true" 
+                            disabled="{{ state }}"
+                            data-id="{{ friendSearch.uid }}"
+                            bind:click="handleAddFriend">{{ state === false ?  '添加好友':'已申请'}}</vtu-btn>
+                    </view>
+                </view>
+                <view class="divider" wx:if="{{ searchOf.total === 0 }}">
+                    <van-divider contentPosition="center">该用户不存在</van-divider>
+                </view>
+            </view>
+            <view class="friend-list" wx:if="{{ friendQequest }}">
+                <view class="friend-item" wx:for="{{ searchOf.rows }}" wx:key="index" wx:for-item="friendValidation">
+                    <view class="friend-avatar">
+                        <vtu-avatar src="{{ friendValidation.mtAcceptUser.faceImage }}" circle></vtu-avatar>
+                    </view>
+                    <view class="friend-name">
+                        <text>{{ friendValidation.mtAcceptUser.nickName }}</text>
+                    </view>
+                    <view class="friend-btu" 
+                        data-id="{{ friendValidation.mtAcceptUser.uid }}" 
+                        data-index="{{ index }}"
+                        bindtap="verifyCurrentItem">
+                        <text>{{ VerifyTitle }}</text>
+                    </view>
+                </view>
+                <view class="divider" wx:if="{{ searchOf.total === 0 }}">
+                    <van-divider contentPosition="center">暂时还没有好友申请</van-divider>
+                </view>
+            </view>
+        </van-popup>
+        <van-popup 
+            show="{{ VerifyShow }}"
+            custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;"
+            round
+            position="right">
+            <view class="friend-list">
+                <view class="friend-item">
+                    <view class="friend-avatar">
+                        <vtu-avatar src="{{ VerifyItemInfo.mtAcceptUser.faceImage }}" circle></vtu-avatar>
+                    </view>
+                    <view class="friend-name">
+                        <text>{{VerifyItemInfo.mtAcceptUser.nickName}}</text>
+                    </view>
+                    <view class="friend-btu">
+                        <text>{{ VerifyTitle }}</text>
+                    </view>
+                </view>
+                <view class="friend-validation">
+                    <view class="friend-validation_button" wx:for="{{ VerifyItemButton }}" wx:key="index" wx:for-item="buttonItem">
+                        <van-button 
+                            data-status="{{ buttonItem.status }}" 
+                            custom-style="{{ buttonItem.customStyle }}" 
+                            size="large"
+                            bind:click="handleVerifyItemButton">{{ buttonItem.title }}</van-button>
+                    </view>
                 </view>
             </view>
         </van-popup>

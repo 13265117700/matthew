@@ -198,7 +198,6 @@ Page({
       }
       User.userInfo(params).then(res => {
         let user = res.data.data;
-        console.log(user)
         
         if(user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' '){
           //货
@@ -227,8 +226,12 @@ Page({
             ["ceilList[4].state"]:false,
             ["ceilList[5].state"]:false,
           })
+        }else{
+          this.setData({
+            userInfo:user
+          })
         }
-
+        console.log(this.data.userInfo)
 
         // 如果已申请认证显示对应模块
         if(user.idenID){

@@ -6,6 +6,8 @@ export default{
     userInfo:function(data){
         return request.get(api.userInfo, data)
     },
+
+
      //用户添加船舶
      UserShipAdd:function(data){
         return request.post(api.UserShipAdd, data)
@@ -20,6 +22,7 @@ export default{
     },
 
 
+
      //用户货源添加
      UserMtCargoSave:function(data){
         return request.post(api.UserMtCargoSave, data)
@@ -29,13 +32,7 @@ export default{
         return request.get(api.UserMtCargoQuery, data)
     },
 
-    //用户好友列表
-    UserFriendsListL:function(data){
-        return request.get(api.UserFriendsListL, data)
-    },
-
-
-
+    
 
     //船东信息修改
     mtShipownerUpdate:function(data){
