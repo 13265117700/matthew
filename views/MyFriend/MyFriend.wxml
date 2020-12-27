@@ -66,23 +66,17 @@
                         </view>
                         <view class="user-name">新的好友</view>
                     </view>
-                    <view class="user-item">
+                    <view class="user-item" 
+                        wx:for="{{ myFriendList }}" 
+                        wx:key="index" 
+                        wx:for-item="myFriendItem"
+                        data-receiverId="{{ myFriendItem.myFriendUser.uid }}"
+                        data-senderId="{{ myFriendItem.myUser.uid }}"
+                        bindtap="BeganToChat">
                         <view class="user-avatar">
-                            <van-image round width="40px" height="40px" src="/images/my/cdbzj@3x.png" />
+                            <van-image round width="40px" height="40px" src="{{ myFriendItem.myFriendUser.faceImage }}" />
                         </view>
-                        <view class="user-name">麦兜小姐</view>
-                    </view>
-                    <view class="user-item">
-                        <view class="user-avatar">
-                            <van-image round width="40px" height="40px" src="/images/my/cdbzj@3x.png" />
-                        </view>
-                        <view class="user-name">麦兜小姐</view>
-                    </view>
-                    <view class="user-item">
-                        <view class="user-avatar">
-                            <van-image round width="40px" height="40px" src="/images/my/cdbzj@3x.png" />
-                        </view>
-                        <view class="user-name">麦兜小姐</view>
+                        <view class="user-name">{{ myFriendItem.myFriendUser.nickName }}</view>
                     </view>
                 </view>
                 <view class="divider">
@@ -127,13 +121,13 @@
             <view class="friend-list" wx:if="{{ friendQequest }}">
                 <view class="friend-item" wx:for="{{ searchOf.rows }}" wx:key="index" wx:for-item="friendValidation">
                     <view class="friend-avatar">
-                        <vtu-avatar src="{{ friendValidation.mtAcceptUser.faceImage }}" circle></vtu-avatar>
+                        <vtu-avatar src="{{ friendValidation.mtSendUser.faceImage }}" circle></vtu-avatar>
                     </view>
                     <view class="friend-name">
-                        <text>{{ friendValidation.mtAcceptUser.nickName }}</text>
+                        <text>{{ friendValidation.mtSendUser.nickName }}</text>
                     </view>
                     <view class="friend-btu" 
-                        data-id="{{ friendValidation.mtAcceptUser.uid }}" 
+                        data-id="{{ friendValidation.mtSendUser.uid }}" 
                         data-index="{{ index }}"
                         bindtap="verifyCurrentItem">
                         <text>{{ VerifyTitle }}</text>
@@ -152,10 +146,10 @@
             <view class="friend-list">
                 <view class="friend-item">
                     <view class="friend-avatar">
-                        <vtu-avatar src="{{ VerifyItemInfo.mtAcceptUser.faceImage }}" circle></vtu-avatar>
+                        <vtu-avatar src="{{ VerifyItemInfo.mtSendUser.faceImage }}" circle></vtu-avatar>
                     </view>
                     <view class="friend-name">
-                        <text>{{VerifyItemInfo.mtAcceptUser.nickName}}</text>
+                        <text>{{VerifyItemInfo.mtSendUser.nickName}}</text>
                     </view>
                     <view class="friend-btu">
                         <text>{{ VerifyTitle }}</text>

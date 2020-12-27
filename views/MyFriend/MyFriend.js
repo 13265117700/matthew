@@ -21,7 +21,7 @@ Page({
                 }
             }
         ],
-        userFriendListL:[],
+        myFriendList:[],//
         show:false,//弹框显示
         friendQequest:false,
         searchOf:[],//搜索出来的好友
@@ -71,10 +71,12 @@ Page({
         let params = {Authorization, page, rows};
         userFriend.UserFriendsListL(params).then(res => {
             console.log(res)
+            let myFriendList = res.data.data.rows;
+            console.log(myFriendList)
+            this.setData({
+                myFriendList
+            })
         });
-        // userFriend.UserFriendSearch({page,rows}).then(res => {
-        //     console.log(res)
-        // })
     },
     //显示好友搜索框
     showSearchFriends(){
@@ -147,6 +149,7 @@ Page({
         let friendQequest = this.data.friendQequest;
         if(friendQequest){
             let Authorization = wx.getStorageSync('Authorization');
+            console.log(Authorization)
             let page = 1;
             let rows = 10;
             let params = { Authorization, page, rows }
@@ -169,6 +172,7 @@ Page({
         console.log(e)
         let index = e.currentTarget.dataset.index;
         let sendUserId = e.currentTarget.dataset.id;
+        console.log(sendUserId)
         let searchOf = this.data.searchOf;
         let VerifyItemInfo = searchOf.rows[index];
         this.setData({
@@ -179,13 +183,24 @@ Page({
         })
         console.log(this.data.VerifyItemInfo)
     },
+    //确认验证信息
     handleVerifyItemButton(e){
         let Authorization = wx.getStorageSync('Authorization');
         let sendUserId = this.data.sendUserId;
         let state = e.currentTarget.dataset.status;
         let params = { Authorization, sendUserId, state }
+        console.log(params)
         userFriend.UserFriendVerification(params).then(res => {
             console.log(res)
+            if(res.data.state === 200){
+                wx.showToast({
+                  title: '成功添加好友',
+                })
+                this.setData({
+                    VerifyShow:false,
+                    show:false
+                })
+            }
         })
     },
     //关闭弹框
@@ -195,6 +210,17 @@ Page({
             show:false,
             VerifyShow:false,
             value:''
+        })
+    },
+
+
+    BeganToChat(e){
+        console.log(e)
+        let receiverid = e.currentTarget.dataset.receiverid;//好友的ID
+        let senderid = e.currentTarget.dataset.senderid;//我的ID
+        console.log(receiverid,senderid)
+        wx.navigateTo({
+            url: '/views/chat/chat?receiverid='+receiverid+'&senderid='+senderid,
         })
     },
 

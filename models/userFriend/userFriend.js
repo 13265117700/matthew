@@ -1,5 +1,4 @@
 import api from '../request/api';
-import websocket from '../request/websocket';
 import request from '../request/request';
 
 export default{
@@ -19,6 +18,7 @@ export default{
     UserFriendRequestList:function(data){
         return request.get(api.UserFriendRequestList, data)
     },
+    //用户好友验证
     UserFriendVerification:function(data){
         return request.post(api.UserFriendVerification, data)
     }

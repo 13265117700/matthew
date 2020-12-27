@@ -1,46 +1,57 @@
+import startWebSocket from "./startWebSocket";
+
 const websocket = (method, url, data, header) => {
-    let params = {
+    let params = { 
         'Authorization': data.Authorization,
         'content-type':'application/x-www-form-urlencoded',
     }
+    let socketOpen = false
     return new Promise((resolve, reject) => {
         wx.connectSocket({
           url: url,
-          header:params,
-          method,
           success:(res) => {
-              console.log('创建连接成功')
-            let socketOpen = false;
-            let socketMsgQueue = [];
-            wx.onSocketOpen(() => {
-                socketOpen = true;
-                console.log('websocket已打开');
+              console.log(res,'连接成功')
+            wx.onSocketOpen((result) => {
+                socketOpen = true
                 if(socketOpen){
-                    // 发送消息
+                    let senderId = data.senderId;
+                    let receiverId = data.receiverId;
+                    let msg = data.msg;
+                    let action = data.action;
+
+                    //构建chatMsg
+                    let chatMsg = new startWebSocket.ChatMsg(senderId,receiverId,msg,null);
+                    
+                    // 构建DataContent
+                    let dataContent = new startWebSocket.DataContent(action, chatMsg, null)
+
+                    //发送数据
                     wx.sendSocketMessage({
-                        data: data,
-                        success:(res) => {
-                            console.log('发送成功',res)
-                            resolve(res)
-                        },
-                        fail:(err) => {
-                            console.log('发送失败',err)
-                            reject(err)
-                        }
-                    });
-                }else{
-                    // 接收消息
-                    wx.onSocketMessage((result) => {
-                        console.log('已收到信息',result)
-                        resolve(result)
+                      data: JSON.stringify(dataContent),
+                      success:(res) => {
+                        console.log(res,'发送成功')
+                      },
+                      fail:(err) => {
+                          console.log(err)
+                      }
                     })
+
+                    //接收数据
+                    wx.onSocketError((result) => {
+                        console.log(result)
+                    })
+
+
                 }
             })
           },
           fail:(err) => {
-              console.log('连接失败')
-            reject(err)
+              reject(err,'连接失败')
           }
+        })
+
+        wx.onSocketMessage((data) => {
+            console.log(data)
         })
     })
 }

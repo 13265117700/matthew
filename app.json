@@ -3,7 +3,6 @@
         "pages/index/index",
         "views/chat/chat",
         "views/MyFriend/MyFriend",
-        
         "pages/logs/logs",
         "pages/myFollow/myFollow",
         "pages/deliver/deliver",
@@ -18,8 +17,9 @@
         "views/UserSettings/UserSettings",
         "views/UserSettingsItem/UserSettingsItem",
         "views/MyAddress/MyAddress",
-        "views/MyAddressAdd/MyAddressAdd"
-      
+        "views/MyAddressAdd/MyAddressAdd",
+        "views/Preferences/Preferences",
+        "views/InvoiceAdmin/InvoiceAdmin"
     ],
     "window": {
         "navigationStyle": "custom",

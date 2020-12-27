@@ -58,10 +58,6 @@ Page({
         //船管理
         state:true,
         ceilItem:[{
-          icon:'/images/my/zjls@3x.png',
-          text:'传动偏好设置',
-          id:'114'
-        },{
           icon:'/images/my/yhk@3x.png',
           text:'船舶管理',
           id:'115'
@@ -86,10 +82,6 @@ Page({
         //货管理
         state:true,
         ceilItem:[{
-          icon:'/images/my/fx@3x.png',
-          text:'货主偏好设置',
-          id:'776'
-        },{
           icon:'/images/my/hzdd@3x.png',
           text:'货主待确认订单信息',
           id:'998'
@@ -133,8 +125,15 @@ Page({
       },{
         state:true,
         ceilItem:[{
+          icon:'/images/my/zjls@3x.png',
+          text:'偏好设置',
+          id:'114'
+        }]
+      },{
+        state:true,
+        ceilItem:[{
           icon:'/images/my/wz@3x.png',
-          text:'我的地址',
+          text:'发票管理',
           id:'820'
         }]
       },{
@@ -296,14 +295,18 @@ Page({
             url: '/views/MyFriend/MyFriend',
           })
           break
-        case '169':
+        case '114':
           wx.navigateTo({
-            url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + userInfo.idenID,
+            url: '/views/Preferences/Preferences',
           })
-          break
         case '115':
           wx.navigateTo({
             url: '/views/ResourcesAdmin/ResourcesAdmin?id='+id,
+          })
+          break
+        case '169':
+          wx.navigateTo({
+            url: '/views/UserAuthenticationInfo/UserAuthenticationInfo?idenID=' + userInfo.idenID,
           })
           break
         case '192':
@@ -328,10 +331,11 @@ Page({
             url: '/views/ReleaseAdmin/ReleaseAdmin?id=' + id,
           })
           break
-          case '820':
-            wx.navigateTo({
-              url: '/views/MyAddress/MyAddress',
-            })
+        case '820':
+          wx.navigateTo({
+            url: '/views/InvoiceAdmin/InvoiceAdmin',
+          })
+          break
       }
     }else{
       wx.navigateTo({

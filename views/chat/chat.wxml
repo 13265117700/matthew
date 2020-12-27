@@ -27,12 +27,17 @@
                 bind:focus="focusEven"
                 bind:blur="blurEven"
                 bind:input="handleInputValue">
-                <vtu-btn slot="after" type="success" size="medium" wx:if="{{ inputValue != '' }}">发送</vtu-btn>
+                <vtu-btn 
+                    slot="after" 
+                    type="success" 
+                    size="medium" 
+                    wx:if="{{ msg != '' }}"
+                    bind:click="handleChatSend">发送</vtu-btn>
                 <vtu-btn 
                     slot="after" 
                     type="primary" 
                     size="medium" 
-                    wx:if="{{ inputValue === '' && userInfo.idenID === 151 }}" 
+                    wx:if="{{ msg === '' && userInfo.idenID === 151 }}" 
                     bind:click="gotoCrewList">选择船员</vtu-btn>
             </vtu-input>
         </view>
