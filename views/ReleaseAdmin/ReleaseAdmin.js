@@ -13,6 +13,7 @@ Page({
       title:'已下架'
     }],
     upAndDownState:1,
+    cargoList:[]
   },
 
   onLoad: function (options) {
@@ -65,7 +66,11 @@ Page({
     let page = 1;
     let rows = 10;
     User.UserMtCargoQuery({Authorization,page,rows}).then(res => {
-      console.log(res)
+      let cargoList = res.data.data.rows;
+      console.log(cargoList)
+      this.setData({
+        cargoList
+      })
     })
   },
 

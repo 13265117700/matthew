@@ -17,7 +17,7 @@ van-search{
 
 
 .resources-list{
-    padding: 10px 14.5px 0;
+    margin-top: 10px;
 }
 .resources-item{
     background: #FFFFFF;

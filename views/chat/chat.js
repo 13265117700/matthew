@@ -1,6 +1,8 @@
+// import websocket from '../../models/request/websocket';
 import User from '../../models/user/user';
-import CHAT from '../../models/userChat/userChat';
-import AAA from '../../models/request/aaabbbb'
+// import userChat from '../../models/userChat/userChat';
+import WebSocket from '../../models/websocket/websocket';
+
 Page({
     data: {
         receiverid:null,
@@ -42,44 +44,51 @@ Page({
             receiverid:options.receiverid,
             senderid:options.senderid
         })
-        this.WebSocketInit()
+
+       this.WebSocketInit()
     },
 
-    WebSocketInit(){
-        let action = 1;
-        let senderid = this.data.senderid;
-        let receiverid = this.data.receiverid;
-        let msgId = null;
+
+    WebSocketInit:function(){
+        let senderId = this.data.senderid;//自己的ID
+        let receiverId = this.data.receiverid;//对方的ID
         let msg = null;
-        let params = {action,senderid,receiverid,msgId,msg}
-        AAA.startWebSocket(params)
-        // CHAT.UserFriendChat(params).then(res => {
-        //     console.log(res)
-        // })
-
+        let action = 1;
+        let params = {senderId,receiverId,msg,action}
+        WebSocket.connectSocket(params)
+        WebSocket.onSocketMessageCallback = this.onSocketMessageCallback;
     },
+
+
+    onUnload:function(){
+        WebSocket.closeSocket()
+    },
+
+    onSocketMessageCallback:function(msg){
+        console.log(msg)
+    }, 
 
     onShow: function () {
         // this.getUserInfo()
     },
-    // getUserInfo(){
-    //     let Authorization = wx.getStorageSync('Authorization');
-    //     let uId = '';
-    //     User.userInfo({Authorization,uId}).then(res => {
-    //         let user = res.data.data;
-    //         if(user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' '){
-    //             user.idenID = user.mtCargoOwner.id;
-    //         }else if(user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' '){
-    //             user.idenID = user.mtOwner.id;
-    //         }else if(user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' '){
-    //             user.idenID = user.mtShipowner.id;
-    //         }
-    //         this.setData({
-    //             userInfo:user
-    //         })
-    //         console.log(this.data.userInfo)
-    //     })
-    // },
+    getUserInfo(){
+        let Authorization = wx.getStorageSync('Authorization');
+        let uId = '';
+        User.userInfo({Authorization,uId}).then(res => {
+            let user = res.data.data;
+            if(user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' '){
+                user.idenID = user.mtCargoOwner.id;
+            }else if(user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' '){
+                user.idenID = user.mtOwner.id;
+            }else if(user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' '){
+                user.idenID = user.mtShipowner.id;
+            }
+            this.setData({
+                userInfo:user
+            })
+            console.log(this.data.userInfo)
+        })
+    },
     focusEven(e){
         // console.log(e)
         this.setData({
@@ -97,17 +106,12 @@ Page({
         })
     },
     handleChatSend(){
-        let Authorization = wx.getStorageSync('Authorization');
         let receiverId = this.data.receiverid;
         let senderId = this.data.senderid;
-        let msgId = this.data.senderid;
         let msg = this.data.msg;
         let action = 2;
-        let param = { Authorization,receiverId,senderId,msg,msgId,action }
-        // console.log(param)
-        CHAT.UserFriendChat(param).then(res => {
-            console.log(res)
-        })
+        let params = {receiverId,senderId,msg,action }
+        WebSocket.sendSocketMessage(params)
     },
     // gotoCrewList(e){
     //     console.log(e)

@@ -80,7 +80,7 @@
                     </view>
                 </view>
                 <view class="divider">
-                    <van-divider contentPosition="center">3个好友</van-divider>
+                    <van-divider contentPosition="center">{{total}}个好友</van-divider>
                 </view>
             </view>
         </view>

@@ -21,7 +21,8 @@ Page({
                 }
             }
         ],
-        myFriendList:[],//
+        myFriendList:[],//好友列表
+        total:null,//好友数量
         show:false,//弹框显示
         friendQequest:false,
         searchOf:[],//搜索出来的好友
@@ -72,10 +73,12 @@ Page({
         userFriend.UserFriendsListL(params).then(res => {
             console.log(res)
             let myFriendList = res.data.data.rows;
-            console.log(myFriendList)
+            let total = res.data.data.total;
             this.setData({
-                myFriendList
+                myFriendList,
+                total
             })
+            console.log(this.data.myFriendList)
         });
     },
     //显示好友搜索框

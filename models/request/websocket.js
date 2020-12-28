@@ -1,10 +1,6 @@
 import startWebSocket from "./startWebSocket";
 
 const websocket = (method, url, data, header) => {
-    let params = { 
-        'Authorization': data.Authorization,
-        'content-type':'application/x-www-form-urlencoded',
-    }
     let socketOpen = false
     return new Promise((resolve, reject) => {
         wx.connectSocket({
@@ -35,13 +31,6 @@ const websocket = (method, url, data, header) => {
                           console.log(err)
                       }
                     })
-
-                    //接收数据
-                    wx.onSocketError((result) => {
-                        console.log(result)
-                    })
-
-
                 }
             })
           },
