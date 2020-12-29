@@ -121,12 +121,12 @@ Page({
         let params = {receiverId,senderId,msg,action }
         WebSocket.sendSocketMessage(params)
     },
-    // gotoCrewList(e){
-    //     console.log(e)
-    //     let idenID = this.data.userInfo.idenID;
-    //     wx.navigateTo({
-    //       url: '/views/FindResources/FindResources?idenID='+idenID,
-    //     })
-    //     console.log(idenID)
-    // }
+    gotoCrewList(e){
+        console.log(e)
+        let idenID = this.data.userInfo.idenID;
+        wx.navigateTo({
+          url: '/views/FindResources/FindResources?idenID='+idenID,
+        })
+        console.log(idenID)
+    }
 })

@@ -19,7 +19,17 @@
         "views/MyAddress/MyAddress",
         "views/MyAddressAdd/MyAddressAdd",
         "views/Preferences/Preferences",
-        "views/InvoiceAdmin/InvoiceAdmin"
+        "views/InvoiceAdmin/InvoiceAdmin",
+        "views/InvoiceAgreement/InvoiceAgreement",
+        "views/OrderAgreement/OrderAgreement",
+        "views/OrderAppeal/OrderAppeal",
+        "views/OrderContract/OrderContract",
+        "views/OrderDetails/OrderDetails",
+        "views/OrderEvaluate/OrderEvaluate",
+        "views/OrderInformation/OrderInformation",
+        "views/OrderShipment/OrderShipment",
+        "views/OrderTrack/OrderTrack",
+        "views/OrderTracking/OrderTracking"
     ],
     "window": {
         "navigationStyle": "custom",

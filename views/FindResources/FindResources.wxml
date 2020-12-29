@@ -16,7 +16,7 @@
                 input-align="center" 
                 placeholder="请输入船名/AIS名" />
             <view class="resources-btu" wx:if="{{ pageState }}">
-                <text>筛选</text>
+                <text>筛选</text> 
             </view>
         </view>
         <view class="resources-list">
