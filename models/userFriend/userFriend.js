@@ -21,5 +21,9 @@ export default{
     //用户好友验证
     UserFriendVerification:function(data){
         return request.post(api.UserFriendVerification, data)
+    },
+    //查询用户未签收的信息
+    UserFriendChatMsg:function(data){
+        return request.get(api.UserFriendChatMsg, data)
     }
 }

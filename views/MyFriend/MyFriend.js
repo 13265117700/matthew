@@ -32,6 +32,7 @@ Page({
         VerifyShow:false,//
         VerifyTitle:'待通过验证',
         VerifyItemInfo:{},//验证当前项信息
+        unreadChatInfo:[],//未读聊天信息
 
         //验证按钮
         VerifyItemButton:[{
@@ -46,7 +47,7 @@ Page({
         value:'',
     },
     onShow: function () {
-        
+        this.UserUnreadChatInfo()
     },
 
     //点击底部导航
@@ -58,7 +59,7 @@ Page({
         console.log(this.data.activeIndex)
         let activeIndex = this.data.activeIndex;
         if(activeIndex === 0){
-            console.log(11111)
+            this.UserUnreadChatInfo()
         }else{
             this.getUserFriendList()
         }
@@ -216,7 +217,22 @@ Page({
         })
     },
 
+    //用户未读好友聊天信息
+    UserUnreadChatInfo(){
+        let Authorization = wx.getStorageSync('Authorization');
+        let page = 1;
+        let rows = 10;
+        let params = {Authorization, page, rows};
+        userFriend.UserFriendChatMsg(params).then(res => {
+            let rows = res.data.data.rows;
+            console.log(rows)
+            this.setData({
+                unreadChatInfo:rows
+            })
+        })
+    },
 
+    // 打开聊天对话
     BeganToChat(e){
         console.log(e)
         let receiverid = e.currentTarget.dataset.receiverid;//好友的ID
@@ -229,12 +245,12 @@ Page({
 
     
 
-    gotoChat(e){
-        console.log(e)
-        wx.navigateTo({
-          url: '/views/chat/chat',
-        })
-    },
+    // gotoChat(e){
+    //     console.log(e)
+    //     wx.navigateTo({
+    //       url: '/views/chat/chat',
+    //     })
+    // },
     handleAddUser(e){
         console.log(e)
     }

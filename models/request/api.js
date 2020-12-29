@@ -1,6 +1,8 @@
 const PREFIX  = 'http://8.129.87.113:8005';
 const WebSocket = 'ws://8.129.87.113:8088';
 export default {
+    UserFriendChat:`${WebSocket}/ws`,//websocket连接通信
+
     // 微信登录
     wxLogin: `${PREFIX}/login/code`,
     
@@ -22,7 +24,7 @@ export default {
     UserFriendRequest:`${PREFIX}/user/friend/friendApplication`,//用户好友申请
     UserFriendRequestList:`${PREFIX}/user/friend/myFriendsRequestFriends`,//用户好友申请列表
     UserFriendVerification:`${PREFIX}/user/friend/agreeOrRefuse`,//用户好友验证
-    UserFriendChat:`${WebSocket}/ws`,
+    UserFriendChatMsg:`${PREFIX}/user/mtChatMsg/informationNotSignedByUsers`,//查询用户未签收的信息
 
     
     mtShipownerUpdate:`${PREFIX}/user/information/mtShipownerUpdate`,//船东信息修改

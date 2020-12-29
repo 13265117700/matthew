@@ -1,13 +1,11 @@
-// import websocket from '../../models/request/websocket';
 import User from '../../models/user/user';
-// import userChat from '../../models/userChat/userChat';
 import WebSocket from '../../models/websocket/websocket';
 
 Page({
     data: {
         receiverid:null,
         senderid:null,
-        msg:null,
+        msg:'',
         bottom:0,
         talkContent:[
             { 
@@ -40,6 +38,7 @@ Page({
     },
 
     onLoad: function (options) {
+        console.log(options)
         this.setData({
             receiverid:options.receiverid,
             senderid:options.senderid
@@ -49,6 +48,7 @@ Page({
     },
 
 
+    //监听websocket连接与接收信息
     WebSocketInit:function(){
         let senderId = this.data.senderid;//自己的ID
         let receiverId = this.data.receiverid;//对方的ID
@@ -59,18 +59,21 @@ Page({
         WebSocket.onSocketMessageCallback = this.onSocketMessageCallback;
     },
 
-
+    //关闭websocket连接
     onUnload:function(){
         WebSocket.closeSocket()
     },
 
+    //websocket通信接收信息
     onSocketMessageCallback:function(msg){
         console.log(msg)
     }, 
 
     onShow: function () {
-        // this.getUserInfo()
+        this.getUserInfo()
     },
+
+    //获取用户信息
     getUserInfo(){
         let Authorization = wx.getStorageSync('Authorization');
         let uId = '';
@@ -89,6 +92,7 @@ Page({
             console.log(this.data.userInfo)
         })
     },
+
     focusEven(e){
         // console.log(e)
         this.setData({
@@ -100,11 +104,15 @@ Page({
             bottom:0
         })
     },
+
+    //聊天输入框
     handleInputValue(e){
         this.setData({
             msg:e.detail.value
         })
     },
+
+    //聊天发送信息
     handleChatSend(){
         let receiverId = this.data.receiverid;
         let senderId = this.data.senderid;

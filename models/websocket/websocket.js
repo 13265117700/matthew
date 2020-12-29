@@ -1,6 +1,5 @@
 import API from "../request/api";
 import startWebSocket from "../request/startWebSocket";
-// import websocket from "../request/websocket";
 
 // socket已经连接成功
 let socketOpen = false
