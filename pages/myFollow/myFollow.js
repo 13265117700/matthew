@@ -29,6 +29,11 @@ Page({
                 activeIndex:1
             })
         }
+        this.getMyFollow()
+    },
+
+    getMyFollow(){
+        console.log(123123)
     },
 
     onClickTabs(e){
@@ -39,6 +44,8 @@ Page({
         this.setData({
             id:name
         })
+
+
         // let index = e.detail.index;
         // this.setData({
         //     activeIndex:index
