@@ -37,4 +37,5 @@ export default {
     frontDeskShipTypeList:`${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`,//船类型列表
     frontDeskCargoList:`${PREFIX}/reception/mtNameGoods/mtNameGoodsFriends`,//货物名列表
     frontDeskWharfList:`${PREFIX}/reception/mtWharf/findAll`,//码头列表查询
+    frontDeskShipList:`${PREFIX}/reception/ship/myFriendsRequestFriends`,//船信息列表
 }

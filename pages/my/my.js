@@ -187,8 +187,6 @@ Page({
   //如果申请认证区分显示模块
   displayModule:function(){
     let Authorization = wx.getStorageSync('Authorization');
-    console.log(Authorization)
-
     let uId ='';
     if(Authorization){
       let params = {
@@ -204,8 +202,8 @@ Page({
           user.status = user.mtCargoOwner.status;
           this.setData({
             userInfo:user,
-            ["ceilList[5].state"]:false,
-            ["ceilList[3].state"]:false,
+            // ["ceilList[5].state"]:false,
+            // ["ceilList[3].state"]:false,
           })
         }else if(user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' '){
           //车
@@ -213,8 +211,8 @@ Page({
           user.status = user.mtOwner.status;
           this.setData({
             userInfo:user,
-            ["ceilList[4].state"]:false,
-            ["ceilList[3].state"]:false,
+            // ["ceilList[4].state"]:false,
+            // ["ceilList[3].state"]:false,
           })
         }else if(user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' '){
            //船
@@ -222,8 +220,8 @@ Page({
           user.status = user.mtShipowner.status;
           this.setData({
             userInfo:user,
-            ["ceilList[4].state"]:false,
-            ["ceilList[5].state"]:false,
+            // ["ceilList[4].state"]:false,
+            // ["ceilList[5].state"]:false,
           })
         }else{
           this.setData({

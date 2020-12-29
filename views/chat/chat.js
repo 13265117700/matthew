@@ -122,10 +122,10 @@ Page({
         WebSocket.sendSocketMessage(params)
     },
     gotoCrewList(e){
-        console.log(e)
         let idenID = this.data.userInfo.idenID;
+        console.log(idenID)
         wx.navigateTo({
-          url: '/views/FindResources/FindResources?idenID='+idenID,
+          url: '/views/ShipPeriod/ShipPeriod?idenID='+idenID,
         })
         console.log(idenID)
     }

@@ -14,4 +14,7 @@ export default {
     frontDeskWharfList:function(data){
         return request.get(api.frontDeskWharfList, data)
     },
+    frontDeskShipList:function(data){
+        return request.get(api.frontDeskShipList, data)
+    }
 }

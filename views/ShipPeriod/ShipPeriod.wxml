@@ -1,0 +1,58 @@
+<view class="page-container">
+    <view class="page-navbar">
+        <vtu-navbar 
+            title="船期信息" 
+            homeStyle="cachet" 
+            bgColor="#F0222FFF" 
+            fontColor="#ffffff" 
+            icon="iconfont icon-shangchuan"></vtu-navbar>
+    </view>
+    <view class="main">
+        <view class="resources-search">
+            <van-search 
+                value="{{ value }}" 
+                shape="round"
+                background="#ffffff"
+                input-align="center" 
+                placeholder="请输入船名/AIS名" />
+        </view>
+        <view class="resources-list">
+            <view 
+                class="resources-item" 
+                wx:for="{{ shipList }}" 
+                wx:key="index" 
+                wx:for-item="shipItem"
+                >
+                <view class="resources-top">
+                    <view class="resources-icon">
+                        <image src="/images/myFollow/chuan@3x.png"></image>
+                    </view>
+                    <view class="resources-title">
+                        <text>{{shipItem.nameVessel}}</text>
+                    </view>
+                    <view class="resources-active">
+                        <vtu-btn plain="true" type="danger" size="small" round="true">确认船期</vtu-btn>
+                    </view>
+                </view>
+                <view class="resources-bottom" data-id="{{ shipItem.id }}" bindtap="handleCheckDetails">
+                    <view class="ship-container">
+                        <view class="ship-item">
+                            <view class="ship-subtitle">空船港</view>
+                            <view class="ship-describe">云南昆明市五华区</view>
+                            <view class="ship-text">{{shipItem.typeShip}}</view>
+                        </view>
+                        <view class="ship-item">
+                            <view class="ship-subtitle">载重级别</view>
+                            <view class="ship-describe">A级</view>
+                            <view class="ship-text">{{shipItem.ladenA}}</view>
+                        </view>
+                        <view class="ship-item">
+                            <view class="ship-subtitle">空船期</view>
+                            <view class="ship-text">成都武侯区</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

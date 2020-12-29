@@ -29,7 +29,8 @@
         "views/OrderInformation/OrderInformation",
         "views/OrderShipment/OrderShipment",
         "views/OrderTrack/OrderTrack",
-        "views/OrderTracking/OrderTracking"
+        "views/OrderTracking/OrderTracking",
+        "views/ShipPeriod/ShipPeriod"
     ],
     "window": {
         "navigationStyle": "custom",
@@ -85,7 +86,13 @@
         "van-uploader": "/miniprogram_npm/@vant/weapp/uploader/index",
         "van-button": "/miniprogram_npm/@vant/weapp/button/index",
         "van-field": "/miniprogram_npm/@vant/weapp/field/index",
-        "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index"
+        "van-cell-group": "/miniprogram_npm/@vant/weapp/cell-group/index",
+        "vtu-steps": "/miniprogram_npm/vtuweapp/steps/steps/vtu-steps",
+        "vtu-step": "/miniprogram_npm/vtuweapp/steps/step/vtu-step",
+        "van-rate": "@vant/weapp/rate/index",
+        "van-steps": "@vant/weapp/steps/index",
+        "vtu-tab": "/miniprogram_npm/vtuweapp/tab/vtu-tab",
+        "vtu-tabs": "/miniprogram_npm/vtuweapp/tabs/vtu-tabs"
     },
     "sitemapLocation": "sitemap.json"
 }

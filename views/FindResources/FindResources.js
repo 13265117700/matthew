@@ -7,6 +7,7 @@ Page({
         idenID:null,
     },
     onLoad: function (options) {
+        
         console.log(options)
         this.setData({
             id:options.id,

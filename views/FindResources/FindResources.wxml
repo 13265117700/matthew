@@ -79,7 +79,7 @@
                     </view>
                 </view>
             </view>
-            <view class="resources-item" wx:if="{{ id === '9999999' || idenID === '151' }}">
+            <view class="resources-item" wx:if="{{ id === '9999999' }}">
                 <view class="resources-top">
                     <view class="resources-icon">
                         <image src="/images/myFollow/chuan@3x.png"></image>
