@@ -33,9 +33,11 @@ Component({
         terminalList:[],
         id:null,
         detailedAddress:null,
-        wharfID:null,
+        wharfID:null,//港口id
+        timeStamp:null,//船期时间戳
     },
     methods: {
+        //港口选择
         onMyEvent(e){
             console.log(e)
             let detailedAddress = e.detail.detailedAddress;
@@ -57,6 +59,8 @@ Component({
             })
             this.triggerEvent('myevent','发布货源');
         },
+
+
         handleOpenPopup(e){
             console.log(e)
             let index = e.currentTarget.dataset.index;
@@ -113,10 +117,20 @@ Component({
         // 时间弹框确认按钮
         handleconfirm(e){
             let index = e.currentTarget.dataset.index;
-            let value = e.detail.value;
-            this.setData({
-                [`inputList[${index}].pickerDate`]:value + '±1天'
-            })
+            console.log(index)
+            if(index === 2){
+                let value = e.detail.value;
+                console.log(value)
+                let timeStamp = new Date(value).getTime();
+                this.setData({
+                    [`inputList[${index}].pickerDate`]:value + '±1天',
+                    timeStamp
+                })
+            }
+            
         },
+        handleRelease(){
+
+        }
     }
 })

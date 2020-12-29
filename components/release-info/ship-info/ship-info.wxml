@@ -81,6 +81,11 @@
         </vtu-input-group>
     </view>
     <view class="info-group">
-        <van-button type="danger" square size="large" custom-style="{{ buttonStyle }}">发布船期</van-button>
+        <van-button 
+            type="danger" 
+            square 
+            size="large" 
+            custom-style="{{ buttonStyle }}"
+            bind:click="handleRelease">发布船期</van-button>
     </view>
 </view>

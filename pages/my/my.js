@@ -187,6 +187,7 @@ Page({
   //如果申请认证区分显示模块
   displayModule:function(){
     let Authorization = wx.getStorageSync('Authorization');
+    console.log(Authorization)
     let uId ='';
     if(Authorization){
       let params = {
