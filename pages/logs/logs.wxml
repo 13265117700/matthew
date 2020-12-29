@@ -59,7 +59,7 @@
         </view>
     </view>
     <view class="weChat-login-container">
-        <vtu-divider font-color="#999999">推荐使用微信登录</vtu-divider>
+        <vtu-divider  width="80%" font-color="#999999">推荐使用微信登录</vtu-divider>
         <!-- <view class="footer-guide">推荐使用微信登录</view> -->
         <view class="weChat-login-button">
             <vtu-btn type="success" round="true" open-type="getUserInfo" bind:getuserinfo="weChatLogin" >微信一键登录</vtu-btn>

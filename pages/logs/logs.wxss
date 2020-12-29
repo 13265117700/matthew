@@ -1,6 +1,9 @@
 .login-container{
   background: #ffffff;
-  height: 100vh;
+  /* height: 100vh; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -8,7 +11,10 @@
 
 .company-info-container{
   text-align: center;
-  padding: 20px 0 70px;
+  width: 80%;
+  margin: 0 auto;
+  /* padding-top: 20px; */
+  /* padding: 20px 0 70px; */
 }
 .company-info-logo{
   width: 59.5px;
@@ -32,13 +38,23 @@
 
 
 /* login-form-container */
+.login-form-container{
+  flex: 1;
+  padding-top: 10%;
+}
+.login-from-phone{
 
+}
 .form-item{
-  width: 328px;
+  /* width: 328px; */
+  width: 80%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 .from-button{
-  margin: 40px auto 0;
+  /* margin: 40px auto 0; */
+  padding-top: 10%;
 }
 .from-button button{
   margin-bottom: 22px;
@@ -58,17 +74,20 @@
 
 
 .weChat-login-container{
-  position: absolute;
+  /* position: absolute;
   text-align: center;
-  bottom: 30px;
-  width: 328px;
-  /* margin: 0 auto; */
-  left: 50%;
-  transform: translateX(-50%)
+  bottom: 30px; */
+  /* width: 328px; */
+  width: 80%;
+  margin: 0 auto;
+  /* padding-bottom: 20px; */
+  /* left: 50%;
+  transform: translateX(-50%) */
 }
 .weChat-login-button{
   width: 100%;
-  margin: 20px 0 24px 0;
+  /* margin: 20px 0 24px 0; */
+  margin: 2% 0 2% 0;
 }
 .weChat-login-explain{
   font-family: PingFang-SC-Medium;
@@ -77,6 +96,7 @@
   color: #555555;
   display: flex;
   justify-content: center;
+  padding-bottom: 10%;
 }
 .weChat-login-explain navigator{
   color: #3E80C9;

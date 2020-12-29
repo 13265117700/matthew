@@ -21,6 +21,11 @@ export default{
         return request.get(api.UserShipInfoQuery, data)
     },
 
+    //用户船期发布
+    UserShipPeriodAdd:function(data){
+        return request.post(api.UserShipPeriodAdd, data)
+    },
+
 
 
      //用户货源添加

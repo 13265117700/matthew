@@ -29,12 +29,17 @@ Component({
         popupShow:false,
         addressShow:false,
         popupStyle:{},
-        shipList:['杭州', '宁波', '温州', '嘉兴', '湖州'],
+        shipNameList:[],//船名字列表
+        shipList:[],//船列表
         terminalList:[],
         id:null,
         detailedAddress:null,
-        wharfID:null,//港口id
-        timeStamp:null,//船期时间戳
+
+
+        shipId:null,//船ID
+        wharfId:null,//港口id
+        emptyDate:null,//船期时间戳
+        note:null,//备注
     },
     methods: {
         //港口选择
@@ -42,12 +47,13 @@ Component({
             console.log(e)
             let detailedAddress = e.detail.detailedAddress;
             // let propID = e.detail.propID;
-            let wharfID = e.detail.wharfID;
+            let wharfId = e.detail.wharfID;
+            console.log(wharfId)
             if(detailedAddress != null){
                 this.setData({
                     ['inputList[1].placeholder']:detailedAddress,
                     detailedAddress,
-                    wharfID,
+                    wharfId,
                     addressShow:false
                 })
                 console.log(this.data.inputList)
@@ -62,13 +68,14 @@ Component({
 
 
         handleOpenPopup(e){
-            console.log(e)
+            // console.log(e)
             let index = e.currentTarget.dataset.index;
             let id = e.currentTarget.dataset.id;
+            console.log(index)
             if(index === 0){
                 let popupStyle = {
                     position:'bottom',
-                    closeable:true,
+                    closeable:false,
                     closeIcon:'close'
                 }
                 this.setData({
@@ -91,8 +98,16 @@ Component({
                 page:1,
                 rows:10,
             }
-            User.myFriendsRequestFriends(params).then(res => {
+            console.log(params)
+            User.UserShipQuery(params).then(res => {
                 console.log(res)
+                let rows = res.data.data.rows;
+                let shipNameList = rows.map(data => data.nameVessel)
+                console.log(shipNameList)
+                this.setData({
+                    shipNameList,
+                    shipList:rows
+                })
             })
         },
         onClose(){
@@ -103,16 +118,28 @@ Component({
         //确定船舶
         handlePickerItem(e){
             console.log(e)
+            let index = e.detail.index;
+            let shipList = this.data.shipList;
+            let shipId = shipList[index].id;
+            console.log(shipId)
             this.setData({
-                ['inputList[0].placeholder']:e.detail.value
+                ['inputList[0].placeholder']:e.detail.value,
+                shipId,
+                popupShow:false
             })
         },
-        handleConfirmShip(e){
+
+        /**
+         * handleConfirmShip(e){
             console.log(e)
             this.setData({
                 popupShow:false
             })
         },
+         * 
+         * @param {*} e 
+         */
+        
         
         // 时间弹框确认按钮
         handleconfirm(e){
@@ -121,16 +148,32 @@ Component({
             if(index === 2){
                 let value = e.detail.value;
                 console.log(value)
-                let timeStamp = new Date(value).getTime();
+                let emptyDate = new Date(value).getTime();
                 this.setData({
                     [`inputList[${index}].pickerDate`]:value + '±1天',
-                    timeStamp
+                    emptyDate
                 })
             }
             
         },
+        //备注
+        handleNote(e){
+            console.log(e)
+            this.setData({
+                note:e.detail.value
+            })
+        },
         handleRelease(){
-
+            let Authorization = wx.getStorageSync('Authorization');
+            let shipId = this.data.shipId;
+            let wharfId = this.data.wharfId;
+            let emptyDate = this.data.emptyDate;
+            let note = this.data.note;
+            let params = { Authorization, shipId, wharfId ,emptyDate, note }
+            console.log(params)
+            User.UserShipPeriodAdd(params).then(res => {
+                console.log(res)
+            })
         }
     }
 })

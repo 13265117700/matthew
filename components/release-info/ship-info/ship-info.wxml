@@ -50,20 +50,19 @@
                         <van-picker
                             show-toolbar
                             title="请选择船舶"
-                            columns="{{ shipList }}"
+                            columns="{{ shipNameList }}"
                             default-index="1"
-                            confirm-button-text=""
                             cancel-button-text=""
-                            bind:change="handlePickerItem"/>
+                            bind:confirm="handlePickerItem"/>
                     </view>
-                    <view class="info-popup_btn">
+                    <!-- <view class="info-popup_btn">
                         <van-button 
                             type="danger" 
                             custom-style="{{ buttonStyle }}"
                             square 
                             size="large" 
                             bindtap="handleConfirmShip">确认</van-button>
-                    </view>
+                    </view> -->
                 </view>
             </van-popup>
         </vtu-input-group>
@@ -77,7 +76,8 @@
                 type="textarea" 
                 text-align="left" 
                 text-height="100px" 
-                show-max-label="{{false}}"></vtu-input>
+                show-max-label="{{false}}"
+                bind:input="handleNote"></vtu-input>
         </vtu-input-group>
     </view>
     <view class="info-group">

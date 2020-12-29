@@ -16,6 +16,8 @@ export default {
     UserShipQuery:`${PREFIX}/user/ship/myFriendsRequestFriends`,//用户船列表查询
     UserShipInfoQuery:`${PREFIX}/user/ship/findByShipId`,//用户船信息查询
 
+    UserShipPeriodAdd:`${PREFIX}/user/releaseShipSource/saveReleaseShipSource`,//用户船期发布
+
     UserMtCargoSave:`${PREFIX}/user/cargo/mtCargoSave`,//用户货源添加
     UserMtCargoQuery:`${PREFIX}/user/cargo/mtCargoFriends`,//用户货源列表查询
 
