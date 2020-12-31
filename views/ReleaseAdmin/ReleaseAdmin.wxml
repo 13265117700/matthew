@@ -15,6 +15,7 @@
         name="{{ statusItem.status }}"
         title="{{statusItem.title}}">
           <view class="release-list">
+            <!-- 船源列表 -->
             <view class="release-item" wx:if="{{ id === '567' }}">
               <view class="release-container">
                 <view class="release-cell">
@@ -58,7 +59,7 @@
               </view>
             </view>
 
-            <!-- 船源列表 -->
+            <!-- 货源列表 -->
             <view class="release-item" wx:for="{{ cargoList }}" wx:key="index" wx:for-item="cargoItem" wx:if="{{ id === '855' }}">
               <view class="release-image">
                 <image src="/images/my/logo@3x.png"></image>
@@ -107,6 +108,8 @@
                 </view>
               </view>
             </view>
+
+            <!-- 车源列表 -->
             <view class="release-item" wx:if="{{ id === '609' }}">
               <view class="release-container">
                 <view class="release-cell">

@@ -50,7 +50,7 @@ van-search{
     margin-right: 10px;
 }
 .resources-active{
-
+    width: 70px;
 }
 .resources-bottom{
     margin-top: 16.5px;

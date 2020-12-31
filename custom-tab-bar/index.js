@@ -66,6 +66,15 @@ Component({
         onChange(e){
             let index = e.detail.current;
             let IdentityID = this.data.IdentityID;
+            let Authorization = wx.getStorageSync('Authorization');
+            if(index != 0 && index != 4){
+                if(!Authorization){
+                    wx.navigateTo({
+                      url: '/pages/logs/logs',
+                    })
+                    return
+                }
+            }
             if(index === 2){
                 wx.navigateTo({
                   url: '/views/ResourceAdd/ResourceAdd?id='+IdentityID,

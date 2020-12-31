@@ -2,6 +2,7 @@
   "usingComponents": {
     "van-image": "/miniprogram_npm/@vant/weapp/image/index",
     "van-field": "/miniprogram_npm/@vant/weapp/field/index",
-    "van-button": "/miniprogram_npm/@vant/weapp/button/index"
+    "van-button": "/miniprogram_npm/@vant/weapp/button/index",
+    "vtu-dialog": "/miniprogram_npm/vtuweapp/dialog/vtu-dialog"
   }
 }

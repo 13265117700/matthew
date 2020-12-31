@@ -1,0 +1,7 @@
+<view class="page-comtainer">
+    <view class="page-banner">
+        <view class="home-span" bindtap="pageclose">
+            <view class="home-span_icon"></view>
+        </view>
+    </view>
+</view>

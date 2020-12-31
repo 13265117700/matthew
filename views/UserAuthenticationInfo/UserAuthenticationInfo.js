@@ -6,7 +6,8 @@ Page({
         imageUrl:null,
         describe:null,
         statusText:null,
-        trialList:{}
+        trialList:{},
+        userInfo:{},
     },
     onLoad: function (options) {
         // console.log(options.idenID)
@@ -21,75 +22,116 @@ Page({
         User.userInfo({Authorization,uId}).then(res => {
             let user = res.data.data;
             if(user.mtCargoOwner.idNumber != null){
-                user.idenID = user.mtCargoOwner.id;
+                user.cargo = true;
                 user.status = user.mtCargoOwner.status;
                 this.setData({
                     trialList:user.mtCargoOwner
                 })
-                console.log(this.data.trialList)
             }else if(user.mtOwner.idNumber != null){
-                user.idenID = user.mtOwner.id;
+                user.car = true;
                 user.status = user.mtOwner.status;
                 this.setData({
                     trialList:user.mtOwner
                 })
             }else if(user.mtShipowner.idNumber != null){
-                user.idenID = user.mtShipowner.id;
+                user.ship = true
                 user.status = user.mtShipowner.status;
                 this.setData({
                     trialList:user.mtShipowner
                 })
             }
+            this.setData({
+                userInfo:user
+            })
             this.showUserInfo()
-            console.log(user)
             
         })
+        
     },
     // 展示用户信息
     showUserInfo(){
-        console.log(this.data.trialList)
+        // console.log(this.data.trialList)
         let trialList = this.data.trialList;
-        switch(trialList.id){
-            case 153:
-                if(trialList.status === 0){
-                    let describe = '您的船东认证正在审核中';
-                    this.process(describe)
-                }else if(trialList.status === 1){
-                    let navbarTitle = '船东认证成功';
-                    let describe = '您的船东认证信息审核通过';
-                    this.adopt(navbarTitle,describe)
-                }else{
-                    let describe = '您的船东认证信息审核不通过';
-                    this.fail(describe)
-                }
-                break
-            case 152:
-                if(trialList.status === 0){
-                    let describe = '您的车主认证正在审核中';
-                    this.process(describe)
-                }else if(trialList.status === 1){
-                    let navbarTitle = '车主认证成功';
-                    let describe = '您的车主认证信息审核通过';
-                    this.adopt(navbarTitle,describe)
-                }else{
-                    let describe = '您的车主认证信息审核不通过';
-                    this.fail(describe)
-                }
-                break
-            case 151:
-                if(trialList.status === 0){
-                    let describe = '您的货主认证正在审核中';
-                    this.process(describe)
-                }else if(trialList.status === 1){
-                    let navbarTitle = '货主认证成功';
-                    let describe = '您的货主认证信息审核通过';
-                    this.adopt(navbarTitle,describe)
-                }else{
-                    let describe = '您的货主认证信息审核不通过';
-                    this.fail(describe)
-                }
-                break
+        let userInfo = this.data.userInfo;
+        console.log(userInfo)
+        if(userInfo.ship === true){
+            if(trialList.status === 0){
+                let describe = '您的船东认证正在审核中';
+                this.process(describe)
+            }else if(trialList.status === 1){
+                let navbarTitle = '船东认证成功';
+                let describe = '您的船东认证信息审核通过';
+                this.adopt(navbarTitle,describe)
+            }else{
+                let describe = '您的船东认证信息审核不通过';
+                this.fail(describe)
+            }
+        }else if(userInfo.cargo === true){
+            if(trialList.status === 0){
+                let describe = '您的货主认证正在审核中';
+                this.process(describe)
+            }else if(trialList.status === 1){
+                let navbarTitle = '货主认证成功';
+                let describe = '您的货主认证信息审核通过';
+                this.adopt(navbarTitle,describe)
+            }else{
+                let describe = '您的货主认证信息审核不通过';
+                this.fail(describe)
+            }
+        }else if(userInfo.car === true){
+            if(trialList.status === 0){
+                let describe = '您的车主认证正在审核中';
+                this.process(describe)
+            }else if(trialList.status === 1){
+                let navbarTitle = '车主认证成功';
+                let describe = '您的车主认证信息审核通过';
+                this.adopt(navbarTitle,describe)
+            }else{
+                let describe = '您的车主认证信息审核不通过';
+                this.fail(describe)
+            }
         }
+        // switch(trialList.id){
+        //     case 153:
+        //         if(trialList.status === 0){
+        //             let describe = '您的船东认证正在审核中';
+        //             this.process(describe)
+        //         }else if(trialList.status === 1){
+        //             let navbarTitle = '船东认证成功';
+        //             let describe = '您的船东认证信息审核通过';
+        //             this.adopt(navbarTitle,describe)
+        //         }else{
+        //             let describe = '您的船东认证信息审核不通过';
+        //             this.fail(describe)
+        //         }
+        //         break
+        //     case 152:
+        //         if(trialList.status === 0){
+        //             let describe = '您的车主认证正在审核中';
+        //             this.process(describe)
+        //         }else if(trialList.status === 1){
+        //             let navbarTitle = '车主认证成功';
+        //             let describe = '您的车主认证信息审核通过';
+        //             this.adopt(navbarTitle,describe)
+        //         }else{
+        //             let describe = '您的车主认证信息审核不通过';
+        //             this.fail(describe)
+        //         }
+        //         break
+        //     case 151:
+        //         if(trialList.status === 0){
+        //             let describe = '您的货主认证正在审核中';
+        //             this.process(describe)
+        //         }else if(trialList.status === 1){
+        //             let navbarTitle = '货主认证成功';
+        //             let describe = '您的货主认证信息审核通过';
+        //             this.adopt(navbarTitle,describe)
+        //         }else{
+        //             let describe = '您的货主认证信息审核不通过';
+        //             this.fail(describe)
+        //         }
+        //         break
+        // }
     },
     // 审核中
     process(describe){

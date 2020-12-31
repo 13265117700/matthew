@@ -12,10 +12,10 @@
             <view class="audit-img">
                 <image src="{{imageUrl}}"></image>
             </view>
-            <view class="audit-describe {{trialList.status === 0 ? 'active' : ''}}">
+            <view class="audit-describe {{trialList.status === 0 ? 'active' : ''}}" wx:if="{{ describe }}">
                 <text>{{describe}}</text>
             </view>
-            <view class="audit-status {{trialList.status === 2 ? '' : 'active'}}">
+            <view class="audit-status {{trialList.status === 2 ? '' : 'active'}}" wx:if="{{ statusText }}">
                 <text>{{statusText}}</text>
             </view>
         </view>

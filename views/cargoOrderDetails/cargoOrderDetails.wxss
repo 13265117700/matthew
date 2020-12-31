@@ -1,0 +1,21 @@
+.home-span {
+    width: 30px;
+    position: relative;
+    text-align: center;
+    top: 15%;
+    height: 30px;
+    line-height: 30px;
+}
+
+.home-span_icon {
+    font-family: "vtu-icon" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #fff;
+}
+
+.home-span_icon::before {
+    content: "\e6cb";
+}

@@ -79,33 +79,45 @@
                     </view>
                 </view>
             </view>
-            <view class="resources-item" wx:if="{{ id === '9999999' }}">
+            <view class="resources-item"  wx:if="{{ id === '9999999' }}"
+                wx:for="{{ shipList }}" 
+                wx:key="index" 
+                wx:for-item="shipItem"
+                >
                 <view class="resources-top">
                     <view class="resources-icon">
                         <image src="/images/myFollow/chuan@3x.png"></image>
                     </view>
                     <view class="resources-title">
-                        <text>煤炭</text>
+                        <text>{{shipItem.mtShip.nameVessel}}</text>
                     </view>
-                    <view class="resources-active" wx:if="{{ !idenID }}">
-                        <vtu-btn plain="true" size="small" round="true">取消关注</vtu-btn>
+                    <view class="resources-active">
+                        <vtu-btn 
+                            plain="true" 
+                            size="small"
+                            type="{{shipItem.focusStatus != true ? 'danger':''}}"
+                            round="true" 
+                            data-status="{{ shipItem.focusStatus }}"
+                            data-index="{{ index }}"
+                            data-id="{{ shipItem.mtShip.id }}" 
+                            bind:click="handleShipFocus">{{shipItem.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
                     </view>
                 </view>
-                <view class="resources-bottom">
+                <view class="resources-bottom" data-id="{{ shipItem.id }}" bindtap="handleCheckDetails">
                     <view class="ship-container">
                         <view class="ship-item">
-                            <view class="ship-subtitle">空车地</view>
-                            <view class="ship-describe">云南昆明市五华区</view>
-                            <view class="ship-text">成都武侯区</view>
+                            <view class="ship-subtitle">空船港</view>
+                            <view class="ship-describe">{{shipItem.mtWharf.name}}</view>
+                            <view class="ship-text">{{shipItem.mtShip.typeShip}}</view>
                         </view>
                         <view class="ship-item">
-                            <view class="ship-subtitle">空车地</view>
+                            <view class="ship-subtitle">载重级别</view>
                             <view class="ship-describe">A级</view>
-                            <view class="ship-text">成都武侯区</view>
+                            <view class="ship-text">{{shipItem.mtShip.ladenA}}</view>
                         </view>
                         <view class="ship-item">
-                            <view class="ship-subtitle">空车地</view>
-                            <view class="ship-text">成都武侯区</view>
+                            <view class="ship-subtitle">空船期</view>
+                            <view class="ship-text">{{shipItem.emptyDate}} ±1天</view>
                         </view>
                     </view>
                 </view>

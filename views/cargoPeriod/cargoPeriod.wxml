@@ -1,0 +1,78 @@
+<view class="page-container">
+    <view class="page-navbar">
+        <vtu-navbar 
+            title="选择要承运货物" 
+            homeStyle="cachet" 
+            bgColor="#F0222FFF" 
+            fontColor="#ffffff" 
+            icon="iconfont icon-shangchuan"></vtu-navbar>
+    </view>
+    <view class="main">
+        <view class="resources-search">
+            <van-search 
+                value="{{ value }}" 
+                shape="round"
+                background="#ffffff"
+                input-align="center" 
+                placeholder="请输入货物名称" />
+        </view>
+        <view class="resources-list">
+            <view class="resources-item" wx:for="{{ cargoList }}" wx:key="index" wx:for-item="cargoItem" wx:if="{{ cargoItem.status === 3 }}">
+                <view class="resources-top">
+                    <view class="resources-icon">
+                        <image src="/images/myFollow/chuan@3x.png"></image>
+                    </view>
+                    <view class="resources-title">
+                        <text>装货期</text><text>{{cargoItem.loadingDate}}</text>
+                    </view>
+                    <view class="resources-active">
+                        <image src="/images/my/MyFriend/bj@3x.png"></image>
+                    </view>
+                </view>
+                <view class="resources-bottom">
+                    <view class="cargo-container">
+                        <view class="cargo-item">
+                            <view class="cargo-icon start">始</view>
+                            <view class="cargo-subTitle">{{cargoItem.portArrivalAddress}}</view>
+                        </view>
+                        <view class="cargo-item">
+                            <view class="cargo-img">
+                                <image src="/images/myFollow/item-info_img2.png"></image>
+                            </view>
+                        </view>
+                        <view class="cargo-item">
+                            <view class="cargo-icon end">终</view>
+                            <view class="cargo-subTitle">{{cargoItem.portDepartureAddress}}</view>
+                        </view>
+                    </view>
+                    <view class="cargo-container">
+                        <view class="cargo-left">
+                            <view class="cargo-name">{{cargoItem.mtNameGoods.name}}</view>
+                            <view class="cargo-number">{{cargoItem.number}}吨</view>
+                        </view>
+                        <view class="cargo-right">
+                            <view class="cargo-send_btu">
+                                <vtu-btn 
+                                    plain="true" 
+                                    round="true" 
+                                    data-id="{{cargoItem.id}}"
+                                    size="small" 
+                                    type="danger" 
+                                    bind:click="handleSendMsg">发送货源</vtu-btn>
+                            </view>
+                            <view class="cargo-confirm_btu">
+                                <vtu-btn 
+                                    plain="true" 
+                                    round="true" 
+                                    size="small"
+                                    type="danger" 
+                                    data-id="{{cargoItem.id}}"
+                                    bind:click="handleConfirm">确认货物</vtu-btn>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

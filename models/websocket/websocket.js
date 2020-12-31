@@ -50,6 +50,7 @@ const webSocket = {
         })
     },
 
+    //发送消息
     sendSocketMessage:function(data){
         let senderId = data.senderId;//自己的ID
         let receiverId = data.receiverId;//对方的ID
@@ -57,20 +58,23 @@ const webSocket = {
         let action = data.action;
         let chatMsg = new startWebSocket.ChatMsg(senderId,receiverId,msg,null);//构建chatMsg
         let dataContent = new startWebSocket.DataContent(action, chatMsg, null);// 构建DataContent
-        if(socketOpen){
-            console.log(123)
-            wx.sendSocketMessage({
-                data: JSON.stringify(dataContent),
-                success:(res) => {
-                    console.log(res)
-                },
-                fail:(err) => {
-                    console.log(err)
-                }
-            })
-        }else{
-            socketMsgQueue.push(data)
-        }
+
+        return new Promise((resolve, reject) => {
+            if(socketOpen){
+                console.log(123)
+                wx.sendSocketMessage({
+                    data: JSON.stringify(dataContent),
+                    success:(res) => {
+                        resolve(chatMsg)
+                    },
+                    fail:(err) => {
+                        reject(err)
+                    }
+                })
+            }else{
+                socketMsgQueue.push(data)
+            }
+        })
     },
 
     // 关闭 WebSocket 连接
@@ -97,8 +101,8 @@ const webSocket = {
     },
 
     // 收到消息回调
-    onSocketMessageCallback:function(){
-
+    onSocketMessageCallback:function(msg){
+        console.log(msg)
     },
 
     //开始心跳

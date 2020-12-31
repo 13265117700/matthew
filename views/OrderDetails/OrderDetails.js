@@ -1,150 +1,158 @@
-// views/OrderDetails/OrderDetails.js
-Page({
+const {
+  default: user
+} = require("../../models/user/user");
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-      //用户内容信息
-      informations:[{
-        id:0,
-        contents:"货主名称：",
-        title:"玉米"
-      },{
-        id:1,
-        contents:"货主公司：",
-        title:"某某公司名称"
-      },{
-        id:2,
-        contents:"货物分类代码：",
-        title:"876446422144"
-      },{
-        id:3,
-        contents:"联系人：",
-        title:"何某某"
-      },{
-        id:4,
-        contents:"联系方式：",
-        title:"15187687"
-      },{
-        id:5,
-        contents:"跟单人姓名：",
-        title:"鹏某某"
-      },{
-        id:6,
-        contents:"跟单人电话：",
-        title:"18465485345"
-      }],
-  
-      //货物信息
-      informations_a:[{
-        id:0,
-        contents:"预计装货吨数:",
-        title:"6800吨"
-      },{
-        id:1,
-        contents:"运价（含税）：",
-        title:"运费单价 "
-      },{
-        id:2,
-        contents:"其它费用：",
-        title:"0元"
-      },{
-        id:3,
-        contents:"滞期约定：",
-        title:"装货3天-卸货3天 滞期单价：3000元"
-      },{
-        id:4,
-        contents:"船舶类型：",
-        title:"内容内容内容"
-      },{
-        id:5,
-        contents:"货物交接：",
-        title:"内容内容"
-      },{
-        id:6,
-        contents:"货损赔偿约定：",
-        title:"货损≤ 3%"
-      },{
-        id:7,
-        contents:"船舶大小：",
-        title:"内容内容内容"
-      },
-      {
-        id:8,
-        contents:"封仓要求：",
-        title:"内容内容内容"
-      },
-      {
-        id:9,
-        contents:"装货方式：",
-        title:"内容内容内容"
-      },
-      {
-        id:10,
-        contents:"卸货方式：",
-        title:"内容内容内容"
-      }],
-      value1: 0 ,//流程图
-      icon:"",
-      show: false,
-  
-    },
-    
-  
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-  
-    },
-  
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-  
-    },
-  
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-  
-    },
-  
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-  
+Page({
+  data: {
+    cargo:false,//是否货主
+    ship:false,//是否船东
+    contract:false,//是否发起合同
+    id:null,//订单ID
+    orderInfo: [],
+    mtCargo: {},
+    button: [{
+      title: '发起聊天',
+      state: 0,
+      type: 'default',
+      plain: true,
+      show: true
+    }, {
+      title: '同意承运',
+      state: 1,
+      type: 'danger',
+      plain: false,
+      show: true
+    }, {
+      title: '确认合同',
+      state: 3,
+      type: 'danger',
+      plain: false,
+      show: false
+    }],
+    state: null,
+    show: false
+  },
+  onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      id: options.id,
+      cargo:options.cargo,
+      contract:options.contract,
+      ship:options.ship
+    })
+  },
+  onShow: function () {
+    let cargo = this.data.cargo;
+    let ship = this.data.ship;
+    if(ship === true){
+      this.getOrderDetails()
+    }else if(cargo === true){
+      this.getCargoOrderDetails()
     }
-  })
+    
+  },
+  pageclose() {
+    wx.navigateBack({
+      data: 1
+    })
+  },
+
+
+  //船东获取订单详情
+  getOrderDetails() {
+    let id = this.data.id;
+    let Authorization = wx.getStorageSync('Authorization');
+    user.UserOrderDetails({
+      id,
+      Authorization
+    }).then(res => {
+      console.log(res)
+      let orderInfo = res.data.data;
+      let emptyDate = orderInfo.mtCargo.loadingDate;
+      let loadingDate = new Date(emptyDate).toLocaleDateString();
+      orderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
+      let mtCargo = orderInfo.mtCargo.mtUser.mtCargoOwner; //货主身份
+
+      let mtUser = orderInfo.mtShip.mtUser;
+      if (mtUser.mtCargoOwner.idNumber) {
+        orderInfo.contacts = mtUser.mtCargoOwner.contacts
+        orderInfo.phone = mtUser.mtCargoOwner.phone
+      } else if (mtUser.mtOwner.idNumber) {
+        orderInfo.contacts = mtUser.mtOwner.contacts
+        orderInfo.phone = mtUser.mtOwner.phone
+      } else {
+        orderInfo.contacts = mtUser.mtShipowner.contacts
+        orderInfo.phone = mtUser.mtShipowner.phone
+      }
+
+      if (orderInfo.status === 1) {
+        this.setData({
+          ['button[1].show']: false,
+        })
+      } else if (orderInfo.status === 2) {
+        this.setData({
+          ['button[2].show']: true,
+        })
+      }
+
+      console.log(orderInfo)
+      this.setData({
+        orderInfo,
+        mtCargo
+      })
+    })
+  },
+  handleButton(e) {
+    let state = e.currentTarget.dataset.state;
+    console.log(state)
+    if (state === 1) {
+      console.log(1)
+      this.setData({
+        state,
+        show: true
+      })
+    } else if (state === 3) {
+      console.log(this.data.orderInfo)
+    } else {
+
+    }
+  },
+  handleConfirm() {
+    let status = this.data.state;
+    let Authorization = wx.getStorageSync('Authorization');
+    let id = this.data.orderInfo.id;
+    let params = {
+      Authorization,
+      status,
+      id
+    }
+    console.log(params)
+    user.UserShipOrderAgreeOrRefused(params).then(res => {
+      console.log(res)
+      if (res.data.state === 200) {
+        wx.navigateBack({
+          delta: 1,
+        })
+      }
+    })
+  },
+
+
+
+  // //货主获取订单详情
+  // getCargoOrderDetails(){
+  //   let Authorization = wx.getStorageSync('Authorization');
+  //   let id = this.data.id;
+  //   user.UserOrderQuery({Authorization,id}).then(res => {
+  //     console.log(res)
+  //   })
+  // },
+  // //货主发起聊天
+  // handleCargoChatButton(e){
+  //   console.log(e)
+  // },
+  // // 货主发起合同
+  // handleCargoHairContract(e){
+
+  // }
+})

@@ -1,0 +1,132 @@
+<view class="page-container">
+    <view class="page-navbar">
+        <vtu-navbar title="{{navbarTitle}}" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff"
+            icon="iconfont icon-shangchuan">
+        </vtu-navbar>
+    </view>
+    <view class="page-main">
+        <!-- 船东待确认订单列表 -->
+        <view class="tabs-list" wx:if="{{ userInfo.ship === true }}">
+            <view class="tabs-item" wx:for="{{shipOrderList}}" wx:key="index" wx:for-item="orderItem">
+                <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{orderItem.id}}" bindtap="getOrderDetails">
+                    <view class="tabs-time">发起时间：2020-08-17 13：00</view>
+                    <view class="tabs-place">
+                        <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                        <text>{{orderItem.mtCargo.portArrivalAddress}}</text>
+                        <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px">
+                        </image>
+                        <text>{{orderItem.mtCargo.portDepartureAddress}}</text>
+                    </view>
+                    <view class="tabs-goods">
+                        <view class="tabs-type">{{orderItem.mtCargo.mtNameGoods.name}}</view>
+                        <view class="tabs-tonnage">{{orderItem.mtCargo.number}}吨</view>
+                    </view>
+                    <view class="tabs-ship-name">{{orderItem.mtShip.nameVessel}}</view>
+                </view>
+
+                <view class="tabs-btnBox">
+                    <view class="order-msg" wx:if="{{ orderItem.status === 1 }}">请等待货主发起合同</view>
+                    <van-button round plain size="small" type="default" data-senderid="{{ orderItem.userShipId }}"
+                        data-receiverid="{{ orderItem.userCargoId }}" style="margin-right:5px"
+                        bind:click="handleChatButton">
+                        发起聊天</van-button>
+
+                    <van-button wx:if="{{ orderItem.status === 0 }}" round plain data-id="{{ orderItem.id }}"
+                        type="danger" size="small" style="margin-right:5px" bind:click="handleShipConfirmOrderButton">
+                        同意承运</van-button>
+                    <van-button wx:if="{{ orderItem.status === 2 }}" round plain type="danger" size="small"
+                        style="margin-right:5px" bind:click="handleShipConfirmContractButton">
+                        确认合同</van-button>
+                    <!-- <van-button wx:for="{{button}}" wx:key="index" wx:for-item="buttonItem" round plain
+                        type="{{buttonItem.status === 2 ? 'default':'danger'}}" size="small"
+                        wx:if="{{ buttonItem.shipShow === true }}" data-status="{{buttonItem.status}}"
+                        style="margin-right:5px" bind:click="handleButton">
+                        {{buttonItem.title}}</van-button> -->
+                </view>
+
+            </view>
+            <view class="dialog">
+                <van-dialog use-slot title="确认同意承运吗？" show="{{ shipShow }}" show-cancel-button show-confirm-button
+                    data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
+                </van-dialog>
+            </view>
+        </view>
+
+        <!-- 货主待确认订单列表 -->
+        <view class="tabs-list" wx:if="{{userInfo.cargo === true }}">
+            <view class="tabs-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
+                <view style="border-bottom: 1px solid #E5E5E5;">
+                    <view class="tabs-time">发起时间：2020-08-17 13：00</view>
+                    <view class="tabs-place">
+                        <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                        <text>{{cargoOrderItem.mtCargo.portArrivalAddress}}</text>
+                        <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px">
+                        </image>
+                        <text>{{cargoOrderItem.mtCargo.portDepartureAddress}}</text>
+                    </view>
+                    <view class="tabs-goods">
+                        <view class="tabs-type">{{cargoOrderItem.mtCargo.mtNameGoods.name }}</view>
+                        <view class="tabs-tonnage">{{cargoOrderItem.mtCargo.number }}吨</view>
+                    </view>
+                    <view class="tabs-ship-name">预计装货时间:{{cargoOrderItem.mtCargo.loadingDate}}</view>
+                </view>
+                <view class="tabs-btnBox">
+                    <view class="order-msg">请等待货主发起合同</view>
+                    <van-button round plain size="small" type="default" data-senderid="{{ cargoOrderItem.userCargoId }}"
+                        data-receiverid="{{ cargoOrderItem.userShipId }}" style="margin-right:5px"
+                        bind:click="handleCargoChatButton">
+                        发起聊天</van-button>
+                    <van-button round plain type="danger" size="small" data-id="{{ cargoOrderItem.id }}"
+                        style="margin-right:5px" bind:click="handleCargoConfirmContractButton">
+                        发起合同</van-button>
+                </view>
+            </view>
+            <view class="dialog">
+                <van-dialog use-slot title="确认发起合同吗？" show="{{ cargoShow }}" show-cancel-button show-confirm-button
+                    bind:close="onClose" bind:confirm="handleCargoHairContract">
+                </van-dialog>
+            </view>
+        </view>
+        <!-- <van-tabs active="{{ active }}" bind:change="onChange">
+            <van-tab wx:for="{{ tabs }}" wx:key='index' wx:for-item="tabsItem" title="{{ tabsItem.label }}"
+                name="{{ tabsItem.state }}">
+                <view class="tabs-list">
+                    <view class="tabs-item" wx:for="{{shipOrderList}}" wx:key="index" wx:for-item="orderItem">
+                        <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{orderItem.id}}" bindtap="getOrderDetails">
+                            <view class="tabs-time">发起时间：2020-08-17 13：00</view>
+                            <view class="tabs-place">
+                                <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                                <text>{{orderItem.mtCargo.portArrivalAddress}}</text>
+                                <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px">
+                                </image>
+                                <text>{{orderItem.mtCargo.portDepartureAddress}}</text>
+                            </view>
+                            <view class="tabs-goods">
+                                <view class="tabs-type">{{orderItem.mtCargo.mtNameGoods.name}}</view>
+                                <view class="tabs-tonnage">{{orderItem.mtCargo.number}}吨</view>
+                            </view>
+                            <view class="tabs-ship-name">{{orderItem.mtShip.nameVessel}}</view>
+                        </view>
+
+                        <view class="tabs-btnBox">
+
+                            <van-button wx:for="{{button}}" wx:key="index" wx:for-item="buttonItem" round plain
+                                type="{{buttonItem.status === 2 ? 'default':'danger'}}" size="small"
+                                data-status="{{buttonItem.status}}" style="margin-right:5px" bind:click="handleButton">
+                                {{buttonItem.title}}</van-button>
+
+                        </view>
+
+                        <view class="dialog">
+                            <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button
+                                show-confirm-button data-id="{{orderItem.id}}" bind:close="onClose"
+                                bind:confirm="handleConfirm">
+                            </van-dialog>
+                        </view>
+                    </view>
+                </view>
+            </van-tab>
+
+        </van-tabs> -->
+    </view>
+</view>

@@ -21,8 +21,15 @@
 .chat-item.active{
     flex-flow: row-reverse;
 }
+.chat-item.active .chat-text{
+    background: #EC6A72;
+    color: #fff;
+}
+.chat-item.active .chat-avatar{
+    margin: 0 0 0 10px;
+}
 .chat-avatar{
-
+    margin: 0 10px 0 0;
 }
 .chat-text{
     height: 44px;
@@ -42,4 +49,123 @@ vtu-input{
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+.dialog-icon{
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+.dialog-icon image{
+    width: 30px;
+    height: 30px;
+}
+
+.dialog-subtitle{
+    color: #229BF0;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    padding: 15px 0 ;
+    width: 70%;
+    margin: 0 auto;
+}
+.dialog-describe{
+    font-size: 12px;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #333333;
+    width: 70%;
+    margin: 0 auto;
+    text-align: center;
+    white-space:pre-line
+}
+.dialog-btu{
+    margin: 10% auto 0;
+    width: 50%;
+}
+
+.chat-cargo{
+    /* flex: 1; */
+    width: 60%;
+    background: #EC6A72;
+    padding: 12px 12px 15px;
+    border-radius: 5px;
+}
+.cargo-subtitle{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+.cargo-subtitle_text{
+
+}
+.cargo-routes{
+    display: flex;
+    align-items: center;
+}
+.cargo-routes_left{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.cargo-routes_left_img{
+    margin-bottom: 3.5px;
+}
+.cargo-routes_left_img image{
+    width: 15px;
+    height: 15px;
+}
+.cargo-routes_left_icon{
+
+}
+.cargo-routes_left_icon image{
+    width: 6px;
+    height: 25px;
+}
+.cargo-routes_right{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin-left: 9px;
+    height: 53.5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100px;
+}
+.cargo-routes_right_begin{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.cargo-routes_right_end{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.cargo-info{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    margin-top: 17px;
+}
+.cargo-name{
+    width: 40px;
+    height: 17px;
+    text-align: center;
+    background: #FF7038;
+    font-size: 12px;
+    border-radius: 8.5px;
+    margin-right: 15px;
+}
+.cargo-number{
+    font-size: 15px;
 }

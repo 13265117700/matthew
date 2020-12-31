@@ -28,31 +28,32 @@
                         <image src="/images/myFollow/chuan@3x.png"></image>
                     </view>
                     <view class="resources-title">
-                        <text>{{shipItem.nameVessel}}</text>
+                        <text>{{shipItem.mtShip.nameVessel}}</text>
                     </view>
                     <view class="resources-active">
-                        <vtu-btn plain="true" type="danger" size="small" round="true">确认船期</vtu-btn>
+                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.mtShip.id }}" bind:click="handleConfirm">发起任务</vtu-btn>
                     </view>
                 </view>
                 <view class="resources-bottom" data-id="{{ shipItem.id }}" bindtap="handleCheckDetails">
                     <view class="ship-container">
                         <view class="ship-item">
                             <view class="ship-subtitle">空船港</view>
-                            <view class="ship-describe">云南昆明市五华区</view>
-                            <view class="ship-text">{{shipItem.typeShip}}</view>
+                            <view class="ship-describe">{{shipItem.mtWharf.name}}</view>
+                            <view class="ship-text">{{shipItem.mtShip.typeShip}}</view>
                         </view>
                         <view class="ship-item">
                             <view class="ship-subtitle">载重级别</view>
                             <view class="ship-describe">A级</view>
-                            <view class="ship-text">{{shipItem.ladenA}}</view>
+                            <view class="ship-text">{{shipItem.mtShip.ladenA}}</view>
                         </view>
                         <view class="ship-item">
                             <view class="ship-subtitle">空船期</view>
-                            <view class="ship-text">成都武侯区</view>
+                            <view class="ship-text">{{shipItem.emptyDate}} ±1天</view>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
+        <view class="rightsidebar" wx:if="{{cargoId}}"><text>发起聊天</text></view>
     </view>
 </view>

@@ -2,9 +2,10 @@ import UserLogin from '../../models/login/login'
 
 Page({
     data:{
-        passwordMode: true,
-        phone:'',
-        password:''
+      buttonStyle:"border-radius: 25px",
+      passwordMode: true,
+      phone:'',
+      password:''
     },
     bindSwitch:function(){
         let passwordMode = this.data.passwordMode = !this.data.passwordMode
@@ -37,6 +38,7 @@ Page({
         })
     },
     weChatLogin:function(e){
+      console.log(e)
         if(e.detail.userInfo){
             wx.getSetting({
               withSubscriptions: true,

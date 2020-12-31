@@ -5,7 +5,7 @@
         <view class="company-info-name">登录马太货运</view>
         <view class="company-info-desc">货源 船源 车源</view>
     </view>
-    <view class="login-form-container">
+    <!-- <view class="login-form-container">
         <view class="login-from-phone" hidden="{{!passwordMode}}">
             <view class="form-item">
                 <vtu-input-group>
@@ -57,12 +57,13 @@
                 </view>
             </view>
         </view>
-    </view>
+    </view> -->
     <view class="weChat-login-container">
-        <vtu-divider  width="80%" font-color="#999999">推荐使用微信登录</vtu-divider>
+        <!-- <vtu-divider  width="80%" font-color="#999999">推荐使用微信登录</vtu-divider> -->
         <!-- <view class="footer-guide">推荐使用微信登录</view> -->
         <view class="weChat-login-button">
-            <vtu-btn type="success" round="true" open-type="getUserInfo" bind:getuserinfo="weChatLogin" >微信一键登录</vtu-btn>
+            <!-- <van-button type="primary" size="large" custom-style="{{ buttonStyle }}" bind:getuserinfo="weChatLogin">微信一键登录</van-button> -->
+            <vtu-btn v-class="login" type="success" round="true" size="default" open-type="getUserInfo" bind:getuserinfo="weChatLogin" >微信一键登录</vtu-btn>
         </view>
         <view class="weChat-login-explain">
             登录注册即表示同意

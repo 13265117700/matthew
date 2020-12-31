@@ -92,21 +92,25 @@ Component({
             }
         },
         getShipInfo(){
-            console.log(123)
             let params = {
                 Authorization:wx.getStorageSync('Authorization'),
                 page:1,
                 rows:10,
             }
-            console.log(params)
             User.UserShipQuery(params).then(res => {
-                console.log(res)
                 let rows = res.data.data.rows;
-                let shipNameList = rows.map(data => data.nameVessel)
-                console.log(shipNameList)
+                console.log(rows)
+                let ship = [];
+                rows.forEach(data => {
+                    if(data.status === 2){
+                        ship.push(data)
+                    }
+                })
+                let shipNameList = ship.map(data => data.nameVessel)
+
                 this.setData({
                     shipNameList,
-                    shipList:rows
+                    shipList:ship
                 })
             })
         },
@@ -117,9 +121,10 @@ Component({
         },
         //确定船舶
         handlePickerItem(e){
-            console.log(e)
+            // console.log(e)
             let index = e.detail.index;
             let shipList = this.data.shipList;
+            console.log(shipList)
             let shipId = shipList[index].id;
             console.log(shipId)
             this.setData({
@@ -173,6 +178,11 @@ Component({
             console.log(params)
             User.UserShipPeriodAdd(params).then(res => {
                 console.log(res)
+                if(res.data.state === 200){
+                    wx.navigateBack({
+                      delta: 1,
+                    })
+                }
             })
         }
     }

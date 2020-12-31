@@ -223,13 +223,17 @@ Page({
         let page = 1;
         let rows = 10;
         let params = {Authorization, page, rows};
-        userFriend.UserFriendChatMsg(params).then(res => {
-            let rows = res.data.data.rows;
-            console.log(rows)
-            this.setData({
-                unreadChatInfo:rows
-            })
-        })
+        // userFriend.UserFriendChatMsg(params).then(res => {
+        //     let rows = res.data.data.rows;
+        //     console.log(rows)
+        //     // let unreadChatInfo = [];
+        //     // rows.forEach((data,index) => {
+        //     //     console.log(data)
+        //     // })
+        //     this.setData({
+        //         unreadChatInfo:rows
+        //     })
+        // })
     },
 
     // 打开聊天对话

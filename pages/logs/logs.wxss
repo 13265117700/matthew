@@ -13,6 +13,7 @@
   text-align: center;
   width: 80%;
   margin: 0 auto;
+  
   /* padding-top: 20px; */
   /* padding: 20px 0 70px; */
 }
@@ -80,6 +81,7 @@
   /* width: 328px; */
   width: 80%;
   margin: 0 auto;
+  padding-top: 15%;
   /* padding-bottom: 20px; */
   /* left: 50%;
   transform: translateX(-50%) */
@@ -100,4 +102,10 @@
 }
 .weChat-login-explain navigator{
   color: #3E80C9;
+}
+
+.login{
+  height: 50px;
+  line-height: 25px !important;
+  /* font-size: 17px !important; */
 }
