@@ -11,11 +11,25 @@
                 <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{orderItem.id}}" bindtap="getOrderDetails">
                     <view class="tabs-time">发起时间：2020-08-17 13：00</view>
                     <view class="tabs-place">
-                        <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
-                        <text>{{orderItem.mtCargo.portArrivalAddress}}</text>
+                        <view class="tabs-place_item">
+                            <view class="place-icon start">始</view>
+                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portArrivalAddress}}</view>
+                        </view>
+                        <view class="tabs-place_item">
+                            <view class="place-img">
+                                <image src="/images/myFollow/item-info_img2.png"></image>
+                            </view>
+                        </view>
+                        <view class="tabs-place_item">
+                            <view class="place-icon end">终</view>
+                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portDepartureAddress}}</view>
+                        </view>
+
+                        <!-- <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                        <text>{{cargoOrderItem.mtCargo.portArrivalAddress}}</text>
                         <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px">
                         </image>
-                        <text>{{orderItem.mtCargo.portDepartureAddress}}</text>
+                        <text>{{cargoOrderItem.mtCargo.portDepartureAddress}}</text> -->
                     </view>
                     <view class="tabs-goods">
                         <view class="tabs-type">{{orderItem.mtCargo.mtNameGoods.name}}</view>
@@ -54,15 +68,31 @@
 
         <!-- 货主待确认订单列表 -->
         <view class="tabs-list" wx:if="{{userInfo.cargo === true }}">
+
             <view class="tabs-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
-                <view style="border-bottom: 1px solid #E5E5E5;">
+                <view style="border-bottom: 1px solid #E5E5E5;" data-status="{{cargoOrderItem.status}}"
+                    data-id="{{ cargoOrderItem.id }}" bindtap="handleCargoOrderDetails">
                     <view class="tabs-time">发起时间：2020-08-17 13：00</view>
                     <view class="tabs-place">
-                        <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                        <view class="tabs-place_item">
+                            <view class="place-icon start">始</view>
+                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portArrivalAddress}}</view>
+                        </view>
+                        <view class="tabs-place_item">
+                            <view class="place-img">
+                                <image src="/images/myFollow/item-info_img2.png"></image>
+                            </view>
+                        </view>
+                        <view class="tabs-place_item">
+                            <view class="place-icon end">终</view>
+                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portDepartureAddress}}</view>
+                        </view>
+
+                        <!-- <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
                         <text>{{cargoOrderItem.mtCargo.portArrivalAddress}}</text>
                         <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px">
                         </image>
-                        <text>{{cargoOrderItem.mtCargo.portDepartureAddress}}</text>
+                        <text>{{cargoOrderItem.mtCargo.portDepartureAddress}}</text> -->
                     </view>
                     <view class="tabs-goods">
                         <view class="tabs-type">{{cargoOrderItem.mtCargo.mtNameGoods.name }}</view>
@@ -71,13 +101,15 @@
                     <view class="tabs-ship-name">预计装货时间:{{cargoOrderItem.mtCargo.loadingDate}}</view>
                 </view>
                 <view class="tabs-btnBox">
-                    <view class="order-msg">请等待货主发起合同</view>
-                    <van-button round plain size="small" type="default" data-senderid="{{ cargoOrderItem.userCargoId }}"
+                    <view class="order-msg" wx:if="{{ cargoOrderItem.status === 0 }}">请等待船东确认订单</view>
+                    <van-button round plain size="small" type="{{ cargoOrderItem.status != 1 ? 'danger':'default'}}"
+                        data-senderid="{{ cargoOrderItem.userCargoId }}"
                         data-receiverid="{{ cargoOrderItem.userShipId }}" style="margin-right:5px"
                         bind:click="handleCargoChatButton">
                         发起聊天</van-button>
                     <van-button round plain type="danger" size="small" data-id="{{ cargoOrderItem.id }}"
-                        style="margin-right:5px" bind:click="handleCargoConfirmContractButton">
+                        wx:if="{{cargoOrderItem.status === 1}}" style="margin-right:5px"
+                        bind:click="handleCargoConfirmContractButton">
                         发起合同</van-button>
                 </view>
             </view>
@@ -87,46 +119,6 @@
                 </van-dialog>
             </view>
         </view>
-        <!-- <van-tabs active="{{ active }}" bind:change="onChange">
-            <van-tab wx:for="{{ tabs }}" wx:key='index' wx:for-item="tabsItem" title="{{ tabsItem.label }}"
-                name="{{ tabsItem.state }}">
-                <view class="tabs-list">
-                    <view class="tabs-item" wx:for="{{shipOrderList}}" wx:key="index" wx:for-item="orderItem">
-                        <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{orderItem.id}}" bindtap="getOrderDetails">
-                            <view class="tabs-time">发起时间：2020-08-17 13：00</view>
-                            <view class="tabs-place">
-                                <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
-                                <text>{{orderItem.mtCargo.portArrivalAddress}}</text>
-                                <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px">
-                                </image>
-                                <text>{{orderItem.mtCargo.portDepartureAddress}}</text>
-                            </view>
-                            <view class="tabs-goods">
-                                <view class="tabs-type">{{orderItem.mtCargo.mtNameGoods.name}}</view>
-                                <view class="tabs-tonnage">{{orderItem.mtCargo.number}}吨</view>
-                            </view>
-                            <view class="tabs-ship-name">{{orderItem.mtShip.nameVessel}}</view>
-                        </view>
 
-                        <view class="tabs-btnBox">
-
-                            <van-button wx:for="{{button}}" wx:key="index" wx:for-item="buttonItem" round plain
-                                type="{{buttonItem.status === 2 ? 'default':'danger'}}" size="small"
-                                data-status="{{buttonItem.status}}" style="margin-right:5px" bind:click="handleButton">
-                                {{buttonItem.title}}</van-button>
-
-                        </view>
-
-                        <view class="dialog">
-                            <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button
-                                show-confirm-button data-id="{{orderItem.id}}" bind:close="onClose"
-                                bind:confirm="handleConfirm">
-                            </van-dialog>
-                        </view>
-                    </view>
-                </view>
-            </van-tab>
-
-        </van-tabs> -->
     </view>
 </view>

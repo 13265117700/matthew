@@ -6,6 +6,7 @@ Page({
         orderInfo: [],//订单详情
         id: null,//订单ID
         mtCargo:{},//货主
+        orderPrice:null,//订单价钱
     },
 
     onLoad: function (options) {
@@ -25,6 +26,7 @@ Page({
         })
     },
 
+    //货主获取订单详情
     getOrderDetails() {
         let id = this.data.id;
         let Authorization = wx.getStorageSync('Authorization');
@@ -59,6 +61,39 @@ Page({
                 mtCargo
             })
         })
-    }
+    },
+    
+    //货主发起聊天
+    handleChatButton(e){
+        let receiverid = e.currentTarget.dataset.receiverid;
+        let senderid = e.currentTarget.dataset.senderid;
+        wx.navigateTo({
+          url: '/views/chat/chat?receiverid='+receiverid+'&senderid='+senderid,
+        })
+    },
 
+    //输入订单金额
+    handleOrderPrice(e){
+        let value = e.detail.value;
+        let price = Math.round(parseFloat(value)*100)/100;
+
+        let xsd = price.toString().split(".");
+        if(xsd.length == 1){
+            price = price.toString()+".00";
+        }
+        if(xsd.length > 1){
+            if(xsd[1].length < 2){
+                price = price.toString()+"0";
+            }
+        }
+
+        this.setData({
+            orderPrice:price
+        })
+    },
+
+    //货主发起合同
+    handleHairContractButton(e){
+        console.log(e)
+    }
 })

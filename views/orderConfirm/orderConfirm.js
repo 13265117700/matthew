@@ -120,6 +120,7 @@ Page({
             };
             User.UserOrderQueryList(params).then(res => {
                 let cargoOrderList = res.data.data.rows;
+                console.log(cargoOrderList)
                 cargoOrderList.map(data => {
                     let loadingDate = new Date(data.mtCargo.loadingDate).toLocaleDateString();
                     data.mtCargo.loadingDate = loadingDate.replace(/\//g, "-")
@@ -187,6 +188,17 @@ Page({
         console.log(e)
     },
 
+
+    //货主查看订单详情
+    handleCargoOrderDetails(e){
+        console.log(e)
+        let id = e.currentTarget.dataset.id;
+        let status = e.currentTarget.dataset.status;
+        console.log(status)
+        wx.navigateTo({
+          url: '/views/cargoOrderDetails/cargoOrderDetails?id='+id,
+        })
+    },
     //货主发起聊天
     handleCargoChatButton(e) {
         console.log(e)

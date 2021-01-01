@@ -39,19 +39,32 @@
 </view> -->
     <!-- 运送路程 -->
     <view class="goods">
-        <view style=" padding-left:15px ">
-            <view class="tabs-place">
+        <view class="tabs-place">
+            <view class="tabs-place_item">
+                <view class="place-icon start">始</view>
+                <view class="place-subTitle">{{orderInfo.mtCargo.portArrivalAddress}}</view>
+            </view>
+            <view class="tabs-place_item">
+                <view class="place-img">
+                    <image src="/images/myFollow/item-info_img2.png"></image>
+                </view>
+            </view>
+            <view class="tabs-place_item">
+                <view class="place-icon end">终</view>
+                <view class="place-subTitle">{{orderInfo.mtCargo.portDepartureAddress}}</view>
+            </view>
+        </view>
+        <!-- <view class="tabs-place">
                 <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
                 {{orderInfo.mtCargo.portArrivalAddress}}
                 <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px"></image>
                 {{orderInfo.mtCargo.portDepartureAddress}}
-            </view>
-            <view class="tabs-goods">
-                <view class="tabs-type">{{orderInfo.mtCargo.mtNameGoods.name}}</view>
-                <view class="tabs-tonnage">{{orderInfo.mtCargo.number}}吨</view>
-            </view>
-            <view class="tabs-time">装货时间：{{orderInfo.mtCargo.loadingDate}}</view>
+            </view> -->
+        <view class="tabs-goods">
+            <view class="tabs-type">{{orderInfo.mtCargo.mtNameGoods.name}}</view>
+            <view class="tabs-tonnage">{{orderInfo.mtCargo.number}}吨</view>
         </view>
+        <view class="tabs-time">装货时间：{{orderInfo.mtCargo.loadingDate}}</view>
     </view>
     <!-- 列表内容 -->
     <view class="Order-boxs">
@@ -168,7 +181,7 @@
             </view>
         </view>
         <!-- 订单信息 -->
-        <view class="cargo-owner-information">
+        <view class="cargo-owner-information" wx:if="{{ orderInfo.status === 1 }}">
             <view class="information-item">
                 <view class="information-subtitle">
                     <text>订单信息</text>
@@ -213,8 +226,8 @@
                 </view>
                 <view class="text-right" wx:if="{{ orderInfo.mtCargo.compensation != 0 }}">
                     货损≤
-          {{orderInfo.mtCargo.lossGoods}}%
-          按{{orderInfo.mtCargo.goodsDamages}}元/吨
+                    {{orderInfo.mtCargo.lossGoods}}%
+                    按{{orderInfo.mtCargo.goodsDamages}}元/吨
                 </view>
             </view>
             <view class="information-item">
@@ -237,7 +250,7 @@
             </view>
         </view>
         <!-- 合同价钱 -->
-        <view class="cargo-owner-information">
+        <view class="cargo-owner-information" wx:if="{{ orderInfo.status === 1 }}">
             <view class="information-item">
                 <view class="text-left">
                     <view class="rate">*</view>
@@ -245,7 +258,8 @@
                 </view>
                 <view class="text-right">
                     <view class="text-input">
-                        <vtu-input placeholder="请输入单价" type="input" text-align="left">
+                        <vtu-input placeholder="请输入单价" value="{{orderPrice}}" type="input" text-align="left"
+                            bind:confirm="handleOrderPrice">
                             <view slot="after" class="text-input_unit">元</view>
                         </vtu-input>
                     </view>
@@ -255,16 +269,20 @@
     </view>
     <!-- 按钮 -->
     <view class="end">
-        <view style="padding:14px 0;display: flex;align-items: center;">
-            <view class="order-msg" wx:if="{{ orderInfo.status === 1 }}">请等待船东确认合同</view>
-            <van-button size="small" round plain type="default" bind:click="handleButton">
-                发起聊天
-            </van-button>
-            <van-button size="small" round type="danger" bind:click="handleButton">发起合同</van-button>
-        </view>
+        <view class="order-msg" wx:if="{{ orderInfo.status === 0 }}">请等待船东确认合同</view>
+        <van-button size="small" data-senderid="{{ orderInfo.userCargoId }}"
+            data-receiverid="{{ orderInfo.userShipId }}" round type="{{ orderInfo.status != 1 ? 'danger':'default'}}"
+            bind:click="handleChatButton">
+            发起聊天
+        </van-button>
+        <van-button size="small" style="margin-left: 10px;" round type="danger" bind:click="handleHairContractButton"
+            wx:if="{{ orderInfo.status === 1 }}">
+            发起合同
+        </van-button>
     </view>
     <!-- 弹框 -->
     <view class="dialog">
-        <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button show-confirm-button data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm"></van-dialog>
+        <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button show-confirm-button
+            data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm"></van-dialog>
     </view>
 </view>
