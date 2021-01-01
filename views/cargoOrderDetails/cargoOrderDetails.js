@@ -1,66 +1,64 @@
-// views/cargoOrderDetails/cargoOrderDetails.js
+const {
+    default: user
+} = require("../../models/user/user");
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        orderInfo: [],//订单详情
+        id: null,//订单ID
+        mtCargo:{},//货主
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
-
+        console.log(options)
+        this.setData({
+            id: options.id,
+        })
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow: function () {
-
+        this.getOrderDetails()
     },
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
+    pageclose() {
+        wx.navigateBack({
+            data: 1
+        })
     },
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
+    getOrderDetails() {
+        let id = this.data.id;
+        let Authorization = wx.getStorageSync('Authorization');
+        let params = { Authorization, id };
+        user.UserOrderDetails(params).then(res => {
+            let orderInfo = res.data.data;
+            let cargoDate = orderInfo.mtCargo.loadingDate;
+            let loadingDate = new Date(cargoDate).toLocaleDateString();
+            orderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
 
-    },
+            let shipDate = orderInfo.mtShip.ageShip;
+            let ageShip = new Date(shipDate).toLocaleDateString();
+            orderInfo.mtShip.ageShip = ageShip.replace(/\//g,"-");
 
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
+            let mtCargo = orderInfo.mtCargo.mtUser.mtCargoOwner; //货主身份
 
-    },
+            let mtUser = orderInfo.mtShip.mtUser;
+            if (mtUser.mtCargoOwner.idNumber != null && mtUser.mtCargoOwner.idNumber != ' ') {
+                orderInfo.contacts = mtUser.mtCargoOwner.contacts
+                orderInfo.phone = mtUser.mtCargoOwner.phone
+            } else if (mtUser.mtOwner.idNumber != null && mtUser.mtOwner.idNumber != ' ') {
+                orderInfo.contacts = mtUser.mtOwner.contacts
+                orderInfo.phone = mtUser.mtOwner.phone
+            } else {
+                orderInfo.contacts = mtUser.mtShipowner.contacts
+                orderInfo.phone = mtUser.mtShipowner.phone
+            }
 
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+            console.log(orderInfo)
+            this.setData({
+                orderInfo,
+                mtCargo
+            })
+        })
     }
+
 })

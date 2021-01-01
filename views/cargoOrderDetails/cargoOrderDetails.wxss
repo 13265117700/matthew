@@ -1,21 +1,231 @@
+/* views/OrderDetails/OrderDetails.wxss */
+
+.Order-background {
+  width: 100%;
+  height: 204px;
+  background: linear-gradient(90deg, #e01923, #f45919);
+}
+
+.Head-content {
+  display: flex;
+  position: absolute;
+  top: 94px;
+}
+
+.Order-process {
+  padding-top: 20px;
+  width: 100%;
+  height: 117px;
+  background: #ffffff;
+  border-radius: 18px;
+  display: flex;
+  margin-top: -22px;
+}
+
+.text-top {
+  font-size: 22px;
+  color: #ffffff;
+  padding-bottom: 14px;
+}
+
+.text-bottom {
+  font-size: 14px;
+  color: #ff9693;
+}
+
+.Order-btn {
+  width: 110px;
+  height: 28px;
+  background: linear-gradient(90deg, #e01923, #f45919);
+  border-radius: 14px;
+  color: #ffffff;
+  font-size: 13px;
+  text-align: center;
+  line-height: 25px;
+  margin-top: 6px;
+  margin-left: 120px;
+}
+
+.steps {
+  margin-top: -60px;
+  background: #faedee;
+  padding: 0 0 0 31px;
+  margin-left: 0;
+}
+
+/* 货物内容样式 */
+
+.goods {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 15px 0;
+}
+
+.tabs-place {
+  font-size: 15px;
+  color: #191919;
+  margin-top: 4px;
+}
+
+.tabs-goods {
+  display: flex;
+  margin: 15px 0 8px 0;
+}
+
+.tabs-type {
+  width: 45px;
+  height: 20px;
+  background: #f06622;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  line-height: 18px;
+}
+
+.tabs-tonnage {
+  font-size: 14px;
+  color: #1f84e3;
+  margin-left: 20px;
+}
+
+.tabs-time {
+  font-size: 12px;
+  color: #1f84e3;
+}
+
+.cargo-owner-information {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  margin: 10px 0px;
+  padding: 14px 0;
+  /* position: relative; */
+}
+
+.information-item {
+  display: flex;
+  line-height: 38px;
+  padding: 0 15px;
+}
+
+.text-left {
+  color: #999999;
+  font-size: 14px;
+  /* margin-left: 15px; */
+  margin-right: 15px;
+  width: 130px;
+  display: flex;
+}
+
+.text-left .rate {
+  margin-right: 5px;
+  color: #e01923;
+}
+
+.text-right {
+  font-size: 14px;
+  color: #191919;
+  float: left;
+}
+
+.end {
+  width: 750px;
+  height: 55px;
+  background: #ffffff;
+  box-shadow: 0px 1px 0px 0px #e5e5e5;
+  /* position: fixed;
+    z-index: 999; */
+}
+
+.information-item_title {
+  margin-left: 15px;
+  font-family: PingFang-SC-Regular;
+  font-weight: Regular;
+  color: #333333;
+  font-size: 14px;
+}
+
+.information-item_number {
+  flex: 1;
+  text-align: right;
+  margin-right: 20px;
+  color: #f0222f;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 .home-span {
-    width: 30px;
-    position: relative;
-    text-align: center;
-    top: 15%;
-    height: 30px;
-    line-height: 30px;
+  width: 30px;
+  position: relative;
+  text-align: center;
+  top: 15%;
+  height: 30px;
+  line-height: 30px;
 }
 
 .home-span_icon {
-    font-family: "vtu-icon" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #fff;
+  font-family: "vtu-icon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
 }
 
 .home-span_icon::before {
-    content: "\e6cb";
+  content: "\e6cb";
 }
+
+.order-msg {
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #f0222f;
+  font-size: 13px;
+  margin-right: 15px;
+}
+
+.text-input {
+  border: 1px solid #0974e7;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+
+.text-input_unit {
+  border-left: 1px solid #0974e7;
+  padding-left: 10px;
+}
+.information-subtitle {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+  font-size: 17px;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+.order-update {
+  flex: 1;
+  text-align: right;
+}
+.order-update_text{
+  font-size: 14px;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #FFFFFF;
+  background: linear-gradient(90deg, #e01923, #f45919);
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+/* .home-span_icon::after{
+      position: absolute;
+      content: '';
+      width: 1px;
+      height: 50%;
+      top: 25%;
+      right: 0px;
+      background: #fff;
+    } */

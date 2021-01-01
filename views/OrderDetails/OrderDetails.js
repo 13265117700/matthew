@@ -4,12 +4,9 @@ const {
 
 Page({
   data: {
-    cargo:false,//是否货主
-    ship:false,//是否船东
-    contract:false,//是否发起合同
-    id:null,//订单ID
+    id: null,//订单ID
     orderInfo: [],
-    mtCargo: {},
+    // mtCargo: {},
     button: [{
       title: '发起聊天',
       state: 0,
@@ -36,20 +33,11 @@ Page({
     console.log(options)
     this.setData({
       id: options.id,
-      cargo:options.cargo,
-      contract:options.contract,
-      ship:options.ship
     })
   },
   onShow: function () {
-    let cargo = this.data.cargo;
-    let ship = this.data.ship;
-    if(ship === true){
-      this.getOrderDetails()
-    }else if(cargo === true){
-      this.getCargoOrderDetails()
-    }
-    
+    this.getOrderDetails()
+
   },
   pageclose() {
     wx.navigateBack({
@@ -62,10 +50,8 @@ Page({
   getOrderDetails() {
     let id = this.data.id;
     let Authorization = wx.getStorageSync('Authorization');
-    user.UserOrderDetails({
-      id,
-      Authorization
-    }).then(res => {
+    let params = { Authorization, id }
+    user.UserOrderDetails(params).then(res => {
       console.log(res)
       let orderInfo = res.data.data;
       let emptyDate = orderInfo.mtCargo.loadingDate;
@@ -74,10 +60,11 @@ Page({
       let mtCargo = orderInfo.mtCargo.mtUser.mtCargoOwner; //货主身份
 
       let mtUser = orderInfo.mtShip.mtUser;
-      if (mtUser.mtCargoOwner.idNumber) {
+      console.log(mtUser)
+      if (mtUser.mtCargoOwner.idNumber != null && mtUser.mtCargoOwner.idNumber != ' ') {
         orderInfo.contacts = mtUser.mtCargoOwner.contacts
         orderInfo.phone = mtUser.mtCargoOwner.phone
-      } else if (mtUser.mtOwner.idNumber) {
+      } else if (mtUser.mtOwner.idNumber != null && mtUser.mtOwner.idNumber != ' ') {
         orderInfo.contacts = mtUser.mtOwner.contacts
         orderInfo.phone = mtUser.mtOwner.phone
       } else {
@@ -126,7 +113,6 @@ Page({
       status,
       id
     }
-    console.log(params)
     user.UserShipOrderAgreeOrRefused(params).then(res => {
       console.log(res)
       if (res.data.state === 200) {

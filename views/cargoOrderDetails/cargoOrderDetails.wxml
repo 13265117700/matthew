@@ -1,7 +1,270 @@
-<view class="page-comtainer">
-    <view class="page-banner">
+<view class="container">
+    <!-- 横幅 -->
+    <view class="Order-background">
+        <view class="Head-content">
+            <view style="padding:0 78px 0 15px">
+                <view class="text-top">待货主发起合同</view>
+                <view class="text-bottom">等待您发起合同</view>
+            </view>
+            <image src="/images/order/chuan.png" style=" width:116px; height: 81px; "></image>
+        </view>
         <view class="home-span" bindtap="pageclose">
             <view class="home-span_icon"></view>
         </view>
+    </view>
+    <!-- 头部  红色背景 结束 -->
+    <!-- 货运过程板块 开始 -->
+    <!-- <view>
+  <view class="Order-process">
+    <image src="/images/order/dww.png" style="width:33px; height:33px; margin:0 15px; 0 15px;"></image>
+    <view>
+      <view style="font-size: 17px; color: #191919;"> 装好货 </view>
+      <view style="font-size: 12px; color: #999999;">待船东上传</view>
+    </view>
+    <view class="Order-btn">上传装好货照片</view>
+  </view>
+</view> -->
+    <!-- 装货流程  开始 -->
+    <!-- <view class="steps">
+
+  <view>
+    <vtu-steps value="{{value1}}" shape="number" active-color="#099E43">
+      <vtu-step title="船到装货港" :icon="icon"></vtu-step>
+      <vtu-step title="装好货"></vtu-step>
+      <vtu-step title="运输中"></vtu-step>
+      <vtu-step title="到达目的港"></vtu-step>
+      <vtu-step title="卸货完成"></vtu-step>
+    </vtu-steps>
+  </view>
+</view> -->
+    <!-- 运送路程 -->
+    <view class="goods">
+        <view style=" padding-left:15px ">
+            <view class="tabs-place">
+                <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                {{orderInfo.mtCargo.portArrivalAddress}}
+                <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px"></image>
+                {{orderInfo.mtCargo.portDepartureAddress}}
+            </view>
+            <view class="tabs-goods">
+                <view class="tabs-type">{{orderInfo.mtCargo.mtNameGoods.name}}</view>
+                <view class="tabs-tonnage">{{orderInfo.mtCargo.number}}吨</view>
+            </view>
+            <view class="tabs-time">装货时间：{{orderInfo.mtCargo.loadingDate}}</view>
+        </view>
+    </view>
+    <!-- 列表内容 -->
+    <view class="Order-boxs">
+        <!-- 船东信息 -->
+        <view class="cargo-owner-information">
+            <!-- 内容文本 开始 -->
+            <view class="information-item">
+                <view class="text-left">船舶名称:</view>
+                <view class="text-right">{{orderInfo.mtShip.nameVessel}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">联系人:</view>
+                <view class="text-right">{{orderInfo.contacts}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">联系方式:</view>
+                <view class="text-right">{{orderInfo.phone}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船长姓名:</view>
+                <view class="text-right">{{orderInfo.mtShip.captainName}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船长联系方式:</view>
+                <view class="text-right">{{orderInfo.mtShip.captainPhone}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船舶类型:</view>
+                <view class="text-right">{{orderInfo.mtShip.typeShip}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">航区/A级 载货量(T):</view>
+                <view class="text-right">{{orderInfo.mtShip.ladenA}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">航区/B级 载货量(T):</view>
+                <view class="text-right">{{orderInfo.mtShip.ladenB}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">AIS码:</view>
+                <view class="text-right">{{orderInfo.mtShip.ais}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">封仓设备:</view>
+                <view class="text-right">{{orderInfo.mtShip.closure}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船龄:</view>
+                <view class="text-right">{{orderInfo.mtShip.ageShip}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船籍港:</view>
+                <view class="text-right">{{orderInfo.mtShip.membership}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船总吨位:</view>
+                <view class="text-right">{{orderInfo.mtShip.tonnage}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船总长:</view>
+                <view class="text-right">{{orderInfo.mtShip.chief}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船总宽:</view>
+                <view class="text-right">{{orderInfo.mtShip.breadth}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船总高:</view>
+                <view class="text-right">{{orderInfo.mtShip.shipHeight}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">满载吃水:</view>
+                <view class="text-right">{{orderInfo.mtShip.typeDepth}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">型深:</view>
+                <view class="text-right">{{orderInfo.mtShip.depthProfile}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">监控装备:</view>
+                <view class="text-right">{{orderInfo.mtShip.monitoring === 1 ? '是':'否'}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船舶保险:</view>
+                <view class="text-right">{{orderInfo.mtShip.insurance}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">可拉货物:</view>
+                <view class="text-right">{{orderInfo.mtShip.kola}}</view>
+            </view>
+            <!-- 内容文本 结束 -->
+        </view>
+        <!-- 货物信息 -->
+        <view class="cargo-owner-information">
+            <view class="information-item">
+                <view class="text-left">货主名称:</view>
+                <view class="text-right">{{orderInfo.mtCargo.mtUser.mtCargoOwner.contacts}}</view>
+            </view>
+            <view class="information-item" wx:if="{{mtCargo.nameEnterprise != ' ' && mtCargo.nameEnterprise != null}}">
+                <view class="text-left">货主公司:</view>
+                <view class="text-right">orderInfo.mtCargo.mtUser.mtCargoOwner.nameEnterprise</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">货物分类代码:</view>
+                <view class="text-right">{{orderInfo.mtCargo.mtNameGoods.cargoCode}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">联系人:</view>
+                <view class="text-right">{{orderInfo.mtCargo.mtUser.mtCargoOwner.contacts}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">联系方式:</view>
+                <view class="text-right">{{orderInfo.mtCargo.mtUser.mtCargoOwner.phone}}</view>
+            </view>
+        </view>
+        <!-- 订单信息 -->
+        <view class="cargo-owner-information">
+            <view class="information-item">
+                <view class="information-subtitle">
+                    <text>订单信息</text>
+                    <view class="order-update">
+                        <text class="order-update_text">修改订单信息</text>
+                    </view>
+                </view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">预计装货吨数:</view>
+                <view class="text-right">{{orderInfo.mtCargo.number}}吨</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">运价 (含税):</view>
+                <view class="text-right">运费单价 {{orderInfo.mtCargo.freightAmount}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">其它费用:</view>
+                <view class="text-right">{{orderInfo.mtCargo.otherExpenses}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">滞期约定:</view>
+                <view class="text-right">
+                    <view>
+                        装货{{orderInfo.mtCargo.delayedLoading}}{{orderInfo.mtCargo.lagPeriodType === 1 ? '天':'小时'}}-卸货{{orderInfo.mtCargo.delayedDischarge}}{{orderInfo.mtCargo.lagPeriodType === 1 ? '天':'小时'}}
+                    </view>
+                    <view>滞期单价:{{orderInfo.mtCargo.delayedCost}}元</view>
+                </view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船舶类型:</view>
+                <view class="text-right">{{orderInfo.mtCargo.typeShip}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">货物交接:</view>
+                <view class="text-right">{{orderInfo.mtCargo.deliveryGoods}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">货损赔偿约定:</view>
+                <view class="text-right" wx:if="{{ orderInfo.mtCargo.compensation === 0 }}">
+                    货不约定
+                </view>
+                <view class="text-right" wx:if="{{ orderInfo.mtCargo.compensation != 0 }}">
+                    货损≤
+          {{orderInfo.mtCargo.lossGoods}}%
+          按{{orderInfo.mtCargo.goodsDamages}}元/吨
+                </view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">船舶大小:</view>
+                <view class="text-right">
+                    {{orderInfo.mtCargo.vesselMaximum}} - {{orderInfo.mtCargo.vesselMinimum}}
+                </view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">封仓要求:</view>
+                <view class="text-right">{{orderInfo.mtCargo.warehouse}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">装货方式:</view>
+                <view class="text-right">{{orderInfo.mtCargo.loadingMethod}}</view>
+            </view>
+            <view class="information-item">
+                <view class="text-left">卸货方式:</view>
+                <view class="text-right">{{orderInfo.mtCargo.unloadingMode}}</view>
+            </view>
+        </view>
+        <!-- 合同价钱 -->
+        <view class="cargo-owner-information">
+            <view class="information-item">
+                <view class="text-left">
+                    <view class="rate">*</view>
+                    <text>单价：</text>
+                </view>
+                <view class="text-right">
+                    <view class="text-input">
+                        <vtu-input placeholder="请输入单价" type="input" text-align="left">
+                            <view slot="after" class="text-input_unit">元</view>
+                        </vtu-input>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- 按钮 -->
+    <view class="end">
+        <view style="padding:14px 0;display: flex;align-items: center;">
+            <view class="order-msg" wx:if="{{ orderInfo.status === 1 }}">请等待船东确认合同</view>
+            <van-button size="small" round plain type="default" bind:click="handleButton">
+                发起聊天
+            </van-button>
+            <van-button size="small" round type="danger" bind:click="handleButton">发起合同</van-button>
+        </view>
+    </view>
+    <!-- 弹框 -->
+    <view class="dialog">
+        <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button show-confirm-button data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm"></van-dialog>
     </view>
 </view>

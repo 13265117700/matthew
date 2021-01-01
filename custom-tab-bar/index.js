@@ -2,118 +2,142 @@
 import User from "../models/user/user"
 Component({
     data: {
-        activeIndex:0,
-        tabBar:[
-            {
-                pagePath:'/pages/index/index',
-                name:'首页',
-                tips:'',
-                large:false,
-                icon:{
-                    normal:'/images/index/index1-3.png',
-                    active:'/images/index/index2-3.png'
+        activeIndex: 0,
+        tabBar: [{
+                pagePath: '/pages/index/index',
+                name: '首页',
+                tips: '',
+                large: false,
+                icon: {
+                    normal: '/images/index/index1-3.png',
+                    active: '/images/index/index2-3.png'
                 }
             },
             {
-                pagePath:'/pages/myFollow/myFollow',
-                name:'我的关注',
-                tips:'',
-                large:false,
-                icon:{
-                    normal:'/images/myFollow/myFollow1-3.png',
-                    active:'/images/myFollow/myFollow2-3.png'
+                pagePath: '/pages/myFollow/myFollow',
+                name: '我的关注',
+                tips: '',
+                large: false,
+                icon: {
+                    normal: '/images/myFollow/myFollow1-3.png',
+                    active: '/images/myFollow/myFollow2-3.png'
                 }
             },
             {
-                pagePath:`/pages/deliver/deliver`,
-                name:'发布',
-                tips:'',
-                large:true,
-                icon:{
-                    normal:'/images/deliver/deliver.png',
-                    active:'/images/deliver/deliver.png'
+                pagePath: `/pages/deliver/deliver`,
+                name: '发布',
+                tips: '',
+                large: true,
+                icon: {
+                    normal: '/images/deliver/deliver.png',
+                    active: '/images/deliver/deliver.png'
                 }
             },
             {
-                pagePath:'/pages/order/order',
-                name:'订单',
-                tips:'',
-                large:false,
-                icon:{
-                    normal:'/images/order/order1-3.png',
-                    active:'/images/order/order2-3.png'
+                pagePath: '/pages/order/order',
+                name: '订单',
+                tips: '',
+                large: false,
+                icon: {
+                    normal: '/images/order/order1-3.png',
+                    active: '/images/order/order2-3.png'
                 }
             },
             {
-                pagePath:'/pages/my/my',
-                name:'我的',
-                tips:'',
-                large:false,
-                icon:{
-                    normal:'/images/my/my1-3.png',
-                    active:'/images/my/my2-3.png'
+                pagePath: '/pages/my/my',
+                name: '我的',
+                tips: '',
+                large: false,
+                icon: {
+                    normal: '/images/my/my1-3.png',
+                    active: '/images/my/my2-3.png'
                 }
             }
         ],
-        IdentityID:null
+        IdentityID: null
     },
-    lifetimes:{
-        attached:function(){
+    lifetimes: {
+        attached: function () {
             this.getUserInfo()
         }
     },
     methods: {
-        onChange(e){
+        onChange(e) {
             let index = e.detail.current;
             let IdentityID = this.data.IdentityID;
             let Authorization = wx.getStorageSync('Authorization');
-            if(index != 0 && index != 4){
-                if(!Authorization){
+            if (index != 0 && index != 4) {
+                if (!Authorization) {
                     wx.navigateTo({
-                      url: '/pages/logs/logs',
+                        url: '/pages/logs/logs',
                     })
                     return
                 }
             }
-            if(index === 2){
+            if (index === 2) {
                 wx.navigateTo({
-                  url: '/views/ResourceAdd/ResourceAdd?id='+IdentityID,
+                    url: '/views/ResourceAdd/ResourceAdd?id=' + IdentityID,
                 })
-            }else{
+            } else {
                 wx.switchTab({
                     url: this.data.tabBar[index].pagePath,
                 })
             }
         },
-        getUserInfo(){
+        getUserInfo() {
             let Authorization = wx.getStorageSync('Authorization');
             let uid = ''
-            User.userInfo({Authorization,uid}).then(res => {
-                let mtCargoOwner = res.data.data.mtCargoOwner;//货主身份
-                let mtOwner = res.data.data.mtOwner;//车主身份
-                let mtShipowner = res.data.data.mtShipowner;//船东身份
-                if(mtCargoOwner.idNumber){
+            let params = {
+                Authorization,
+                uid
+            }
+            User.userInfo(params).then(res => {
+                let user = res.data.data;
+                if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
                     console.log('货主')
                     this.setData({
-                        IdentityID:'855'
+                        IdentityID: '855'
                     })
-                    return
-                }
-                if(mtOwner.idNumber){
-                    console.log('车主')
+                } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+                   console.log('车主')
                     this.setData({
-                        IdentityID:'609'
+                        IdentityID: '609'
                     })
-                    return
-                }
-                if(mtShipowner.idNumber){
-                    console.log('船东')
+                } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                    console.log('船东 w')
                     this.setData({
-                        IdentityID:'567'
+                        IdentityID: '567'
                     })
-                    return
                 }
             })
+            // User.userInfo({Authorization,uid}).then(res => {
+            //     let mtCargoOwner = res.data.data.mtCargoOwner;//货主身份
+            //     let mtOwner = res.data.data.mtOwner;//车主身份
+            //     let mtShipowner = res.data.data.mtShipowner;//船东身份
+            //     if(mtCargoOwner.idNumber != ' ' || mtCargoOwner.idNumber != null){
+            //         console.log('货主')
+            //         this.setData({
+            //             IdentityID:'855'
+            //         })
+            //         return
+            //     }
+            //     if(mtOwner.idNumber != ' ' || mtOwner.idNumber != null){
+            //         console.log('车主')
+            //         this.setData({
+            //             IdentityID:'609'
+            //         })
+            //         return
+            //     }
+            //     if(mtShipowner.idNumber != ' ' || mtShipowner.idNumber != null){
+            //         console.log('船东')
+            //         this.setData({
+            //             IdentityID:'567'
+            //         })
+            //         return
+            //     }
+            // })
+
+
         }
     }
 })

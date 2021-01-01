@@ -1,11 +1,9 @@
-<!--views/OrderDetails/OrderDetails.wxml-->
+<!-- views/OrderDetails/OrderDetails.wxml -->
 <!-- 订单详情—船运进行中 -->
 <!-- 订单详情 -->
 <!-- <vtu-navbar  title="进行中" back-label="返回" goHome="{{false}}"></vtu-navbar> -->
-
 <view class="container">
-
-  <!-- 头部  红色背景 开始-->
+  <!-- 头部  红色背景 开始 -->
   <view class="Order-background">
     <view class="Head-content">
       <view style="padding:0 78px 0 15px">
@@ -19,7 +17,6 @@
     </view>
   </view>
   <!-- 头部  红色背景 结束 -->
-
   <!-- 货运过程板块 开始 -->
   <!-- <view>
   <view class="Order-process">
@@ -31,8 +28,7 @@
     <view class="Order-btn">上传装好货照片</view>
   </view>
 </view> -->
-
-  <!-- 装货流程  开始-->
+  <!-- 装货流程  开始 -->
   <!-- <view class="steps">
 
   <view>
@@ -46,35 +42,26 @@
   </view>
 </view> -->
   <!-- 装货流程 结束 -->
-
   <!-- 货物内容 -->
   <view class="goods">
     <view style=" padding-left:15px ">
-
       <view class="tabs-place">
         <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
-        {{orderInfo.mtCargo.portArrivalAddress}} <image src="/images/order/yunwang.png"
-          style=" width:55px; height:7px;  margin: 0 8px"></image>{{orderInfo.mtCargo.portDepartureAddress}}
+        {{orderInfo.mtCargo.portArrivalAddress}}
+        <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px"></image>
+        {{orderInfo.mtCargo.portDepartureAddress}}
       </view>
-
       <view class="tabs-goods">
         <view class="tabs-type">{{orderInfo.mtCargo.mtNameGoods.name}}</view>
         <view class="tabs-tonnage">{{orderInfo.mtCargo.number}}吨</view>
       </view>
-
-      <view class="tabs-time">
-        装货时间：{{orderInfo.mtCargo.loadingDate}}
-      </view>
+      <view class="tabs-time">装货时间：{{orderInfo.mtCargo.loadingDate}}</view>
     </view>
-
   </view>
-
-
-
   <view class="Order-boxs">
     <!-- 货主信息 开始 -->
     <view class="cargo-owner-information">
-      <!-- 内容文本 开始-->
+      <!-- 内容文本 开始 -->
       <view class="information-item" wx:if="{{mtCargo.nameEnterprise != ' ' && mtCargo.nameEnterprise != null}}">
         <view class="text-left">货主公司:</view>
         <view class="text-right">{{orderInfo.mtCargo.mtUser.mtCargoOwner.nameEnterprise}}</view>
@@ -91,13 +78,11 @@
         <view class="text-left">联系方式:</view>
         <view class="text-right">{{orderInfo.mtCargo.mtUser.mtCargoOwner.phone}}</view>
       </view>
-
       <!-- 内容文本 结束 -->
     </view>
-
     <!-- 已确认订单待确认合同时显示 -->
     <view class="cargo-owner-information" wx:if="{{ orderInfo.status === 2 }}">
-      <!-- 内容文本 开始-->
+      <!-- 内容文本 开始 -->
       <view class="information-item">
         <view class="text-left">预计装货吨数:</view>
         <view class="text-right">{{orderInfo.mtCargo.number}}吨</view>
@@ -130,13 +115,17 @@
       <view class="information-item">
         <view class="text-left">货损赔偿约定:</view>
         <view class="text-right" wx:if="{{ orderInfo.mtCargo.compensation === 0 }}">货不约定</view>
-        <view class="text-right" wx:if="{{ orderInfo.mtCargo.compensation != 0 }}">货损≤
+        <view class="text-right" wx:if="{{ orderInfo.mtCargo.compensation != 0 }}">
+          货损≤
           {{orderInfo.mtCargo.lossGoods}}%
-          按{{orderInfo.mtCargo.goodsDamages}}元/吨</view>
+          按{{orderInfo.mtCargo.goodsDamages}}元/吨
+        </view>
       </view>
       <view class="information-item">
         <view class="text-left">船舶大小:</view>
-        <view class="text-right">{{orderInfo.mtCargo.vesselMaximum}} - {{orderInfo.mtCargo.vesselMinimum}}</view>
+        <view class="text-right">
+          {{orderInfo.mtCargo.vesselMaximum}} - {{orderInfo.mtCargo.vesselMinimum}}
+        </view>
       </view>
       <view class="information-item">
         <view class="text-left">封仓要求:</view>
@@ -152,7 +141,6 @@
       </view>
       <!-- 内容文本 结束 -->
     </view>
-
     <!-- 已确认订单待确认合同时显示 -->
     <view class="cargo-owner-information" wx:if="{{ orderInfo.status === 2 }}">
       <view class="information-item">
@@ -160,10 +148,9 @@
         <view class="information-item_number">￥129980.00</view>
       </view>
     </view>
-
     <!-- 船主信息 -->
     <view class="cargo-owner-information">
-      <!-- 内容文本 开始-->
+      <!-- 内容文本 开始 -->
       <view class="information-item">
         <view class="text-left">船舶名称:</view>
         <view class="text-right">{{orderInfo.mtShip.nameVessel}}</view>
@@ -250,7 +237,6 @@
       </view>
       <!-- 内容文本 结束 -->
     </view>
-
     <!-- <view class="cargo-owner-information">
 
     <view style="padding:14px 15px 6px 15px">
@@ -265,37 +251,27 @@
     </view>
 
   </view> -->
-
   </view>
   <!-- 货物内容 结束 -->
-
   <!-- 底部 -->
-
   <!-- 上传装好货 底部 -->
   <view class="end">
     <view style="padding:14px 0 0 164px;display: flex;align-items: center;">
       <view class="order-msg" wx:if="{{ orderInfo.status === 1 }}">请等待货主发起合同</view>
-      <van-button wx:for="{{button}}" wx:key="index" wx:for-item="buttonItem" size="small" round
-        wx:if="{{buttonItem.show === true}}" data-state="{{buttonItem.state}}" plain="{{buttonItem.plain}}"
-        type="{{buttonItem.type}}" bind:click="handleButton">
+      <van-button wx:for="{{button}}" wx:key="index" wx:for-item="buttonItem" size="small" round wx:if="{{buttonItem.show === true}}" data-state="{{buttonItem.state}}" plain="{{buttonItem.plain}}" type="{{buttonItem.type}}" bind:click="handleButton">
         {{buttonItem.title}}
       </van-button>
-
       <!-- <van-button size="small" round type="default">
         发起申述
       </van-button> -->
-
       <!-- <van-button size="small" round type="info" color="linear-gradient(to right, #E01923, #F45919)">
         上传装好货照片
       </van-button> -->
     </view>
-
     <!-- 中部弹窗 -->
-
   </view>
   <view class="dialog">
-    <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button show-confirm-button
-      data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
+    <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button show-confirm-button data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
       <!-- <image src="https://img.yzcdn.cn/1.jpg" /> -->
     </van-dialog>
   </view>

@@ -1,7 +1,7 @@
 import User from "../../models/user/user"
 Page({
     data: {
-        navbarTitle:'我的订单',
+        navbarTitle: '我的订单',
         userInfo: null,
         identity: 1,
         // tabs: [{
@@ -14,21 +14,21 @@ Page({
         //     label: '车主任务',
         //     state: 3
         // }],
-        shipOrderList: [],//船东订单列表
-        shipOrderID:null,//船东订单ID
-        cargoOrderList:[],//货主订单列表
-        cargoOrderID:null,//货主订单ID
-       
+        shipOrderList: [], //船东订单列表
+        shipOrderID: null, //船东订单ID
+        cargoOrderList: [], //货主订单列表
+        cargoOrderID: null, //货主订单ID
+
         // 货主按钮
-        cargoButton:[{
-            title:'发起聊天',
-            cargoShow:true
-        },{
-            title:'发起合同',
-            cargoShow:false
+        cargoButton: [{
+            title: '发起聊天',
+            cargoShow: true
+        }, {
+            title: '发起合同',
+            cargoShow: false
         }],
         shipShow: false, //船东确认弹框
-        cargoShow:false,//货主确认弹框
+        cargoShow: false, //货主确认弹框
     },
     onLoad: function (options) {
 
@@ -41,25 +41,29 @@ Page({
     //获取用户
     getUserInfo() {
         let Authorization = wx.getStorageSync('Authorization');
-        let uId = '';
-        User.userInfo({
+        let uid = '';
+        let params = {
             Authorization,
-            uId
-        }).then(res => {
+            uid
+        }
+        User.userInfo(params).then(res => {
             let user = res.data.data;
-            if (user.mtCargoOwner.idNumber != null) {
+            if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+                console.log('货主')
                 user.cargo = true;
                 user.status = user.mtCargoOwner.status;
                 this.setData({
                     trialList: user.mtCargoOwner
                 })
-            } else if (user.mtOwner.idNumber != null) {
+            } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+                console.log('车主')
                 user.car = true;
                 user.status = user.mtOwner.status;
                 this.setData({
                     trialList: user.mtOwner
                 })
-            } else if (user.mtShipowner.idNumber != null) {
+            } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                console.log('船东')
                 user.ship = true
                 user.status = user.mtShipowner.status;
                 this.setData({
@@ -68,7 +72,7 @@ Page({
             }
             this.setData({
                 userInfo: user,
-                navbarTitle:'任务订单确认'
+                navbarTitle: '任务订单确认'
             })
             console.log(this.data.userInfo)
             this.getUserOrderList()
@@ -115,14 +119,12 @@ Page({
                 rows: 10,
             };
             User.UserOrderQueryList(params).then(res => {
-                console.log(res)
                 let cargoOrderList = res.data.data.rows;
                 cargoOrderList.map(data => {
                     let loadingDate = new Date(data.mtCargo.loadingDate).toLocaleDateString();
-                    data.mtCargo.loadingDate = loadingDate.replace(/\//g,"-")
+                    data.mtCargo.loadingDate = loadingDate.replace(/\//g, "-")
                     return data
                 })
-                console.log(cargoOrderList)
                 this.setData({
                     cargoOrderList
                 })
@@ -137,25 +139,25 @@ Page({
         let id = e.currentTarget.dataset.id;
         let userInfo = this.data.userInfo;
         wx.navigateTo({
-            url: '/views/OrderDetails/OrderDetails?id=' + id+'&ship='+userInfo.ship,
+            url: '/views/OrderDetails/OrderDetails?id=' + id + '&ship=' + userInfo.ship,
         })
     },
     //船东聊天按钮
-    handleChatButton(e){
+    handleChatButton(e) {
         console.log(e)
         let receiverid = e.currentTarget.dataset.receiverid;
         let senderid = e.currentTarget.dataset.senderid;
         wx.navigateTo({
-          url: '/views/chat/chat?receiverid='+receiverid+'&senderid='+senderid,
+            url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid,
         })
     },
     //船东同意按钮
-    handleShipConfirmOrderButton(e){
+    handleShipConfirmOrderButton(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;
         this.setData({
             shipShow: true,
-            shipOrderID:id
+            shipOrderID: id
         })
     },
     //船东确认订单
@@ -171,37 +173,37 @@ Page({
         console.log(params)
         User.UserShipOrderAgreeOrRefused(params).then(res => {
             console.log(res)
-            if(res.data.state === 200){
+            if (res.data.state === 200) {
                 this.onShow()
-            }else{
+            } else {
                 wx.showToast({
-                  title: res.data.message,
+                    title: res.data.message,
                 })
             }
         })
     },
     //船东确认合同按钮
-    handleShipConfirmContractButton(e){
+    handleShipConfirmContractButton(e) {
         console.log(e)
     },
 
     //货主发起聊天
-    handleCargoChatButton(e){
+    handleCargoChatButton(e) {
         console.log(e)
         let receiverid = e.currentTarget.dataset.receiverid;
         let senderid = e.currentTarget.dataset.senderid;
         wx.navigateTo({
-          url: '/views/chat/chat?receiverid='+receiverid+'&senderid='+senderid,
+            url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid,
         })
     },
     //货主发起合同
-    handleCargoConfirmContractButton(e){
+    handleCargoConfirmContractButton(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;
-        let userInfo = this.data.userInfo;
-        let contract = true
+        // let userInfo = this.data.userInfo;
+        // let contract = true
         wx.navigateTo({
-          url: '/views/OrderDetails/OrderDetails?cargo='+userInfo.cargo+'&id='+id+'&contract='+contract,
+            url: '/views/cargoOrderDetails/cargoOrderDetails?id='+id,
         })
     },
 })
