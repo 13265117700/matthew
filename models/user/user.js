@@ -25,14 +25,6 @@ export default{
     UserShipInfoQuery:function(data){
         return request.get(api.UserShipInfoQuery, data)
     },
-    //用户船期发布
-    UserShipPeriodAdd:function(data){
-        return request.post(api.UserShipPeriodAdd, data)
-    },
-    //用户船期列表
-    UserShipPeriodList:function(data){
-        return request.get(api.UserShipPeriodList, data)
-    },
      //用户船是否已关注
      UserShipWhetherFocusOn:function(data){
         return request.get(api.UserShipWhetherFocusOn, data)
@@ -45,6 +37,23 @@ export default{
     UserShipCancelFocus:function(data){
         return request.post(api.UserShipCancelFocus, data)
     },
+    //用户船期发布
+    UserShipPeriodAdd:function(data){
+        return request.post(api.UserShipPeriodAdd, data)
+    },
+    //用户船期列表
+    UserShipPeriodList:function(data){
+        return request.get(api.UserShipPeriodList, data)
+    },
+    //用户船期上下架
+    UserShipPeriodOnUnderFrame:function(data){
+        return request.post(api.UserShipPeriodOnUnderFrame, data)
+    },
+    //用户船期删除
+    UserShipPeriodDel:function(data){
+        return request.post(api.UserShipPeriodDel, data)
+    },
+    
 
 
 
@@ -64,6 +73,10 @@ export default{
     //用户货源信息查询
     UserMtCargoQueryInfo:function(data){
         return request.get(api.UserMtCargoQueryInfo, data)
+    },
+    //用户船货上下架
+    UserCargoOnUnderFrame:function(data){
+        return request.post(api.UserCargoOnUnderFrame, data)
     },
    
 

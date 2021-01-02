@@ -499,8 +499,9 @@ Component({
 
             switch(index){
                 case 1:
+                    console.log(new Date(liseIndex).getTime())
                     this.setData({
-                        ageShip:liseIndex
+                        ageShip:new Date(liseIndex).getTime()
                     })
                     break
                 case 9:
