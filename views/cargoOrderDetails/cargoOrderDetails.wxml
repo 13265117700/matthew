@@ -194,10 +194,10 @@
                 <view class="text-left">预计装货吨数:</view>
                 <view class="text-right">{{orderInfo.mtCargo.number}}吨</view>
             </view>
-            <view class="information-item">
+            <!-- <view class="information-item">
                 <view class="text-left">运价 (含税):</view>
                 <view class="text-right">运费单价 {{orderInfo.mtCargo.freightAmount}}</view>
-            </view>
+            </view> -->
             <view class="information-item">
                 <view class="text-left">其它费用:</view>
                 <view class="text-right">{{orderInfo.mtCargo.otherExpenses}}</view>
@@ -258,8 +258,8 @@
                 </view>
                 <view class="text-right">
                     <view class="text-input">
-                        <vtu-input placeholder="请输入单价" value="{{orderPrice}}" type="input" text-align="left"
-                            bind:confirm="handleOrderPrice">
+                        <vtu-input placeholder="请输入单价" type="input" text-align="left"
+                            bind:input="handleOrderPrice">
                             <view slot="after" class="text-input_unit">元</view>
                         </vtu-input>
                     </view>

@@ -24,7 +24,7 @@ export default {
     UserShipPeriodAdd: `${PREFIX}/user/releaseShipSource/saveReleaseShipSource`, //用户船期发布
     UserShipPeriodList: `${PREFIX}/user/releaseShipSource/releaseShipSourceFriends`, //用户船期列表
     UserShipPeriodOnUnderFrame: `${PREFIX}/user/releaseShipSource/upAndDownUpdate`, //用户船期上下架
-    UserShipPeriodDel:`${PREFIX}/user/releaseShipSource/deleteDownUpdate`,//用户船期删除
+    UserShipPeriodDel: `${PREFIX}/user/releaseShipSource/deleteDownUpdate`, //用户船期删除
 
 
 
@@ -34,7 +34,7 @@ export default {
     UserMtCargoQuery: `${PREFIX}/user/cargo/mtCargoFriends`, //用户货源列表查询
     UserMtCargoQueryInfo: `${PREFIX}/user/cargo/findByCargoId`, //用户货源信息查询
     UserCargoOnUnderFrame: `${PREFIX}/user/cargo/upAndDownUpdate`, //用户货源上下架
-
+    UserCargoUpdate: `${PREFIX}/user/cargo/mtCargoUpdate`, //用户货源修改
 
 
     //用户车API
