@@ -33,7 +33,8 @@
         "views/ShipPeriod/ShipPeriod",
         "views/cargoPeriod/cargoPeriod",
         "views/orderConfirm/orderConfirm",
-        "views/cargoOrderDetails/cargoOrderDetails"
+        "views/cargoOrderDetails/cargoOrderDetails",
+        "views/UserOrderList/UserOrderList"
     ],
     "window": {
         "navigationStyle": "custom",
@@ -95,7 +96,8 @@
         "van-rate": "@vant/weapp/rate/index",
         "van-steps": "@vant/weapp/steps/index",
         "vtu-tab": "/miniprogram_npm/vtuweapp/tab/vtu-tab",
-        "vtu-tabs": "/miniprogram_npm/vtuweapp/tabs/vtu-tabs"
+        "vtu-tabs": "/miniprogram_npm/vtuweapp/tabs/vtu-tabs",
+        "vtu-empty": "/miniprogram_npm/vtuweapp/empty/vtu-empty"
     },
     "sitemapLocation": "sitemap.json"
 }

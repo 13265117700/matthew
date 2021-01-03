@@ -3,43 +3,52 @@
 <!-- 合同 -->
 
 <view>
-  <vtu-navbar title="生成合同" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon="iconfont icon-shangchuan"></vtu-navbar>
+  <vtu-navbar title="货主生成合同" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon="iconfont icon-shangchuan">
+  </vtu-navbar>
 
-  <view class="box box_a"  > 
-  
+  <view class="box box_a">
+
     <view class="text-left">合同编号:</view>
     <view class="text-right">33664564654</view>
-  
+
   </view>
 
-  <view  class="box" > 
+  <view class="box">
 
     <view wx:for="{{ informations }}" wx:key="items" class="box_a">
-    <view class="text-left">{{item.contents}}</view>
-    <view class="text-right">{{ item.title }}</view>
-  </view>
-  </view>
+      <view class="text-left">{{item.contents}}</view>
+      <view class="{{item.id==2?'text-right_a':'text-right'}}">{{ item.title }}</view>
+    </view>
 
-  <view  class="box" > 
-
-<view wx:for="{{ informations_a }}" wx:key="items" class="box_a">
-<view class="text-left">{{item.contents}}</view>
-<view class="text-right">{{ item.title }}</view>
-</view>
-</view>
-
-<view  class="box" > 
-<view wx:for="{{ informations_a_a }}" wx:key="items" class="box_a">
-<view class="text-left">{{item.contents}}</view>
-<view class="text-right">{{ item.title }}</view>
-</view>
-</view>
-
-<view class="contract-btn">
-     <view class="btn">生成合同</view>
+    <view wx:for="{{ informations_a_a_a }}" wx:key="items" class="box_a">
+      <view class="text-left">{{item.contents}}</view>
+      <view class="text-right">
+        <input placeholder="{{ item.placeholder }}" maxlength="11" type="tel" bindinput="getInput"
+          class="input-style" />
+      </view>
+    </view>
   </view>
 
+
+  <view class="box">
+
+    <view wx:for="{{ informations_a }}" wx:key="items" class="box_a">
+      <view class="text-left">{{item.contents}}</view>
+      <view class="{{item.id==2?'text-right_a':'text-right'}}">{{ item.title }}</view>
+    </view>
+  </view>
+
+  <view class="box">
+    <view wx:for="{{ informations_a_a_a_a }}" wx:key="items" class="box_a">
+      <view class="text-left">{{item.contents}}</view>
+      <view class="text-right">
+        <input placeholder="{{ item.placeholder }}" maxlength="11" type="tel" bindinput="getInput" class="input-style_a" />
+      </view>
+    </view>
+  </view>
+
+  <view class="contract-btn">
+    <view class="btn">生成合同</view>
+  </view>
+
 </view>
-
-
-

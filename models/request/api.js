@@ -53,9 +53,10 @@ export default {
     //用户订单API
     UserCargoOrderRequest: `${PREFIX}/user/appoint/saveAppoint`, //货主发起接单请求
     userAppointFriends: `${PREFIX}/user/appoint/appointFriends`, //船东\货主接单查询
-    UserOrderQueryList: `${PREFIX}/user/appoint/appointFriends`, //用户订单查询列表
+    UserOrderQueryList: `${PREFIX}/user/appoint/appointFriends`, //用户接单查询列表
     UserShipOrderAgreeOrRefused: `${PREFIX}/user/appoint/agreeToRefuse`, //船用户订单同意或拒绝
     UserOrderDetails: `${PREFIX}/user/appoint/findByAppointId`, //用户接单详情
+    UserOrderListQuery:`${PREFIX}/user/shippingOrder/mtShippingOrderFindAll`,//用户订单列表查询
     UserOrderQuery: `${PREFIX}/user/shippingOrder/userFindByShippingOrderId`, //用户订单查询
 
 

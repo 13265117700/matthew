@@ -345,6 +345,15 @@ Page({
             url: '/views/orderConfirm/orderConfirm',
           })
           break
+        case '234':
+          wx.navigateTo({
+            url: '/views/UserOrderList/UserOrderList',
+          })
+          break
+        case '101':
+          wx.navigateTo({
+            url: '/views/UserOrderList/UserOrderList',
+          })
       }
     } else {
       wx.navigateTo({

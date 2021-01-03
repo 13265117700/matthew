@@ -24,12 +24,6 @@
                             <view class="place-icon end">终</view>
                             <view class="place-subTitle">{{cargoOrderItem.mtCargo.portDepartureAddress}}</view>
                         </view>
-
-                        <!-- <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
-                        <text>{{cargoOrderItem.mtCargo.portArrivalAddress}}</text>
-                        <image src="/images/order/yunwang.png" style=" width:55px; height:7px;  margin: 0 8px">
-                        </image>
-                        <text>{{cargoOrderItem.mtCargo.portDepartureAddress}}</text> -->
                     </view>
                     <view class="tabs-goods">
                         <view class="tabs-type">{{orderItem.mtCargo.mtNameGoods.name}}</view>
@@ -48,14 +42,9 @@
                     <van-button wx:if="{{ orderItem.status === 0 }}" round plain data-id="{{ orderItem.id }}"
                         type="danger" size="small" style="margin-right:5px" bind:click="handleShipConfirmOrderButton">
                         同意承运</van-button>
-                    <van-button wx:if="{{ orderItem.status === 2 }}" round plain type="danger" size="small"
+                    <!-- <van-button wx:if="{{ orderItem.status === 2 }}" round plain type="danger" size="small"
                         style="margin-right:5px" bind:click="handleShipConfirmContractButton">
-                        确认合同</van-button>
-                    <!-- <van-button wx:for="{{button}}" wx:key="index" wx:for-item="buttonItem" round plain
-                        type="{{buttonItem.status === 2 ? 'default':'danger'}}" size="small"
-                        wx:if="{{ buttonItem.shipShow === true }}" data-status="{{buttonItem.status}}"
-                        style="margin-right:5px" bind:click="handleButton">
-                        {{buttonItem.title}}</van-button> -->
+                        确认合同</van-button> -->
                 </view>
 
             </view>
@@ -65,6 +54,7 @@
                 </van-dialog>
             </view>
         </view>
+        <vtu-empty icon="iconfont icon-kong" fill-screen icon-color="orange" icon-size="50px" label="暂时没有待接订单" wx:if="{{shipTotal === 0}}"></vtu-empty>
 
         <!-- 货主待确认订单列表 -->
         <view class="tabs-list" wx:if="{{userInfo.cargo === true }}">

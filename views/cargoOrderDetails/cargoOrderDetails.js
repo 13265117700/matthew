@@ -58,7 +58,7 @@ Page({
                 orderInfo.phone = mtUser.mtShipowner.phone
             }
 
-            console.log(orderInfo)
+
             this.setData({
                 orderInfo,
                 mtCargo
@@ -97,16 +97,15 @@ Page({
 
     //货主发起合同
     handleHairContractButton(e) {
-        let id = this.data.id;
+        let orderID = this.data.id;//订单ID
         let Authorization = wx.getStorageSync('Authorization');
         let params = {
             Authorization,
-            id
+            id:orderID
         };
 
         user.UserOrderDetails(params).then(res => {
             let rows = res.data.data;
-            console.log(rows)
             let compensation = rows.mtCargo.compensation;
             let delayedCost = rows.mtCargo.delayedCost;
             let delayedDischarge = rows.mtCargo.delayedDischarge;
@@ -115,7 +114,7 @@ Page({
             let freightAmount = this.data.orderPrice;
             let freightRate = rows.mtCargo.freightRate;
             let goodsDamages = rows.mtCargo.goodsDamages;
-            let id = rows.mtCargo.id;
+            let id = rows.mtCargo.id;//货源ID
             let lagPeriodType = rows.mtCargo.lagPeriodType;
             let loadingDate = rows.mtCargo.loadingDate;
             let loadingMethod = rows.mtCargo.loadingMethod;
@@ -165,12 +164,16 @@ Page({
                 vesselMinimum,
                 warehouse,
             }
-            console.log(params)
 
             user.UserCargoUpdate(params).then(res => {
-                console.log(res)
                 if (res.data.state === 200) {
-
+                    wx.navigateTo({
+                      url: '/views/OrderContract/OrderContract?id='+orderID,
+                    })
+                } else {
+                    wx.showToast({
+                      title: res.data.message,
+                    })
                 }
             })
 

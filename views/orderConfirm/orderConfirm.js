@@ -4,20 +4,12 @@ Page({
         navbarTitle: '我的订单',
         userInfo: null,
         identity: 1,
-        // tabs: [{
-        //     label: '货主任务',
-        //     state: 2
-        // }, {
-        //     label: '船东任务',
-        //     state: 1
-        // }, {
-        //     label: '车主任务',
-        //     state: 3
-        // }],
+        
         shipOrderList: [], //船东订单列表
         shipOrderID: null, //船东订单ID
         cargoOrderList: [], //货主订单列表
         cargoOrderID: null, //货主订单ID
+        shipTotal:null,//船东待接订单数量
 
         // 货主按钮
         cargoButton: [{
@@ -49,21 +41,18 @@ Page({
         User.userInfo(params).then(res => {
             let user = res.data.data;
             if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
-                console.log('货主')
                 user.cargo = true;
                 user.status = user.mtCargoOwner.status;
                 this.setData({
                     trialList: user.mtCargoOwner
                 })
             } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
-                console.log('车主')
                 user.car = true;
                 user.status = user.mtOwner.status;
                 this.setData({
                     trialList: user.mtOwner
                 })
             } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
-                console.log('船东')
                 user.ship = true
                 user.status = user.mtShipowner.status;
                 this.setData({
@@ -74,7 +63,7 @@ Page({
                 userInfo: user,
                 navbarTitle: '任务订单确认'
             })
-            console.log(this.data.userInfo)
+
             this.getUserOrderList()
         })
     },
@@ -88,10 +77,13 @@ Page({
                 identity: 1,
                 page: 1,
                 rows: 10,
+                status:0
             };
             User.UserOrderQueryList(params).then(res => {
+                console.log(res)
                 let shipOrderList = res.data.data.rows;
-                console.log(shipOrderList)
+                let shipTotal = res.data.data.total;
+                console.log(shipTotal)
                 shipOrderList.forEach(data => {
                     if (data.status === 1) {
                         this.setData({
@@ -106,19 +98,20 @@ Page({
                 })
 
                 this.setData({
-                    shipOrderList
+                    shipOrderList,
+                    shipTotal
                 })
 
             })
         } else if (userInfo.cargo === true) {
-            console.log('货')
+
             let params = {
                 Authorization,
-                identity: 2,
+                identity: 1,
                 page: 1,
                 rows: 10,
             };
-            User.UserOrderQueryList(params).then(res => {
+            User.UserOrderListQuery(params).then(res => {
                 let cargoOrderList = res.data.data.rows;
                 console.log(cargoOrderList)
                 cargoOrderList.map(data => {
@@ -170,8 +163,8 @@ Page({
             id,
             status: 1
         }
-        console.log(id)
-        console.log(params)
+        // console.log(id)
+        // console.log(params)
         User.UserShipOrderAgreeOrRefused(params).then(res => {
             console.log(res)
             if (res.data.state === 200) {
@@ -184,9 +177,9 @@ Page({
         })
     },
     //船东确认合同按钮
-    handleShipConfirmContractButton(e) {
-        console.log(e)
-    },
+    // handleShipConfirmContractButton(e) {
+    //     console.log(e)
+    // },
 
 
     //货主查看订单详情
@@ -210,7 +203,6 @@ Page({
     },
     //货主发起合同
     handleCargoConfirmContractButton(e) {
-        console.log(e)
         let id = e.currentTarget.dataset.id;
         // let userInfo = this.data.userInfo;
         // let contract = true

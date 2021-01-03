@@ -112,6 +112,11 @@ export default {
     UserOrderDetails: function (data) {
         return request.get(api.UserOrderDetails, data)
     },
+
+    //用户订单列表查询
+    UserOrderListQuery:function(data){
+        return request.get(api.UserOrderListQuery, data)
+    },
     //用户订单查询
     UserOrderQuery: function (data) {
         return request.get(api.UserOrderQuery, data)
