@@ -77,6 +77,7 @@ Page({
         let rows = 10;
         let params = {Authorization,page,rows}
         User.UserShipQuery(params).then(res => {
+            console.log(res)
             let total = res.data.data.total;
             let resourcesList = res.data.data.rows;
             console.log(resourcesList)

@@ -100,7 +100,7 @@ export default {
     UserCargoOrderRequest: function (data) {
         return request.post(api.UserCargoOrderRequest, data)
     },
-    //用户订单查询列表
+    //用户接单查询列表
     UserOrderQueryList: function (data) {
         return request.get(api.UserOrderQueryList, data)
     },

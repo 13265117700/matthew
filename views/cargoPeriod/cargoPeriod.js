@@ -4,7 +4,6 @@ const { default: user } = require("../../models/user/user");
 Page({
     data: {
         cargoList:[],
-        
         receiverid:null,
         senderid:null,
     },

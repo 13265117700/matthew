@@ -6,51 +6,91 @@
   <view class="page-main">
     <vtu-tabs value="{{tabsActive}}" bind:change="tabsOnChange" active-color="#E3211F" bg-color="#fff">
       <vtu-tab wx:for="{{ tabs }}" wx:key="index" wx:for-item="tabItem" label="{{tabItem.title}}"
-        name="{{tabItem.status}}">
-        <view class="order-list">
-          <view class="order-item">
-            <view class="order-top">
-              <view class="order-top-item">
-                <view class="order-number">运单编号：45689794219</view>
+        name="{{tabItem.status}}"></vtu-tab>
+    </vtu-tabs>
+    <view class="order-list">
+      <view class="order-item" wx:for="{{ shipOrderList }}" wx:key="index" wx:for-item="shipOrderItem">
+        <view class="order-top">
+          <view class="order-top-item">
+            <view class="order-number">运单编号：{{shipOrderItem.shippingOrderId}}</view>
+          </view>
+          <view class="order-top-item">
+            <view class="order-top-hd">
+              <view class="icon">
+                <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
               </view>
-              <view class="order-top-item">
-                <view class="order-top-hd">
-                  <view class="icon">
-                    <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
-                  </view>
-                  <text>广州黄埔装货港</text>
-                </view>
-                <view class="order-top-bd">
-                  <image src="/images/myFollow/item-info_img2.png"></image>
-                </view>
-                <view class="order-top-ft">
-                  <text>珠海大湾区目的港</text>
-                </view>
-              </view>
-              <view class="order-top-item">
-                <view class="order-cargo-name">
-                  <text>玉米</text>
-                </view>
-                <view class="order-cargo-number">
-                  <text>6800吨</text>
-                </view>
-              </view>
-              <view class="order-top-item">
-                <view class="order-start-time">
-                  <text>预计装货时间：2020-08-18</text>
-                </view>
-              </view>
+              <text>{{shipOrderItem.mtCargo.portDepartureAddress}}</text>
             </view>
-            <view class="order-bottom">
-              <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
-                wx:if="{{ btuItem.show }}">
-                <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}">
-                  {{btuItem.title}}</van-button>
-              </view>
+            <view class="order-top-bd">
+              <image src="/images/myFollow/item-info_img2.png"></image>
+            </view>
+            <view class="order-top-ft">
+              <text>{{shipOrderItem.mtCargo.portArrivalAddress}}</text>
+            </view>
+          </view>
+          <view class="order-top-item">
+            <view class="order-cargo-name">
+              <text>{{shipOrderItem.mtCargo.mtNameGoods.name}}</text>
+            </view>
+            <view class="order-cargo-number">
+              <text>{{shipOrderItem.mtCargo.number}}吨</text>
+            </view>
+          </view>
+          <view class="order-top-item">
+            <view class="order-start-time">
+              <text>预计装货时间：{{shipOrderItem.mtCargo.loadingDate}}</text>
             </view>
           </view>
         </view>
-      </vtu-tab>
-    </vtu-tabs>
+        <view class="order-bottom">
+          <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
+            wx:if="{{ btuItem.show }}">
+            <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}">
+              {{btuItem.title}}</van-button>
+          </view>
+        </view>
+      </view>
+      <view class="order-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
+        <view class="order-top">
+          <view class="order-top-item">
+            <view class="order-number">发起时间：{{cargoOrderItem.shippingOrderId}}</view>
+          </view>
+          <view class="order-top-item">
+            <view class="order-top-hd">
+              <view class="icon">
+                <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+              </view>
+              <text>{{cargoOrderItem.mtCargo.portDepartureAddress}}</text>
+            </view>
+            <view class="order-top-bd">
+              <image src="/images/myFollow/item-info_img2.png"></image>
+            </view>
+            <view class="order-top-ft">
+              <text>{{cargoOrderItem.mtCargo.portArrivalAddress}}</text>
+            </view>
+          </view>
+          <view class="order-top-item">
+            <view class="order-cargo-name">
+              <text>{{cargoOrderItem.mtCargo.mtNameGoods.name}}</text>
+            </view>
+            <view class="order-cargo-number">
+              <text>{{cargoOrderItem.mtCargo.number}}吨</text>
+            </view>
+          </view>
+          <view class="order-top-item">
+            <view class="order-start-time">
+              <text>{{ cargoOrderItem.mtship.nameVessel }}</text>
+            </view>
+          </view>
+        </view>
+        <view class="order-bottom">
+          <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
+            wx:if="{{ btuItem.show }}">
+            <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}">
+              {{btuItem.title}}</van-button>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

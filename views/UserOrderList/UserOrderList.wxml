@@ -44,9 +44,55 @@
                     </view>
                 </view>
                 <view class="order-bottom">
+                    <!-- <view class="order-msg" wx:if="{{ shiOrderItem.status === 1 }}">请等待货主发起合同</view> -->
                     <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
                         wx:if="{{ btuItem.show }}">
-                        <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}">
+                        <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                            data-userShipId="{{ shipOrderItem.userShipId }}"
+                            data-userCargoId="{{ shipOrderItem.userCargoId }}" bind:click="handleButton">
+                            {{btuItem.title}}</van-button>
+                    </view>
+                </view>
+            </view>
+            <view class="order-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
+                <view class="order-top">
+                    <view class="order-top-item">
+                        <view class="order-number">发起时间：{{cargoOrderItem.shippingOrderId}}</view>
+                    </view>
+                    <view class="order-top-item">
+                        <view class="order-top-hd">
+                            <view class="icon">
+                                <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                            </view>
+                            <text>{{cargoOrderItem.mtCargo.portDepartureAddress}}</text>
+                        </view>
+                        <view class="order-top-bd">
+                            <image src="/images/myFollow/item-info_img2.png"></image>
+                        </view>
+                        <view class="order-top-ft">
+                            <text>{{cargoOrderItem.mtCargo.portArrivalAddress}}</text>
+                        </view>
+                    </view>
+                    <view class="order-top-item">
+                        <view class="order-cargo-name">
+                            <text>{{cargoOrderItem.mtCargo.mtNameGoods.name}}</text>
+                        </view>
+                        <view class="order-cargo-number">
+                            <text>{{cargoOrderItem.mtCargo.number}}吨</text>
+                        </view>
+                    </view>
+                    <view class="order-top-item">
+                        <view class="order-start-time">
+                            <text>{{ cargoOrderItem.mtship.nameVessel }}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="order-bottom">
+                    <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
+                        wx:if="{{ btuItem.show }}">
+                        <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                            data-userShipId="{{ cargoOrderItem.userShipId }}"
+                            data-userCargoId="{{ cargoOrderItem.userCargoId }}" bind:click="handleButton">
                             {{btuItem.title}}</van-button>
                     </view>
                 </view>

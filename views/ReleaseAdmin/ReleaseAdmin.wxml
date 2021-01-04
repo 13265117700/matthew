@@ -61,17 +61,17 @@
                   <text>{{cargoItem.mtNameGoods.name}}</text><text class="number">{{cargoItem.number}}吨</text>
                 </view>
                 <view class="release-cell_btu">
-                  <view class="shelf" wx:if="{{ upAndDownState === 2 }}">
+                  <view class="shelf" wx:if="{{ cargoItem.status === 2 }}">
                     <vtu-btn plain="true" type="danger" round="true" size="small" data-id="{{ cargoItem.id }}"
                       bind:click="UserCargoOnFrame">
                       上架船源</vtu-btn>
                   </view>
-                  <view class="out" wx:if="{{ upAndDownState != 2 }}">
+                  <view class="out" wx:if="{{ cargoItem.status === 3 }}">
                     <vtu-btn plain="true" type="danger" round="true" size="small" data-id="{{ cargoItem.id }}"
                       bind:click="UserCargoUnderFrame">
                       下架船源</vtu-btn>
                   </view>
-                  <view class="del" wx:if="{{ upAndDownState === 2 }}">
+                  <view class="del" wx:if="{{ cargoItem.status === 2 }}">
                     <image src="/images/myFollow/sc@3x.png"></image>
                   </view>
                 </view>

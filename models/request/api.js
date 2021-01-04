@@ -35,7 +35,7 @@ export default {
     UserMtCargoQueryInfo: `${PREFIX}/user/cargo/findByCargoId`, //用户货源信息查询
     UserCargoOnUnderFrame: `${PREFIX}/user/cargo/upAndDownUpdate`, //用户货源上下架
     UserCargoUpdate: `${PREFIX}/user/cargo/mtCargoUpdate`, //用户货源修改
-
+    
 
     //用户车API
     mtOwnerUpdate: `${PREFIX}/user/information/mtOwnerUpdate`, //车主信息修改
@@ -64,6 +64,8 @@ export default {
     frontDeskShipTypeList: `${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`, //船类型列表
     frontDeskCargoList: `${PREFIX}/reception/mtNameGoods/mtNameGoodsFriends`, //货物名列表
     frontDeskShipPeriodList: `${PREFIX}/reception/releaseShipSource/releaseShipSourceFriends`, //船期列表
+    frontDeskShipPeriodItem:`${PREFIX}/reception/releaseShipSource/findByReleaseShipSourceId`,//前端船期信息查询
     frontDeskWharfList: `${PREFIX}/reception/mtWharf/findAll`, //码头列表查询
     frontDeskShipList: `${PREFIX}/reception/ship/myFriendsRequestFriends`, //船信息列表
+    frontDeskShipItem: `${PREFIX}/reception/ship/findByShipId`,//船信息查询
 }

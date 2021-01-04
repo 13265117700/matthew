@@ -31,7 +31,8 @@
                         <text>{{shipItem.mtShip.nameVessel}}</text>
                     </view>
                     <view class="resources-active">
-                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.mtShip.id }}" bind:click="handleConfirm">发起任务</vtu-btn>
+                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.id }}" wx:if="{{ userInfo.ship }}" bind:click="handleConfirm">发送船源</vtu-btn>
+                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.mtShip.id }}" wx:if="{{ userInfo.cargo }}" bind:click="handleCargoHairTask">发起任务</vtu-btn>
                     </view>
                 </view>
                 <view class="resources-bottom" data-id="{{ shipItem.id }}" bindtap="handleCheckDetails">

@@ -4,12 +4,12 @@ Page({
         navbarTitle: '我的订单',
         userInfo: null,
         identity: 1,
-        
+
         shipOrderList: [], //船东订单列表
         shipOrderID: null, //船东订单ID
         cargoOrderList: [], //货主订单列表
         cargoOrderID: null, //货主订单ID
-        shipTotal:null,//船东待接订单数量
+        total: null, //订单数量
 
         // 货主按钮
         cargoButton: [{
@@ -77,50 +77,59 @@ Page({
                 identity: 1,
                 page: 1,
                 rows: 10,
-                status:0
+                status: 0
             };
             User.UserOrderQueryList(params).then(res => {
-                console.log(res)
                 let shipOrderList = res.data.data.rows;
                 let shipTotal = res.data.data.total;
-                console.log(shipTotal)
-                shipOrderList.forEach(data => {
-                    if (data.status === 1) {
-                        this.setData({
-                            ['button[1].shipShow']: false,
-                            // ['button[2].shipShow']:true,
-                        })
-                    } else if (data.status === 2) {
-                        this.setData({
-                            ['button[2].shipShow']: true,
-                        })
-                    }
-                })
-
                 this.setData({
                     shipOrderList,
                     shipTotal
                 })
 
+                console.log(shipOrderList)
+                // shipOrderList.forEach(data => {
+                //     if (data.status === 1) {
+                //         this.setData({
+                //             ['button[1].shipShow']: false,
+                //             // ['button[2].shipShow']:true,
+                //         })
+                //     } else if (data.status === 2) {
+                //         this.setData({
+                //             ['button[2].shipShow']: true,
+                //         })
+                //     }
+                // })
+
+                // this.setData({
+                //     shipOrderList,
+                //     total
+                // })
             })
+
+
         } else if (userInfo.cargo === true) {
 
             let params = {
                 Authorization,
-                identity: 1,
+                identity: 2,
                 page: 1,
                 rows: 10,
+                status: 0
             };
-            User.UserOrderListQuery(params).then(res => {
+
+            User.UserOrderQueryList(params).then(res => {
+                console.log(res)
                 let cargoOrderList = res.data.data.rows;
-                console.log(cargoOrderList)
+                let total = res.data.data.total;
                 cargoOrderList.map(data => {
                     let loadingDate = new Date(data.mtCargo.loadingDate).toLocaleDateString();
                     data.mtCargo.loadingDate = loadingDate.replace(/\//g, "-")
                     return data
                 })
                 this.setData({
-                    cargoOrderList
+                    cargoOrderList,
+                    total
                 })
             })
         }
@@ -154,7 +163,7 @@ Page({
             shipOrderID: id
         })
     },
-    //船东确认订单
+    //船东同意承运
     handleConfirm() {
         let Authorization = wx.getStorageSync('Authorization');
         let id = this.data.shipOrderID;
@@ -163,33 +172,45 @@ Page({
             id,
             status: 1
         }
-        // console.log(id)
-        // console.log(params)
+        console.log(params)
+
         User.UserShipOrderAgreeOrRefused(params).then(res => {
-            console.log(res)
             if (res.data.state === 200) {
-                this.onShow()
-            } else {
-                wx.showToast({
-                    title: res.data.message,
+                wx.showLoading({
+                    title: '成功同意承运',
                 })
+                setTimeout(function () {
+                    wx.hideLoading()
+                    wx.navigateTo({
+                        url: '/views/UserOrderList/UserOrderList',
+                    })
+                }, 2000)
             }
         })
+        // console.log(id)
+        // console.log(params)
+        // User.UserShipOrderAgreeOrRefused(params).then(res => {
+        //     console.log(res)
+        //     if (res.data.state === 200) {
+        //         this.onShow()
+        //     } else {
+        //         wx.showToast({
+        //             title: res.data.message,
+        //         })
+        //     }
+        // })
     },
-    //船东确认合同按钮
-    // handleShipConfirmContractButton(e) {
-    //     console.log(e)
-    // },
+
 
 
     //货主查看订单详情
-    handleCargoOrderDetails(e){
+    handleCargoOrderDetails(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;
         let status = e.currentTarget.dataset.status;
         console.log(status)
         wx.navigateTo({
-          url: '/views/cargoOrderDetails/cargoOrderDetails?id='+id,
+            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
         })
     },
     //货主发起聊天
@@ -207,7 +228,7 @@ Page({
         // let userInfo = this.data.userInfo;
         // let contract = true
         wx.navigateTo({
-            url: '/views/cargoOrderDetails/cargoOrderDetails?id='+id,
+            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
         })
     },
 })

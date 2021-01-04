@@ -14,12 +14,20 @@ export default {
     frontDeskWharfList:function(data){
         return request.get(api.frontDeskWharfList, data)
     },
-    //船信息列表
+    //前端船信息列表
     frontDeskShipList:function(data){
         return request.get(api.frontDeskShipList, data)
     },
-    //用户船期列表查询
+    //前端船期列表查询
     frontDeskShipPeriodList:function(data){
         return request.get(api.frontDeskShipPeriodList, data)
-    }
+    },
+    //前端船期信息查询
+    frontDeskShipPeriodItem:function(data){
+        return request.get(api.frontDeskShipPeriodItem, data)
+    },
+    //前端船信息查询
+    frontDeskShipItem:function(data){
+        return request.get(api.frontDeskShipItem, data)
+    },
 }

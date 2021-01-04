@@ -191,7 +191,9 @@ Component({
             name:'大米'
         }],
 
-        popupInputvalue:null,//弹出层input值
+
+        shipTypeInput:null,//船类型input值
+        sealInput:null,//封仓设备input值
 
         nameVessel:'',// 船名称
         ladenA:'',//船区载货量A级
@@ -306,23 +308,24 @@ Component({
                 shipTypeShow:true
             })
         },
+        //输入船类型
         addShipType(e){
             this.setData({
-                popupInputvalue:e.detail
+                shipTypeInput:e.detail
             })
         },
         handleType(e){
             console.log(e)
             let typeRows = this.data.typeRows;
             let index = e.detail.index;
-            let popupInputvalue = this.data.popupInputvalue;
+            let shipTypeInput = this.data.shipTypeInput;
             let typeShiId = typeRows[index].id;
             console.log(typeShiId)
-            if(popupInputvalue != null && popupInputvalue != ''){
+            if(shipTypeInput != null && shipTypeInput != ''){
                 console.log('input有值')
                 this.setData({
-                    typeShip:popupInputvalue,
-                    ["infoGroupOne[4].placeholder"]:popupInputvalue,
+                    typeShip:shipTypeInput,
+                    ["infoGroupOne[4].placeholder"]:shipTypeInput,
                     typeShiId,
                     shipTypeShow:false
                 })
@@ -538,23 +541,23 @@ Component({
             }
         },
 
-
+        //输入封仓
         addShipSeal(e){
             console.log(e)
             this.setData({
-                popupInputvalue:e.detail
+                sealInput:e.detail
             })
         },
         handShipSealConfirm(e){
             console.log(e)
             let value = e.detail.value;
-            let popupInputvalue = this.data.popupInputvalue;
+            let sealInput = this.data.sealInput;
             
-            if(popupInputvalue != null && popupInputvalue != ''){
+            if(sealInput != null && sealInput != ''){
                 console.log('input有值')
                 this.setData({
-                    closure:popupInputvalue,
-                    ["infoGroupTwo[0].placeholder"]:popupInputvalue
+                    closure:sealInput,
+                    ["infoGroupTwo[0].placeholder"]:sealInput
                 })
             }else{
                 console.log('input没有值')

@@ -32,10 +32,6 @@
                 show="{{ shipTypeShow }}"
                 round
                 position="bottom">
-                <!-- <view class="popup-title">
-                    <view class="popup-title_cancel" bindtap="onClose">取消</view>
-                    <view class="popup-title_confirm" bindtap="handShipTypeConfirm">确认</view>
-                </view> -->
                 <view class="popup-selector">
                     <van-picker
                         default-index="2"
@@ -52,7 +48,7 @@
                         input-class="popup-input_text"
                         value="{{addvalue}}"
                         type="textarea"
-                        placeholder="如以上没有您需要的选项请在此输入"
+                        placeholder="输入船舶类型"
                         border="{{ false }}"
                         bind:input="addShipType"
                         autosize/>
@@ -254,10 +250,6 @@
                 </view>
             </view>
             <van-popup show="{{ shipSealShow }}" round position="bottom">
-                <!-- <view class="popup-title">
-                    <view class="popup-title_cancel" bindtap="onClose">取消</view>
-                    <view class="popup-title_confirm" bindtap="handShipSealConfirm">确认</view>
-                </view> -->
                 <view class="popup-selector">
                     <van-picker
                         default-index="1"
@@ -273,7 +265,7 @@
                         input-class="popup-input_text"
                         value="{{addvalue}}"
                         type="textarea"
-                        placeholder="如以上没有您需要的选项请在此输入"
+                        placeholder="输入封仓设备"
                         border="{{ false }}"
                         bind:input="addShipSeal"
                         autosize/>

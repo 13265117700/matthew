@@ -25,7 +25,7 @@ const webSocket = {
     },
     // 创建一个 WebSocket 连接
     connectSocket:function(options){
-        console.log(options)
+
         this.data.action = options.action;
         this.data.msg = options.msg;
         this.data.senderId = options.senderId;
@@ -52,6 +52,7 @@ const webSocket = {
 
     //发送消息
     sendSocketMessage:function(data){
+        console.log(data)
         let senderId = data.senderId;//自己的ID
         let receiverId = data.receiverId;//对方的ID
         let msg = data.msg;
@@ -107,7 +108,6 @@ const webSocket = {
 
     //开始心跳
     startHeartBeat:function(){
-        console.log('socket开始心跳')
         heart = 'heart';
         this.heartBeat()
     },
@@ -143,7 +143,7 @@ const webSocket = {
             wx.sendSocketMessage({
               data: JSON.stringify(dataContent),
               success:(res) => {
-                console.log('socket心跳成功');
+                console.log('心跳成功')
                   if(heart){
                     heartBeatTimeOut = setTimeout(() => {
                         this.heartBeat()

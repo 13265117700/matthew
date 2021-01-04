@@ -76,6 +76,7 @@ Page({
         status
       }
       User.UserShipPeriodList(params).then(res => {
+        console.log(res)
         let rows = res.data.data.rows;
         let shipList = [];
         rows.forEach(data => {
@@ -206,6 +207,7 @@ Page({
 
   //货源管理
   cargoSourceAdmin(status) {
+    console.log(status)
     let Authorization = wx.getStorageSync('Authorization');
     let page = 1;
     let rows = 10;
@@ -215,6 +217,7 @@ Page({
       rows,
       status
     }
+    console.log(params)
     User.UserMtCargoQuery(params).then(res => {
       let cargoList = res.data.data.rows;
       console.log(cargoList)
@@ -224,10 +227,12 @@ Page({
         cargoList
       })
     })
+
+
+
   },
   // 用户货上架
   UserCargoOnFrame(e) {
-    console.log(e)
     let id = e.currentTarget.dataset.id;
     let Authorization = wx.getStorageSync('Authorization');
     let status = 3;
@@ -236,16 +241,17 @@ Page({
       id,
       status
     };
+    console.log(params)
     User.UserCargoOnUnderFrame(params).then(res => {
       console.log(res)
       if (res.data.state === 200) {
         wx.showLoading({
-          title: '货源成功下架',
+          title: '货源成功上架',
         })
         setTimeout(function () {
           wx.hideLoading()
-        }, 2000)
-        this.onShow()
+        }, 1000)
+        this.cargoSourceAdmin(2)
       } else {
         wx.showToast({
           title: res.data.message,
@@ -272,8 +278,8 @@ Page({
         })
         setTimeout(function () {
           wx.hideLoading()
-        }, 2000)
-        this.onShow()
+        }, 1000)
+        this.cargoSourceAdmin(3)
       } else {
         wx.showToast({
           title: res.data.message,

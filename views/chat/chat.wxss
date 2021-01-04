@@ -169,3 +169,41 @@ vtu-input{
 .cargo-number{
     font-size: 15px;
 }
+
+.chat-ship{
+    width: 60%;
+    background: #EC6A72;
+    padding: 12px 12px 15px;
+    border-radius: 5px;
+}
+.ship-top{
+    display: flex;
+    align-items: center;
+}
+.ship-top_icon{
+    margin-right: 6%;
+}
+.ship-top_icon image{
+    width: 15px;
+    height: 14px;
+}
+.ship-top_subtitle{
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    font-size: 16px;
+    color: #fff;
+}
+.ship-bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #fff;
+    margin-top: 3%;
+}
+.ship-bottom_subtitle{
+
+}
+.ship-bottom_date{
+
+}

@@ -7,13 +7,13 @@
     <view class="page-main">
         <!-- 船东待确认订单列表 -->
         <view class="tabs-list" wx:if="{{ userInfo.ship === true }}">
-            <view class="tabs-item" wx:for="{{shipOrderList}}" wx:key="index" wx:for-item="orderItem">
-                <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{orderItem.id}}" bindtap="getOrderDetails">
+            <view class="tabs-item" wx:for="{{ shipOrderList }}" wx:key="index" wx:for-item="shiOrderItem">
+                <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{shiOrderItem.id}}" bindtap="getOrderDetails">
                     <view class="tabs-time">发起时间：2020-08-17 13：00</view>
                     <view class="tabs-place">
                         <view class="tabs-place_item">
                             <view class="place-icon start">始</view>
-                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portArrivalAddress}}</view>
+                            <view class="place-subTitle">{{shiOrderItem.mtCargo.portDepartureAddress}}</view>
                         </view>
                         <view class="tabs-place_item">
                             <view class="place-img">
@@ -22,24 +22,24 @@
                         </view>
                         <view class="tabs-place_item">
                             <view class="place-icon end">终</view>
-                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portDepartureAddress}}</view>
+                            <view class="place-subTitle">{{shiOrderItem.mtCargo.portArrivalAddress}}</view>
                         </view>
                     </view>
                     <view class="tabs-goods">
-                        <view class="tabs-type">{{orderItem.mtCargo.mtNameGoods.name}}</view>
-                        <view class="tabs-tonnage">{{orderItem.mtCargo.number}}吨</view>
+                        <view class="tabs-type">{{shiOrderItem.mtCargo.mtNameGoods.name}}</view>
+                        <view class="tabs-tonnage">{{shiOrderItem.mtCargo.number}}吨</view>
                     </view>
-                    <view class="tabs-ship-name">{{orderItem.mtShip.nameVessel}}</view>
+                    <view class="tabs-ship-name">{{shiOrderItem.mtShip.nameVessel}}</view>
                 </view>
 
                 <view class="tabs-btnBox">
-                    <view class="order-msg" wx:if="{{ orderItem.status === 1 }}">请等待货主发起合同</view>
-                    <van-button round plain size="small" type="default" data-senderid="{{ orderItem.userShipId }}"
-                        data-receiverid="{{ orderItem.userCargoId }}" style="margin-right:5px"
+                    <!-- <view class="order-msg" wx:if="{{ shiOrderItem.status === 1 }}">请等待货主发起合同</view> -->
+                    <van-button round plain size="small" type="default" data-senderid="{{ shiOrderItem.userShipId }}"
+                        data-receiverid="{{ shiOrderItem.userCargoId }}" style="margin-right:5px"
                         bind:click="handleChatButton">
                         发起聊天</van-button>
 
-                    <van-button wx:if="{{ orderItem.status === 0 }}" round plain data-id="{{ orderItem.id }}"
+                    <van-button wx:if="{{ shiOrderItem.status === 0 }}" round plain data-id="{{ shiOrderItem.id }}"
                         type="danger" size="small" style="margin-right:5px" bind:click="handleShipConfirmOrderButton">
                         同意承运</van-button>
                     <!-- <van-button wx:if="{{ orderItem.status === 2 }}" round plain type="danger" size="small"
@@ -54,7 +54,6 @@
                 </van-dialog>
             </view>
         </view>
-        <vtu-empty icon="iconfont icon-kong" fill-screen icon-color="orange" icon-size="50px" label="暂时没有待接订单" wx:if="{{shipTotal === 0}}"></vtu-empty>
 
         <!-- 货主待确认订单列表 -->
         <view class="tabs-list" wx:if="{{userInfo.cargo === true }}">
@@ -110,5 +109,7 @@
             </view>
         </view>
 
+        <vtu-empty icon="iconfont icon-kong" fill-screen icon-color="orange" icon-size="50px" label="暂时没有待接订单"
+            wx:if="{{total === 0}}"></vtu-empty>
     </view>
 </view>
