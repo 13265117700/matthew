@@ -1,184 +1,144 @@
-const {
-    default: user
-} = require("../../models/user/user");
+import User from '../../models/user/user'
+const App = getApp();
 Page({
     data: {
-        orderInfo: [], //订单详情
+        userInfo: {},
         id: null, //订单ID
-        mtCargo: {}, //货主
-        orderPrice: null, //订单价钱
+        senderid: null, //发送者Id
+        receiverid: null, //接收者ID
+        // orderInfo: [],
+        shipOrderInfo: [],
+        cargoOrderInfo: [],
+        button: [{
+            title: '发起聊天',
+            state: 0,
+            type: 'default',
+            plain: true
+        }, {
+            title: '确认合同',
+            state: 1,
+            type: 'danger',
+            plain: false
+        }],
+        status: null, //同意或拒绝
+        show: false
     },
-
     onLoad: function (options) {
         console.log(options)
+        let userInfo = App.globalData.userInfo;
         this.setData({
             id: options.id,
+            userInfo
         })
     },
-
     onShow: function () {
         this.getOrderDetails()
     },
-
     pageclose() {
         wx.navigateBack({
             data: 1
         })
     },
 
-    //货主获取订单详情
+    //船东获取订单详情
     getOrderDetails() {
+        let userInfo = this.data.userInfo;
         let id = this.data.id;
         let Authorization = wx.getStorageSync('Authorization');
         let params = {
             Authorization,
             id
         };
-        user.UserOrderDetails(params).then(res => {
-            let orderInfo = res.data.data;
-            let cargoDate = orderInfo.mtCargo.loadingDate;
-            let loadingDate = new Date(cargoDate).toLocaleDateString();
-            orderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
+        console.log(params)
+        if (userInfo.cargo) {
+            console.log('货主')
+            User.UserOrderQuery(params).then(res => {
+                console.log(res)
+                let cargoOrderInfo = res.data.data;
+                let cargoDate = cargoOrderInfo.mtCargo.loadingDate;
+                let loadingDate = new Date(cargoDate).toLocaleDateString();
+                cargoOrderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
 
-            let shipDate = orderInfo.mtShip.ageShip;
-            let ageShip = new Date(shipDate).toLocaleDateString();
-            orderInfo.mtShip.ageShip = ageShip.replace(/\//g, "-");
+                let shipDate = cargoOrderInfo.mtShip.ageShip;
+                let ageShip = new Date(shipDate).toLocaleDateString();
+                cargoOrderInfo.mtShip.ageShip = ageShip.replace(/\//g, "-");
 
-            let mtCargo = orderInfo.mtCargo.mtUser.mtCargoOwner; //货主身份
-
-            let mtUser = orderInfo.mtShip.mtUser;
-            if (mtUser.mtCargoOwner.idNumber != null && mtUser.mtCargoOwner.idNumber != ' ') {
-                orderInfo.contacts = mtUser.mtCargoOwner.contacts
-                orderInfo.phone = mtUser.mtCargoOwner.phone
-            } else if (mtUser.mtOwner.idNumber != null && mtUser.mtOwner.idNumber != ' ') {
-                orderInfo.contacts = mtUser.mtOwner.contacts
-                orderInfo.phone = mtUser.mtOwner.phone
-            } else {
-                orderInfo.contacts = mtUser.mtShipowner.contacts
-                orderInfo.phone = mtUser.mtShipowner.phone
-            }
-
-
-            this.setData({
-                orderInfo,
-                mtCargo
+                console.log(cargoOrderInfo)
+                this.setData({
+                    cargoOrderInfo
+                })
             })
-        })
-    },
-
-    //货主发起聊天
-    handleChatButton(e) {
-        let receiverid = e.currentTarget.dataset.receiverid;
-        let senderid = e.currentTarget.dataset.senderid;
-        wx.navigateTo({
-            url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid,
-        })
-    },
-
-    //输入订单金额
-    handleOrderPrice(e) {
-        let value = e.detail.value;
-        let price = Math.round(parseFloat(value) * 100) / 100;
-        let xsd = price.toString().split(".");
-        if (xsd.length == 1) {
-            price = price.toString() + ".00";
-        }
-        if (xsd.length > 1) {
-            if (xsd[1].length < 2) {
-                price = price.toString() + "0";
-            }
+        } else if (userInfo.ship) {
+            User.UserOrderQuery(params).then(res => {
+                console.log(res)
+                let shipOrderInfo = res.data.data;
+                console.log(shipOrderInfo)
+                this.setData({
+                    shipOrderInfo
+                })
+            })
         }
 
-        this.setData({
-            orderPrice: price
-        })
-
     },
+    //船东按钮状态
+    handleButton(e) {
+        let state = e.currentTarget.dataset.state;
+        let senderid = this.data.senderid;
+        let receiverid = this.data.receiverid;
 
-    //货主发起合同
-    handleHairContractButton(e) {
-        let orderID = this.data.id;//订单ID
+        if (state === 0) {
+            wx.navigateTo({
+                url: '/views/chat/chat?senderid=' + senderid + '&receiverid=' + receiverid,
+            })
+        } else {
+            this.setData({
+                show: true,
+                status: state
+            })
+        }
+    },
+    // 同意承运
+    handleConfirm() {
+        let userInfo = this.data.userInfo;
         let Authorization = wx.getStorageSync('Authorization');
-        let params = {
-            Authorization,
-            id:orderID
-        };
-
-        user.UserOrderDetails(params).then(res => {
-            let rows = res.data.data;
-            let compensation = rows.mtCargo.compensation;
-            let delayedCost = rows.mtCargo.delayedCost;
-            let delayedDischarge = rows.mtCargo.delayedDischarge;
-            let delayedLoading = rows.mtCargo.delayedLoading;
-            let deliveryGoods = rows.mtCargo.deliveryGoods;
-            let freightAmount = this.data.orderPrice;
-            let freightRate = rows.mtCargo.freightRate;
-            let goodsDamages = rows.mtCargo.goodsDamages;
-            let id = rows.mtCargo.id;//货源ID
-            let lagPeriodType = rows.mtCargo.lagPeriodType;
-            let loadingDate = rows.mtCargo.loadingDate;
-            let loadingMethod = rows.mtCargo.loadingMethod;
-            let lossGoods = rows.mtCargo.lossGoods;
-            let mtTypeShipId = rows.mtCargo.mtTypeShip.id;
-            let nameGoodsId = rows.mtCargo.mtNameGoods.id;
-            let number = rows.mtCargo.number;
-            let otherExpenses = rows.mtCargo.otherExpenses;
-            let portArrivalAddress = rows.mtCargo.portArrivalAddress;
-            let portArrivalId = rows.mtCargo.portArrival.id;
-            let portDepartureAddress = rows.mtCargo.portDepartureAddress;
-            let portDepartureId = rows.mtCargo.portDeparture.id;
-            let remarks = rows.mtCargo.remarks;
-            let typeShip = rows.mtCargo.typeShip;
-            let unloadingMode = rows.mtCargo.unloadingMode;
-            let vesselMaximum = rows.mtCargo.vesselMaximum;
-            let vesselMinimum = rows.mtCargo.vesselMinimum;
-            let warehouse = rows.mtCargo.warehouse;
-
+        let status = this.data.status;
+        let id = this.data.id;
+        if (userInfo.ship) {
+            console.log('船东')
             let params = {
                 Authorization,
-                compensation,
-                delayedCost,
-                delayedDischarge,
-                delayedLoading,
-                deliveryGoods,
-                freightAmount,
-                freightRate,
-                goodsDamages,
-                id,
-                lagPeriodType,
-                loadingDate,
-                loadingMethod,
-                lossGoods,
-                mtTypeShipId,
-                nameGoodsId,
-                number,
-                otherExpenses,
-                portArrivalAddress,
-                portArrivalId,
-                portDepartureAddress,
-                portDepartureId,
-                remarks,
-                typeShip,
-                unloadingMode,
-                vesselMaximum,
-                vesselMinimum,
-                warehouse,
+                status,
+                id
             }
-
-            user.UserCargoUpdate(params).then(res => {
+            User.UserShipOrderAgreeOrRefused(params).then(res => {
                 if (res.data.state === 200) {
-                    wx.navigateTo({
-                      url: '/views/OrderContract/OrderContract?id='+orderID,
+                    wx.showLoading({
+                        title: '成功同意承运',
                     })
-                } else {
-                    wx.showToast({
-                      title: res.data.message,
-                    })
+                    setTimeout(function () {
+                        wx.hideLoading()
+                        wx.navigateTo({
+                            url: '/views/UserOrderList/UserOrderList',
+                        })
+                    }, 2000)
                 }
             })
 
+
+        } else {
+            console.log('货主')
+
+        }
+
+    },
+
+    //货主发起聊天
+    handleCargoBtu(e) {
+        let senderid = this.data.senderid;
+        let receiverid = this.data.receiverid;
+        wx.navigateTo({
+            url: '/views/chat/chat?senderid=' + senderid + '&receiverid=' + receiverid,
         })
+    },
 
-
-    }
 })

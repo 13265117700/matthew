@@ -50,9 +50,12 @@ Component({
             let rows = 10;
             let sortInt = 1;
             let params = { pId,page,rows,sortInt }
+            console.log(addressName)
             if(addressName.length <= 3){
                 if(addressName.length === 2){
+                    // addressName.splice(1,1)
                     addressName.push(address[index],{name:'请选择码头'});
+                    
                     console.log(addressName)
                 }else{
                     if(addressName.length === 3){
@@ -81,6 +84,7 @@ Component({
                 })
             }
         },
+
         // 获取码头列表
         getWharfList(){
             let address = this.data.address;
@@ -140,9 +144,11 @@ Component({
 
         //点击面包屑
         clickCrumbs(e){
+            console.log(e)
             let addressName = this.data.addressName;
             let number = e.currentTarget.dataset.index;
             let index = number-1;
+            console.log(index)
             if(index < 0){
                 let pId = 0;
                 let page = 1;
@@ -169,6 +175,7 @@ Component({
                 })
             }else if(number === 1){
                 let mtWharfList = addressName[index].mtWharfList;
+                console.log(1)
                 mtWharfList.forEach(data => {
                     if(data.id === addressName[number].id){
                         data.active = true

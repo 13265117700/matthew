@@ -1,7 +1,8 @@
 // components/my/user-admin/user-admin-info/user-admin-info.js
 import upload from "../../../models/upload/upload";
 import mtWharf from "../../../models/frontEnd/mtWharf";
-import User from "../../../models/user/user"
+import User from "../../../models/user/user";
+
 Component({
     /**
      * 组件的属性列表
@@ -9,228 +10,237 @@ Component({
     properties: {
 
     },
-    
+
     /**
      * 组件的初始数据
      */
     data: {
         //信息分组1
-        infoGroupOne:[{
-            title:'船舶名称：',
-            placeholder:'请输入船舶名称',
-            type:'input',
-            arrow:false
-        },{
-            title:'载货量A级：',
-            placeholder:'请输入航区载货量',
-            type:'input',
-            arrow:false,
-            after:'吨'
-        },{
-            title:'载货量B级：',
-            placeholder:'请输入航区载货量',
-            type:'input',
-            arrow:false,
-            after:'吨'
-        },{
-            title:'AIS码：',
-            placeholder:'请输入AIS码',
-            type:'input',
-            arrow:false,
-        },{
-            title:'船舶类型：',
-            placeholder:'请选择船舶类型',
-            type:'default',
-            arrow:true
-        },{
-            title:'船长姓名：',
-            placeholder:'请输入船长姓名',
-            type:'input',
-            arrow:false
-        },{
-            title:'船长电话：',
-            placeholder:'请输入船长联系方式',
-            type:'input',
-            arrow:false
+        infoGroupOne: [{
+            title: '船舶名称：',
+            placeholder: '请输入船舶名称',
+            type: 'input',
+            maxlength: 100,
+            arrow: false
+        }, {
+            title: '载货量A级：',
+            placeholder: '请输入航区载货量',
+            type: 'input',
+            arrow: false,
+            maxlength: 100,
+            after: '吨'
+        }, {
+            title: '载货量B级：',
+            placeholder: '请输入航区载货量',
+            type: 'input',
+            arrow: false,
+            maxlength: 100,
+            after: '吨'
+        }, {
+            title: 'AIS码：',
+            placeholder: '请输入AIS码',
+            type: 'input',
+            maxlength: 11,
+            arrow: false,
+        }, {
+            title: '船舶类型：',
+            placeholder: '请选择船舶类型',
+            type: 'default',
+            arrow: true
+        }, {
+            title: '船长姓名：',
+            placeholder: '请输入船长姓名',
+            type: 'input',
+            maxlength: 100,
+            arrow: false
+        }, {
+            title: '船长电话：',
+            placeholder: '请输入船长联系方式',
+            type: 'input',
+            maxlength: 11,
+            arrow: false
         }],
         //信息分组2
-        infoGroupTwo:[{
-            title:'封仓设备：',
-            placeholder:'请选择封仓设备',
-            rangeKey:'label',
-            mode:'selector',
-            type:'default',
-            arrow:true
-        },{
-            title:'船龄：',
-            placeholder:'请选择船舶建造日期',
-            type:'picker',
-            mode:'date',
-            arrow:true
-        },{
-            title:'船籍港:',
-            placeholder:'请输入船籍港',
-            type:'input',
-            arrow:false
-        },{
-            title:'船总吨位：',
-            placeholder:'请输入船总吨位',
-            type:'input',
-            arrow:false
-        },{
-            title:'船总长：',
-            placeholder:'请输入船总长',
-            type:'input',
-            arrow:false
-        },{
-            title:'船总宽:',
-            placeholder:'请输入船总宽',
-            type:'input',
-            arrow:false
-        },{
-            title:'船总高：',
-            placeholder:'请输入最大船高',
-            type:'input',
-            arrow:false
-        },{
-            title:'满载吃水：',
-            placeholder:'请输入满载吃水',
-            type:'input',
-            arrow:false
-        },{
-            title:'型深:',
-            placeholder:'请输入型深',
-            type:'input',
-            arrow:false
-        },{
-            title:'监控装备：',
-            placeholder:'请选择监控装备',
-            list:[{
-                type:0,
-                label:'无'
-            },{
-                type:1,
-                label:'有'
+        infoGroupTwo: [{
+            title: '封仓设备：',
+            placeholder: '请选择封仓设备',
+            rangeKey: 'label',
+            mode: 'selector',
+            type: 'default',
+            arrow: true
+        }, {
+            title: '船龄：',
+            placeholder: '请选择船舶建造日期',
+            type: 'picker',
+            mode: 'date',
+            arrow: true
+        }, {
+            title: '船籍港:',
+            placeholder: '请输入船籍港',
+            type: 'input',
+            arrow: false
+        }, {
+            title: '船总吨位：',
+            placeholder: '请输入船总吨位',
+            type: 'input',
+            arrow: false
+        }, {
+            title: '船总长：',
+            placeholder: '请输入船总长',
+            type: 'input',
+            arrow: false
+        }, {
+            title: '船总宽:',
+            placeholder: '请输入船总宽',
+            type: 'input',
+            arrow: false
+        }, {
+            title: '船总高：',
+            placeholder: '请输入最大船高',
+            type: 'input',
+            arrow: false
+        }, {
+            title: '满载吃水：',
+            placeholder: '请输入满载吃水',
+            type: 'input',
+            arrow: false
+        }, {
+            title: '型深:',
+            placeholder: '请输入型深',
+            type: 'input',
+            arrow: false
+        }, {
+            title: '监控装备：',
+            placeholder: '请选择监控装备',
+            list: [{
+                type: 0,
+                label: '无'
+            }, {
+                type: 1,
+                label: '有'
             }],
-            rangeKey:'label',
-            type:'picker',
-            mode:'selector',
-            arrow:true
-        },{
-            title:'船舶保险:',
-            placeholder:'请选择船舶保险',
-            list:[{
-                type:0,
-                label:'无'
-            },{
-                type:1,
-                label:'有'
+            rangeKey: 'label',
+            type: 'picker',
+            mode: 'selector',
+            arrow: true
+        }, {
+            title: '船舶保险:',
+            placeholder: '请选择船舶保险',
+            list: [{
+                type: 0,
+                label: '无'
+            }, {
+                type: 1,
+                label: '有'
             }],
-            rangeKey:'label',
-            type:'picker',
-            mode:'selector',
-            arrow:true
-        },{
-            title:'自卸设备:',
-            placeholder:'请选择自卸设备',
-            list:[{
-                type:0,
-                label:'无'
-            },{
-                type:1,
-                label:'有'
+            rangeKey: 'label',
+            type: 'picker',
+            mode: 'selector',
+            arrow: true
+        }, {
+            title: '自卸设备:',
+            placeholder: '请选择自卸设备',
+            list: [{
+                type: 0,
+                label: '无'
+            }, {
+                type: 1,
+                label: '有'
             }],
-            rangeKey:'label',
-            type:'picker',
-            mode:'selector',
-            arrow:true
-        },{
-            title:'可拉货物：',
-            placeholder:'请选择可拉货物',
-            list:[{
-                type:1,
-                label:'水果'
-            },{
-                type:2,
-                label:'衣服'
-            },{
-                type:3,
-                label:'生鲜'
+            rangeKey: 'label',
+            type: 'picker',
+            mode: 'selector',
+            arrow: true
+        }, {
+            title: '可拉货物：',
+            placeholder: '请选择可拉货物',
+            list: [{
+                type: 1,
+                label: '水果'
+            }, {
+                type: 2,
+                label: '衣服'
+            }, {
+                type: 3,
+                label: '生鲜'
             }],
-            rangeKey:'label',
-            type:'default',
-            mode:'selector',
-            arrow:true
+            rangeKey: 'label',
+            type: 'default',
+            mode: 'selector',
+            arrow: true
         }],
 
-        shipTypeShow:false,//船类型弹出层
-        shipSealShow:false,//封仓设备弹出层
-        shipCargoShow:false,//可拉货物弹出层
+        fullScreen: false, //视频是否播放
+        shipTypeShow: false, //船类型弹出层
+        shipSealShow: false, //封仓设备弹出层
+        shipCargoShow: false, //可拉货物弹出层
 
-        typeList:['自卸水泥船', '油船', '液化气船', '散装水泥船', '谷物船'], // 船类型列表
-        typeRows:[],
-        sealList:['雨布','帆布','灌装','无'],//封仓设备列表
+        typeList: ['自卸水泥船', '油船', '液化气船', '散装水泥船', '谷物船'], // 船类型列表
+        typeRows: [],
+        sealList: ['雨布', '帆布', '灌装', '无'], //封仓设备列表
+        video: [],
         //可拉货复选框列表
-        checkboxList:[{
-            id:1,
-            name:'煤炭'
-        },{
-            id:2,
-            name:'石子'
-        },{
-            id:3,
-            name:'沙'
-        },{
-            id:4,
-            name:'玉米'
-        },{
-            id:'5',
-            name:'钢筋'
-        },{
-            id:6,
-            name:'大米'
+        checkboxList: [{
+            id: 1,
+            name: '煤炭'
+        }, {
+            id: 2,
+            name: '石子'
+        }, {
+            id: 3,
+            name: '沙'
+        }, {
+            id: 4,
+            name: '玉米'
+        }, {
+            id: '5',
+            name: '钢筋'
+        }, {
+            id: 6,
+            name: '大米'
         }],
 
 
-        shipTypeInput:null,//船类型input值
-        sealInput:null,//封仓设备input值
 
-        nameVessel:'',// 船名称
-        ladenA:'',//船区载货量A级
-        ladenB:'',//船区载货量B级
-        ais:'',//AIS码
-        typeShip:'',//船舶类型
-        captainName:'',//船长姓名
-        captainPhone:'',//船长电话
-        idenJust:'',// 身份证正面
-        idenBack:'',// 身份证反面
-        traitList:[],//船长特征
-        mainItemsShip :[],//船舶主要项目
-        aisCertificate:'', // AIS证书
-        hanoiCertificate:'',// 内河证书
-        shipOperationCertificate:'',// 船运营证书
-        shipAnnualCertificate:'',// 船年审证书
-        shipTestCertificate:[],// 船检验证书
-        closure:'',//封仓设备
-        ageShip:'',//船龄
-        membership:'',//船籍
-        tonnage:'',//船总吨位数
-        chief:'',//船总长
-        breadth:'',//船宽
-        shipHeight:'',//船高
-        typeDepth:'',//吃水
-        depthProfile:'',//型深
-        monitoring:'',//监控设备
-        insurance:'',//船舶保险
-        kola:[],//可拉货物
-        shipChart:[],//船图
-        shipVideo:'',//船视频
-        typeShiId:null,//类型ID
-        dump:null,
+        shipTypeInput: null, //船类型input值
+        sealInput: null, //封仓设备input值
+
+        nameVessel: '', // 船名称
+        ladenA: '', //船区载货量A级
+        ladenB: '', //船区载货量B级
+        ais: '', //AIS码
+        typeShip: '', //船舶类型
+        captainName: '', //船长姓名
+        captainPhone: '', //船长电话
+        idenJust: '', // 身份证正面
+        idenBack: '', // 身份证反面
+        traitList: [], //船长特征
+        mainItemsShip: [], //船舶主要项目
+        aisCertificate: '', // AIS证书
+        hanoiCertificate: '', // 内河证书
+        shipOperationCertificate: '', // 船运营证书
+        shipAnnualCertificate: '', // 船年审证书
+        shipTestCertificate: [], // 船检验证书
+        closure: '', //封仓设备
+        ageShip: '', //船龄
+        membership: '', //船籍
+        tonnage: '', //船总吨位数
+        chief: '', //船总长
+        breadth: '', //船宽
+        shipHeight: '', //船高
+        typeDepth: '', //吃水
+        depthProfile: '', //型深
+        monitoring: '', //监控设备
+        insurance: '', //船舶保险
+        kola: [], //可拉货物
+        shipChart: [], //船图
+        shipVideo: '', //船视频
+        typeShiId: null, //类型ID
+        dump: null,
     },
 
-    lifetimes:{
-        attached:function(){
+    lifetimes: {
+        attached: function () {
             this.frontDeskShipTypeList()
         }
     },
@@ -239,391 +249,561 @@ Component({
      */
     methods: {
         //获取船舶类型
-        frontDeskShipTypeList(){
+        frontDeskShipTypeList() {
             let page = 1;
             let rows = 10;
-            mtWharf.frontDeskShipTypeList({page,rows}).then(res => {
+            mtWharf.frontDeskShipTypeList({
+                page,
+                rows
+            }).then(res => {
                 console.log(res)
                 let rows = res.data.data.rows;
                 let typeList = rows.map(data => data.name);
                 console.log(typeList)
                 this.setData({
                     typeList,
-                    typeRows:rows
+                    typeRows: rows
                 })
                 console.log(this.data.typeRows)
             })
         },
         // 关闭弹出层
-        onClose(){
+        onClose() {
             this.setData({
-                shipTypeShow:false,
-                shipSealShow:false,
-                shipCargoShow:false
+                shipTypeShow: false,
+                shipSealShow: false,
+                shipCargoShow: false
             })
         },
 
         // 信息分组1输入框
-        infoGroupOneInput(e){
+        infoGroupOneInput(e) {
             let dataset = e.currentTarget.dataset;
             let index = dataset.index;
             let value = e.detail.value;
-            switch(index){
+            switch (index) {
                 case 0:
                     this.setData({
-                        nameVessel:value
+                        nameVessel: value
                     })
                     break
                 case 1:
                     this.setData({
-                        ladenA:value
+                        ladenA: value
                     })
                     break
                 case 2:
                     this.setData({
-                        ladenB:value
+                        ladenB: value
                     })
                     break
                 case 3:
+                    console.log(value)
+                    let AISlength = value.split("").length;
+                    console.log(AISlength)
+                    if (AISlength >= 11) {
+                        wx.showToast({
+                            title: '最长输入11个字符串',
+                        })
+                    }
                     this.setData({
-                        ais:value
+                        ais: value
                     })
                     break
                 case 5:
                     this.setData({
-                        captainName:value
+                        captainName: value
                     })
                     break
                 case 6:
+                    let PhoneLength = value.split("").length;
+                    console.log(PhoneLength)
+                    if (PhoneLength >= 11) {
+                        wx.showToast({
+                            title: '最长输入11个字符串',
+                        })
+                    }
                     this.setData({
-                        captainPhone:value
+                        captainPhone: value
                     })
                     break
             }
         },
 
         //船类型打开弹出层
-        handShipTypeChoose(){
+        handShipTypeChoose() {
             this.setData({
-                shipTypeShow:true
+                shipTypeShow: true
             })
         },
         //输入船类型
-        addShipType(e){
+        addShipType(e) {
             this.setData({
-                shipTypeInput:e.detail
+                shipTypeInput: e.detail
             })
         },
-        handleType(e){
+        handleType(e) {
             console.log(e)
             let typeRows = this.data.typeRows;
             let index = e.detail.index;
             let shipTypeInput = this.data.shipTypeInput;
             let typeShiId = typeRows[index].id;
             console.log(typeShiId)
-            if(shipTypeInput != null && shipTypeInput != ''){
+            if (shipTypeInput != null && shipTypeInput != '') {
                 console.log('input有值')
                 this.setData({
-                    typeShip:shipTypeInput,
-                    ["infoGroupOne[4].placeholder"]:shipTypeInput,
+                    typeShip: shipTypeInput,
+                    ["infoGroupOne[4].placeholder"]: shipTypeInput,
                     typeShiId,
-                    shipTypeShow:false
+                    shipTypeShow: false
                 })
-            }else{
+            } else {
                 console.log('input没有值')
                 this.setData({
-                    typeShip:e.detail.value,
-                    ["infoGroupOne[4].placeholder"]:e.detail.value,
+                    typeShip: e.detail.value,
+                    ["infoGroupOne[4].placeholder"]: e.detail.value,
                     typeShiId,
-                    shipTypeShow:false
+                    shipTypeShow: false
                 })
             }
         },
 
-         // 身份证正面
-         justAfterRead(){
+
+
+
+        // 身份证正面
+        justAfterRead() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
+                wx.getImageInfo({
+                    src: res,
+                    success: (img) => {
+                        console.log(img)
+                    }
+                })
                 this.setData({
-                    idenJust:res
+                    idenJust: res
                 })
             })
         },
+        //点开身份正面图片
+        handleIdenJustImage(e) {
+            let url = e.currentTarget.dataset.url;
+            wx.previewImage({
+                current: url,
+                urls: [url]
+            })
+        },
+
         // 身份证反面
-        backAfterRead(){
+        backAfterRead() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    idenBack:res
+                    idenBack: res
                 })
             })
         },
+        //打开身份证反面图面
+        handleIdenBackImage(e) {
+            let url = e.currentTarget.dataset.url;
+            wx.previewImage({
+                current: url,
+                urls: [url]
+            })
+        },
+
         //船长特征
-        handTrait(event){
-            const { file } = event.detail;
+        handTrait(event) {
+            const {
+                file
+            } = event.detail;
             let filePath = file.url;
             upload.upload.uploadFile(filePath).then(res => {
                 console.log(res)
                 let traitList = this.data.traitList;
-                traitList.push({url:res})
+                traitList.push({
+                    url: res
+                })
                 console.log(traitList)
                 this.setData({
                     traitList
                 })
             })
         },
+        //删除船长特征图片
+        traitListDel(e) {
+            let index = e.detail.index;
+            let traitList = this.data.traitList;
+            traitList.splice(index, 1)
+            this.setData({
+                traitList
+            })
+        },
+
         //上传船舶主要项目
-        handProject(event){
-            const { file } = event.detail;
+        handProject(event) {
+            const {
+                file
+            } = event.detail;
             let filePath = file.url;
             upload.upload.uploadFile(filePath).then(res => {
                 console.log(res)
-                let mainItemsShip  = this.data.mainItemsShip ;
-                mainItemsShip .push({url:res})
-                console.log(mainItemsShip )
+                let mainItemsShip = this.data.mainItemsShip;
+                mainItemsShip.push({
+                    url: res
+                })
+                console.log(mainItemsShip)
                 this.setData({
-                    mainItemsShip 
+                    mainItemsShip
                 })
             })
         },
+        //删除船舶项目图片
+        mainItemsShipDel(e) {
+            let index = e.detail.index;
+            let traitList = this.data.traitList;
+            traitList.splice(index, 1)
+            this.setData({
+                traitList
+            })
+        },
+
         // AIS证书上传
-        aisUpload(){
+        aisUpload() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    aisCertificate:res
+                    aisCertificate: res
                 })
             })
         },
+        //打开AIS证书图片
+        handleAisImage(e) {
+            let url = e.currentTarget.dataset.url;
+            wx.previewImage({
+                current: url,
+                urls: [url]
+            })
+        },
+
         //河内证书上传
-        hanoiCertificateUpload(){
+        hanoiCertificateUpload() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    hanoiCertificate:res
+                    hanoiCertificate: res
                 })
             })
         },
+        //打开河内证书图片
+        hanoiCertificateImage(e) {
+            let url = e.currentTarget.dataset.url;
+            wx.previewImage({
+                current: url,
+                urls: [url]
+            })
+        },
+
         // 船运营证书
-        handShipOperationCertificate(){
+        handShipOperationCertificate() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    shipOperationCertificate:res
+                    shipOperationCertificate: res
                 })
             })
         },
+        //打开运营证书
+        OperationCertificateImage(e) {
+            let url = e.currentTarget.dataset.url;
+            wx.previewImage({
+                current: url,
+                urls: [url]
+            })
+        },
+
         //船年审证书
-        handShipAnnualCertificate(){
+        handShipAnnualCertificate() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    shipAnnualCertificate:res
+                    shipAnnualCertificate: res
                 })
+            })
+        },
+        //打开年审证书
+        AnnualCertificateImage(e) {
+            let url = e.currentTarget.dataset.url;
+            wx.previewImage({
+                current: url,
+                urls: [url]
             })
         },
         // 船检验证书
-        handShipTestCertificate(event){
-            const { file } = event.detail;
+        handShipTestCertificate(event) {
+            const {
+                file
+            } = event.detail;
             let filePath = file.url;
             upload.upload.uploadFile(filePath).then(res => {
                 console.log(res)
                 let shipTestCertificate = this.data.shipTestCertificate;
-                shipTestCertificate.push({url:res})
+                shipTestCertificate.push({
+                    url: res
+                })
                 console.log(shipTestCertificate)
                 this.setData({
                     shipTestCertificate
                 })
             })
         },
+        //删除船舶检验证书
+        shipTestCertificateDel(e) {
+            let index = e.detail.index;
+            let traitList = this.data.traitList;
+            traitList.splice(index, 1)
+            this.setData({
+                traitList
+            })
+        },
 
 
         //信息分组2输入框
-        infoGroupTwoInput(e){
+        infoGroupTwoInput(e) {
             let dataset = e.currentTarget.dataset;
             let index = dataset.index;
             let value = e.detail.value;
-            switch(index){
+            switch (index) {
                 case 2:
                     this.setData({
-                        membership:value
+                        membership: value
                     })
                     break
                 case 3:
                     this.setData({
-                        tonnage:value
+                        tonnage: value
                     })
                     break
                 case 4:
                     this.setData({
-                        chief:value
+                        chief: value
                     })
                     break
                 case 5:
                     this.setData({
-                        breadth:value
+                        breadth: value
                     })
                     break
                 case 6:
                     this.setData({
-                        shipHeight:value
+                        shipHeight: value
                     })
                     break
                 case 7:
                     this.setData({
-                        typeDepth:value
+                        typeDepth: value
                     })
                     break
                 case 8:
                     this.setData({
-                        depthProfile:value
+                        depthProfile: value
                     })
                     break
             }
         },
         //信息分组2普通选择框
-        infoGroupTwoDropDown(e){
+        infoGroupTwoDropDown(e) {
             console.log(e)
             let dataset = e.currentTarget.dataset;
             let index = dataset.index;
             let infoGroupTwo = this.data.infoGroupTwo;
             let liseIndex = e.detail.value;
 
-            if(index != 1){
+            if (index != 1) {
                 let value = infoGroupTwo[index].list[liseIndex].label;
                 this.setData({
-                    [`infoGroupTwo[${index}].placeholder`]:value
+                    [`infoGroupTwo[${index}].placeholder`]: value
                 })
-            }else{
-                this.setData({
-                    [`infoGroupTwo[${index}].placeholder`]:liseIndex
-                })
+            } else {
+                console.log(liseIndex)
+                let arr = liseIndex.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+                if (arr == null) return false;
+                let array = new Date(arr[1], arr[3] - 1, arr[4]);
+                if(array.getFullYear()==arr[1]&&(array.getMonth()+1)==arr[3]&&array.getDate()==arr[4]){
+                    let years = new Date().getFullYear(); 
+                    let age = years-arr[1];
+                    console.log(age)
+                    this.setData({
+                        [`infoGroupTwo[${index}].placeholder`]: age+'年'
+                    })
+                }
+
             }
 
-            switch(index){
+            switch (index) {
                 case 1:
                     console.log(new Date(liseIndex).getTime())
                     this.setData({
-                        ageShip:new Date(liseIndex).getTime()
+                        ageShip: new Date(liseIndex).getTime()
                     })
                     break
                 case 9:
                     // let monitoring = infoGroupTwo[index].list[liseIndex].label;
                     this.setData({
-                        monitoring:e.detail.value
+                        monitoring: e.detail.value
                     })
                     break
                 case 10:
                     // let insurance = infoGroupTwo[index].list[liseIndex].label;
                     this.setData({
-                        insurance:e.detail.value
+                        insurance: e.detail.value
                     })
                     break
                 case 11:
                     this.setData({
-                        dump:e.detail.value,
+                        dump: e.detail.value,
                     })
                     break
             }
         },
         //信息分组2弹出层
-        infoGroupTwoChoose(e){
+        infoGroupTwoChoose(e) {
             console.log(e)
             let index = e.currentTarget.dataset.index;
-            if(index === 0){
+            if (index === 0) {
                 this.setData({
-                    shipSealShow:true
+                    shipSealShow: true
                 })
-            }else{
+            } else {
                 this.setData({
-                    shipCargoShow:true
+                    shipCargoShow: true
                 })
             }
         },
 
         //输入封仓
-        addShipSeal(e){
+        addShipSeal(e) {
             console.log(e)
             this.setData({
-                sealInput:e.detail
+                sealInput: e.detail
             })
         },
-        handShipSealConfirm(e){
+        handShipSealConfirm(e) {
             console.log(e)
             let value = e.detail.value;
             let sealInput = this.data.sealInput;
-            
-            if(sealInput != null && sealInput != ''){
+
+            if (sealInput != null && sealInput != '') {
                 console.log('input有值')
                 this.setData({
-                    closure:sealInput,
-                    ["infoGroupTwo[0].placeholder"]:sealInput
+                    closure: sealInput,
+                    ["infoGroupTwo[0].placeholder"]: sealInput
                 })
-            }else{
+            } else {
                 console.log('input没有值')
                 this.setData({
-                    closure:value,
-                    ["infoGroupTwo[0].placeholder"]:value
+                    closure: value,
+                    ["infoGroupTwo[0].placeholder"]: value
                 })
             }
 
             this.setData({
-                shipSealShow:false
+                shipSealShow: false
             })
         },
 
 
-         //可拉货物
-         onChange(event) {
+        //可拉货物
+        onChange(event) {
             console.log(event)
             this.setData({
                 kola: event.detail,
-                ["infoGroupTwo[12].placeholder"]:event.detail
+                ["infoGroupTwo[12].placeholder"]: event.detail
             });
         },
-        handShipCargoConfirm(){
+        handShipCargoConfirm() {
             let kola = this.data.kola;
-            if(kola != null && kola != ''){
+            if (kola != null && kola != '') {
                 this.setData({
-                    shipCargoShow:false
+                    shipCargoShow: false
                 })
-            }else{
+            } else {
                 console.log('请选择货物')
             }
         },
-        
- 
+
+
         //船图片
-        handShipChartUpload(event){
-            const { file } = event.detail;
+        handShipChartUpload(event) {
+            const {
+                file
+            } = event.detail;
             let filePath = file.url;
             upload.upload.uploadFile(filePath).then(res => {
                 console.log(res)
                 let shipChart = this.data.shipChart;
-                shipChart.push({url:res})
+                shipChart.push({
+                    url: res
+                })
                 console.log(shipChart)
                 this.setData({
                     shipChart
                 })
             })
         },
+        //删除船图片
+        shipChartDel(e) {
+            let index = e.detail.index;
+            let traitList = this.data.traitList;
+            traitList.splice(index, 1)
+            this.setData({
+                traitList
+            })
+        },
+
         //船视频
-        handleVideo(){
+        handleVideo() {
             console.log('添加船视频')
             upload.upload.chooseVideo().then(res => {
+                console.log(res)
                 this.setData({
-                    shipVideo:res
+                    video: res,
+                    shipVideo: res.name
                 })
             })
         },
-        handleSubmit(){
+        // handlePreviewVideo(e) {
+        //     console.log(e)
+        //     let id = e.currentTarget.dataset.id;
+        //     console.log(id)
+        //     let videoCtx = wx.createVideoContext(id);
+        //     let fullScreen = this.data.fullScreen;
+        //     console.log(videoCtx)
+        //     if (fullScreen) {
+        //         console.log(1)
+        //         videoCtx.pause();
+        //         videoCtx.exitFullScreen();
+        //         this.setData({
+        //             fullScreen: false
+        //         })
+        //     } else {
+        //         console.log(2)
+        //         videoCtx.requestFullScreen();
+        //         videoCtx.play();
+        //         this.setData({
+        //             fullScreen: true
+        //         })
+        //     }
+        // },
+        handleSubmit() {
             let traitList = [...(this.data.traitList.map(data => data.url))];
             let mainItemsShip = [...(this.data.mainItemsShip.map(data => data.url))];
             let shipTestCertificate = [...(this.data.shipTestCertificate.map(data => data.url))];
             let shipChart = [...(this.data.shipChart.map(data => data.url))];
 
             let params = {
-                Authorization:wx.getStorageSync('Authorization'),
+                Authorization: wx.getStorageSync('Authorization'),
                 nameVessel: this.data.nameVessel,
                 ladenA: this.data.ladenA,
                 ladenB: this.data.ladenB,
@@ -634,7 +814,7 @@ Component({
                 idenJust: this.data.idenJust,
                 idenBack: this.data.idenBack,
                 traitList: traitList.toString(),
-                mainItemsShip : mainItemsShip.toString(),
+                mainItemsShip: mainItemsShip.toString(),
                 aisCertificate: this.data.aisCertificate,
                 hanoiCertificate: this.data.hanoiCertificate,
                 shipOperationCertificate: this.data.shipOperationCertificate,
@@ -654,13 +834,13 @@ Component({
                 kola: this.data.kola.toString(),
                 shipChart: shipChart.toString(),
                 shipVideo: this.data.shipVideo,
-                typeShiId:this.data.typeShiId,
-                dump:this.data.dump
+                typeShiId: this.data.typeShiId,
+                dump: this.data.dump
             }
-            
+
             console.log(params)
 
-            if(
+            if (
                 !this.data.nameVessel ||
                 !this.data.ladenA ||
                 !this.data.ladenB ||
@@ -671,7 +851,7 @@ Component({
                 !this.data.idenJust ||
                 !this.data.idenBack ||
                 !this.data.traitList ||
-                !this.data.mainItemsShip  ||
+                !this.data.mainItemsShip ||
                 !this.data.aisCertificate ||
                 !this.data.hanoiCertificate ||
                 !this.data.shipOperationCertificate ||
@@ -690,12 +870,12 @@ Component({
                 !this.data.insurance ||
                 !this.data.kola ||
                 !this.data.shipChart ||
-                !this.data.shipVideo 
-            ){
+                !this.data.shipVideo
+            ) {
                 wx.showLoading({
-                  title: '请认真填写所有必填项',
+                    title: '请认真填写所有必填项',
                 })
-                setTimeout(function() {
+                setTimeout(function () {
                     wx.hideLoading()
                 }, 2000)
                 return
@@ -703,21 +883,25 @@ Component({
 
             User.UserShipAdd(params).then(res => {
                 console.log(res)
-                if(!res.data.data){
+                if (!res.data.data) {
                     wx.showLoading({
                         title: res.data.message,
                     });
                     setTimeout(function () {
                         wx.hideLoading()
-                        wx.navigateBack({ changed:true })
+                        wx.navigateBack({
+                            changed: true
+                        })
                     }, 2000)
-                }else if(res.data.state === 200){
+                } else if (res.data.state === 200) {
                     wx.showLoading({
-                      title: '添加成功',
+                        title: '添加成功',
                     });
-                    setTimeout(function() {
+                    setTimeout(function () {
                         wx.hideLoading();
-                        wx.navigateBack({ changed:true })
+                        wx.navigateBack({
+                            changed: true
+                        })
                     }, 2000)
                 }
             })

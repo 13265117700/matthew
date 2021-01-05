@@ -98,6 +98,7 @@
         "vtu-tab": "/miniprogram_npm/vtuweapp/tab/vtu-tab",
         "vtu-tabs": "/miniprogram_npm/vtuweapp/tabs/vtu-tabs",
         "vtu-empty": "/miniprogram_npm/vtuweapp/empty/vtu-empty"
+        
     },
     "sitemapLocation": "sitemap.json"
 }

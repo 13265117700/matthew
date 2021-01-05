@@ -8,7 +8,9 @@
         <!-- 船东待确认订单列表 -->
         <view class="tabs-list" wx:if="{{ userInfo.ship === true }}">
             <view class="tabs-item" wx:for="{{ shipOrderList }}" wx:key="index" wx:for-item="shiOrderItem">
-                <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{shiOrderItem.id}}" bindtap="getOrderDetails">
+                <view style="border-bottom: 1px solid #E5E5E5;" data-id="{{shiOrderItem.id}}"
+                    data-senderid="{{ shiOrderItem.userShipId }}" data-receiverid="{{ shiOrderItem.userCargoId }}"
+                    bindtap="getOrderDetails">
                     <view class="tabs-time">发起时间：2020-08-17 13：00</view>
                     <view class="tabs-place">
                         <view class="tabs-place_item">
@@ -59,8 +61,9 @@
         <view class="tabs-list" wx:if="{{userInfo.cargo === true }}">
 
             <view class="tabs-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
-                <view style="border-bottom: 1px solid #E5E5E5;" data-status="{{cargoOrderItem.status}}"
-                    data-id="{{ cargoOrderItem.id }}" bindtap="handleCargoOrderDetails">
+                <view style="border-bottom: 1px solid #E5E5E5;" data-senderid="{{ cargoOrderItem.userCargoId }}"
+                    data-receiverid="{{ cargoOrderItem.userShipId }}" data-id="{{ cargoOrderItem.id }}"
+                    bindtap="handleCargoOrderDetails">
                     <view class="tabs-time">发起时间：2020-08-17 13：00</view>
                     <view class="tabs-place">
                         <view class="tabs-place_item">

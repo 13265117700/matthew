@@ -10,8 +10,9 @@
                 name="{{tabItem.status}}"></vtu-tab>
         </vtu-tabs>
         <view class="order-list">
+            <!-- 船东 -->
             <view class="order-item" wx:for="{{ shipOrderList }}" wx:key="index" wx:for-item="shipOrderItem">
-                <view class="order-top">
+                <view class="order-top" data-id="{{ shipOrderItem.id }}" bindtap="shipOrderDetails">
                     <view class="order-top-item">
                         <view class="order-number">运单编号：{{shipOrderItem.shippingOrderId}}</view>
                     </view>
@@ -48,14 +49,16 @@
                     <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
                         wx:if="{{ btuItem.show }}">
                         <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
-                            data-userShipId="{{ shipOrderItem.userShipId }}"
+                            data-status="{{ shipOrderItem.status }}" data-userShipId="{{ shipOrderItem.userShipId }}"
                             data-userCargoId="{{ shipOrderItem.userCargoId }}" bind:click="handleButton">
                             {{btuItem.title}}</van-button>
                     </view>
                 </view>
             </view>
+
+            <!-- 货主 -->
             <view class="order-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
-                <view class="order-top">
+                <view class="order-top" data-id="{{ cargoOrderItem.id }}" bindtap="cargoOrderDetails">
                     <view class="order-top-item">
                         <view class="order-number">发起时间：{{cargoOrderItem.shippingOrderId}}</view>
                     </view>

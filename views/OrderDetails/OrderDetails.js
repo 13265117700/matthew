@@ -1,43 +1,40 @@
-const {
-  default: user
-} = require("../../models/user/user");
-
+import User from '../../models/user/user'
+const App = getApp();
 Page({
   data: {
-    id: null,//订单ID
-    orderInfo: [],
-    // mtCargo: {},
+    userInfo: {},
+    id: null, //订单ID
+    senderid: null, //发送者Id
+    receiverid: null, //接收者ID
+    // orderInfo: [],
+    shipOrderInfo: [],
+    cargoOrderInfo: [],
     button: [{
       title: '发起聊天',
       state: 0,
       type: 'default',
-      plain: true,
-      show: true
+      plain: true
     }, {
       title: '同意承运',
       state: 1,
       type: 'danger',
-      plain: false,
-      show: true
-    }, {
-      title: '确认合同',
-      state: 3,
-      type: 'danger',
-      plain: false,
-      show: false
+      plain: false
     }],
-    state: null,
+    status: null, //同意或拒绝
     show: false
   },
   onLoad: function (options) {
     console.log(options)
+    let userInfo = App.globalData.userInfo;
     this.setData({
       id: options.id,
+      senderid: options.senderid,
+      receiverid: options.receiverid,
+      userInfo
     })
   },
   onShow: function () {
     this.getOrderDetails()
-
   },
   pageclose() {
     wx.navigateBack({
@@ -45,85 +42,138 @@ Page({
     })
   },
 
-
   //船东获取订单详情
   getOrderDetails() {
+    let userInfo = this.data.userInfo;
     let id = this.data.id;
     let Authorization = wx.getStorageSync('Authorization');
-    let params = { Authorization, id }
-    user.UserOrderDetails(params).then(res => {
-      console.log(res)
-      let orderInfo = res.data.data;
-      let emptyDate = orderInfo.mtCargo.loadingDate;
-      let loadingDate = new Date(emptyDate).toLocaleDateString();
-      orderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
-      let mtCargo = orderInfo.mtCargo.mtUser.mtCargoOwner; //货主身份
-
-      let mtUser = orderInfo.mtShip.mtUser;
-      console.log(mtUser)
-      if (mtUser.mtCargoOwner.idNumber != null && mtUser.mtCargoOwner.idNumber != ' ') {
-        orderInfo.contacts = mtUser.mtCargoOwner.contacts
-        orderInfo.phone = mtUser.mtCargoOwner.phone
-      } else if (mtUser.mtOwner.idNumber != null && mtUser.mtOwner.idNumber != ' ') {
-        orderInfo.contacts = mtUser.mtOwner.contacts
-        orderInfo.phone = mtUser.mtOwner.phone
-      } else {
-        orderInfo.contacts = mtUser.mtShipowner.contacts
-        orderInfo.phone = mtUser.mtShipowner.phone
-      }
-
-      if (orderInfo.status === 1) {
-        this.setData({
-          ['button[1].show']: false,
-        })
-      } else if (orderInfo.status === 2) {
-        this.setData({
-          ['button[2].show']: true,
-        })
-      }
-
-      console.log(orderInfo)
-      this.setData({
-        orderInfo,
-        mtCargo
-      })
-    })
-  },
-  handleButton(e) {
-    let state = e.currentTarget.dataset.state;
-    console.log(state)
-    if (state === 1) {
-      console.log(1)
-      this.setData({
-        state,
-        show: true
-      })
-    } else if (state === 3) {
-      console.log(this.data.orderInfo)
-    } else {
-
-    }
-  },
-  handleConfirm() {
-    let status = this.data.state;
-    let Authorization = wx.getStorageSync('Authorization');
-    let id = this.data.orderInfo.id;
     let params = {
       Authorization,
-      status,
       id
-    }
-    user.UserShipOrderAgreeOrRefused(params).then(res => {
-      console.log(res)
-      if (res.data.state === 200) {
-        wx.navigateBack({
-          delta: 1,
+    };
+    console.log(userInfo)
+    if (userInfo.cargo) {
+      console.log('货主')
+      User.UserOrderDetails(params).then(res => {
+        console.log(res)
+        let cargoOrderInfo = res.data.data;
+        let cargoDate = cargoOrderInfo.mtCargo.loadingDate;
+        let loadingDate = new Date(cargoDate).toLocaleDateString();
+        cargoOrderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
+
+        let shipDate = cargoOrderInfo.mtShip.ageShip;
+        let ageShip = new Date(shipDate).toLocaleDateString();
+        cargoOrderInfo.mtShip.ageShip = ageShip.replace(/\//g, "-");
+
+        console.log(cargoOrderInfo)
+        this.setData({
+          cargoOrderInfo
         })
+      })
+    } else if (userInfo.ship) {
+      User.UserOrderDetails(params).then(res => {
+        let shipOrderInfo = res.data.data;
+        console.log(shipOrderInfo)
+        this.setData({
+          shipOrderInfo
+        })
+      })
+    }
+    // let id = this.data.id;
+    // let Authorization = wx.getStorageSync('Authorization');
+    // let params = {
+    //   Authorization,
+    //   id
+    // }
+    // User.UserOrderDetails(params).then(res => {
+    //   console.log(res)
+    //   let orderInfo = res.data.data;
+    //   let emptyDate = orderInfo.mtCargo.loadingDate;
+    //   let loadingDate = new Date(emptyDate).toLocaleDateString();
+    //   orderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
+    //   let mtCargo = orderInfo.mtCargo.mtUser.mtCargoOwner; //货主身份
+
+    //   let mtUser = orderInfo.mtShip.mtUser;
+    //   console.log(mtUser)
+    //   if (mtUser.mtCargoOwner.idNumber != null && mtUser.mtCargoOwner.idNumber != ' ') {
+    //     orderInfo.contacts = mtUser.mtCargoOwner.contacts
+    //     orderInfo.phone = mtUser.mtCargoOwner.phone
+    //   } else if (mtUser.mtOwner.idNumber != null && mtUser.mtOwner.idNumber != ' ') {
+    //     orderInfo.contacts = mtUser.mtOwner.contacts
+    //     orderInfo.phone = mtUser.mtOwner.phone
+    //   } else {
+    //     orderInfo.contacts = mtUser.mtShipowner.contacts
+    //     orderInfo.phone = mtUser.mtShipowner.phone
+    //   }
+
+    //   this.setData({
+    //     orderInfo,
+    //     mtCargo
+    //   })
+    // })
+
+
+  },
+  //船东按钮状态
+  handleButton(e) {
+    let state = e.currentTarget.dataset.state;
+    let senderid = this.data.senderid;
+    let receiverid = this.data.receiverid;
+
+    if (state === 0) {
+      wx.navigateTo({
+        url: '/views/chat/chat?senderid=' + senderid + '&receiverid=' + receiverid,
+      })
+    } else {
+      this.setData({
+        show: true,
+        status: state
+      })
+    }
+  },
+  // 同意承运
+  handleConfirm() {
+    let userInfo = this.data.userInfo;
+    let Authorization = wx.getStorageSync('Authorization');
+    let status = this.data.status;
+    let id = this.data.id;
+    if (userInfo.ship) {
+      console.log('船东')
+      let params = {
+        Authorization,
+        status,
+        id
       }
-    })
+      User.UserShipOrderAgreeOrRefused(params).then(res => {
+        if (res.data.state === 200) {
+          wx.showLoading({
+            title: '成功同意承运',
+          })
+          setTimeout(function () {
+            wx.hideLoading()
+            wx.navigateTo({
+              url: '/views/UserOrderList/UserOrderList',
+            })
+          }, 2000)
+        }
+      })
+
+
+    } else {
+      console.log('货主')
+
+    }
+
   },
 
-
+  //货主发起聊天
+  handleCargoBtu(e) {
+    let senderid = this.data.senderid;
+    let receiverid = this.data.receiverid;
+    wx.navigateTo({
+      url: '/views/chat/chat?senderid=' + senderid + '&receiverid=' + receiverid,
+    })
+  },
 
   // //货主获取订单详情
   // getCargoOrderDetails(){

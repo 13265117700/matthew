@@ -180,11 +180,12 @@ Page({
             }
             User.UserOrderListQuery(params).then(res => {
                 let shipOrderList = res.data.data.rows;
-                console.log(shipOrderList)
+
                 shipOrderList.forEach(data => {
                     let loadingDate = new Date(data.mtCargo.loadingDate).toLocaleDateString();
                     data.mtCargo.loadingDate = loadingDate.replace(/\//g, "-")
                 })
+
 
                 this.setData({
                     shipOrderList
@@ -214,6 +215,7 @@ Page({
         }
     },
 
+    //订单按钮状态切换
     tabsOnChange(e) {
         let Authorization = wx.getStorageSync('Authorization');
         let status = parseInt(e.detail.name)
@@ -497,14 +499,15 @@ Page({
 
     },
 
+    //订单按钮事件
     handleButton(e) {
         console.log(e)
         let state = e.currentTarget.dataset.state;
         let userInfo = this.data.userInfo;
-
         if (userInfo.ship) {
             let senderId = e.currentTarget.dataset.usershipid;
             let receiverId = e.currentTarget.dataset.usercargoid;
+            let shipStatus = e.currentTarget.dataset.status;
             switch (state) {
                 case 3:
                     wx.navigateTo({
@@ -513,6 +516,14 @@ Page({
                     break
                 case 4:
                     console.log(4)
+                    console.log(userInfo)
+                    if (shipStatus === 1) {
+                        wx.showToast({
+                            title: '货主还没发起合同,请耐心等待货主发起合同',
+                        })
+                    } else if (shipStatus === 2) {
+
+                    }
                     break
             }
         } else if (userInfo.cargo) {
@@ -524,12 +535,28 @@ Page({
                         url: '/views/chat/chat?senderid=' + senderId + '&receiverid=' + receiverId,
                     })
                     break
-                case 4:
-                    console.log(4)
+                case 5:
+                    console.log(this.data.cargoOrderList)
                     break
             }
         }
 
+    },
+
+
+    //货主订单详情
+    cargoOrderDetails(e) {
+        let id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
+        })
+    },
+    //船东订单详情
+    shipOrderDetails(e) {
+        let id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
+        })
     }
 
 })

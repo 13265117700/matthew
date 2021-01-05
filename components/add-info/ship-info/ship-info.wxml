@@ -9,49 +9,25 @@
                     <view class="item-subTitle_text"><text>{{item.title}}</text></view>
                 </view>
                 <view class="item-input">
-                    <vtu-input wx:if="{{item.type != 'default'}}"
-                        placeholder="{{item.placeholder}}" 
-                        type="{{item.type}}" 
-                        arrow="{{item.arrow}}"
-                        text-align="left"
-                        data-index="{{index}}"
-                        bind:input="infoGroupOneInput">
+                    <vtu-input wx:if="{{item.type != 'default'}}" placeholder="{{item.placeholder}}"
+                        type="{{item.type}}" arrow="{{item.arrow}}" text-align="left" maxlength="{{item.maxlength}}"
+                        data-index="{{index}}" bind:input="infoGroupOneInput">
                     </vtu-input>
-                    <vtu-input wx:if="{{item.type === 'default'}}"
-                        type="{{item.type}}" 
-                        value="{{item.placeholder}}"
-                        arrow="{{item.arrow}}"
-                        range="{{item.list}}"
-                        range-key="label"
-                        text-align="left"
+                    <vtu-input wx:if="{{item.type === 'default'}}" type="{{item.type}}" value="{{item.placeholder}}"
+                        arrow="{{item.arrow}}" range="{{item.list}}" range-key="label" text-align="left"
                         bind:click="handShipTypeChoose">
                     </vtu-input>
                 </view>
             </view>
-            <van-popup
-                show="{{ shipTypeShow }}"
-                round
-                position="bottom">
+            <van-popup show="{{ shipTypeShow }}" round position="bottom">
                 <view class="popup-selector">
-                    <van-picker
-                        default-index="2"
-                        show-toolbar
-                        columns="{{ typeList }}" 
-                        value-key="{{typeList.id}}"
-                        bind:cancel="onClose"
-                        bind:confirm="handleType" />
+                    <van-picker default-index="2" show-toolbar columns="{{ typeList }}" value-key="{{typeList.id}}"
+                        bind:cancel="onClose" bind:confirm="handleType" />
                 </view>
                 <view class="popup-input">
-                    <van-field
-                        label="其它："
-                        label-class="popup-input_label"
-                        input-class="popup-input_text"
-                        value="{{addvalue}}"
-                        type="textarea"
-                        placeholder="输入船舶类型"
-                        border="{{ false }}"
-                        bind:input="addShipType"
-                        autosize/>
+                    <van-field label="其它：" label-class="popup-input_label" input-class="popup-input_text"
+                        value="{{addvalue}}" type="textarea" placeholder="输入船舶类型" border="{{ false }}"
+                        bind:input="addShipType" autosize />
                 </view>
             </van-popup>
         </vtu-input-group>
@@ -64,7 +40,7 @@
                 <view class="info-group-title_text">船长身份证</view>
             </view>
             <view class="info-group-image">
-                <view class="info-group-image_item" bindtap="justAfterRead">
+                <view class="info-group-image_item">
                     <view class="item-upload" wx:if="{{!idenJust}}">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
@@ -74,10 +50,14 @@
                         </view>
                     </view>
                     <view class="item-upload" wx:if="{{idenJust}}">
-                        <image src="{{idenJust}}"></image>
+                        <image mode="aspectFill" src="{{idenJust}}" data-url="{{ idenJust }}"
+                            catchtap="handleIdenJustImage"></image>
+                    </view>
+                    <view class="item-text" bindtap="justAfterRead">
+                        <text>上传身份证正面</text>
                     </view>
                 </view>
-                <view class="info-group-image_item" bindtap="backAfterRead">
+                <view class="info-group-image_item">
                     <view class="item-upload" wx:if="{{!idenBack}}">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
@@ -87,7 +67,11 @@
                         </view>
                     </view>
                     <view class="item-upload" wx:if="{{idenBack}}">
-                        <image src="{{idenBack}}"></image>
+                        <image mode="aspectFill" src="{{idenBack}}" data-url="{{ idenBack }}"
+                            catchtap="handleIdenBackImage"></image>
+                    </view>
+                    <view class="item-text" bindtap="backAfterRead">
+                        <text>上传身份证反面</text>
                     </view>
                 </view>
             </view>
@@ -101,11 +85,8 @@
                 <view class="info-group-title_text">上传船长特征</view>
             </view>
             <view class="info-group-image">
-                <van-uploader
-                    file-list="{{ traitList }}"
-                    max-count="9"
-                    bind:after-read="handTrait"
-                    />
+                <van-uploader preview-size="120px" file-list="{{ traitList }}" max-count="9" bind:after-read="handTrait"
+                    bind:delete="traitListDel" />
             </view>
         </vtu-input-group>
     </view>
@@ -118,11 +99,8 @@
                 <!-- <view class="info-group-title_text" wx:if="{{ahtcId === 'a1a2a3'}}">上传身份证照片</view> -->
             </view>
             <view class="info-group-image">
-                <van-uploader
-                    file-list="{{ mainItemsShip }}"
-                    max-count="9"
-                    bind:after-read="handProject"
-                    />
+                <van-uploader preview-size="120px" file-list="{{ mainItemsShip }}" max-count="9"
+                    bind:after-read="handProject" bind:delete="mainItemsShipDel" />
             </view>
         </vtu-input-group>
     </view>
@@ -134,7 +112,7 @@
                 <view class="info-group-title_text">AIS证书、内河适航证书</view>
             </view>
             <view class="info-group-image">
-                <view class="info-group-image_item" bindtap="aisUpload">
+                <view class="info-group-image_item">
                     <view class="item-upload" wx:if="{{!aisCertificate}}">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
@@ -144,10 +122,14 @@
                         </view>
                     </view>
                     <view class="item-upload" wx:if="{{aisCertificate}}">
-                        <image src="{{aisCertificate}}"></image>
+                        <image src="{{aisCertificate}}" mode="aspectFill" data-url="{{ aisCertificate }}"
+                            catchtap="handleAisImage"></image>
+                    </view>
+                    <view class="item-text" bindtap="aisUpload">
+                        <text>上传AIS证书</text>
                     </view>
                 </view>
-                <view class="info-group-image_item" bindtap="hanoiCertificateUpload">
+                <view class="info-group-image_item">
                     <view class="item-upload" wx:if="{{!hanoiCertificate }}">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
@@ -157,7 +139,11 @@
                         </view>
                     </view>
                     <view class="item-upload" wx:if="{{hanoiCertificate }}">
-                        <image src="{{hanoiCertificate }}"></image>
+                        <image src="{{hanoiCertificate }}" mode="aspectFill" data-url="{{ hanoiCertificate }}"
+                            catchtap="hanoiCertificateImage"></image>
+                    </view>
+                    <view class="item-text" bindtap="hanoiCertificateUpload">
+                        <text>上传河内适航证书</text>
                     </view>
                 </view>
             </view>
@@ -171,30 +157,38 @@
                 <view class="info-group-title_text">船舶运营证书、船舶年审合格证书</view>
             </view>
             <view class="info-group-image">
-                <view class="info-group-image_item" bindtap="handShipOperationCertificate">
+                <view class="info-group-image_item">
                     <view class="item-upload" wx:if="{{!shipOperationCertificate}}">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
                         <view class="item-upload_text">
-                            <text>上传AIS证书</text>
+                            <text>上传运营证书</text>
                         </view>
                     </view>
                     <view class="item-upload" wx:if="{{shipOperationCertificate}}">
-                        <image src="{{shipOperationCertificate}}"></image>
+                        <image src="{{shipOperationCertificate}}" mode="aspectFill"
+                            data-url="{{ shipOperationCertificate }}" catchtap="OperationCertificateImage"></image>
+                    </view>
+                    <view class="item-text" bindtap="handShipOperationCertificate">
+                        <text>上传运营证书</text>
                     </view>
                 </view>
-                <view class="info-group-image_item" bindtap="handShipAnnualCertificate">
+                <view class="info-group-image_item">
                     <view class="item-upload" wx:if="{{!shipAnnualCertificate }}">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
                         <view class="item-upload_text">
-                            <text>上传河内适航证书</text>
+                            <text>上传船舶年审证书</text>
                         </view>
                     </view>
                     <view class="item-upload" wx:if="{{shipAnnualCertificate }}">
-                        <image src="{{shipAnnualCertificate }}"></image>
+                        <image src="{{shipAnnualCertificate }}" mode="aspectFill" data-url="{{ shipAnnualCertificate }}"
+                            catchtap="AnnualCertificateImage"></image>
+                    </view>
+                    <view class="item-text" bindtap="handShipAnnualCertificate">
+                        <text>上传运营证书</text>
                     </view>
                 </view>
             </view>
@@ -208,11 +202,8 @@
                 <view class="info-group-title_text">上传船舶检验证书</view>
             </view>
             <view class="info-group-image">
-                <van-uploader
-                    file-list="{{ shipTestCertificate }}"
-                    max-count="9"
-                    bind:after-read="handShipTestCertificate"
-                    />
+                <van-uploader preview-size="120px" file-list="{{ shipTestCertificate }}" max-count="9"
+                    bind:after-read="handShipTestCertificate" bind:delete="shipTestCertificateDel" />
             </view>
         </vtu-input-group>
     </view>
@@ -225,50 +216,26 @@
                     <view class="item-subTitle_text"><text>{{infoTwo.title}}</text></view>
                 </view>
                 <view class="item-input">
-                    <vtu-input wx:if="{{infoTwo.type != 'default'}}"
-                        placeholder="{{infoTwo.placeholder}}" 
-                        type="{{infoTwo.type}}" 
-                        arrow="{{infoTwo.arrow}}"
-                        range="{{infoTwo.list}}"
-                        range-key="{{infoTwo.rangeKey}}"
-                        text-align="left"
-                        mode="{{infoTwo.mode}}"
-                        data-index="{{index}}"
-                        bind:input="infoGroupTwoInput"
-                        bindchange="infoGroupTwoDropDown">
+                    <vtu-input wx:if="{{infoTwo.type != 'default'}}" placeholder="{{infoTwo.placeholder}}"
+                        type="{{infoTwo.type}}" arrow="{{infoTwo.arrow}}" range="{{infoTwo.list}}"
+                        range-key="{{infoTwo.rangeKey}}" text-align="left" mode="{{infoTwo.mode}}"
+                        data-index="{{index}}" bind:input="infoGroupTwoInput" bindchange="infoGroupTwoDropDown">
                     </vtu-input>
-                    <vtu-input wx:if="{{infoTwo.type === 'default'}}"
-                        type="{{infoTwo.type}}" 
-                        value="{{infoTwo.placeholder}}"
-                        arrow="{{infoTwo.arrow}}"
-                        range="{{infoTwo.list}}"
-                        data-index="{{index}}"
-                        range-key="label"
-                        text-align="left"
-                        bind:click="infoGroupTwoChoose">
+                    <vtu-input wx:if="{{infoTwo.type === 'default'}}" type="{{infoTwo.type}}"
+                        value="{{infoTwo.placeholder}}" arrow="{{infoTwo.arrow}}" range="{{infoTwo.list}}"
+                        data-index="{{index}}" range-key="label" text-align="left" bind:click="infoGroupTwoChoose">
                     </vtu-input>
                 </view>
             </view>
             <van-popup show="{{ shipSealShow }}" round position="bottom">
                 <view class="popup-selector">
-                    <van-picker
-                        default-index="1"
-                        show-toolbar
-                        columns="{{ sealList }}" 
-                        bind:cancel="onClose"
+                    <van-picker default-index="1" show-toolbar columns="{{ sealList }}" bind:cancel="onClose"
                         bind:confirm="handShipSealConfirm" />
                 </view>
                 <view class="popup-input">
-                    <van-field
-                        label="其它："
-                        label-class="popup-input_label"
-                        input-class="popup-input_text"
-                        value="{{addvalue}}"
-                        type="textarea"
-                        placeholder="输入封仓设备"
-                        border="{{ false }}"
-                        bind:input="addShipSeal"
-                        autosize/>
+                    <van-field label="其它：" label-class="popup-input_label" input-class="popup-input_text"
+                        value="{{addvalue}}" type="textarea" placeholder="输入封仓设备" border="{{ false }}"
+                        bind:input="addShipSeal" autosize />
                 </view>
             </van-popup>
             <van-popup show="{{ shipCargoShow }}" round position="bottom">
@@ -277,9 +244,7 @@
                     <view class="popup-title_confirm" bindtap="handShipCargoConfirm">确认</view>
                 </view>
                 <van-checkbox-group value="{{ kola }}" bind:change="onChange">
-                    <van-checkbox 
-                        wx:for="{{checkboxList}}" wx:key="index" wx:for-item="checkbox"
-                        data-index="{{index}}"
+                    <van-checkbox wx:for="{{checkboxList}}" wx:key="index" wx:for-item="checkbox" data-index="{{index}}"
                         name="{{checkbox.name}}" checked-color="#F0222FFF">{{checkbox.name}}</van-checkbox>
                 </van-checkbox-group>
             </van-popup>
@@ -448,30 +413,33 @@
                 <view class="info-group-title_text">添加船图片</view>
             </view>
             <view class="info-group-image">
-                <van-uploader
-                    file-list="{{ shipChart }}"
-                    max-count="9"
-                    bind:after-read="handShipChartUpload"
-                    />
+                <van-uploader preview-size="120px" file-list="{{ shipChart }}" max-count="9" bind:after-read="handShipChartUpload"
+                    bind:delete="shipChartDel" />
             </view>
         </vtu-input-group>
     </view>
     <!-- 添加船视频 -->
     <view class="info-group">
         <vtu-input-group>
-            <view class="wrap-resource" bindtap="handleVideo">
+            <view class="wrap-resource">
                 <view class="wrap-resource_add">
                     <view class="info-group-title">
                         <view class="info-group-title_tag">*</view>
                         <view class="info-group-title_text">添加船视频</view>
                     </view>
-                    <view class="item-image" wx:if="{{!shipVideo}}">
+                    <view class="item-image" wx:if="{{!shipVideo}}" bindtap="handleVideo">
                         <image src="/images/my/tjsp@3x.png"></image>
                         <text>添加视频</text>
                     </view>
                     <view class="item-video" wx:if="{{shipVideo}}">
-                        <video src="{{shipVideo}}" controls="{{false}}" objectFit="cover"></video>
+                        <video src="{{shipVideo}}" controls="{{false}}" objectFit="cover">
+                            <!-- <cover-view class="resource-video-controls" data-id="{{'video_' + item._id}}"  catchtap="handlePreviewVideo"></cover-view> -->
+                        </video>
+                        <view class="item-video_text" bindtap="handleVideo">
+                            <text>更换视频</text>
+                        </view>
                     </view>
+
                 </view>
             </view>
         </vtu-input-group>

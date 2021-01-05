@@ -22,9 +22,6 @@ Page({
         shipShow: false, //船东确认弹框
         cargoShow: false, //货主确认弹框
     },
-    onLoad: function (options) {
-
-    },
 
     onShow: function () {
         this.getUserInfo()
@@ -140,9 +137,11 @@ Page({
     getOrderDetails(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;
-        let userInfo = this.data.userInfo;
+        let senderid = e.currentTarget.dataset.senderid;
+        let receiverid = e.currentTarget.dataset.receiverid;
+        // let userInfo = this.data.userInfo;
         wx.navigateTo({
-            url: '/views/OrderDetails/OrderDetails?id=' + id + '&ship=' + userInfo.ship,
+            url: '/views/OrderDetails/OrderDetails?id=' + id + '&senderid=' + senderid + '&receiverid=' + receiverid,
         })
     },
     //船东聊天按钮
@@ -187,18 +186,6 @@ Page({
                 }, 2000)
             }
         })
-        // console.log(id)
-        // console.log(params)
-        // User.UserShipOrderAgreeOrRefused(params).then(res => {
-        //     console.log(res)
-        //     if (res.data.state === 200) {
-        //         this.onShow()
-        //     } else {
-        //         wx.showToast({
-        //             title: res.data.message,
-        //         })
-        //     }
-        // })
     },
 
 
@@ -207,10 +194,10 @@ Page({
     handleCargoOrderDetails(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;
-        let status = e.currentTarget.dataset.status;
-        console.log(status)
+        let senderid = e.currentTarget.dataset.senderid;
+        let receiverid = e.currentTarget.dataset.receiverid;
         wx.navigateTo({
-            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
+            url: '/views/OrderDetails/OrderDetails?id=' + id + '&senderid=' + senderid + '&receiverid=' + receiverid,
         })
     },
     //货主发起聊天
