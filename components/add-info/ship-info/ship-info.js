@@ -630,13 +630,20 @@ Component({
                 let arr = liseIndex.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
                 if (arr == null) return false;
                 let array = new Date(arr[1], arr[3] - 1, arr[4]);
-                if(array.getFullYear()==arr[1]&&(array.getMonth()+1)==arr[3]&&array.getDate()==arr[4]){
-                    let years = new Date().getFullYear(); 
-                    let age = years-arr[1];
-                    console.log(age)
-                    this.setData({
-                        [`infoGroupTwo[${index}].placeholder`]: age+'年'
-                    })
+                if (array.getFullYear() == arr[1] && (array.getMonth() + 1) == arr[3] && array.getDate() == arr[4]) {
+                    let years = new Date().getFullYear();
+                    let age = years - arr[1];
+                    if (age <= 0) {
+                        let month = new Date().getMonth();
+                        let ageMonth = month - arr[3]
+                        this.setData({
+                            [`infoGroupTwo[${index}].placeholder`]: ageMonth + '月'
+                        })
+                    } else {
+                        this.setData({
+                            [`infoGroupTwo[${index}].placeholder`]: age + '年'
+                        })
+                    }
                 }
 
             }

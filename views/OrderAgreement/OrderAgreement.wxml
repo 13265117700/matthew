@@ -1,6 +1,27 @@
-<!--views/OrderAgreement/OrderAgreement.wxml-->
-<!-- 合同2 -->
+<view class="page-container">
+  <view class="page-navbar">
+    <vtu-navbar title="货物运输三方协议" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF"
+      icon="iconfont icon-shangchuan">
+    </vtu-navbar>
+  </view>
+  <view class="page-mian">
+    <view class="contract-text">
+      <text>{{contractContent}}</text>
+    </view>
+    <view class="contract-btu">
+      <text bindtap="handleHairContract">生成合同</text>
+    </view>
+    <view class="dialog">
+      <van-dialog use-slot title="确认发起合同吗？" show="{{ hairShow }}" show-cancel-button show-confirm-button
+        data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirmContract">
+      </van-dialog>
+    </view>
+  </view>
+</view>
 
+
+
+<!-- 
 <view>
 
 <vtu-navbar title="货物运输三方协议" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon="iconfont icon-shangchuan">
@@ -80,12 +101,7 @@
         </view>
        </view>
 
-        <!-- <view wx:for="{{ rightText }}" wx:key="index" class="right">
-        
-            <view > {{ item.name }}</view> 
-            <view> {{ item.phone}}</view>
-            <view>{{ item.email}}</view>
-          </view> -->
+
        </view>
      
 
@@ -157,9 +173,9 @@ h 乙方应当将货物交付给甲方的指定人，由指定人签收运单，
 </view>
 
 <view class="contract-btn">
-   <view class="btn">生成合同</view>
+   <view class="btn">确认合同</view>
 </view>
 
 
 
-</view>
+</view> -->

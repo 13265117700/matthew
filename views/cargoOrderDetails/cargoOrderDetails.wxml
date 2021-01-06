@@ -53,7 +53,7 @@
                 </view>
                 <view class="order-item">
                     <view class="order-start-time">
-                        <text>预计装货时间：{{cargoOrderInfo.mtCargo.loadingDate}}</text>
+                        <text>预计装货时间：{{cargoOrderInfo.cargoDate}}</text>
                     </view>
                 </view>
             </view>
@@ -103,9 +103,9 @@
                     </view>
                 </view>
                 <view class="info-item">
-                    <view class="info-subtitle">航区/A级 载货量(T)：</view>
+                    <view class="info-subtitle">航区/B级 载货量(T)：</view>
                     <view class="info-text">
-                        <text>{{cargoOrderInfo.mtShip.ladenA}}</text>
+                        <text>{{cargoOrderInfo.mtShip.ladenB}}</text>
                     </view>
                 </view>
                 <view class="info-item">
@@ -123,7 +123,7 @@
                 <view class="info-item">
                     <view class="info-subtitle">船龄:</view>
                     <view class="info-text">
-                        <text>{{cargoOrderInfo.mtShip.ageShip}}</text>
+                        <text>{{cargoOrderInfo.shipDate}}</text>
                     </view>
                 </view>
                 <view class="info-item">
@@ -192,7 +192,7 @@
                 <view class="info-item">
                     <view class="info-subtitle">货物名称:</view>
                     <view class="info-text">
-                        <text>玉米</text>
+                        <text>{{cargoOrderInfo.mtCargo.mtNameGoods.name}}</text>
                     </view>
                 </view>
                 <view class="info-item" wx:if="{{ cargoOrderInfo.mtCargo.mtUser.mtCargoOwner.nameEnterprise != ' ' }}">
@@ -223,17 +223,112 @@
 
             <!-- 订单信息4 -->
             <view class="order-group">
-                <view class="order-btu">
-                    <van-button size="small" round type="danger" data-senderid="{{ cargoOrderInfo.userCargoId }}"
-                        data-receiverid="{{ cargoOrderInfo.userShipId }}" bind:click="handleCargoBtu">
-                        发起聊天
-                    </van-button>
+                <view class="info-item">
+                    <view class="info-title">
+                        <text>订单信息</text>
+                    </view>
+                    <view class="info-edit">
+                        <text>修改订单信息</text>
+                    </view>
                 </view>
-                <view class="dialog">
-                    <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button show-confirm-button
-                        data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
+                <view class="info-item">
+                    <view class="info-subtitle">预计装货吨数:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtCargo.number}}吨</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">其它费用:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtCargo.otherExpenses}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">滞期约定:</view>
+                    <view class="info-text">
+                        <view class="info-text_top">
+                            <text>装货{{cargoOrderInfo.mtCargo.delayedLoading}}天-卸货{{cargoOrderInfo.mtCargo.delayedDischarge}}天</text>
+                        </view>
+                        <view class="info-text_bottom"><text>滞期单价：{{cargoOrderInfo.mtCargo.delayedCost}}元</text></view>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">船舶类型:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtShip.mtTypeShip.name}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">货物交接:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtCargo.deliveryGoods}}</text>
+                    </view>
+                </view>
+                <view class="info-item" wx:if="{{ cargoOrderInfo.mtCargo.compensation === 1 }}">
+                    <view class="info-subtitle">货损赔偿约定:</view>
+                    <view class="info-text">
+                        <text>货损≤ {{cargoOrderInfo.mtCargo.lossGoods}}%
+                            按{{cargoOrderInfo.mtCargo.goodsDamages}}元/吨</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">船舶大小:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtCargo.vesselMaximum}} --
+                            {{cargoOrderInfo.mtCargo.vesselMinimum}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">封仓要求:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtCargo.warehouse}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">装货方式:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtCargo.loadingMethod}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">卸货方式:</view>
+                    <view class="info-text">
+                        <text>{{cargoOrderInfo.mtCargo.unloadingMode}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 订单价钱输入 -->
+            <view class="order-group">
+                <view class="info-item">
+                    <view class="info-subtitle">
+                        <text class="info-rate">*</text>单价：
+                    </view>
+                    <view class="info-input">
+                        <vtu-input placeholder="请输入单价" value="{{orderPrice}}" type="input" text-align="left"
+                            input-type="digit" bind:confirm="handleOrderPrice">
+                            <view class="unit" slot="after">元</view>
+                        </vtu-input>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 订单信息5 -->
+            <view class="order-group">
+                <view class="order-btu-wrap">
+                    <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
+                        wx:if="{{ btuItem.show }}">
+                        <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                            data-status="{{ cargoOrderInfo.status }}" data-userShipId="{{ cargoOrderInfo.userShipId }}"
+                            data-userCargoId="{{ cargoOrderInfo.userCargoId }}" bind:click="handleButton">
+                            {{btuItem.title}}</van-button>
+                    </view>
+                </view>
+                <!-- <view class="dialog">
+                    <van-dialog use-slot title="发起合同吗？" show="{{ hairShow }}" show-cancel-button show-confirm-button
+                        data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleHairContract">
                     </van-dialog>
-                </view>
+                </view> -->
             </view>
         </view>
 
@@ -265,7 +360,7 @@
                 </view>
                 <view class="order-item">
                     <view class="order-start-time">
-                        <text>预计装货时间：{{shipOrderInfo.mtCargo.loadingDate}}</text>
+                        <text>预计装货时间：{{shipOrderInfo.cargoDate}}</text>
                     </view>
                 </view>
             </view>
@@ -304,7 +399,86 @@
                 </view>
             </view>
 
+
             <!-- 订单信息3 -->
+            <view class="order-group">
+                <view class="info-item">
+                    <view class="info-subtitle">预计装货吨数:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtCargo.number}}吨</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">其它费用:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtCargo.otherExpenses}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">滞期约定:</view>
+                    <view class="info-text">
+                        <view class="info-text_top">
+                            <text>装货{{shipOrderInfo.mtCargo.delayedLoading}}天-卸货{{shipOrderInfo.mtCargo.delayedDischarge}}天</text>
+                        </view>
+                        <view class="info-text_bottom"><text>滞期单价：{{shipOrderInfo.mtCargo.delayedCost}}元</text></view>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">船舶类型:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtShip.mtTypeShip.name}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">货物交接:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtCargo.deliveryGoods}}</text>
+                    </view>
+                </view>
+                <view class="info-item" wx:if="{{ shipOrderInfo.mtCargo.compensation === 1 }}">
+                    <view class="info-subtitle">货损赔偿约定:</view>
+                    <view class="info-text">
+                        <text>货损≤ {{shipOrderInfo.mtCargo.lossGoods}}%
+                            按{{shipOrderInfo.mtCargo.goodsDamages}}元/吨</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">船舶大小:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtCargo.vesselMaximum}} -- {{shipOrderInfo.mtCargo.vesselMinimum}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">封仓要求:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtCargo.warehouse}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">装货方式:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtCargo.loadingMethod}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">卸货方式:</view>
+                    <view class="info-text">
+                        <text>{{shipOrderInfo.mtCargo.unloadingMode}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 单价 -->
+            <view class="order-group">
+                <view class="info-item">
+                    <view class="info-subtitle">单价:</view>
+                    <view class="info-money">
+                        <text>￥{{shipOrderInfo.mtCargo.freightAmount}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 订单信息5 -->
             <view class="order-group active">
                 <view class="info-item">
                     <view class="info-subtitle">船舶名称：</view>
@@ -369,7 +543,7 @@
                 <view class="info-item">
                     <view class="info-subtitle">船龄:</view>
                     <view class="info-text">
-                        <text>{{shipOrderInfo.mtShip.ageShip}}</text>
+                        <text>{{shipOrderInfo.shipDate}}</text>
                     </view>
                 </view>
                 <view class="info-item">
@@ -434,17 +608,19 @@
                 </view>
             </view>
 
-            <!-- 订单信息4 -->
+            <!-- 订单信息6 -->
             <view class="order-group">
-                <view class="order-btu">
-                    <van-button wx:for="{{button}}" wx:key="index" wx:for-item="buttonItem" size="small" round
-                        data-state="{{buttonItem.state}}" plain="{{buttonItem.plain}}" type="{{buttonItem.type}}"
-                        bind:click="handleButton">
-                        {{buttonItem.title}}
-                    </van-button>
+                <view class="order-btu-wrap">
+                    <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
+                        wx:if="{{ btuItem.show }}">
+                        <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                            data-status="{{ shipOrderItem.status }}" data-userShipId="{{ shipOrderItem.userShipId }}"
+                            data-userCargoId="{{ shipOrderItem.userCargoId }}" bind:click="handleButton">
+                            {{btuItem.title}}</van-button>
+                    </view>
                 </view>
                 <view class="dialog">
-                    <van-dialog use-slot title="确认同意承运吗？" show="{{ show }}" show-cancel-button show-confirm-button
+                    <van-dialog use-slot title="确认订单金额吗？" show="{{ show }}" show-cancel-button show-confirm-button
                         data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
                     </van-dialog>
                 </view>
@@ -453,4 +629,3 @@
         </view>
     </view>
 </view>
-

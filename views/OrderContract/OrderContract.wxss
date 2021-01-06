@@ -1,6 +1,88 @@
-/* views/OrderContract/contract.wxss */
+.contract-group {
+  background: #fff;
+  margin-top: 10px;
+  padding: 16px 15px;
+  border-radius: 10px;
+}
+.contract-group:first-child .contract-item{
+  margin: 0;
+}
 
-.box {
+.contract-group:last-child {
+  border-radius: 0;
+}
+
+.contract-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 19px;
+}
+
+.contract-item:first-child {
+  line-height: normal;
+}
+
+.contract-item:last-child {
+  line-height: normal;
+}
+
+.subtitle {
+  color: #333333;
+  font-family: PingFang-SC-Regular;
+  font-weight: Regular;
+  width: 112px;
+}
+
+.rate {
+  font-family: PingFang-SC-Regular;
+  font-weight: Regular;
+  color: #E01923;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.text {
+  color: #191919;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  flex: 1;
+}
+
+.contract-item .input {
+  border: 1px solid #0974E7;
+  flex: 1;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+
+.contract-item .input {}
+
+.contract-btu {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+}
+
+.contract-btu text {
+  width: 75%;
+  height: 28px;
+  background: linear-gradient(90deg, #E01923, #F45919);
+  border-radius: 14px;
+  color: #FFFFFF;
+  font-size: 13px;
+  text-align: center;
+  line-height: 28px;
+}
+
+
+
+
+
+
+/* .box {
   background: #FFFFFF;
   border-radius: 10px;
   margin: 2% 0;
@@ -69,4 +151,4 @@
   font-size: 13px;
   text-align: center;
   line-height: 28px;
-}
+} */

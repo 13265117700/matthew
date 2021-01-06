@@ -120,5 +120,22 @@ export default {
     //用户订单查询
     UserOrderQuery: function (data) {
         return request.get(api.UserOrderQuery, data)
+    },
+    //用户货主合同生成
+    UserCargoOrderContractGenerate:function(data){
+        return request.post(api.UserCargoOrderContractGenerate, data)
+    },
+    //船东确认订单金额
+    UserShipConfirmOrderMoney:function(data){
+        return request.post(api.UserShipConfirmOrderMoney, data)
+    },
+    
+
+
+
+
+    //公司平台信息
+    frontDeskDefaultCompany: function (data) {
+        return request.get(api.frontDeskDefaultCompany, data)
     }
 }

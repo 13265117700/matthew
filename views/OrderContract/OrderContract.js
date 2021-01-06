@@ -1,148 +1,202 @@
-import User from '../../models/user/user'
+import User from '../../models/user/user';
+const App = getApp();
 Page({
   data: {
-    informations: [{
-      id: 0,
-      contents: "托运方(甲方)：",
-      title: "托运方名称名称"
-    }, {
-      id: 1,
-      contents: "统一信用代码：",
-      title: "13213415646454"
-    }, {
-      id: 2,
-      contents: "住所:",
-      title: "合肥市包河区庐州大道与贵阳路交口未来塔B座903座",
+    orderInfo: {}, //订单信息
+    cargoUser: {}, //货主信息
+    shipUser: {}, //船东信息
+    platformInfo: {}, //平台信息
+    userInfo: {}, //用户信息
 
-
+    // 甲方输入框列表
+    partyAinputList: [{
+      title: '住所：',
+      placeholder: '请输入详细住址'
+    }, {
+      title: '跟单人姓名：',
+      placeholder: '请输入甲方人姓名'
+    }, {
+      title: '跟单人电话：',
+      placeholder: '请输入甲方联系人电话'
+    }, {
+      title: '跟单人邮箱',
+      placeholder: '请输入甲方联系邮箱'
     }],
-    informations_a_a_a: [{
-      id: 1,
-      contents: "*跟单人姓名：",
-      placeholder: '请输入甲方跟单人姓名'
+    //乙方输入框列表
+    partyBinputList: [{
+      title: '住所：',
+      placeholder: '请输入详细住址'
     }, {
-      id: 2,
-      contents: "*跟单人电话：",
-      placeholder: '请输入甲方跟人联系电话'
+      title: '跟单人姓名：',
+      placeholder: '请输入甲方人姓名'
     }, {
-      id: 3,
-      contents: "*跟单人邮箱：",
-      placeholder: "请输入甲方跟单人邮箱"
-    }],
-
-    informations_a_a_a_a: [{
-      id: 1,
-      contents: "联系人姓名：",
-      placeholder: '请输入乙方跟单人姓名'
+      title: '跟单人电话：',
+      placeholder: '请输入甲方联系人电话'
     }, {
-      id: 2,
-      contents: "联系人电话：",
-      placeholder: '请输入乙方跟单人联系电话'
-    }, {
-      id: 3,
-      contents: "联系人邮箱:",
-      placeholder: "请输入乙方联系人邮箱"
+      title: '跟单人邮箱',
+      placeholder: '请输入甲方联系邮箱'
     }],
 
-    informations_a: [{
-      id: 0,
-      contents: "承运方(乙方)：",
-      title: "广东马泰找船科技有限公司  "
-    }, {
-      id: 1,
-      contents: "统一信用代码：",
-      title: "91441900MA522U5062  "
-    }, {
-      id: 2,
-      contents: "住所：",
-      title: "广州市黄埔区科学大道122、124号402房 "
-    }, {
-      id: 3,
-      contents: "法定代表人：",
-      title: "张智慧  "
-    }, {
-      id: 4,
-      contents: "联系方式：",
-      title: " 18988734960"
-    }, {
-      id: 5,
-      contents: "邮箱：",
-      title: "502459384@qq.com"
-    }],
-    informations_a_a: [{
-      id: 0,
-      contents: "实际运输方(丙方)：",
-      title: "实际运输45454545 "
-    }, {
-      id: 1,
-      contents: "统一信用代码：",
-      title: "91441900MA522U5062  "
-    }, {
-      id: 2,
-      contents: "住所：",
-      title: " 深圳市南山区蛇口街道沿山路13号胜发 大厦A栋706室"
-    }],
+    id: null, //订单ID
+    addressPartyA: null, //甲方详细地址
+    contactPartyA: null, //甲方联系方式
+    creditCodePartyA: null, //甲方统一信用代码
+    partyAContacts: null, //甲方联系人
+    partyACorporateName: null, //甲方公司名称
+    partyAEmail: null, //甲方联系邮件
 
-    orderID: null,
-    userInfo: [],
 
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
+    console.log(options)
     this.setData({
-      orderID: options.id
+      id: options.id
     })
   },
   onShow: function () {
-    // this.getUserInfo()
-    this.getOrderDetail()
+    this.getUserOrder()
   },
 
-  // getUserInfo() {
-  //   let Authorization = wx.getStorageSync('Authorization');
-  //   let uid = '';
-  //   let params = {
-  //     Authorization,
-  //     uid
-  //   }
-  //   User.userInfo(params).then(res => {
-  //     let user = res.data.data;
-
-  //     if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
-  //       user.cargo = true
-  //     } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
-  //       user.car = true
-  //     } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
-  //       user.ship = true
-  //     }
-
-  //     this.setData({
-  //       userInfo: user
-  //     })
-
-  //     this.getOrderDetail()
-  //   })
-
-
-
-  // },
-
-  getOrderDetail() {
-    let id = this.data.orderID;
+  getUserOrder() {
+    let id = this.data.id;
     let Authorization = wx.getStorageSync('Authorization');
-
+    let userInfo = App.globalData.userInfo;
+    console.log(userInfo)
     let params = {
       Authorization,
       id
-    };
-    console.log(params)
-
+    }
     User.UserOrderQuery(params).then(res => {
-      console.log(res)
+      let rows = res.data.data;
+      this.setData({
+        orderInfo: rows,
+        cargoUser: rows.cargoUser,
+        shipUser: rows.shipUser
+      })
+      console.log(this.data.orderInfo)
+      console.log(this.data.cargoUser)
+      console.log(this.data.shipUser)
     })
 
+    User.frontDeskDefaultCompany(params).then(data => {
+      let rows = data.data.data;
+      this.setData({
+        platformInfo: rows,
+        userInfo
+      })
+      console.log(this.data.platformInfo)
+    })
+
+  },
+
+  //甲方输入框
+  partyAinput(e) {
+    console.log(e)
+    let index = e.currentTarget.dataset.index;
+    let value = e.detail.value;
+    switch (index) {
+      case 0:
+        this.setData({
+          addressPartyA: value
+        })
+        break;
+      case 1:
+        this.setData({
+          partyAContacts: value
+        })
+        break;
+      case 2:
+        this.setData({
+          contactPartyA: value
+        })
+        break;
+      case 3:
+        this.setData({
+          partyAEmail: value
+        })
+        break;
+    }
+  },
+
+  //乙方输入框
+  partyBinput(e) {
+    console.log(e)
+    let index = e.currentTarget.dataset.index;
+    let value = e.detail.value;
+    switch (index) {
+      case 0:
+        this.setData({
+          addressPartyA: value
+        })
+        break;
+      case 1:
+        this.setData({
+          partyAContacts: value
+        })
+        break;
+      case 2:
+        this.setData({
+          contactPartyA: value
+        })
+        break;
+      case 3:
+        this.setData({
+          partyAEmail: value
+        })
+        break;
+    }
+  },
+
+  handleConfirmButton() {
+    let userInfo = this.data.userInfo;
+    let id = this.data.id;
+    if (userInfo.cargo) {
+      let cargoUser = this.data.cargoUser;
+      let addressPartyA = this.data.addressPartyA; //甲方详细地址
+      let contactPartyA = this.data.contactPartyA; //甲方联系方式
+      let creditCodePartyA = cargoUser.mtCargoOwner.creditCode; //甲方统一信用代码
+      let partyAContacts = this.data.partyAContacts; //甲方联系人
+      let partyACorporateName = cargoUser.mtCargoOwner.nameEnterprise; //甲方公司名称
+      let partyAEmail = this.data.partyAEmail; //甲方联系邮件
+
+      // let params = {
+      //   id,
+      //   addressPartyA,
+      //   contactPartyA,
+      //   creditCodePartyA,
+      //   partyAContacts,
+      //   partyACorporateName,
+      //   partyAEmail
+      // }
+
+      if (!addressPartyA || !contactPartyA || !partyAContacts || !partyAEmail) {
+        wx.showToast({
+          title: '所有输入框都是必填项目',
+        })
+        return
+      }
+
+      wx.navigateTo({
+        url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&addressPartyA=' + addressPartyA + '&contactPartyA=' + contactPartyA + '&creditCodePartyA=' + creditCodePartyA + '&partyAContacts=' + partyAContacts + '&partyACorporateName=' + partyACorporateName + '&partyAEmail=' + partyAEmail,
+      })
+
+      // User.UserCargoOrderContractGenerate(params).then(res => {
+      //   if(res.data.state === 200){
+      //     wx.showLoading({
+      //       title: '合同生成中',
+      //     })
+      //     setTimeout(function(){
+      //       wx.hideLoading()
+      //       wx.navigateTo({
+      //         url: '/views/OrderAgreement/OrderAgreement',
+      //       })
+      //     },2000)
+      //   }
+      // })
+
+    } else if (userInfo.ship) {
+
+    }
   }
+
 })

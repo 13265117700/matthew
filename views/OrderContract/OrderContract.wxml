@@ -1,8 +1,252 @@
-<!--views/OrderContract/contract.wxml-->
+<view class="page-container">
+  <view class="page-navbar">
+    <vtu-navbar title="货主生成合同" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon="iconfont icon-shangchuan">
+    </vtu-navbar>
+  </view>
+  <view class="page-main">
+    <view class="contract-wrap">
+      <view class="contract-group">
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>合同编号：</text>
+          </view>
+          <view class="text">
+            <text>33332226552</text>
+          </view>
+        </view>
+      </view>
 
-<!-- 合同 -->
+      <!-- 货主输入信息 -->
+      <view class="contract-group" wx:if="{{ userInfo.cargo }}">
+        <view class="contract-item"
+          wx:if="{{cargoUser.mtCargoOwner.nameEnterprise != ' ' && cargoUser.mtCargoOwner.nameEnterprise != null}}">
+          <view class="subtitle">
+            <text>托运方(甲方):</text>
+          </view>
+          <view class="text">
+            <text>{{cargoUser.mtCargoOwner.nameEnterprise}}</text>
+          </view>
+        </view>
+        <view class="contract-item"
+          wx:if="{{cargoUser.mtCargoOwner.creditCode != ' ' && cargoUser.mtCargoOwner.creditCode != null}}">
+          <view class="subtitle">
+            <text>统一信用代码：</text>
+          </view>
+          <view class="text">
+            <text>{{cargoUser.mtCargoOwner.creditCode}}</text>
+          </view>
+        </view>
+        <view class="contract-item" wx:for="{{ partyAinputList }}" wx:key="index" wx:for-item="partyAitem">
+          <view class="subtitle">
+            <text class="rate">*</text>
+            <text>{{partyAitem.title}}</text>
+          </view>
+          <view class="input">
+            <vtu-input placeholder="{{partyAitem.placeholder}}" data-index="{{ index }}" type="input" text-align="left"
+              bind:input="partyAinput"></vtu-input>
+          </view>
+        </view>
+      </view>
 
-<view>
+      <!-- 船东时显示 -->
+      <view class="contract-group" wx:if="{{ userInfo.ship }}">
+        <view class="contract-item"
+          wx:if="{{cargoUser.mtCargoOwner.nameEnterprise != ' ' && cargoUser.mtCargoOwner.nameEnterprise != null}}">
+          <view class="subtitle">
+            <text>托运方（甲方）：</text>
+          </view>
+          <view class="text">
+            <text>{{cargoUser.mtCargoOwner.nameEnterprise}}</text>
+          </view>
+        </view>
+        <view class="contract-item"
+          wx:if="{{cargoUser.mtCargoOwner.creditCode != ' ' && cargoUser.mtCargoOwner.creditCode != null}}">
+          <view class="subtitle">
+            <text>统一信用代码：</text>
+          </view>
+          <view class="text">
+            <text>{{cargoUser.mtCargoOwner.creditCode}}</text>
+          </view>
+        </view>
+        <!-- <view class="contract-item">
+          <view class="subtitle">
+            <text>住所：</text>
+          </view>
+          <view class="text">
+            <text>住所</text>
+          </view>
+        </view> -->
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>跟单人姓名：</text>
+          </view>
+          <view class="text">
+            <text>{{cargoUser.mtCargoOwner.contacts}}</text>
+          </view>
+        </view>
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>跟单人电话：</text>
+          </view>
+          <view class="text">
+            <text>{{cargoUser.mtCargoOwner.phone}}</text>
+          </view>
+        </view>
+        <!-- <view class="contract-item">
+          <view class="subtitle">
+            <text>跟单人邮箱：</text>
+          </view>
+          <view class="text">
+            <text>121321321322</text>
+          </view>
+        </view> -->
+      </view>
+
+      <!-- 平台信息 -->
+      <view class="contract-group">
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>承运方(乙方):</text>
+          </view>
+          <view class="text">
+            <text>{{platformInfo.corporateName}}</text>
+          </view>
+        </view>
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>统一信用代码：</text>
+          </view>
+          <view class="text">
+            <text>{{platformInfo.creditCode}}</text>
+          </view>
+        </view>
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>住所：</text>
+          </view>
+          <view class="text">
+            <text>{{platformInfo.detailedAddress}}</text>
+          </view>
+        </view>
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>法定代表人：</text>
+          </view>
+          <view class="text">
+            <text>{{platformInfo.contacts}}</text>
+          </view>
+        </view>
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>联系方式：</text>
+          </view>
+          <view class="text">
+            <text>{{platformInfo.contactInformation}}</text>
+          </view>
+        </view>
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>邮箱：</text>
+          </view>
+          <view class="text">
+            <text>{{platformInfo.contactEmail}}</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 船东输入信息 -->
+      <view class="contract-group" wx:if="{{ userInfo.ship }}">
+        <view class="contract-item" wx:if="{{ shipUser.mtShipowner.nameEnterprise != null }}">
+          <view class="subtitle">
+            <text>实际运输方：</text>
+          </view>
+          <view class="text">
+            <text>{{shipUser.mtShipowner.nameEnterprise}}</text>
+          </view>
+        </view>
+        <view class="contract-item" wx:if="{{ shipUser.mtShipowner.creditCode != null }}">
+          <view class="subtitle">
+            <text>统一信用代码：</text>
+          </view>
+          <view class="text">
+            <text>{{shipUser.mtShipowner.creditCode}}</text>
+          </view>
+        </view>
+        <view class="contract-item" wx:for="{{ partyBinputList }}" wx:key="index" wx:for-item="partyBitem">
+          <view class="subtitle">
+            <text class="rate">*</text>
+            <text>{{partyBitem.title}}</text>
+          </view>
+          <view class="input">
+            <vtu-input placeholder="{{partyBitem.placeholder}}" data-index="{{index}}" type="input" text-align="left" bind:input="partyBinput"></vtu-input>
+          </view>
+        </view>
+      </view>
+
+      <!-- 货主时显示 -->
+      <view class="contract-group" wx:if="{{ userInfo.cargo }}">
+        <view class="contract-item" wx:if="{{shipUser.mtShipowner.nameEnterprise != null}}">
+          <view class="subtitle">
+            <text>实际运输方(丙方):</text>
+          </view>
+          <view class="text">
+            <text>{{shipUser.mtShipowner.nameEnterprise}}</text>
+          </view>
+        </view>
+        <view class="contract-item" wx:if="{{shipUser.mtShipowner.creditCode != null}}">
+          <view class="subtitle">
+            <text>统一信用代码：</text>
+          </view>
+          <view class="text">
+            <text>{{shipUser.mtShipowner.creditCode}}</text>
+          </view>
+        </view>
+        <!-- <view class="contract-item">
+          <view class="subtitle">
+            <text>住所：</text>
+          </view>
+          <view class="text">
+            <text>123123123123</text>
+          </view>
+        </view> -->
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>联系人姓名：</text>
+          </view>
+          <view class="text">
+            <text>{{shipUser.mtShipowner.contacts}}</text>
+          </view>
+        </view>
+        <view class="contract-item">
+          <view class="subtitle">
+            <text>联系人电话：</text>
+          </view>
+          <view class="text">
+            <text>{{shipUser.mtShipowner.phone}}</text>
+          </view>
+        </view>
+        <!-- <view class="contract-item">
+          <view class="subtitle">
+            <text>联系人邮箱：</text>
+          </view>
+          <view class="text">
+            <text>123123123123</text>
+          </view>
+        </view> -->
+      </view>
+
+      <view class="contract-group">
+        <view class="contract-btu">
+          <text bindtap="handleConfirmButton">下一步</text>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+
+<!-- <view>
   <vtu-navbar title="货主生成合同" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon="iconfont icon-shangchuan">
   </vtu-navbar>
 
@@ -51,4 +295,4 @@
     <view class="btn">生成合同</view>
   </view>
 
-</view>
+</view> -->

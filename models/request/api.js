@@ -1,4 +1,5 @@
 const PREFIX = 'https://api.gdmatt.com';
+const ADMIN = 'http://8.129.87.113:8005';
 const WebSocket = 'ws://chat.gdmatt.com';
 export default {
     UserFriendChat: `${WebSocket}/ws`, //websocket连接通信
@@ -35,7 +36,7 @@ export default {
     UserMtCargoQueryInfo: `${PREFIX}/user/cargo/findByCargoId`, //用户货源信息查询
     UserCargoOnUnderFrame: `${PREFIX}/user/cargo/upAndDownUpdate`, //用户货源上下架
     UserCargoUpdate: `${PREFIX}/user/cargo/mtCargoUpdate`, //用户货源修改
-    
+
 
     //用户车API
     mtOwnerUpdate: `${PREFIX}/user/information/mtOwnerUpdate`, //车主信息修改
@@ -56,16 +57,19 @@ export default {
     UserOrderQueryList: `${PREFIX}/user/appoint/appointFriends`, //用户接单查询列表
     UserShipOrderAgreeOrRefused: `${PREFIX}/user/appoint/agreeToRefuse`, //船用户订单同意或拒绝
     UserOrderDetails: `${PREFIX}/user/appoint/findByAppointId`, //用户接单详情
-    UserOrderListQuery:`${PREFIX}/user/shippingOrder/mtShippingOrderFindAll`,//用户订单列表查询
+    UserOrderListQuery: `${PREFIX}/user/shippingOrder/mtShippingOrderFindAll`, //用户订单列表查询
     UserOrderQuery: `${PREFIX}/user/shippingOrder/userFindByShippingOrderId`, //用户订单查询
+    UserCargoOrderContractGenerate:`${PREFIX}/user/shippingOrder/cargoContract`,//用户货主合同生成
+    UserShipConfirmOrderMoney:`${PREFIX}/user/shippingOrder/shipConfirmationAmount`,//船东确认订单金额
 
 
     //前端API
     frontDeskShipTypeList: `${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`, //船类型列表
     frontDeskCargoList: `${PREFIX}/reception/mtNameGoods/mtNameGoodsFriends`, //货物名列表
     frontDeskShipPeriodList: `${PREFIX}/reception/releaseShipSource/releaseShipSourceFriends`, //船期列表
-    frontDeskShipPeriodItem:`${PREFIX}/reception/releaseShipSource/findByReleaseShipSourceId`,//前端船期信息查询
+    frontDeskShipPeriodItem: `${PREFIX}/reception/releaseShipSource/findByReleaseShipSourceId`, //前端船期信息查询
     frontDeskWharfList: `${PREFIX}/reception/mtWharf/findAll`, //码头列表查询
     frontDeskShipList: `${PREFIX}/reception/ship/myFriendsRequestFriends`, //船信息列表
-    frontDeskShipItem: `${PREFIX}/reception/ship/findByShipId`,//船信息查询
+    frontDeskShipItem: `${PREFIX}/reception/ship/findByShipId`, //船信息查询
+    frontDeskDefaultCompany: `${PREFIX}/reception/information/findByAcquiescence`, //平台公司信息
 }

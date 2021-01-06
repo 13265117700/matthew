@@ -1,6 +1,30 @@
-/* views/OrderAgreement/OrderAgreement.wxss */
 
-.box {
+
+
+.contract-btu {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+}
+
+.contract-btu text {
+  width: 75%;
+  height: 28px;
+  background: linear-gradient(90deg, #E01923, #F45919);
+  border-radius: 14px;
+  color: #FFFFFF;
+  font-size: 13px;
+  text-align: center;
+  line-height: 28px;
+}
+
+
+
+
+
+/* .box {
 
     background: #FFFFFF;
     border-radius: 10px;
@@ -67,4 +91,4 @@
     font-size: 13px;
     text-align: center;
       line-height: 23px;
-  }
+  } */

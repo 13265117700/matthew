@@ -42,7 +42,7 @@ Page({
     })
   },
 
-  //船东获取订单详情
+  //获取订单详情
   getOrderDetails() {
     let userInfo = this.data.userInfo;
     let id = this.data.id;
@@ -51,11 +51,12 @@ Page({
       Authorization,
       id
     };
-    console.log(userInfo)
+
     if (userInfo.cargo) {
       console.log('货主')
       User.UserOrderDetails(params).then(res => {
         console.log(res)
+
         let cargoOrderInfo = res.data.data;
         let cargoDate = cargoOrderInfo.mtCargo.loadingDate;
         let loadingDate = new Date(cargoDate).toLocaleDateString();
