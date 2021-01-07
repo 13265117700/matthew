@@ -9,10 +9,10 @@
       <text>{{contractContent}}</text>
     </view>
     <view class="contract-btu">
-      <text bindtap="handleHairContract">生成合同</text>
+      <text bindtap="handleHairContract">{{btutitle}}</text>
     </view>
     <view class="dialog">
-      <van-dialog use-slot title="确认发起合同吗？" show="{{ hairShow }}" show-cancel-button show-confirm-button
+      <van-dialog use-slot title="确认{{dialogmsg}}吗？" show="{{ hairShow }}" show-cancel-button show-confirm-button
         data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirmContract">
       </van-dialog>
     </view>

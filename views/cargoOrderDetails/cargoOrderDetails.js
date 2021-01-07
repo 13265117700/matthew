@@ -4,11 +4,14 @@ Page({
     data: {
         userInfo: {},
         id: null, //订单ID
+        status: null, //订单状态
         senderid: null, //发送者Id
         receiverid: null, //接收者ID
-        // orderInfo: [],
+        transportStatus: null, //运输状态
+        orderPrice: '', //输入单价
         shipOrderInfo: [],
         cargoOrderInfo: [],
+        // 订单按钮
         orderBtu: [{
             title: '发起申诉',
             type: 'default',
@@ -76,10 +79,64 @@ Page({
             state: 13, //按钮状态
         }],
 
-        status: null, //同意或拒绝
-        // hairShow: false, //发起合同弹框
+        // 步骤按钮
+        stepsbtu: [{
+            title: '上传货到港图片',
+            show: true,
+            state: 1
+        }, {
+            title: '上传装好货照片',
+            show: false,
+            state: 2
+        }, {
+            title: '开始运输',
+            show: false,
+            state: 3
+        }, {
+            title: '上传船到港图片',
+            show: false,
+            state: 4
+        }, {
+            title: '卸货完成',
+            show: false,
+            state: 5
+        }],
+        //步骤条
+        steps: [{
+            title: '船到装货港',
+            status: 'success',
+            color: '#099E43',
+            name: 1
+        }, {
+            title: '装好货',
+            status: 'success',
+            color: '#099E43',
+            name: 2
+        }, {
+            title: '运输中',
+            status: 'success',
+            color: '#099E43',
+            name: 3
+        }, {
+            title: '到达目的港',
+            status: 'success',
+            color: '#099E43',
+            name: 4
+        }, {
+            title: '卸货完成',
+            status: 'success',
+            color: '#099E43',
+            name: 5
+        }],
+        value1: 0, //当前步骤
+
         show: false, //船东确认订单金额弹框
-        orderPrice: '', //输入单价
+        processShow: false, //流程上传返回弹框
+        processtitle: null, //流程上传返回弹框标题
+        processtext: null, //流程上传返回弹框文本
+        processnote: null, //流程上传返回弹框注释
+
+
     },
     onLoad: function (options) {
         let userInfo = App.globalData.userInfo;
@@ -115,7 +172,7 @@ Page({
                 let shipDate = parseInt(cargoOrderInfo.mtShip.ageShip);
                 let loadingDate = new Date(cargoDate).toLocaleDateString();
                 cargoOrderInfo.cargoDate = loadingDate.replace(/\//g, "-");
-                console.log(shipDate)
+
                 let ageShip = new Date(shipDate).toLocaleDateString();
 
                 let arr = ageShip.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
@@ -136,10 +193,13 @@ Page({
                 }
 
                 this.setData({
-                    cargoOrderInfo
+                    cargoOrderInfo,
+                    status: cargoOrderInfo.status,
+                    transportStatus: cargoOrderInfo.transportStatus
                 })
 
                 this.tabsOnChange()
+                this.stepsOnchange()
             })
 
         } else if (userInfo.ship) {
@@ -168,12 +228,28 @@ Page({
                         shipOrderInfo.shipDate = age + '年'
                     }
                 }
+                if (shipOrderInfo.transportStatus === 1) {
+                    this.setData({
+                        processtitle: '上传以下装好货照片',
+                        processtext: '1. 《水路货物运单》  2. 《盖好帆布照片》'
+                    })
+                } else if (shipOrderInfo.transportStatus === 2) {
+                    this.setData({
+                        processtitle: '上传卸货完成以下照片',
+                        processtext: '1. 上传签字运单      2. 空船照片',
+                        processnote: '注：如货主不在现场无法上传签字运单可以先上传和货主发起聊天记录确认信息截图证明，后续再补上传签字运单即可'
+                    })
+                }
 
                 this.setData({
-                    shipOrderInfo
+                    shipOrderInfo,
+                    status: shipOrderInfo.status,
+                    transportStatus: shipOrderInfo.transportStatus
                 })
 
                 this.tabsOnChange()
+                this.stepsbtuOnChange()
+                this.stepsOnchange()
             })
 
 
@@ -181,14 +257,13 @@ Page({
 
     },
 
-    //按钮状态
+    //订单按钮按钮状态
     tabsOnChange() {
         let userInfo = this.data.userInfo;
         let orderBtu = this.data.orderBtu;
-        console.log(userInfo)
+
         if (userInfo.ship) {
             let shipOrderInfo = this.data.shipOrderInfo;
-            console.log(shipOrderInfo)
             switch (shipOrderInfo.status) {
                 case 2:
                     orderBtu.forEach(data => {
@@ -203,7 +278,6 @@ Page({
                             data.show = false
                         }
                     })
-                    console.log(orderBtu)
 
                     this.setData({
                         orderBtu
@@ -438,8 +512,125 @@ Page({
 
     },
 
+    //步骤按钮状态
+    stepsbtuOnChange() {
+        let stepsbtu = this.data.stepsbtu;
+        let userInfo = this.data.userInfo;
+        if (userInfo.ship) {
+            let shipOrderInfo = this.data.shipOrderInfo;
+            switch (shipOrderInfo.transportStatus) {
+                case 0:
+                    stepsbtu.forEach(data => {
+                        if (data.state === 1) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
+                    })
 
+                    this.setData({
+                        stepsbtu,
+                        value1: 0
+                    })
 
+                    break;
+                case 1:
+                    stepsbtu.forEach(data => {
+                        if (data.state === 2) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
+                    })
+
+                    this.setData({
+                        stepsbtu,
+                        value1: 0
+                    })
+                    break;
+                case 2:
+                    stepsbtu.forEach(data => {
+                        if (data.state === 3) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
+                    })
+
+                    this.setData({
+                        stepsbtu,
+                        active: 1
+                    })
+                    break;
+                case 3:
+                    stepsbtu.forEach(data => {
+                        if (data.state === 4) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
+                    })
+
+                    this.setData({
+                        stepsbtu,
+                        value1: 2
+                    })
+                    break;
+                case 4:
+                    stepsbtu.forEach(data => {
+                        if (data.state === 5) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
+                    })
+
+                    this.setData({
+                        stepsbtu,
+                        value1: 3
+                    })
+                    break;
+                case 5:
+                    stepsbtu.forEach(data => {
+                        data.show = false
+                    })
+
+                    this.setData({
+                        stepsbtu,
+                        value1: 4
+                    })
+                    break
+            }
+
+        }
+
+    },
+    //步骤按钮事件
+    handleStepsBtu(e) {
+        console.log(e)
+        let state = e.currentTarget.dataset.state;
+        let Authorization = wx.getStorageSync('Authorization');
+        let id = this.data.id;
+        switch (state) {
+            case 1:
+                wx.navigateTo({
+                    url: '/views/OrderShipment/OrderShipment?id=' + id,
+                })
+                break
+            case 2:
+                wx.navigateTo({
+                    url: '/views/OrderShipment/OrderShipment?id=' + id,
+                })
+                break
+            case 3:
+                User.UserShipUploadProcess({Authorization,id}).then(res => {
+                    if(res.data.state === 200){
+                        this.getOrderDetails()
+                    }
+                })
+                break
+        }
+    },
 
     //货主输入订单金额
     handleOrderPrice(e) {
@@ -479,8 +670,9 @@ Page({
                 })
                 break;
             case 4:
-                this.setData({
-                    show: true
+                let id = this.data.id;
+                wx.navigateTo({
+                    url: '/views/OrderContract/OrderContract?id=' + id,
                 })
                 break;
             case 5:
@@ -602,29 +794,5 @@ Page({
             }
         })
     },
-
-    //船东确认订单金额
-    handleConfirm() {
-        let id = this.data.id;
-        let whether = 1;
-        console.log(id,whether)
-        User.UserShipConfirmOrderMoney({
-            id,
-            whether
-        }).then(res => {
-            console.log(res)
-            if (res.data.state === 200) {
-                wx.showLoading({
-                    title: '已确认订单金额，请进行下一步',
-                })
-                setTimeout(function () {
-                    wx.hideLoading()
-                    wx.navigateTo({
-                        url: '/views/OrderContract/OrderContract?id=' + id,
-                    })
-                },2000)
-            }
-        })
-    }
 
 })

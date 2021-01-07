@@ -263,3 +263,77 @@ van-button {
   font-weight: bold;
   font-size: 14px;
 }
+
+.steps{
+  background: #fff;
+  margin-top: 15px;
+}
+.steps-top{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 15px;
+}
+.steps-summary{
+  display: flex;
+  align-items: center;
+}
+.steps-summary_icon{
+  margin-right: 14.5px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+.steps-summary_icon image{
+  width: 33px;
+  height: 33px;
+}
+.steps-summary_info{
+
+}
+.steps-summary_info_text{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #191919;
+  font-size: 17px;
+}
+.steps-summary_info_describe{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #999999;
+  font-size: 12px;
+}
+.steps-btu{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #FFFFFF;
+  font-size: 13px;
+  background: linear-gradient(90deg, #E01923, #F45919);
+  padding: 8px 10px;
+  border-radius: 18px;
+}
+.steps-btu text{
+
+}
+.steps-bottom{
+  padding: 0 15px 15px;
+}
+
+.process_dialog_text{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #191919;
+  font-size: 14px;
+  text-align: center;
+  padding: 15px 0;
+}
+
+.process_dialog_note{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #E11923;
+  font-size: 12px;
+  line-height: 20px;
+  max-width: 200px;
+  margin: 0 auto;
+}

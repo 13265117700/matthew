@@ -60,7 +60,9 @@ export default {
     UserOrderListQuery: `${PREFIX}/user/shippingOrder/mtShippingOrderFindAll`, //用户订单列表查询
     UserOrderQuery: `${PREFIX}/user/shippingOrder/userFindByShippingOrderId`, //用户订单查询
     UserCargoOrderContractGenerate:`${PREFIX}/user/shippingOrder/cargoContract`,//用户货主合同生成
+    UserShipOrderConfirmContract:`${PREFIX}/user/shippingOrder/shipContract`,//用户船东确认合同信息
     UserShipConfirmOrderMoney:`${PREFIX}/user/shippingOrder/shipConfirmationAmount`,//船东确认订单金额
+    UserShipUploadProcess:`${PREFIX}/user/shippingOrder/transportationProcess`,//船东上传运输流程
 
 
     //前端API

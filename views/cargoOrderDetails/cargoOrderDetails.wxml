@@ -21,6 +21,39 @@
                 </view>
             </view>
         </view>
+        <view class="steps" wx:if="{{ status > 2 }}">
+            <view class="steps-top">
+                <view class="steps-summary">
+                    <view class="steps-summary_icon">
+                        <image src="/images/order/dww.png"></image>
+                    </view>
+                    <view class="steps-summary_info">
+                        <view class="steps-summary_info_text">装好货</view>
+                        <view class="steps-summary_info_describe">待船东上传</view>
+                    </view>
+                </view>
+                <view class="steps-btu" wx:for="{{ stepsbtu }}" wx:key="index" wx:for-item="stepsbtuItem"
+                    wx:if="{{ stepsbtuItem.show == true && userInfo.ship}}" data-state="{{stepsbtuItem.state}}"
+                    bindtap="handleStepsBtu">
+                    <text>{{ stepsbtuItem.title }}</text>
+                </view>
+                <!-- <view class="steps-btu" wx:if="{{ userInfo.ship && shipOrderInfo.transportStatus != 3 }}" bindtap="">
+                    <text>上传装好货照片</text>
+                </view> -->
+            </view>
+            <view class="steps-bottom">
+                <vtu-steps value="{{value1}}" shape="spot" align-center>
+                    <vtu-step wx:for="{{ steps }}" wx:key="index" wx:for-item="stepsItem" title="{{stepsItem.title}}"
+                        status="{{stepsItem.status}}" active-color="{{stepsItem.color}}"></vtu-step>
+                </vtu-steps>
+            </view>
+        </view>
+        <view class="dialog">
+            <van-dialog use-slot title="{{processtitle}}" show="{{ processShow }}" theme="round-button" confirm-button-text="我知道了">
+                <view class="process_dialog_text">{{processtext}}</view>
+                <view class="process_dialog_note" wx:if="{{shipOrderInfo.transportStatus === 2}}">{{processnote}}</view>
+            </van-dialog>
+        </view>
 
         <!-- 货主订单信息盒 -->
         <view class="order-wrap" wx:if="{{ userInfo.cargo }}">

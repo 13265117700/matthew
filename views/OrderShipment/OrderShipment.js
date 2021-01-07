@@ -1,81 +1,120 @@
-// views/OrderShipment/OrderShipment.js
+import User from '../../models/user/user';
+import Upload from '../../models/upload/upload'
 Page({
+  data: {
+    id: null, //订单ID
+    transportStatus: null, //订单状态
+    navbartitle: null, //导航条标题
+    btutitle:null,//按钮标题
+    processImg: [], //图片
+    processContent: null, //补充内容
+  },
+  onLoad: function (options) {
+    this.setData({
+      id: options.id
+    })
+  },
+  onShow: function () {
+    this.getUserOrder()
+  },
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-      fileList: [],
-    },afterRead(event) {
-      const { file } = event.detail;
-      // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-      wx.uploadFile({
-        url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
-        filePath: file.url,
-        name: 'file',
-        formData: { user: 'test' },
-        success(res) {
-          // 上传完成需要更新 fileList
-          const { fileList = [] } = this.data;
-          fileList.push({ ...file, url: res.data });
-          this.setData({ fileList });
-        },
-      });
-    },
-  
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-  
-    },
-  
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-  
-    },
-  
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-  
-    },
-  
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-  
+  //获取订单
+  getUserOrder() {
+    let id = this.data.id;
+    let Authorization = wx.getStorageSync('Authorization');
+    let params = {
+      Authorization,
+      id
+    };
+
+    User.UserOrderQuery(params).then(res => {
+      let transportStatus = res.data.data.transportStatus;
+      this.setData({
+        transportStatus
+      })
+      this.pageStateSwitch(transportStatus)
+    })
+  },
+
+  //页面状态切换
+  pageStateSwitch(transportStatus) {
+    switch (transportStatus) {
+      case 0:
+        this.setData({
+          navbartitle: '船抵达装货港',
+          btutitle:'确认船到装货港'
+        })
+        break
+      case 1:
+        this.setData({
+          navbartitle: '上传订单跟踪',
+          btutitle:'确认装好货'
+        })
+        break
     }
-  })
+  },
+
+  //图片上传
+  handShipChartUpload(e) {
+    console.log(e)
+    let file = e.detail.file;
+    let filePath = file.url;
+    Upload.upload.uploadFile(filePath).then(res => {
+      let processImg = this.data.processImg;
+      processImg.push({
+        url: res
+      })
+      this.setData({
+        processImg
+      })
+    })
+  },
+  //图片删除
+  shipChartDel(e) {
+    let index = e.detail.index;
+    let processImg = this.data.processImg;
+    processImg.splice(index, 1)
+    this.setData({
+      processImg
+    })
+  },
+  //说明输入
+  addedInput(e) {
+    console.log(e)
+    this.setData({
+      processContent: e.detail
+    })
+  },
+
+  //按钮事件
+  addImageUpload() {
+    let id = this.data.id;
+    let Authorization = wx.getStorageSync('Authorization');
+    let processImg = [...(this.data.processImg.map(data => data.url))];
+    let processContent = this.data.processContent;
+    let params = {
+      id,
+      Authorization,
+      processImg: processImg.toString(),
+      processContent
+    }
+    console.log(params)
+    User.UserShipUploadProcess(params).then(res => {
+      console.log(res)
+      if (res.data.state === 200) {
+        let pages = getCurrentPages();
+        let prevPage = pages[pages.length - 2];
+        prevPage.setData({
+          processShow: true
+        })
+        setTimeout(function () {
+          wx.navigateBack({
+            delta: 1,
+          }, 1000)
+        })
+      }
+
+    })
+
+  }
+})

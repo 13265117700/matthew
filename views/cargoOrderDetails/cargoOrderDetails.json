@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-steps": "/miniprogram_npm/@vant/weapp/steps/index",
+    "vtu-steps": "/miniprogram_npm/vtuweapp/steps/steps/vtu-steps",
+    "vtu-step": "/miniprogram_npm/vtuweapp/steps/step/vtu-step"
+  }
 }

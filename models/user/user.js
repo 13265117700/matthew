@@ -114,7 +114,7 @@ export default {
     },
 
     //用户订单列表查询
-    UserOrderListQuery:function(data){
+    UserOrderListQuery: function (data) {
         return request.get(api.UserOrderListQuery, data)
     },
     //用户订单查询
@@ -122,14 +122,22 @@ export default {
         return request.get(api.UserOrderQuery, data)
     },
     //用户货主合同生成
-    UserCargoOrderContractGenerate:function(data){
+    UserCargoOrderContractGenerate: function (data) {
         return request.post(api.UserCargoOrderContractGenerate, data)
     },
+    //用户船东确认合同信息
+    UserShipOrderConfirmContract: function (data) {
+        return request.post(api.UserShipOrderConfirmContract, data)
+    },
     //船东确认订单金额
-    UserShipConfirmOrderMoney:function(data){
+    UserShipConfirmOrderMoney: function (data) {
         return request.post(api.UserShipConfirmOrderMoney, data)
     },
-    
+    //船东上传运输流程
+    UserShipUploadProcess: function (data) {
+        return request.post(api.UserShipUploadProcess, data)
+    },
+
 
 
 

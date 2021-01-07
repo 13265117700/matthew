@@ -40,11 +40,17 @@ Page({
     id: null, //订单ID
     addressPartyA: null, //甲方详细地址
     contactPartyA: null, //甲方联系方式
-    creditCodePartyA: null, //甲方统一信用代码
+    // creditCodePartyA: null, //甲方统一信用代码
     partyAContacts: null, //甲方联系人
-    partyACorporateName: null, //甲方公司名称
+    // partyACorporateName: null, //甲方公司名称
     partyAEmail: null, //甲方联系邮件
 
+    addressPartyC: null, //丙方详细地址(船东信息)
+    contactPartyC: null, //丙方联系方式(船东信息)
+    // creditCodePartyC:null,//丙方统一信用代码(船东信息)
+    partyCContacts: null, //丙方联系人(船东信息)
+    // partyCCorporateName:null,//丙方公司名称(船东信息)
+    partyCEmail: null, //丙方联系邮箱(船东信息)
 
   },
   onLoad: function (options) {
@@ -126,22 +132,22 @@ Page({
     switch (index) {
       case 0:
         this.setData({
-          addressPartyA: value
+          addressPartyC: value
         })
         break;
       case 1:
         this.setData({
-          partyAContacts: value
+          partyCContacts: value
         })
         break;
       case 2:
         this.setData({
-          contactPartyA: value
+          contactPartyC: value
         })
         break;
       case 3:
         this.setData({
-          partyAEmail: value
+          partyCEmail: value
         })
         break;
     }
@@ -159,16 +165,6 @@ Page({
       let partyACorporateName = cargoUser.mtCargoOwner.nameEnterprise; //甲方公司名称
       let partyAEmail = this.data.partyAEmail; //甲方联系邮件
 
-      // let params = {
-      //   id,
-      //   addressPartyA,
-      //   contactPartyA,
-      //   creditCodePartyA,
-      //   partyAContacts,
-      //   partyACorporateName,
-      //   partyAEmail
-      // }
-
       if (!addressPartyA || !contactPartyA || !partyAContacts || !partyAEmail) {
         wx.showToast({
           title: '所有输入框都是必填项目',
@@ -180,21 +176,25 @@ Page({
         url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&addressPartyA=' + addressPartyA + '&contactPartyA=' + contactPartyA + '&creditCodePartyA=' + creditCodePartyA + '&partyAContacts=' + partyAContacts + '&partyACorporateName=' + partyACorporateName + '&partyAEmail=' + partyAEmail,
       })
 
-      // User.UserCargoOrderContractGenerate(params).then(res => {
-      //   if(res.data.state === 200){
-      //     wx.showLoading({
-      //       title: '合同生成中',
-      //     })
-      //     setTimeout(function(){
-      //       wx.hideLoading()
-      //       wx.navigateTo({
-      //         url: '/views/OrderAgreement/OrderAgreement',
-      //       })
-      //     },2000)
-      //   }
-      // })
-
     } else if (userInfo.ship) {
+      let shipUser = this.data.shipUser;
+      let addressPartyC = this.data.addressPartyC;
+      let contactPartyC = this.data.contactPartyC;
+      let partyCContacts = this.data.partyCContacts;
+      let partyCEmail = this.data.partyCEmail;
+      let creditCodePartyC = shipUser.mtShipowner.nameEnterprise;
+      let partyCCorporateName = shipUser.mtShipowner.creditCode;
+
+      if (!addressPartyC || !contactPartyC || !partyCContacts || !partyCEmail) {
+        wx.showToast({
+          title: '所有输入框都是必填项目',
+        })
+        return
+      }
+
+      wx.navigateTo({
+        url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&addressPartyC=' + addressPartyC + '&contactPartyC=' + contactPartyC + '&partyCContacts=' + partyCContacts + '&partyCEmail=' + partyCEmail + '&creditCodePartyC=' + creditCodePartyC + '&partyCCorporateName=' + partyCCorporateName,
+      })
 
     }
   }

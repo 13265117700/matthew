@@ -557,5 +557,6 @@ Page({
             url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
         })
     }
+    
 
 })
