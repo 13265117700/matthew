@@ -20,11 +20,17 @@
       <view>1. 《水路货物运单》</view>
       <view>2. 《盖好帆布照片》</view>
     </view>
+    <view class="upload-describe" wx:if="{{ transportStatus === 3 }}">
+      <view>上传卸货完成以下照片</view>
+      <view>1. 上传签字运单 2. 空船照片</view>
+      <view class="note">注：如货主不在现场无法上传签字运单可以先上传和货主发起聊天记录确认信息截图证明，后续再补上传签字运单即可</view>
+    </view>
   </view>
 
   <view class="supplement">
     <!-- <van-cell-group> -->
-      <van-field value="{{ message }}" type="textarea" placeholder="补充说明" autosize border="{{ false }}" bind:input="addedInput" />
+    <van-field value="{{ message }}" type="textarea" placeholder="补充说明" autosize border="{{ false }}"
+      bind:input="addedInput" />
     <!-- </van-cell-group> -->
   </view>
 

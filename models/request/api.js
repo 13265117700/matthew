@@ -63,7 +63,7 @@ export default {
     UserShipOrderConfirmContract:`${PREFIX}/user/shippingOrder/shipContract`,//用户船东确认合同信息
     UserShipConfirmOrderMoney:`${PREFIX}/user/shippingOrder/shipConfirmationAmount`,//船东确认订单金额
     UserShipUploadProcess:`${PREFIX}/user/shippingOrder/transportationProcess`,//船东上传运输流程
-
+    UserCargoConfirmOrderMoney:`${PREFIX}/user/shippingOrder/cargoConfirmationAmount`,//货主确认订单金额
 
     //前端API
     frontDeskShipTypeList: `${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`, //船类型列表

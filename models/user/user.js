@@ -137,6 +137,10 @@ export default {
     UserShipUploadProcess: function (data) {
         return request.post(api.UserShipUploadProcess, data)
     },
+    //货主确认订单金额
+    UserCargoConfirmOrderMoney:function(data) {
+        return request.post(api.UserCargoConfirmOrderMoney, data)
+    },
 
 
 

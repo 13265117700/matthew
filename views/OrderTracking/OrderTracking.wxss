@@ -1,33 +1,91 @@
-/* views/OrderTracking/OrderTracking.wxss */
-.box {
+.info-group{
+  background: #fff;
+  padding: 20px 15px;
+  margin-bottom: 15px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.info-group:last-child{
+  border-radius: 10px;
+}
+.info-item{
+  display: flex;
+  align-items: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  font-size: 14px;
+  color: #333333;
+  margin-bottom: 10px;
+}
+.info-item:last-child{
+  margin: 0;
+}
+.info-subtitle{
+  margin-right: 3%;
+}
+.info-text{
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+}
+.info-step{
 
-    background: #FFFFFF;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    padding: 24px 0 20px 15px;
-  
-  }
-  
-  .box_a {
-    display: flex;
-    line-height: 36px;
-  }
-  .text-left {
-    color: #666666;
-    font-size: 14px;
-    margin-right: 48px;
-    width: 122px;
-  }
-  
-  .text-right {
-    position: absolute;
-    left: 89px;
-  font-family: PingFang SC;
-  font-weight: 400;
-  
-  }
-  
-  .img{
-    width:128px;
-     height:128px;
-  }
+}
+.info-step-item{
+  display: flex;
+}
+.info-item_left{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}
+.info-step_status{
+  width: 17px;
+  height: 17px;
+}
+.info-step_status image{
+  width: 17px;
+  height: 17px;
+}
+.info-step_line{
+
+}
+.info-item_right{
+  padding-bottom: 15px;
+}
+.info-step_subtitle{
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.info-step_describe{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #666666;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.info-step_time{
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.info-step_instruction{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #333333;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.info-step_image{
+
+}
+.info-step_image image{
+  max-width: 134px;
+  max-height: 137px;
+  margin-right: 10px;
+}

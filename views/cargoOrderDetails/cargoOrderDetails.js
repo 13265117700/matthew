@@ -9,6 +9,7 @@ Page({
         receiverid: null, //接收者ID
         transportStatus: null, //运输状态
         orderPrice: '', //输入单价
+
         shipOrderInfo: [],
         cargoOrderInfo: [],
         // 订单按钮
@@ -77,6 +78,11 @@ Page({
             type: 'default',
             show: false,
             state: 13, //按钮状态
+        }, {
+            title: '订单完成',
+            type: 'default',
+            show: false,
+            state: 14, //按钮状态
         }],
 
         // 步骤按钮
@@ -100,6 +106,10 @@ Page({
             title: '卸货完成',
             show: false,
             state: 5
+        }, {
+            title: '承运轨迹',
+            show: false,
+            state: 6
         }],
         //步骤条
         steps: [{
@@ -131,11 +141,57 @@ Page({
         value1: 0, //当前步骤
 
         show: false, //船东确认订单金额弹框
+        moneyShow1: false, //货主确认价格弹框1
+        linesShow: false, //余额不足弹框
+        shipmoneyShow: false, //船东确认价格弹框
+
+        // 货主确认价钱弹框按钮
+        moneyDialogBtn: [{
+            title: '取消',
+            btnstate: 1,
+            show: true,
+            type: 'default'
+        }, {
+            title: '确认最终价格',
+            btnstate: 2,
+            show: true,
+            type: 'danger'
+        }],
+
+        //余额不足弹框按钮
+        linesDialogBtn: [{
+            title: '取消',
+            btnstate: 1,
+            show: true,
+            type: 'default'
+        }, {
+            title: '充值',
+            btnstate: 2,
+            show: true,
+            type: 'danger'
+        }],
+
+        //船东确认价钱弹框按钮
+        shipMoneyDialogBtn: [{
+            title: '不同意',
+            btnstate: 1,
+            show: true,
+            type: 'default'
+        }, {
+            title: '同意价格',
+            btnstate: 2,
+            show: true,
+            type: 'danger'
+        }],
+
         processShow: false, //流程上传返回弹框
         processtitle: null, //流程上传返回弹框标题
         processtext: null, //流程上传返回弹框文本
         processnote: null, //流程上传返回弹框注释
 
+        delayedCost: null, //滞期费用
+        los: null, //亏损扣费
+        // freightPayable:null,//应付运费
 
     },
     onLoad: function (options) {
@@ -168,6 +224,8 @@ Page({
         if (userInfo.cargo) {
             User.UserOrderQuery(params).then(res => {
                 let cargoOrderInfo = res.data.data;
+                console.log(cargoOrderInfo)
+                let freightAmount = cargoOrderInfo.mtCargo.freightAmount;
                 let cargoDate = parseInt(cargoOrderInfo.mtCargo.loadingDate);
                 let shipDate = parseInt(cargoOrderInfo.mtShip.ageShip);
                 let loadingDate = new Date(cargoDate).toLocaleDateString();
@@ -192,6 +250,18 @@ Page({
                     }
                 }
 
+                let price = Math.round(parseFloat(freightAmount) * 100) / 100;
+                let xsd = price.toString().split(".");
+                if (xsd.length == 1) {
+                    price = price.toString() + ".00";
+                }
+                if (xsd.length > 1) {
+                    if (xsd[1].length < 2) {
+                        price = price.toString() + "0";
+                    }
+                }
+                cargoOrderInfo.price = price
+
                 this.setData({
                     cargoOrderInfo,
                     status: cargoOrderInfo.status,
@@ -199,13 +269,13 @@ Page({
                 })
 
                 this.tabsOnChange()
-                this.stepsOnchange()
+                this.stepsbtuOnChange()
             })
 
         } else if (userInfo.ship) {
             User.UserOrderQuery(params).then(res => {
                 let shipOrderInfo = res.data.data;
-                console.log(shipOrderInfo)
+
                 let cargoDate = parseInt(shipOrderInfo.mtCargo.loadingDate);
                 let shipDate = parseInt(shipOrderInfo.mtShip.ageShip);
                 let loadingDate = new Date(cargoDate).toLocaleDateString();
@@ -255,15 +325,18 @@ Page({
 
         }
 
+
+
     },
 
     //订单按钮按钮状态
     tabsOnChange() {
         let userInfo = this.data.userInfo;
         let orderBtu = this.data.orderBtu;
-
+        console.log(orderBtu)
         if (userInfo.ship) {
             let shipOrderInfo = this.data.shipOrderInfo;
+            console.log(shipOrderInfo.status)
             switch (shipOrderInfo.status) {
                 case 2:
                     orderBtu.forEach(data => {
@@ -304,7 +377,7 @@ Page({
                     })
 
                     break
-                case 4:
+                case 5:
                     orderBtu.forEach(data => {
                         if (data.state < 4 && data.state > 1) {
                             data.show = true
@@ -431,15 +504,12 @@ Page({
                     orderBtu.forEach(data => {
                         if (data.state < 4 && data.state > 1) {
                             data.show = true
-                        } else if (data.state < 12 && data.state > 9) {
+                        } else if (data.state === 8) {
                             data.show = true
-                            if (data.state === 11) {
-                                data.type = 'danger'
-                            } else {
-                                data.type = 'default'
-                            }
+                            data.type = 'danger'
                         } else {
                             data.show = false
+                            data.type = 'default'
                         }
                     })
 
@@ -447,6 +517,12 @@ Page({
                         orderBtu
                     })
 
+                    break
+                case 5:
+                    console.log(5)
+                    orderBtu.forEach(data => {
+                        console.log(data)
+                    })
                     break
                 case 6:
                     orderBtu.forEach(data => {
@@ -592,7 +668,11 @@ Page({
                     break;
                 case 5:
                     stepsbtu.forEach(data => {
-                        data.show = false
+                        if (data.state === 6) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
                     })
 
                     this.setData({
@@ -602,10 +682,45 @@ Page({
                     break
             }
 
+        } else if (userInfo.cargo) {
+            let cargoOrderInfo = this.data.cargoOrderInfo;
+            switch (cargoOrderInfo.transportStatus) {
+                case 0:
+                    this.setData({
+                        value1: 0
+                    })
+                    break
+                case 1:
+                    this.setData({
+                        value1: 0
+                    })
+                    break
+                case 2:
+                    this.setData({
+                        value1: 1
+                    })
+                    break
+                case 3:
+                    this.setData({
+                        value1: 2
+                    })
+                    break
+                case 4:
+                    this.setData({
+                        value1: 3
+                    })
+                    break
+                case 5:
+                    this.setData({
+                        value1: 4
+                    })
+                    break
+            }
+
         }
 
     },
-    //步骤按钮事件
+    //船东步骤按钮事件
     handleStepsBtu(e) {
         console.log(e)
         let state = e.currentTarget.dataset.state;
@@ -623,17 +738,40 @@ Page({
                 })
                 break
             case 3:
-                User.UserShipUploadProcess({Authorization,id}).then(res => {
-                    if(res.data.state === 200){
+                User.UserShipUploadProcess({
+                    Authorization,
+                    id
+                }).then(res => {
+                    if (res.data.state === 200) {
+                        this.getOrderDetails()
+                    }
+                })
+                break
+            case 4:
+                wx.navigateTo({
+                    url: '/views/OrderShipment/OrderShipment?id=' + id,
+                })
+                break
+            case 5:
+                User.UserShipUploadProcess({
+                    Authorization,
+                    id
+                }).then(res => {
+                    if (res.data.state === 200) {
                         this.getOrderDetails()
                     }
                 })
                 break
         }
     },
+    // 货主步骤按钮事件
+    handCargoStepsBtu(e) {
+        console.log(e)
+    },
 
     //货主输入订单金额
     handleOrderPrice(e) {
+        console.log(e)
         let value = e.detail.value;
         let price = Math.round(parseFloat(value) * 100) / 100;
         let xsd = price.toString().split(".");
@@ -652,10 +790,10 @@ Page({
 
     //按钮事件
     handleButton(e) {
-        console.log(e)
         let state = e.currentTarget.dataset.state;
         let senderid = this.data.senderid;
         let receiverid = this.data.receiverid;
+        let userInfo = this.data.userInfo;
 
         switch (state) {
             case 1:
@@ -693,6 +831,16 @@ Page({
                 break
             case 8:
                 console.log('确认价格')
+                if (userInfo.cargo) {
+                    this.setData({
+                        moneyShow1: true
+                    })
+                } else if (userInfo.ship) {
+                    this.setData({
+                        shipmoneyShow: true
+                    })
+                }
+
                 break
             case 9:
                 console.log('删除订单')
@@ -794,5 +942,269 @@ Page({
             }
         })
     },
+
+    //滞期费输入框
+    handledemurrage(e) {
+        let value = e.detail.value;
+        let price = Math.round(parseFloat(value) * 100) / 100;
+        let xsd = price.toString().split(".");
+        if (xsd.length == 1) {
+            price = price.toString() + ".00";
+        }
+        if (xsd.length > 1) {
+            if (xsd[1].length < 2) {
+                price = price.toString() + "0";
+            }
+        }
+        this.setData({
+            delayedCost: price
+        })
+
+        // let orderPrice = this.data.orderPrice;
+        // let orderDemurrage = this.data.orderDemurrage;
+        // let orderLoss = this.data.orderLoss;
+
+        // let cargoOrderInfo = this.data.cargoOrderInfo;
+        // let freightAmount = cargoOrderInfo.mtCargo.freightAmount;
+
+        // if (orderLoss == '') {
+        //     orderLoss = 0
+        // }
+        // if(orderDemurrage == ''){
+        //     orderDemurrage = 0
+        // }
+
+
+
+        // if (orderPrice != '') {
+        //     let totalprice = parseInt(orderPrice) - parseInt(orderDemurrage) + parseInt(value) - parseInt(orderLoss);
+        //     let c = Math.round(parseFloat(totalprice) * 100) / 100;
+        //     let d = c.toString().split(".");
+        //     if (d.length == 1) {
+        //         c = c.toString() + ".00";
+        //     }
+        //     if (d.length > 1) {
+        //         if (d[1].length < 2) {
+        //             c = c.toString() + "0";
+        //         }
+        //     }
+        //     this.setData({
+        //         orderDemurrage: price,
+        //         orderPrice: c
+        //     })
+        //     console.log(totalprice)
+        // } else {
+        //     let totalprice = parseInt(freightAmount) + parseInt(value) - parseInt(orderLoss)
+        //     let c = Math.round(parseFloat(totalprice) * 100) / 100;
+        //     let d = c.toString().split(".");
+        //     if (d.length == 1) {
+        //         c = c.toString() + ".00";
+        //     }
+        //     if (d.length > 1) {
+        //         if (d[1].length < 2) {
+        //             c = c.toString() + "0";
+        //         }
+        //     }
+
+        //     this.setData({
+        //         orderDemurrage: price,
+        //         orderPrice: c
+        //     })
+        // }
+
+
+    },
+    //亏损费输入框
+    handleloss(e) {
+        let value = e.detail.value;
+
+        let price = Math.round(parseFloat(value) * 100) / 100;
+        let xsd = price.toString().split(".");
+        if (xsd.length == 1) {
+            price = price.toString() + ".00";
+        }
+        if (xsd.length > 1) {
+            if (xsd[1].length < 2) {
+                price = price.toString() + "0";
+            }
+        }
+
+        this.setData({
+            loss: price
+        })
+
+        // let orderPrice = this.data.orderPrice;
+        // let orderDemurrage = this.data.orderDemurrage;
+        // let orderLoss = this.data.orderLoss;
+
+        // let cargoOrderInfo = this.data.cargoOrderInfo;
+        // let freightAmount = cargoOrderInfo.mtCargo.freightAmount;
+
+        // if (orderDemurrage == '') {
+        //     orderDemurrage = 0
+        // }
+        // if (orderLoss == '') {
+        //     orderLoss = 0
+        // }
+
+        // if (orderPrice != '') {
+        //     let totalprice = parseInt(orderPrice) + parseInt(orderLoss) - parseInt(value) + parseInt(orderDemurrage);
+        //     let c = Math.round(parseFloat(totalprice) * 100) / 100;
+        //     let d = c.toString().split(".");
+
+        //     if (d.length == 1) {
+        //         c = c.toString() + ".00";
+        //     }
+        //     if (d.length > 1) {
+        //         if (d[1].length < 2) {
+        //             c = c.toString() + "0";
+        //         }
+        //     }
+
+        //     this.setData({
+        //         orderLoss: price,
+        //         orderPrice: c
+        //     })
+        //     console.log(totalprice)
+        // } else {
+        //     let totalprice = parseInt(freightAmount) - parseInt(value) + parseInt(orderDemurrage);
+        //     let c = Math.round(parseFloat(totalprice) * 100) / 100;
+        //     let d = c.toString().split(".");
+        //     if (d.length == 1) {
+        //         c = c.toString() + ".00";
+        //     }
+        //     if (d.length > 1) {
+        //         if (d[1].length < 2) {
+        //             c = c.toString() + "0";
+        //         }
+        //     }
+
+        //     this.setData({
+        //         orderLoss: price,
+        //         orderPrice: c
+        //     })
+
+        // }
+
+
+    },
+
+
+    //货主确认价钱弹框按钮
+    handledialogbtn(e) {
+        console.log(e)
+        let state = e.currentTarget.dataset.state;
+        let that = this;
+        switch (state) {
+            case 1:
+                console.log('取消')
+                this.setData({
+                    moneyShow1: false
+                })
+                break;
+            case 2:
+                console.log('最终价格')
+                let compensation = this.data.delayedCost;
+                let loss = this.data.loss;
+                let freightPayable = this.data.orderPrice;
+                let id = this.data.id;
+                let Authorization = wx.getStorageSync('Authorization');
+                let params = {
+                    Authorization,
+                    id,
+                    freightPayable,
+                    loss,
+                    compensation
+                }
+                console.log(params)
+                User.UserCargoConfirmOrderMoney(params).then(res => {
+                    console.log(res)
+                    if (res.data.state === 200) {
+                        wx.showToast({
+                            title: '订单最终价格确认完成,请等待船东再次确认',
+                        })
+                        setTimeout(function(){
+                            this.setData({
+                                moneyShow1: false
+                            })
+                            wx.navigateBack({
+                              delta: 1,
+                            })
+                        })
+                        
+                    } else {
+                        wx.showToast({
+                            title: res.data.message,
+                        })
+
+                        setTimeout(function () {
+                            that.setData({
+                                moneyShow1: false,
+                                linesShow: true
+                            })
+                        }, 1000)
+                    }
+                })
+
+                break;
+        }
+
+    },
+
+    //货主充值弹框按钮
+    handlelinesbtn(e) {
+        console.log(e)
+        let state = e.currentTarget.dataset.state;
+        if (state === 1) {
+            this.setData({
+                linesShow: false
+            })
+        } else {
+            console.log('充值')
+        }
+    },
+
+    //船东二次确认价格按钮
+    shipConfirmOrderPrice(e) {
+        console.log(e)
+        let state = e.currentTarget.dataset.state;
+        let id = this.data.id;
+        let Authorization = wx.getStorageSync('Authorization');
+        let that = this;
+        if (state === 1) {
+            this.setData({
+                shipmoneyShow: false
+            })
+        } else {
+            let params = {
+                Authorization,
+                id,
+                whether: 1
+            }
+            console.log(params)
+            User.UserShipConfirmOrderMoney(params).then(res => {
+                console.log(res)
+                if (res.data.state === 200) {
+                    wx.showToast({
+                        icon: 'success',
+                        title: '订单价格确认成功',
+                    })
+                    setTimeout(function () {
+                        that.setData({
+                            shipmoneyShow: false
+                        })
+                        wx.navigateBack({
+                          delta: 1,
+                        })
+                    }, 1000)
+                }else{
+                    wx.showToast({
+                        icon: 'error',
+                        title: res.data.message,
+                    })
+                }
+            })
+        }
+    }
 
 })

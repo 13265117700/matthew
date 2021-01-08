@@ -1,38 +1,62 @@
-<!--views/OrderTracking/OrderTracking.wxml-->
-<!-- 承运轨迹 -->
-<!-- 订单跟踪 -->
-
-<vtu-navbar title="订单跟踪" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon=" arrow-left">"></vtu-navbar>
-
-<view class="box">
-
-  <view>
-    <view wx:for="{{informations}}" wx:key="index" class="box_a">
-      <view class="text-left">{{item.contents}}</view>
-      <view class="text-right" style="color:{{item.ecolor}}">{{item.title}}</view>
+<view class="page-conatiner">
+  <view class="page-navbar">
+    <vtu-navbar title="{{navbarTitle}}" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff"
+      icon="iconfont icon-shangchuan"></vtu-navbar>
+  </view>
+  <view class="page-mian">
+    <view class="info-group">
+      <view class="info-item">
+        <view class="info-subtitle">订单编号:</view>
+        <view class="info-text">202008181020BG78</view>
+      </view>
+      <view class="info-item">
+        <view class="info-subtitle">承运船名:</view>
+        <view class="info-text">粤珠海瑞丰65489船</view>
+      </view>
+      <view class="info-item">
+        <view class="info-subtitle">卸货完成:</view>
+        <view class="info-text">2020-08-20 18:40</view>
+      </view>
+    </view>
+    <view class="info-group">
+      <view class="info-step">
+        <view class="info-step-item">
+          <view class="info-item_left">
+            <view class="info-step_status">
+              <image src="/images/order/ok@3x.png"></image>
+            </view>
+            <view class="info-step_line"></view>
+          </view>
+          <view class="info-item_right">
+            <view class="info-step_subtitle">卸货完成</view>
+            <view class="info-step_describe">卸货完成 签收时间:</view>
+            <view class="info-step_time">2020-08-20 14:40</view>
+            <view class="info-step_instruction">补充内容说明：补充内容说明补充内容说明补充内容说明补充内容说明补充内容说明</view>
+            <view class="info-step_image">
+              <image src="/images/order/dww.png"></image>
+              <image src="/images/order/c000.png"></image>
+            </view>
+          </view>
+        </view>
+        <view class="info-step-item">
+          <view class="info-item_left">
+            <view class="info-step_status">
+              <image src="/images/order/ok@3x.png"></image>
+            </view>
+            <view class="info-step_line"></view>
+          </view>
+          <view class="info-item_right">
+            <view class="info-step_subtitle">卸货完成</view>
+            <view class="info-step_describe">卸货完成 签收时间:</view>
+            <view class="info-step_time">2020-08-20 14:40</view>
+            <view class="info-step_instruction">补充内容说明：补充内容说明补充内容说明补充内容说明补充内容说明补充内容说明</view>
+            <view class="info-step_image">
+              <image src="/images/order/dww.png"></image>
+              <image src="/images/order/c000.png"></image>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
-</view>
-
-<view class="box">
-  <!-- ui 组件 -->
-  <!-- <van-steps
-  steps="{{ steps }}"
-  active="{{ active }}"
-  direction="vertical"
-  active-color="#ee0a24"
-/> -->
-
-  <view>
-    <view wx:for="{{step}}" wx:key="index">
-      <view  >{{ item.text }}</view>
-      <view>{{ item.desc }}</view>
-      <view>{{ item.time }}</view>
-      <view>{{ item.supplement}}</view>
-      <image src="{{ item.url }}" class="img"></image>
-    </view>
-  </view>
-
-
-
 </view>

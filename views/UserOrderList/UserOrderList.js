@@ -223,7 +223,6 @@ Page({
         let status = parseInt(e.detail.name)
         let userInfo = this.data.userInfo;
         let orderBtu = this.data.orderBtu;
-        console.log(status)
 
         if (userInfo.ship) {
             console.log('船')
@@ -497,7 +496,6 @@ Page({
                     break
             }
 
-            console.log(orderBtu)
         }
 
     },

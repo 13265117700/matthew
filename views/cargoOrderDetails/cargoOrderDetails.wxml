@@ -37,6 +37,9 @@
                     bindtap="handleStepsBtu">
                     <text>{{ stepsbtuItem.title }}</text>
                 </view>
+                <view class="steps-btu" data-id="{{id}}" wx:if="{{userInfo.cargo}}" bindtap="handCargoStepsBtu">
+                    <text>订单轨迹</text>
+                </view>
                 <!-- <view class="steps-btu" wx:if="{{ userInfo.ship && shipOrderInfo.transportStatus != 3 }}" bindtap="">
                     <text>上传装好货照片</text>
                 </view> -->
@@ -48,11 +51,83 @@
                 </vtu-steps>
             </view>
         </view>
-        <view class="dialog">
-            <van-dialog use-slot title="{{processtitle}}" show="{{ processShow }}" theme="round-button" confirm-button-text="我知道了">
+        <view class="dialog-container">
+            <!-- 船东确认订单金额弹框 -->
+            <van-dialog use-slot title="确认订单金额吗？" show="{{ show }}" show-cancel-button show-confirm-button
+                data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
+            </van-dialog>
+
+            <!-- 运输流程上传状态返回弹框 -->
+            <van-dialog use-slot title="{{processtitle}}" show="{{ processShow }}" theme="round-button"
+                confirm-button-text="我知道了">
                 <view class="process_dialog_text">{{processtext}}</view>
                 <view class="process_dialog_note" wx:if="{{shipOrderInfo.transportStatus === 2}}">{{processnote}}</view>
             </van-dialog>
+
+            <!-- 确认价格弹框 -->
+            <van-dialog use-slot show="{{ moneyShow1 }}" show-confirm-button="{{false}}">
+                <view class="dialog-text">
+                    <view class="dialog-subtitle">修改订单价格吗？</view>
+                    <view class="dialog-msg">请输入本次订单最终签收货物吨数</view>
+                </view>
+                <view class="dialog-input">
+                    <view class="dialog-input_item">
+                        <vtu-input placeholder="请输入滞期费" value="{{delayedCost}}" type="input" text-align="left"
+                            input-type="digit" bind:confirm="handledemurrage">
+                            <view slot="after" class="amount">元</view>
+                        </vtu-input>
+                    </view>
+                    <view class="dialog-input_item">
+                        <vtu-input placeholder="请输入亏损扣费金额" value="{{loss}}" type="input" text-align="left"
+                            input-type="digit" bind:confirm="handleloss">
+                            <view slot="after" class="amount">元</view>
+                        </vtu-input>
+                    </view>
+                    <view class="dialog-input_item">
+                        <view class="subtitle">最终订单金额</view>
+                        <view class="number">￥{{cargoOrderInfo.price}}</view>
+                    </view>
+                    <view class="dialog-input_item">
+                        <vtu-input placeholder="可手动修改最终订单金额" value="{{orderPrice}}" type="input" text-align="left"
+                            input-type="digit" bind:confirm="handleOrderPrice">
+                            <view slot="after" class="amount">元</view>
+                        </vtu-input>
+                    </view>
+                </view>
+                <view class="dialog-btn">
+                    <van-button type="{{moneybtn.type}}" round size="small" wx:for="{{moneyDialogBtn}}" wx:key="index"
+                        wx:for-item="moneybtn" wx:if="{{moneybtn.show === true}}" custom-style="min-width: 96px;"
+                        data-state="{{moneybtn.btnstate}}" bind:click="handledialogbtn">{{moneybtn.title}}</van-button>
+                </view>
+            </van-dialog>
+
+            <!-- 余额不足弹框 -->
+            <van-dialog use-slot show="{{ linesShow }}" show-confirm-button="{{false}}">
+                <view class="dialog-text">
+                    <view class="dialog-subtitle">余额不足以支付本次订单金额</view>
+                    <view class="dialog-msg">请前往充值</view>
+                </view>
+                <view class="dialog-btn">
+                    <van-button type="{{linesbtn.type}}" round size="small" wx:for="{{linesDialogBtn}}" wx:key="index"
+                        wx:for-item="linesbtn" wx:if="{{linesbtn.show === true}}" custom-style="min-width: 96px;"
+                        data-state="{{linesbtn.btnstate}}" bind:click="handlelinesbtn">{{linesbtn.title}}</van-button>
+                </view>
+            </van-dialog>
+
+            <!-- 船东确认价钱弹框 -->
+            <van-dialog use-slot show="{{ shipmoneyShow }}" show-confirm-button="{{false}}">
+                <view class="dialog-text">
+                    <view class="dialog-subtitle">同意确认运费总额吗？</view>
+                    <view class="dialog-msg">本次最终运单金额</view>
+                    <view class="dialog-money">￥168400.00</view>
+                </view>
+                <view class="dialog-btn">
+                    <van-button type="{{shipMoneybtn.type}}" round size="small" wx:for="{{shipMoneyDialogBtn}}" wx:key="index"
+                        wx:for-item="shipMoneybtn" wx:if="{{shipMoneybtn.show === true}}" custom-style="min-width: 96px;"
+                        data-state="{{shipMoneybtn.btnstate}}" bind:click="shipConfirmOrderPrice">{{shipMoneybtn.title}}</van-button>
+                </view>
+            </van-dialog>
+
         </view>
 
         <!-- 货主订单信息盒 -->
@@ -260,7 +335,7 @@
                     <view class="info-title">
                         <text>订单信息</text>
                     </view>
-                    <view class="info-edit">
+                    <view class="info-edit" wx:if="{{status === 1}}">
                         <text>修改订单信息</text>
                     </view>
                 </view>
@@ -332,7 +407,7 @@
             </view>
 
             <!-- 订单价钱输入 -->
-            <view class="order-group">
+            <view class="order-group" wx:if="{{status === 1}}">
                 <view class="info-item">
                     <view class="info-subtitle">
                         <text class="info-rate">*</text>单价：
@@ -345,6 +420,40 @@
                     </view>
                 </view>
             </view>
+
+            <!-- 单价 -->
+            <view class="order-group" wx:if="{{status > 1}}">
+                <view class="info-item">
+                    <view class="info-subtitle">单价:</view>
+                    <view class="info-money cargo">
+                        <text>￥{{cargoOrderInfo.mtCargo.freightAmount}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">支付状态:</view>
+                    <view class="info-state">
+                        <text>{{cargoOrderInfo.orderPayment === 0 ? '未支付':'已支付'}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <!-- 订单生成与完成时间 -->
+            <view class="order-group" wx:if="{{status > 1}}">
+                <view class="info-item">
+                    <view class="info-subtitle">订单号：</view>
+                    <view class="info-number">
+                        <text>{{cargoOrderInfo.shippingOrderId}}</text>
+                    </view>
+                </view>
+                <view class="info-item">
+                    <view class="info-subtitle">生成订单时间:</view>
+                    <view class="info-number">
+                        <text>{{cargoOrderInfo.createTime}}</text>
+                    </view>
+                </view>
+            </view>
+
+            <view class="order-msg">请等待船东再次确认价格</view>
 
             <!-- 订单信息5 -->
             <view class="order-group">
@@ -505,7 +614,7 @@
             <view class="order-group">
                 <view class="info-item">
                     <view class="info-subtitle">单价:</view>
-                    <view class="info-money">
+                    <view class="info-money ship">
                         <text>￥{{shipOrderInfo.mtCargo.freightAmount}}</text>
                     </view>
                 </view>
@@ -651,11 +760,6 @@
                             data-userCargoId="{{ shipOrderItem.userCargoId }}" bind:click="handleButton">
                             {{btuItem.title}}</van-button>
                     </view>
-                </view>
-                <view class="dialog">
-                    <van-dialog use-slot title="确认订单金额吗？" show="{{ show }}" show-cancel-button show-confirm-button
-                        data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
-                    </van-dialog>
                 </view>
             </view>
 

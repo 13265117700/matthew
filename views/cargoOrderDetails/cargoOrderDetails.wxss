@@ -255,7 +255,8 @@ van-button {
   font-weight: Medium;
   border-radius: 15px;
 }
-.info-money{
+
+.info-money.ship {
   flex: 1;
   text-align: right;
   color: #F0222F;
@@ -264,46 +265,76 @@ van-button {
   font-size: 14px;
 }
 
-.steps{
+.info-money.cargo {
+  flex: 1;
+  text-align: right;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.info-state {
+  flex: 1;
+  text-align: right;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #1F84E3;
+  font-size: 14px;
+}
+
+.info-number {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+  font-size: 14px;
+}
+
+.steps {
   background: #fff;
   margin-top: 15px;
 }
-.steps-top{
+
+.steps-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 20px 15px;
 }
-.steps-summary{
+
+.steps-summary {
   display: flex;
   align-items: center;
 }
-.steps-summary_icon{
+
+.steps-summary_icon {
   margin-right: 14.5px;
   height: 38px;
   display: flex;
   align-items: center;
 }
-.steps-summary_icon image{
+
+.steps-summary_icon image {
   width: 33px;
   height: 33px;
 }
-.steps-summary_info{
 
-}
-.steps-summary_info_text{
+.steps-summary_info {}
+
+.steps-summary_info_text {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #191919;
   font-size: 17px;
 }
-.steps-summary_info_describe{
+
+.steps-summary_info_describe {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #999999;
   font-size: 12px;
 }
-.steps-btu{
+
+.steps-btu {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #FFFFFF;
@@ -312,14 +343,14 @@ van-button {
   padding: 8px 10px;
   border-radius: 18px;
 }
-.steps-btu text{
 
-}
-.steps-bottom{
+.steps-btu text {}
+
+.steps-bottom {
   padding: 0 15px 15px;
 }
 
-.process_dialog_text{
+.process_dialog_text {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #191919;
@@ -328,7 +359,7 @@ van-button {
   padding: 15px 0;
 }
 
-.process_dialog_note{
+.process_dialog_note {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #E11923;
@@ -336,4 +367,110 @@ van-button {
   line-height: 20px;
   max-width: 200px;
   margin: 0 auto;
+}
+
+.dialog-text {
+  text-align: center;
+  margin: 25px 0 30px;
+}
+
+.dialog-subtitle {
+  font-family: PingFang-SC-Heavy;
+  font-weight: bold;
+  color: #191919;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.dialog-msg {
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #666666;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+.dialog-money {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #1F84E3;
+  font-size: 24px;
+}
+
+.dialog-input {
+  padding: 0 15px;
+}
+
+.dialog-input_item {
+  border: 1px solid #D2D2D2;
+  margin-bottom: 19px;
+  padding: 5px 0 5px 10px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.dialog-input_item::after {
+  content: '';
+  width: 1px;
+  height: 100%;
+  background: #D2D2D2;
+  position: absolute;
+  right: 15%;
+  top: 0;
+}
+
+.dialog-input_item .amount {
+  padding-right: 5px;
+}
+
+.dialog-input_item:nth-child(3) {
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: #191919;
+}
+
+.dialog-input_item:nth-child(3)::after {
+  contain: '';
+  width: 0;
+  height: 0;
+}
+
+.dialog-input_item .subtitle {
+  font-family: PingFang-SC-Regular;
+  font-weight: Regular;
+
+}
+
+.dialog-input_item .number {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+}
+
+.dialog-input_item:nth-child(4) {
+  border: 1px solid #2385FF;
+}
+
+.dialog-input_item:nth-child(4)::after {
+  content: '';
+  background: #2385FF;
+}
+
+.dialog-input_item:nth-child(4) .amount {
+  color: #2385FF;
+}
+
+.dialog-btn {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.order-msg {
+  color: #D61718;
+  font-family: PingFang-SC-Regular;
+  font-weight: Regular;
+  font-size: 14px;
+  text-align: right;
+  padding: 20px 15px 0;
 }

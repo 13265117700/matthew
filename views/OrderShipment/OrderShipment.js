@@ -5,7 +5,7 @@ Page({
     id: null, //订单ID
     transportStatus: null, //订单状态
     navbartitle: null, //导航条标题
-    btutitle:null,//按钮标题
+    btutitle: null, //按钮标题
     processImg: [], //图片
     processContent: null, //补充内容
   },
@@ -38,17 +38,24 @@ Page({
 
   //页面状态切换
   pageStateSwitch(transportStatus) {
+    console.log(transportStatus)
     switch (transportStatus) {
       case 0:
         this.setData({
           navbartitle: '船抵达装货港',
-          btutitle:'确认船到装货港'
+          btutitle: '确认船到装货港'
         })
         break
       case 1:
         this.setData({
           navbartitle: '上传订单跟踪',
-          btutitle:'确认装好货'
+          btutitle: '确认装好货'
+        })
+        break
+      case 3:
+        this.setData({
+          navbartitle: '上传订单跟踪',
+          btutitle: '确认卸货完成'
         })
         break
     }
@@ -89,6 +96,7 @@ Page({
   //按钮事件
   addImageUpload() {
     let id = this.data.id;
+    let transportStatus = this.data.transportStatus;
     let Authorization = wx.getStorageSync('Authorization');
     let processImg = [...(this.data.processImg.map(data => data.url))];
     let processContent = this.data.processContent;
@@ -102,16 +110,23 @@ Page({
     User.UserShipUploadProcess(params).then(res => {
       console.log(res)
       if (res.data.state === 200) {
-        let pages = getCurrentPages();
-        let prevPage = pages[pages.length - 2];
-        prevPage.setData({
-          processShow: true
-        })
-        setTimeout(function () {
+        if (transportStatus != 3) {
+          let pages = getCurrentPages();
+          let prevPage = pages[pages.length - 2];
+          prevPage.setData({
+            processShow: true
+          })
+          setTimeout(function () {
+            wx.navigateBack({
+              delta: 1,
+            }, 1000)
+          })
+        }else{
           wx.navigateBack({
             delta: 1,
-          }, 1000)
-        })
+          })
+        }
+
       }
 
     })
