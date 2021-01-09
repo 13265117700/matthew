@@ -1,4 +1,7 @@
-import User from '../../models/user/user'
+import User from '../../models/user/user';
+const {
+  formatTime
+} = require('../../utils/util');
 const App = getApp();
 Page({
   data: {
@@ -42,6 +45,8 @@ Page({
     })
   },
 
+  
+
   //获取订单详情
   getOrderDetails() {
     let userInfo = this.data.userInfo;
@@ -55,16 +60,27 @@ Page({
     if (userInfo.cargo) {
       console.log('货主')
       User.UserOrderDetails(params).then(res => {
-        console.log(res)
-
         let cargoOrderInfo = res.data.data;
-        let cargoDate = cargoOrderInfo.mtCargo.loadingDate;
-        let loadingDate = new Date(cargoDate).toLocaleDateString();
-        cargoOrderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
+        let timestamp = cargoOrderInfo.mtCargo.loadingDate;
+        let loadingDate = new Date(timestamp);
+        cargoOrderInfo.loadingDate = formatTime(loadingDate).replace(/\//g, "-");
 
-        let shipDate = cargoOrderInfo.mtShip.ageShip;
-        let ageShip = new Date(shipDate).toLocaleDateString();
-        cargoOrderInfo.mtShip.ageShip = ageShip.replace(/\//g, "-");
+        let ageShip = new Date(parseInt(cargoOrderInfo.mtShip.ageShip)).toLocaleDateString().match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+        if (ageShip == null) return false;
+        let array = new Date(ageShip[1], ageShip[3] - 1, ageShip[4]);
+        if (array.getFullYear() == ageShip[1] && (array.getMonth() + 1) == ageShip[3] && array.getDate() == ageShip[4]) {
+          let years = new Date().getFullYear();
+          let age = years - ageShip[1];
+          console.log(age)
+          if (age <= 0) {
+            let month = new Date().getMonth();
+            let ageMonth = month - ageShip[3]
+            cargoOrderInfo.ageShip = ageMonth + '月'
+          } else {
+            cargoOrderInfo.ageShip = age + '年'
+          }
+        }
+
 
         console.log(cargoOrderInfo)
         this.setData({
@@ -74,46 +90,32 @@ Page({
     } else if (userInfo.ship) {
       User.UserOrderDetails(params).then(res => {
         let shipOrderInfo = res.data.data;
+        let timestamp = shipOrderInfo.mtCargo.loadingDate;
+        let loadingDate = new Date(timestamp);
+        shipOrderInfo.loadingDate = formatTime(loadingDate).replace(/\//g, "-");
+
+        let ageShip = new Date(parseInt(shipOrderInfo.mtShip.ageShip)).toLocaleDateString().match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
+        if (ageShip == null) return false;
+        let array = new Date(ageShip[1], ageShip[3] - 1, ageShip[4]);
+        if (array.getFullYear() == ageShip[1] && (array.getMonth() + 1) == ageShip[3] && array.getDate() == ageShip[4]) {
+          let years = new Date().getFullYear();
+          let age = years - ageShip[1];
+          console.log(age)
+          if (age <= 0) {
+            let month = new Date().getMonth();
+            let ageMonth = month - ageShip[3]
+            shipOrderInfo.ageShip = ageMonth + '月'
+          } else {
+            shipOrderInfo.ageShip = age + '年'
+          }
+        }
+
         console.log(shipOrderInfo)
         this.setData({
           shipOrderInfo
         })
       })
     }
-    // let id = this.data.id;
-    // let Authorization = wx.getStorageSync('Authorization');
-    // let params = {
-    //   Authorization,
-    //   id
-    // }
-    // User.UserOrderDetails(params).then(res => {
-    //   console.log(res)
-    //   let orderInfo = res.data.data;
-    //   let emptyDate = orderInfo.mtCargo.loadingDate;
-    //   let loadingDate = new Date(emptyDate).toLocaleDateString();
-    //   orderInfo.mtCargo.loadingDate = loadingDate.replace(/\//g, "-");
-    //   let mtCargo = orderInfo.mtCargo.mtUser.mtCargoOwner; //货主身份
-
-    //   let mtUser = orderInfo.mtShip.mtUser;
-    //   console.log(mtUser)
-    //   if (mtUser.mtCargoOwner.idNumber != null && mtUser.mtCargoOwner.idNumber != ' ') {
-    //     orderInfo.contacts = mtUser.mtCargoOwner.contacts
-    //     orderInfo.phone = mtUser.mtCargoOwner.phone
-    //   } else if (mtUser.mtOwner.idNumber != null && mtUser.mtOwner.idNumber != ' ') {
-    //     orderInfo.contacts = mtUser.mtOwner.contacts
-    //     orderInfo.phone = mtUser.mtOwner.phone
-    //   } else {
-    //     orderInfo.contacts = mtUser.mtShipowner.contacts
-    //     orderInfo.phone = mtUser.mtShipowner.phone
-    //   }
-
-    //   this.setData({
-    //     orderInfo,
-    //     mtCargo
-    //   })
-    // })
-
-
   },
   //船东按钮状态
   handleButton(e) {
@@ -175,21 +177,4 @@ Page({
       url: '/views/chat/chat?senderid=' + senderid + '&receiverid=' + receiverid,
     })
   },
-
-  // //货主获取订单详情
-  // getCargoOrderDetails(){
-  //   let Authorization = wx.getStorageSync('Authorization');
-  //   let id = this.data.id;
-  //   user.UserOrderQuery({Authorization,id}).then(res => {
-  //     console.log(res)
-  //   })
-  // },
-  // //货主发起聊天
-  // handleCargoChatButton(e){
-  //   console.log(e)
-  // },
-  // // 货主发起合同
-  // handleCargoHairContract(e){
-
-  // }
 })

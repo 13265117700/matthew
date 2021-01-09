@@ -49,7 +49,8 @@
             wx:if="{{ btuItem.show }}">
             <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
               data-status="{{ shipOrderItem.status }}" data-userShipId="{{ shipOrderItem.userShipId }}"
-              data-userCargoId="{{ shipOrderItem.userCargoId }}" bind:click="handleButton">
+              data-id="{{ shipOrderItem.id }}" data-userCargoId="{{ shipOrderItem.userCargoId }}"
+              bind:click="handleButton">
               {{btuItem.title}}</van-button>
           </view>
         </view>
@@ -58,8 +59,7 @@
 
       <!-- 货主 -->
       <view class="order-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
-        <!-- data-id="{{ cargoOrderItem.id }}" bindtap="cargoOrderDetails" -->
-        <view class="order-top">
+        <view class="order-top" data-id="{{ cargoOrderItem.id }}" bindtap="cargoOrderDetails">
           <view class="order-top-item">
             <view class="order-number">发起时间：{{cargoOrderItem.shippingOrderId}}</view>
           </view>
@@ -103,4 +103,5 @@
       </view>
     </view>
   </view>
+  <view class="page-footer"></view>
 </view>

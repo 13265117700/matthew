@@ -5,6 +5,7 @@
             list="{{imageList}}" 
             height="{{(windowWidth-40)/2}}px" 
             dot-type="round" 
+            height="200px"
             indicator-active-color="#3fe816" 
             swiper-class="swiperClass" 
             indicator-dots="{{true}}" 

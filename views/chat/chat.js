@@ -13,6 +13,7 @@ Page({
         talkContent: [], //聊天内容
         userInfo: null,
         state: false,
+        resourcesID:null,//资源ID
         // id:null,//货源ID
     },
 
@@ -21,7 +22,7 @@ Page({
         this.setData({
             receiverid: options.receiverid,
             senderid: options.senderid,
-            id: options.id
+            // id: options.id
         })
 
         this.WebSocketInit()
@@ -29,11 +30,16 @@ Page({
         this.getSendMsg(options.id)
     },
 
+
     //发送货源信息
-    getSendMsg(id) {
-        console.log(App.globalData.userInfo)
+    getSendMsg() {
+        let id = this.data.resourcesID;
         let userInfo = App.globalData.userInfo;
         let talkContent = this.data.talkContent;
+        let receiverId = this.data.receiverid;
+        let senderId = this.data.senderid;
+        let Authorization = wx.getStorageSync('Authorization');
+        let action = 2;
         if (id) {
             if (userInfo.cargo) {
                 User.UserMtCargoQueryInfo({
@@ -46,7 +52,16 @@ Page({
                             isMine: true,
                             cargoItem
                         })
-                        console.log(talkContent)
+                        let params = {
+                            Authorization,
+                            receiverId,
+                            senderId,
+                            msg:talkContent,
+                            action
+                        }
+                        WebSocket.sendSocketMessage(params).then(data => {
+                            console.log(data)
+                        })
                         this.setData({
                             talkContent
                         })
@@ -57,7 +72,6 @@ Page({
                     id
                 }).then(res => {
                     let shipItem = res.data.data;
-                    console.log(shipItem)
                     let emptyDate = new Date(shipItem.emptyDate).toLocaleDateString();
                     shipItem.emptyDate = emptyDate.replace(/\//g, "-");
                     talkContent.push({
@@ -65,27 +79,20 @@ Page({
                         isMine: true,
                         shipItem
                     })
+                    let params = {
+                        Authorization,
+                        receiverId,
+                        senderId,
+                        msg:talkContent,
+                        action
+                    }
+                    WebSocket.sendSocketMessage(params)
                     this.setData({
                         talkContent
                     })
-                    console.log(talkContent)
                 })
             }
         }
-
-        // let Authorization = wx.getStorageSync('Authorization');
-        // let params = {Authorization,uId:''};
-
-        // if(id){
-        //     User.userInfo(params).then(res => {
-        //         let user = res.data.data;
-
-
-
-        //     })
-
-
-        // }
     },
 
     //指定船东后弹出提示框
@@ -109,6 +116,7 @@ Page({
             msg,
             action
         }
+        console.log(params)
         WebSocket.connectSocket(params)
         WebSocket.onSocketMessageCallback = this.onSocketMessageCallback;
     },
@@ -121,7 +129,6 @@ Page({
     //websocket通信接收信息
     onSocketMessageCallback: function (data) {
         let dataContent = JSON.parse(data.data);
-        console.log(dataContent)
         let msg = dataContent.chatMsg.msg;
         let senderId = dataContent.chatMsg.senderId
         let Authorization = wx.getStorageSync('Authorization');
@@ -141,7 +148,7 @@ Page({
             this.setData({
                 talkContent
             })
-            console.log(talkContent)
+
         })
 
     },
@@ -208,7 +215,7 @@ Page({
             msg,
             action
         }
-        // console.log(params)
+        console.log(params)
         WebSocket.sendSocketMessage(params).then(data => {
             console.log(data)
             User.userInfo({
@@ -234,11 +241,9 @@ Page({
 
     },
     gotoCrewList(e) {
-        // let idenID = this.data.userInfo.idenID;
         let userInfo = this.data.userInfo;
         let senderid = this.data.senderid;
         let receiverid = this.data.receiverid;
-        // console.log(idenID)
         if (userInfo.cargo === true) {
             wx.navigateTo({
                 url: '/views/cargoPeriod/cargoPeriod?senderid=' + senderid + '&receiverid=' + receiverid,
@@ -248,6 +253,6 @@ Page({
                 url: '/views/ShipPeriod/ShipPeriod?senderid=' + senderid + '&receiverid=' + receiverid,
             })
         }
-
+        // WebSocket.closeSocket()
     }
 })

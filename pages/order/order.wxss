@@ -98,3 +98,8 @@
 .order-btu:last-child {
     margin: 0;
 }
+
+
+.page-footer{
+    height: 50px;
+}

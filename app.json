@@ -1,6 +1,6 @@
 {
     "pages": [
-        "views/OrderTracking/OrderTracking",
+      
         "pages/index/index",
         "views/chat/chat",
         "views/MyFriend/MyFriend",
@@ -30,7 +30,7 @@
         "views/OrderInformation/OrderInformation",
         "views/OrderShipment/OrderShipment",
         "views/OrderTrack/OrderTrack",
-        
+        "views/OrderTracking/OrderTracking",
         "views/ShipPeriod/ShipPeriod",
         "views/cargoPeriod/cargoPeriod",
         "views/orderConfirm/orderConfirm",

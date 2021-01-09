@@ -165,7 +165,7 @@ Page({
                 this.getUserOrderList({
                     identity: 2,
                     Authorization,
-                    status: 1
+                    status: 2
                 })
             }
 
@@ -180,6 +180,7 @@ Page({
 
     //获取订单
     getUserOrderList(data) {
+        console.log(data)
         if (data.identity === 2) {
             let params = {
                 Authorization: data.Authorization,
@@ -190,7 +191,7 @@ Page({
             }
             User.UserOrderListQuery(params).then(res => {
                 let shipOrderList = res.data.data.rows;
-
+                console.log(shipOrderList)
                 shipOrderList.forEach(data => {
                     let loadingDate = new Date(data.mtCargo.loadingDate).toLocaleDateString();
                     data.mtCargo.loadingDate = loadingDate.replace(/\//g, "-")
@@ -232,7 +233,6 @@ Page({
         let userInfo = this.data.userInfo;
         let orderBtu = this.data.orderBtu;
 
-
         if (userInfo.ship) {
             console.log('船')
             let params = {
@@ -254,10 +254,10 @@ Page({
                             data.show = false
                         }
                     })
-                    console.log(orderBtu)
+
                     this.getUserOrderList({
                         Authorization,
-                        status: 1,
+                        status: 2,
                         identity: 2
                     });
 
@@ -505,21 +505,19 @@ Page({
                     break
             }
 
-            console.log(orderBtu)
         }
 
     },
 
     //订单按钮事件
     handleButton(e) {
-        console.log(e)
         let id = e.currentTarget.dataset.id;
         let state = e.currentTarget.dataset.state;
         let userInfo = this.data.userInfo;
         if (userInfo.ship) {
             let senderId = e.currentTarget.dataset.usershipid;
             let receiverId = e.currentTarget.dataset.usercargoid;
-            let shipStatus = e.currentTarget.dataset.status;
+            // let shipStatus = e.currentTarget.dataset.status;
             switch (state) {
                 case 3:
                     wx.navigateTo({
@@ -527,15 +525,9 @@ Page({
                     })
                     break
                 case 4:
-                    console.log(4)
-                    console.log(userInfo)
-                    if (shipStatus === 1) {
-                        wx.showToast({
-                            title: '货主还没发起合同,请耐心等待货主发起合同',
-                        })
-                    } else if (shipStatus === 2) {
-
-                    }
+                    wx.navigateTo({
+                        url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
+                    })
                     break
             }
         } else if (userInfo.cargo) {
@@ -572,5 +564,6 @@ Page({
             url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
         })
     }
+
 
 })

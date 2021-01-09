@@ -25,12 +25,12 @@ const webSocket = {
     },
     // 创建一个 WebSocket 连接
     connectSocket:function(options){
-
+        console.log(options)
         this.data.action = options.action;
         this.data.msg = options.msg;
         this.data.senderId = options.senderId;
         this.data.receiverId = options.receiverId;
-
+       
 
         socketOpen = false;
         socketClose = false;

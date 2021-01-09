@@ -48,7 +48,9 @@
   height: 17px;
 }
 .info-step_line{
-
+  width: 1px;
+  height: 100%;
+  background: #DCDCDC;
 }
 .info-item_right{
   padding-bottom: 15px;
@@ -82,10 +84,15 @@
   margin-bottom: 10px;
 }
 .info-step_image{
-
+  display: flex;
+  align-items: center;
 }
 .info-step_image image{
   max-width: 134px;
   max-height: 137px;
+  /* margin-right: 10px; */
+}
+.info-step_image_item{
   margin-right: 10px;
+  /* padding: 10px; */
 }

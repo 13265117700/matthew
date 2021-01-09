@@ -1,4 +1,5 @@
-import User from '../../models/user/user'
+import User from '../../models/user/user';
+import { formatTime } from '../../utils/util';
 const App = getApp();
 Page({
     data: {
@@ -196,12 +197,15 @@ Page({
     },
     onLoad: function (options) {
         let userInfo = App.globalData.userInfo;
+        let aa = 'asdasdasdds'
+        console.log(aa)
         this.setData({
             id: options.id,
             userInfo
         })
     },
     onShow: function () {
+        console.log(123123123123)
         this.getOrderDetails()
     },
     pageclose() {
@@ -209,6 +213,7 @@ Page({
             data: 1
         })
     },
+    
 
 
     //获取订单详情
@@ -223,6 +228,7 @@ Page({
 
         if (userInfo.cargo) {
             User.UserOrderQuery(params).then(res => {
+                console.log(res)
                 let cargoOrderInfo = res.data.data;
                 console.log(cargoOrderInfo)
                 let freightAmount = cargoOrderInfo.mtCargo.freightAmount;
@@ -230,9 +236,10 @@ Page({
                 let shipDate = parseInt(cargoOrderInfo.mtShip.ageShip);
                 let loadingDate = new Date(cargoDate).toLocaleDateString();
                 cargoOrderInfo.cargoDate = loadingDate.replace(/\//g, "-");
+                console.log(formatTime)
 
+                // 计算船的年龄
                 let ageShip = new Date(shipDate).toLocaleDateString();
-
                 let arr = ageShip.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
                 if (arr == null) return false;
                 let array = new Date(arr[1], arr[3] - 1, arr[4]);
