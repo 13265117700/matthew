@@ -1,0 +1,17 @@
+<view class="page-banner">
+    <view class="banner-span">
+        <view class="banner-span_icon" bindtap="pageclose"></view>
+        <view class="banner-span_status">
+            <text>{{info.status}}</text>
+        </view>
+    </view>
+    <view class="banner-content">
+        <view class="banner-left">
+            <view class="banner-title">{{info.title}}</view>
+            <view class="banner-describe">{{info.describe}}</view>
+        </view>
+        <view class="banner-right">
+            <image src="/images/order/chuan.png"></image>
+        </view>
+    </view>
+</view>

@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "banner":"/components/order/banner/banner",
+    "steps":"/components/order/steps/steps",
+    "details":"/components/order/details/details"
+  }
 }

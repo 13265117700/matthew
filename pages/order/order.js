@@ -1,6 +1,5 @@
 import User from "../../models/user/user";
 
-const App = getApp();
 Page({
     data: {
         userInfo: [],
@@ -94,11 +93,11 @@ Page({
         cargoOrderList: [],
     },
 
+
     onShow: function () {
         this.showtabBar()
         this.getUserInfo()
     },
-
     showtabBar: function () {
         if (typeof this.getTabBar === "function" && this.getTabBar()) {
             this.getTabBar().setData({
@@ -554,14 +553,15 @@ Page({
     cargoOrderDetails(e) {
         let id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
+            url: '/views/OrderTrack/OrderTrack?id=' + id,
         })
     },
     //船东订单详情
     shipOrderDetails(e) {
+        console.log(e)
         let id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
+            url: '/views/OrderTrack/OrderTrack?id=' + id,
         })
     }
 

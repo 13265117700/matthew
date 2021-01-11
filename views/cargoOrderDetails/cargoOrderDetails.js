@@ -1,5 +1,7 @@
 import User from '../../models/user/user';
-import { formatTime } from '../../utils/util';
+import {
+    formatTime
+} from '../../utils/util';
 const App = getApp();
 Page({
     data: {
@@ -213,7 +215,7 @@ Page({
             data: 1
         })
     },
-    
+
 
 
     //获取订单详情
@@ -229,32 +231,27 @@ Page({
         if (userInfo.cargo) {
             User.UserOrderQuery(params).then(res => {
                 console.log(res)
-                let cargoOrderInfo = res.data.data;
-                console.log(cargoOrderInfo)
-                let freightAmount = cargoOrderInfo.mtCargo.freightAmount;
-                let cargoDate = parseInt(cargoOrderInfo.mtCargo.loadingDate);
-                let shipDate = parseInt(cargoOrderInfo.mtShip.ageShip);
-                let loadingDate = new Date(cargoDate).toLocaleDateString();
-                cargoOrderInfo.cargoDate = loadingDate.replace(/\//g, "-");
-                console.log(formatTime)
+                let rows = res.data.data;
+                let loadingDate = formatTime(new Date(parseInt(rows.mtCargo.loadingDate))).replace(/\//g, "-");
+                rows.loadingDate = loadingDate
 
-                // 计算船的年龄
-                let ageShip = new Date(shipDate).toLocaleDateString();
-                let arr = ageShip.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
-                if (arr == null) return false;
-                let array = new Date(arr[1], arr[3] - 1, arr[4]);
+                let nowYears = new Date().getFullYear(); //当前年
+                let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
+                let nowMonth = new Date().getMonth(); //当前月
+                let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
+                let nowDay = new Date().getDate(); //当前日
+                let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
 
-                if (array.getFullYear() == arr[1] && (array.getMonth() + 1) == arr[3] && array.getDate() == arr[4]) {
-                    let years = new Date().getFullYear();
-                    let age = years - arr[1];
-                    if (age <= 0) {
-                        let month = new Date().getMonth();
-
-                        let ageMonth = month - arr[3]
-                        cargoOrderInfo.shipDate = ageMonth + '月'
+                let age = nowYears - years;
+                let ageMonth = nowMonth - month;
+                if (age <= 0) {
+                    if (ageMonth <= 0) {
+                        rows.ageShip = nowDay - day + '天'
                     } else {
-                        cargoOrderInfo.shipDate = age + '年'
+                        rows.ageShip = ageMonth + '月'
                     }
+                } else {
+                    rows.ageShip = age + '年'
                 }
 
                 let price = Math.round(parseFloat(freightAmount) * 100) / 100;
@@ -267,12 +264,12 @@ Page({
                         price = price.toString() + "0";
                     }
                 }
-                cargoOrderInfo.price = price
+                rows.price = price
 
                 this.setData({
-                    cargoOrderInfo,
-                    status: cargoOrderInfo.status,
-                    transportStatus: cargoOrderInfo.transportStatus
+                    cargoOrderInfo:rows,
+                    status: rows.status,
+                    transportStatus: rows.transportStatus
                 })
 
                 this.tabsOnChange()
@@ -281,36 +278,36 @@ Page({
 
         } else if (userInfo.ship) {
             User.UserOrderQuery(params).then(res => {
-                let shipOrderInfo = res.data.data;
+                let rows = res.data.data;
 
-                let cargoDate = parseInt(shipOrderInfo.mtCargo.loadingDate);
-                let shipDate = parseInt(shipOrderInfo.mtShip.ageShip);
-                let loadingDate = new Date(cargoDate).toLocaleDateString();
-                shipOrderInfo.cargoDate = loadingDate.replace(/\//g, "-");
-                let ageShip = new Date(shipDate).toLocaleDateString();
+                let loadingDate = formatTime(new Date(parseInt(rows.mtCargo.loadingDate))).replace(/\//g, "-");
+                rows.loadingDate = loadingDate
 
-                let arr = ageShip.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
-                if (arr == null) return false;
-                let array = new Date(arr[1], arr[3] - 1, arr[4]);
+                let nowYears = new Date().getFullYear(); //当前年
+                let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
+                let nowMonth = new Date().getMonth(); //当前月
+                let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
+                let nowDay = new Date().getDate(); //当前日
+                let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
 
-                if (array.getFullYear() == arr[1] && (array.getMonth() + 1) == arr[3] && array.getDate() == arr[4]) {
-                    let years = new Date().getFullYear();
-                    let age = years - arr[1];
-                    if (age <= 0) {
-                        let month = new Date().getMonth();
-
-                        let ageMonth = month - arr[3]
-                        shipOrderInfo.shipDate = ageMonth + '月'
+                let age = nowYears - years;
+                let ageMonth = nowMonth - month;
+                if (age <= 0) {
+                    if (ageMonth <= 0) {
+                        rows.ageShip = nowDay - day + '天'
                     } else {
-                        shipOrderInfo.shipDate = age + '年'
+                        rows.ageShip = ageMonth + '月'
                     }
+                } else {
+                    rows.ageShip = age + '年'
                 }
-                if (shipOrderInfo.transportStatus === 1) {
+                
+                if (rows.transportStatus === 1) {
                     this.setData({
                         processtitle: '上传以下装好货照片',
                         processtext: '1. 《水路货物运单》  2. 《盖好帆布照片》'
                     })
-                } else if (shipOrderInfo.transportStatus === 2) {
+                } else if (rows.transportStatus === 2) {
                     this.setData({
                         processtitle: '上传卸货完成以下照片',
                         processtext: '1. 上传签字运单      2. 空船照片',
@@ -318,10 +315,11 @@ Page({
                     })
                 }
 
+                console.loadingDate(rows)
                 this.setData({
-                    shipOrderInfo,
-                    status: shipOrderInfo.status,
-                    transportStatus: shipOrderInfo.transportStatus
+                    shipOrderInfo:rows,
+                    status: rows.status,
+                    transportStatus: rows.transportStatus
                 })
 
                 this.tabsOnChange()
@@ -1130,15 +1128,15 @@ Page({
                         wx.showToast({
                             title: '订单最终价格确认完成,请等待船东再次确认',
                         })
-                        setTimeout(function(){
+                        setTimeout(function () {
                             this.setData({
                                 moneyShow1: false
                             })
                             wx.navigateBack({
-                              delta: 1,
+                                delta: 1,
                             })
                         })
-                        
+
                     } else {
                         wx.showToast({
                             title: res.data.message,
@@ -1201,10 +1199,10 @@ Page({
                             shipmoneyShow: false
                         })
                         wx.navigateBack({
-                          delta: 1,
+                            delta: 1,
                         })
                     }, 1000)
-                }else{
+                } else {
                     wx.showToast({
                         icon: 'error',
                         title: res.data.message,

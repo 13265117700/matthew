@@ -1,0 +1,27 @@
+<view class="page-steps">
+    <view class="steps-top">
+        <view class="steps-summary">
+            <view class="steps-summary_icon">
+                <image src="/images/order/dww.png"></image>
+            </view>
+            <view class="steps-summary_info" wx:for="{{stepsummary}}" wx:key="index" wx:for-item="stepsummaryindex"
+                wx:if="{{stepsummaryindex.show}}">
+                <view class="steps-summary_info_text">{{stepsummaryindex.title}}</view>
+                <view class="steps-summary_info_describe">{{stepsummaryindex.describe}}</view>
+            </view>
+        </view>
+        <view class="steps-btu" wx:for="{{stepsbtn}}" wx:key="index" wx:for-item="btnItem" wx:if="{{btnItem.show && userInfo.ship}}"
+            data-state="{{btnItem.state}}" bindtap="handleStepsBtn">
+            <text>{{btnItem.title}}</text>
+        </view>
+        <view class="steps-btu" wx:if="{{userInfo.cargo}}" bindtap="handCargoStepsBtu">
+            <text>订单轨迹</text>
+        </view>
+    </view>
+    <view class="steps-bottom">
+        <vtu-steps value="{{index}}" shape="spot" align-center>
+            <vtu-step wx:for="{{ steps }}" wx:key="index" wx:for-item="stepsItem" title="{{stepsItem.title}}"
+                status="{{stepsItem.status}}" active-color="{{stepsItem.color}}"></vtu-step>
+        </vtu-steps>
+    </view>
+</view>

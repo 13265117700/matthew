@@ -45,7 +45,7 @@ Page({
     })
   },
 
-  
+
 
   //获取订单详情
   getOrderDetails() {
@@ -60,59 +60,59 @@ Page({
     if (userInfo.cargo) {
       console.log('货主')
       User.UserOrderDetails(params).then(res => {
-        let cargoOrderInfo = res.data.data;
-        let timestamp = cargoOrderInfo.mtCargo.loadingDate;
-        let loadingDate = new Date(timestamp);
-        cargoOrderInfo.loadingDate = formatTime(loadingDate).replace(/\//g, "-");
+        let rows = res.data.data;
+        let loadingDate = formatTime(new Date(parseInt(rows.mtCargo.loadingDate))).replace(/\//g, "-");
+        rows.loadingDate = loadingDate
 
-        let ageShip = new Date(parseInt(cargoOrderInfo.mtShip.ageShip)).toLocaleDateString().match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
-        if (ageShip == null) return false;
-        let array = new Date(ageShip[1], ageShip[3] - 1, ageShip[4]);
-        if (array.getFullYear() == ageShip[1] && (array.getMonth() + 1) == ageShip[3] && array.getDate() == ageShip[4]) {
-          let years = new Date().getFullYear();
-          let age = years - ageShip[1];
-          console.log(age)
-          if (age <= 0) {
-            let month = new Date().getMonth();
-            let ageMonth = month - ageShip[3]
-            cargoOrderInfo.ageShip = ageMonth + '月'
+        let nowYears = new Date().getFullYear(); //当前年
+        let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
+        let nowMonth = new Date().getMonth(); //当前月
+        let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
+        let nowDay = new Date().getDate(); //当前日
+        let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
+
+        let age = nowYears - years;
+        let ageMonth = nowMonth - month;
+        if (age <= 0) {
+          if (ageMonth <= 0) {
+            rows.ageShip = nowDay - day + '天'
           } else {
-            cargoOrderInfo.ageShip = age + '年'
+            rows.ageShip = ageMonth + '月'
           }
+        } else {
+          rows.ageShip = age + '年'
         }
-
-
-        console.log(cargoOrderInfo)
         this.setData({
-          cargoOrderInfo
+          cargoOrderInfo: rows
         })
       })
     } else if (userInfo.ship) {
       User.UserOrderDetails(params).then(res => {
-        let shipOrderInfo = res.data.data;
-        let timestamp = shipOrderInfo.mtCargo.loadingDate;
-        let loadingDate = new Date(timestamp);
-        shipOrderInfo.loadingDate = formatTime(loadingDate).replace(/\//g, "-");
+        let rows = res.data.data;
+        let loadingDate = formatTime(new Date(parseInt(rows.mtCargo.loadingDate))).replace(/\//g, "-");
+        rows.loadingDate = loadingDate
 
-        let ageShip = new Date(parseInt(shipOrderInfo.mtShip.ageShip)).toLocaleDateString().match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/);
-        if (ageShip == null) return false;
-        let array = new Date(ageShip[1], ageShip[3] - 1, ageShip[4]);
-        if (array.getFullYear() == ageShip[1] && (array.getMonth() + 1) == ageShip[3] && array.getDate() == ageShip[4]) {
-          let years = new Date().getFullYear();
-          let age = years - ageShip[1];
-          console.log(age)
-          if (age <= 0) {
-            let month = new Date().getMonth();
-            let ageMonth = month - ageShip[3]
-            shipOrderInfo.ageShip = ageMonth + '月'
+        let nowYears = new Date().getFullYear(); //当前年
+        let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
+        let nowMonth = new Date().getMonth(); //当前月
+        let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
+        let nowDay = new Date().getDate(); //当前日
+        let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
+
+        let age = nowYears - years;
+        let ageMonth = nowMonth - month;
+        if (age <= 0) {
+          if (ageMonth <= 0) {
+            rows.ageShip = nowDay - day + '天'
           } else {
-            shipOrderInfo.ageShip = age + '年'
+            rows.ageShip = ageMonth + '月'
           }
+        } else {
+          rows.ageShip = age + '年'
         }
 
-        console.log(shipOrderInfo)
         this.setData({
-          shipOrderInfo
+          shipOrderInfo:rows
         })
       })
     }
