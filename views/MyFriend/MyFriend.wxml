@@ -1,12 +1,4 @@
 <view class="page-container">
-    <view class="page-navbar">
-        <vtu-navbar 
-            title="消息中心" 
-            homeStyle="cachet" 
-            bgColor="#F0222FFF" 
-            fontColor="#ffffff" 
-            icon="iconfont icon-shangchuan"></vtu-navbar>
-    </view>
     <view class="page-mian">
         <view class="user-container">
             <view class="user-chat" wx:if="{{ activeIndex === 0 }}">
@@ -69,7 +61,7 @@
         </view>
         <van-popup 
             show="{{ show }}"
-            custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;"
+            custom-style="height: 100%;width: 100%;border-radius: 0;"
             round
             position="right">
             <view class="user-search friend-search">
@@ -89,12 +81,13 @@
                     <view class="friend-btu">
                         <vtu-btn 
                             size="medium" 
-                            type="{{ state === false ? 'danger':''}}" 
-                            font-color="{{ state === false ? '#ffffff':'#B3B3B3' }}"
+                            type="{{ friendSearch.addstate === false ? 'danger':''}}" 
+                            font-color="{{ friendSearch.addstate === false ? '#ffffff':'#B3B3B3' }}"
                             round="true" 
-                            disabled="{{ state }}"
+                            disabled="{{ friendSearch.addstate }}"
                             data-id="{{ friendSearch.uid }}"
-                            bind:click="handleAddFriend">{{ state === false ?  '添加好友':'已申请'}}</vtu-btn>
+                            data-index="{{index}}"
+                            bind:click="handleAddFriend">{{ friendSearch.addstate === false ?  '添加好友':'已申请'}}</vtu-btn>
                     </view>
                 </view>
                 <view class="divider" wx:if="{{ searchOf.total === 0 }}">
@@ -123,7 +116,7 @@
         </van-popup>
         <van-popup 
             show="{{ VerifyShow }}"
-            custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;"
+            custom-style="height: 100%;width: 100%;border-radius: 0;"
             round
             position="right">
             <view class="friend-list">

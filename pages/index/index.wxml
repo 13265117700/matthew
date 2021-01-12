@@ -3,22 +3,14 @@
     <view class="banner-section">
         <vtu-swiper 
             list="{{imageList}}" 
-            height="{{(windowWidth-40)/2}}px" 
+            height="{{200}}px"
             dot-type="round" 
-            height="200px"
-            indicator-active-color="#3fe816" 
+            indicator-active-color="#F0222F" 
             swiper-class="swiperClass" 
             indicator-dots="{{true}}" 
+            circular="true"
             current="{{current}}" 
             bind:change="bindChange"></vtu-swiper>
-        <!-- <vtu-swiper 
-            type="card" 
-            height="{{(windowWidth-40)/2}}px" 
-            list="{{imageList}}" 
-            swiper-class="swiperClass" 
-            indicator-dots="{{true}}" 
-            current="{{current}}" 
-            bind:change="bindChange"></vtu-swiper> -->
     </view>
     <view class="card-section">
         <view class="card-list">
@@ -85,6 +77,6 @@
         </view>
     </view>
     <view class="guild-section">
-        <image src="/images/index/kef@3x.png"></image>
+        <image src="/images/index/kef@3x.png" bindtap="designedToChat"></image>
     </view>
 </view>

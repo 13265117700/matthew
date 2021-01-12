@@ -10,7 +10,7 @@ Page({
         userInfo:{},
     },
     onLoad: function (options) {
-        // console.log(options.idenID)
+
     },
     onShow:function(){
         this.getUserInfo();
@@ -91,52 +91,14 @@ Page({
                 this.fail(describe)
             }
         }
-        // switch(trialList.id){
-        //     case 153:
-        //         if(trialList.status === 0){
-        //             let describe = '您的船东认证正在审核中';
-        //             this.process(describe)
-        //         }else if(trialList.status === 1){
-        //             let navbarTitle = '船东认证成功';
-        //             let describe = '您的船东认证信息审核通过';
-        //             this.adopt(navbarTitle,describe)
-        //         }else{
-        //             let describe = '您的船东认证信息审核不通过';
-        //             this.fail(describe)
-        //         }
-        //         break
-        //     case 152:
-        //         if(trialList.status === 0){
-        //             let describe = '您的车主认证正在审核中';
-        //             this.process(describe)
-        //         }else if(trialList.status === 1){
-        //             let navbarTitle = '车主认证成功';
-        //             let describe = '您的车主认证信息审核通过';
-        //             this.adopt(navbarTitle,describe)
-        //         }else{
-        //             let describe = '您的车主认证信息审核不通过';
-        //             this.fail(describe)
-        //         }
-        //         break
-        //     case 151:
-        //         if(trialList.status === 0){
-        //             let describe = '您的货主认证正在审核中';
-        //             this.process(describe)
-        //         }else if(trialList.status === 1){
-        //             let navbarTitle = '货主认证成功';
-        //             let describe = '您的货主认证信息审核通过';
-        //             this.adopt(navbarTitle,describe)
-        //         }else{
-        //             let describe = '您的货主认证信息审核不通过';
-        //             this.fail(describe)
-        //         }
-        //         break
-        // }
+
     },
     // 审核中
     process(describe){
+        wx.setNavigationBarTitle({
+            title: '资料审核中',
+        })
         this.setData({
-            navbarTitle:'资料审核中',
             imageUrl:'/images/my/process.png',
             describe,
             statusText:'请耐心等待...'
@@ -144,8 +106,10 @@ Page({
     },
     // 认证成功
     adopt(navbarTitle,describe){
+        wx.setNavigationBarTitle({
+            title: navbarTitle,
+        })
         this.setData({
-            navbarTitle,
             imageUrl:'/images/my/adopt.png',
             describe,
             statusText:'认证成功'
@@ -154,8 +118,10 @@ Page({
     },
     //认证失败
     fail(describe){
+        wx.setNavigationBarTitle({
+            title: '未通过审核',
+        })
         this.setData({
-            navbarTitle:'未通过审核',
             imageUrl:'/images/my/fail.png',
             describe,
             statusText:'认证失败'

@@ -24,7 +24,8 @@ Page({
       plain: false
     }],
     status: null, //同意或拒绝
-    show: false
+    show: false,
+    bannertitle:''
   },
   onLoad: function (options) {
     console.log(options)
@@ -82,8 +83,10 @@ Page({
         } else {
           rows.ageShip = age + '年'
         }
+        console.log(rows.mtShip.nameVessel)
         this.setData({
-          cargoOrderInfo: rows
+          cargoOrderInfo: rows,
+          bannertitle:rows.mtShip.nameVessel
         })
       })
     } else if (userInfo.ship) {
@@ -112,7 +115,8 @@ Page({
         }
 
         this.setData({
-          shipOrderInfo:rows
+          shipOrderInfo:rows,
+          bannertitle:rows.mtShip.nameVessel
         })
       })
     }

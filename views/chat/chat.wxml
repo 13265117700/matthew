@@ -1,12 +1,4 @@
 <view class="page-container">
-    <view class="page-navbar">
-        <vtu-navbar 
-            title="消息中心" 
-            homeStyle="cachet" 
-            bgColor="#F0222FFF" 
-            fontColor="#ffffff" 
-            icon="iconfont icon-shangchuan"></vtu-navbar>
-    </view>
     <view class="page-main">
         <view class="chat-box">
             <view class="chat-item {{ chatTalk.isMine === true ? 'active':'' }}" wx:for="{{ talkContent }}" wx:key="index" wx:for-item="chatTalk">

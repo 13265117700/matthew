@@ -1,8 +1,6 @@
 <!--views/InvoiceAgreement/InvoiceAgreement.wxml-->
  <!-- 发票协议 -->
  <!-- 专用发票协议 -->
- <vtu-navbar title="专用发票协议" homeStyle="cachet" bgColor="#ffffff" fontColor="#000" icon="iconfont icon-shangchuan"></vtu-navbar>
-
  <view class="box">
     <view class="text">开增值税专用发票协议</view>
 

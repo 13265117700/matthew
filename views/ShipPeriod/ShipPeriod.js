@@ -22,6 +22,7 @@ Page({
         this.getUserInfo()
     },
     getUserInfo() {
+
         let Authorization = wx.getStorageSync('Authorization');
         let uid = '';
         let params = {
@@ -31,10 +32,16 @@ Page({
         User.userInfo(params).then(res => {
             let user = res.data.data;
             if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+                wx.setNavigationBarTitle({
+                    title: '选择要承运的船期',
+                })
                 user.cargo = true
             } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
                 user.car = true
             } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                wx.setNavigationBarTitle({
+                    title: '我的船源',
+                })
                 user.ship = true
             }
             this.setData({
@@ -89,27 +96,6 @@ Page({
         wx.navigateTo({
             url: '/views/chat/chat?id=' + id,
         })
-        // let cargoId = this.data.cargoId;
-        // let receiverid = this.data.receiverid;
-        // let senderid = this.data.senderid;
-        // let shipId = e.currentTarget.dataset.id;
-        // let state = true;
-        // let Authorization = wx.getStorageSync('Authorization');
-        // let params = {Authorization,cargoId,shipId}
-        // console.log(params)
-        // User.UserCargoOrderRequest(params).then(res => {
-        //     console.log(res)
-
-        //     if(res.data.state === 200){
-        //         wx.navigateTo({
-        //           url: '/views/chat/chat?receiverid='+ receiverid + '&senderid='+senderid+'&state='+state,
-        //         })
-        //     }else{
-        //         wx.showToast({
-        //           title: res.data.message,
-        //         })
-        //     }
-        // })
     },
     handleCheckDetails(e) {
         let id = e.currentTarget.dataset.id;
@@ -140,14 +126,14 @@ Page({
                     wx.navigateTo({
                         url: '/views/chat/chat?state=' + state + '&receiverid=' + receiverid + '&senderid=' + senderid,
                     })
-                },2000)
+                }, 2000)
 
-            }else{
+            } else {
                 wx.showToast({
-                  title: res.data.message,
+                    title: res.data.message,
                 })
             }
         })
-        
+
     }
 })

@@ -41,7 +41,7 @@
             </view>
             <view class="info-group-image">
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!idenJust}}">
+                    <view class="item-upload" wx:if="{{!idenJust}}" bindtap="justAfterRead">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -53,12 +53,12 @@
                         <image mode="aspectFill" src="{{idenJust}}" data-url="{{ idenJust }}"
                             catchtap="handleIdenJustImage"></image>
                     </view>
-                    <view class="item-text" bindtap="justAfterRead">
+                    <view class="item-text" wx:if="{{idenJust}}" bindtap="justAfterRead">
                         <text>上传身份证正面</text>
                     </view>
                 </view>
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!idenBack}}">
+                    <view class="item-upload" wx:if="{{!idenBack}}" bindtap="backAfterRead">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -70,19 +70,19 @@
                         <image mode="aspectFill" src="{{idenBack}}" data-url="{{ idenBack }}"
                             catchtap="handleIdenBackImage"></image>
                     </view>
-                    <view class="item-text" bindtap="backAfterRead">
+                    <view class="item-text" wx:if="{{idenBack}}" bindtap="backAfterRead">
                         <text>上传身份证反面</text>
                     </view>
                 </view>
             </view>
         </vtu-input-group>
     </view>
-    <!-- 上传船长特征 -->
+    <!-- 上传船长征 -->
     <view class="info-group">
         <vtu-input-group>
             <view class="info-group-title">
                 <view class="info-group-title_tag">*</view>
-                <view class="info-group-title_text">上传船长特征</view>
+                <view class="info-group-title_text">上传船长证</view>
             </view>
             <view class="info-group-image">
                 <van-uploader preview-size="120px" file-list="{{ traitList }}" max-count="9" bind:after-read="handTrait"
@@ -113,7 +113,7 @@
             </view>
             <view class="info-group-image">
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!aisCertificate}}">
+                    <view class="item-upload" wx:if="{{!aisCertificate}}" bindtap="aisUpload">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -125,12 +125,12 @@
                         <image src="{{aisCertificate}}" mode="aspectFill" data-url="{{ aisCertificate }}"
                             catchtap="handleAisImage"></image>
                     </view>
-                    <view class="item-text" bindtap="aisUpload">
+                    <view class="item-text" wx:if="{{aisCertificate}}" bindtap="aisUpload">
                         <text>上传AIS证书</text>
                     </view>
                 </view>
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!hanoiCertificate }}">
+                    <view class="item-upload" wx:if="{{!hanoiCertificate }}" bindtap="hanoiCertificateUpload">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -142,7 +142,7 @@
                         <image src="{{hanoiCertificate }}" mode="aspectFill" data-url="{{ hanoiCertificate }}"
                             catchtap="hanoiCertificateImage"></image>
                     </view>
-                    <view class="item-text" bindtap="hanoiCertificateUpload">
+                    <view class="item-text" wx:if="{{hanoiCertificate }}" bindtap="hanoiCertificateUpload">
                         <text>上传河内适航证书</text>
                     </view>
                 </view>
@@ -158,7 +158,7 @@
             </view>
             <view class="info-group-image">
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!shipOperationCertificate}}">
+                    <view class="item-upload" wx:if="{{!shipOperationCertificate}}" bindtap="handShipOperationCertificate">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -170,12 +170,12 @@
                         <image src="{{shipOperationCertificate}}" mode="aspectFill"
                             data-url="{{ shipOperationCertificate }}" catchtap="OperationCertificateImage"></image>
                     </view>
-                    <view class="item-text" bindtap="handShipOperationCertificate">
+                    <view class="item-text" wx:if="{{shipOperationCertificate}}" bindtap="handShipOperationCertificate">
                         <text>上传运营证书</text>
                     </view>
                 </view>
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!shipAnnualCertificate }}">
+                    <view class="item-upload" wx:if="{{!shipAnnualCertificate }}" bindtap="handShipAnnualCertificate">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -187,7 +187,7 @@
                         <image src="{{shipAnnualCertificate }}" mode="aspectFill" data-url="{{ shipAnnualCertificate }}"
                             catchtap="AnnualCertificateImage"></image>
                     </view>
-                    <view class="item-text" bindtap="handShipAnnualCertificate">
+                    <view class="item-text" wx:if="{{shipAnnualCertificate }}" bindtap="handShipAnnualCertificate">
                         <text>上传运营证书</text>
                     </view>
                 </view>

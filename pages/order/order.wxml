@@ -1,9 +1,4 @@
 <view class="paeg-container">
-    <view class="page-navbar">
-        <vtu-navbar title="我的订单" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff"
-            icon="iconfont icon-shangchuan">
-        </vtu-navbar>
-    </view>
     <view class="page-main">
         <vtu-tabs value="{{tabsActive}}" bind:change="tabsOnChange" active-color="#E3211F" bg-color="#fff">
             <vtu-tab wx:for="{{ tabs }}" wx:key="index" wx:for-item="tabItem" label="{{tabItem.title}}"

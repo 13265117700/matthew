@@ -18,7 +18,7 @@ Page({
         resourcesList:[],//资源列表
         resourcesShow:false,
         total:0,
-        // resourcesID:null,//资源ID
+
     },
     onLoad: function (options) {
         this.setData({
@@ -36,14 +36,18 @@ Page({
         let id = this.data.id;
         switch(id){
             case '115':
+                wx.setNavigationBarTitle({
+                    title: '船舶管理',
+                })
                 this.setData({
-                    navbarTitle:'船舶管理',
                     addButtonText:'添加船舶'
                 })
                 break
             case '192':
+                wx.setNavigationBarTitle({
+                    title: '车辆管理',
+                })
                 this.setData({
-                    navbarTitle:'车辆管理',
                     addButtonText:'添加车辆'
                 })
                 break

@@ -3,10 +3,6 @@
 <!-- 订单货运状态-上传货运跟踪 -->
 
 <view>
-  <vtu-navbar title="{{navbartitle}}" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF"
-    icon="iconfont icon-shangchuan">
-  </vtu-navbar>
-
   <view class="upload">
     <!-- <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead" /> -->
     <van-uploader mode="aspectFill" preview-size="120px" file-list="{{ processImg  }}" max-count="9"

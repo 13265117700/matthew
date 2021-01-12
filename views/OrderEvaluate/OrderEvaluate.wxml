@@ -2,7 +2,6 @@
 <!-- 评价船东 -->
 <!-- 评价 -->
 
-<vtu-navbar title="评价" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon="iconfont icon-shangchuan"></vtu-navbar>
 <view >
         <view class="box">
 

@@ -1,4 +1,3 @@
-// custom-tab-bar/index.js
 import User from "../models/user/user"
 Component({
     data: {
@@ -66,6 +65,7 @@ Component({
             let index = e.detail.current;
             let IdentityID = this.data.IdentityID;
             let Authorization = wx.getStorageSync('Authorization');
+            console.log(index)
             if (index != 0 && index != 4) {
                 if (!Authorization) {
                     wx.navigateTo({

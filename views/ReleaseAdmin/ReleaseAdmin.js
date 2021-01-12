@@ -85,8 +85,10 @@ Page({
           shipList.push(data)
         })
         console.log(shipList)
+        wx.setNavigationBarTitle({
+          title: '我发布的船源',
+        })
         this.setData({
-          navBarTitle: '我发布的船源',
           addButton: '添加船源',
           shipList
         })
@@ -192,7 +194,7 @@ Page({
           wx.hideLoading()
         }, 2000)
         this.shipSourceAdmin(status = 2)
-      }else{
+      } else {
         wx.showLoading({
           title: res.data.message,
         })
@@ -221,8 +223,10 @@ Page({
     User.UserMtCargoQuery(params).then(res => {
       let cargoList = res.data.data.rows;
       console.log(cargoList)
+      wx.setNavigationBarTitle({
+        title: '我发布的货源',
+      })
       this.setData({
-        navBarTitle: '我发布的货源',
         addButton: '添加货源',
         cargoList
       })
@@ -293,9 +297,11 @@ Page({
   //车源管理
   carSourceAdmin(status) {
     let upAndDownState = this.data.upAndDownState;
+    wx.setNavigationBarTitle({
+      title: '我发布的车源',
+    })
     console.log(upAndDownState)
     this.setData({
-      navBarTitle: '我发布的车源',
       addButton: '添加车源',
     })
   },

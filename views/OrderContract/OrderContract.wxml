@@ -1,8 +1,4 @@
 <view class="page-container">
-  <view class="page-navbar">
-    <vtu-navbar title="货主生成合同" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon="iconfont icon-shangchuan">
-    </vtu-navbar>
-  </view>
   <view class="page-main">
     <view class="contract-wrap">
       <view class="contract-group">

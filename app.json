@@ -35,15 +35,15 @@
         "views/cargoPeriod/cargoPeriod",
         "views/orderConfirm/orderConfirm",
         "views/cargoOrderDetails/cargoOrderDetails",
-        "views/UserOrderList/UserOrderList"
+        "views/UserOrderList/UserOrderList",
+        "views/FindResources/FindResources"
     ],
     "window": {
-        "navigationStyle": "custom",
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "Weixin",
-        "navigationBarTextStyle": "black"
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#F0222F",
+        "navigationBarTextStyle": "white"
     },
+    
     "tabBar": {
         "custom": true,
         "list": [

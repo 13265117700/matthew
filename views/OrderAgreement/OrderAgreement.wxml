@@ -1,9 +1,4 @@
 <view class="page-container">
-  <view class="page-navbar">
-    <vtu-navbar title="货物运输三方协议" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF"
-      icon="iconfont icon-shangchuan">
-    </vtu-navbar>
-  </view>
   <view class="page-mian">
     <view class="contract-text">
       <text>{{contractContent}}</text>

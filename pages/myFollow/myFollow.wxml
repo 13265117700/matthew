@@ -1,12 +1,9 @@
 <view class="container">
-    <view class="page-navbar">
-        <vtu-navbar title="我的关注" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
-    </view>
     <view class="page-main">
         <van-tabs active="{{activeIndex}}" bind:click="onClickTabs">
-            <van-tab wx:for="{{ tabsList }}" wx:key="index" wx:for-item="tabsItem" title="{{ tabsItem.title }}" name="{{ tabsItem.id }}">
+            <van-tab wx:for="{{ tabsList }}" wx:key="index" wx:for-item="tabsItem" title="{{ tabsItem.title }}">
                 <view class="tabs-list">
-                    <view class="tabs-item" wx:if="{{ id === 1011003 }}">
+                    <!-- <view class="tabs-item" wx:if="{{ id === 1011003 }}">
                         <view class="tabs-top">
                             <view class="tabs-icon">
                                 <image src="/images/myFollow/chuan@3x.png"></image>
@@ -64,34 +61,33 @@
                                 </view>
                             </view>
                         </view>
-                    </view>
-                    <view class="tabs-item" wx:if="{{ id === 1011001 }}">
+                    </view> -->
+                    <view class="tabs-item" wx:for="{{shipList}}" wx:key="index" wx:for-item="shipItem">
                         <view class="tabs-top">
                             <view class="tabs-icon">
                                 <image src="/images/myFollow/chuan@3x.png"></image>
                             </view>
                             <view class="tabs-title">
-                                <text>煤炭</text>
+                                <text>{{shipItem.mtShip.nameVessel}}</text>
                             </view>
                             <view class="tabs-active">
-                                <vtu-btn plain="true" size="small" round="true">取消关注</vtu-btn>
+                                <vtu-btn plain="true" size="small" round="true" data-id="{{shipItem.mtShip.id}}" bind:click="cancelFollow">取消关注</vtu-btn>
                             </view>
                         </view>
                         <view class="tabs-bottom">
                             <view class="ship-container">
                                 <view class="ship-item">
-                                    <view class="ship-subtitle">空车地</view>
-                                    <view class="ship-describe">云南昆明市五华区</view>
-                                    <view class="ship-text">成都武侯区</view>
-                                </view>
-                                <view class="ship-item">
-                                    <view class="ship-subtitle">空车地</view>
+                                    <view class="ship-subtitle">载重级别</view>
                                     <view class="ship-describe">A级</view>
-                                    <view class="ship-text">成都武侯区</view>
+                                    <view class="ship-text">{{shipItem.mtShip.ladenA}}T</view>
                                 </view>
                                 <view class="ship-item">
-                                    <view class="ship-subtitle">空车地</view>
-                                    <view class="ship-text">成都武侯区</view>
+                                    <view class="ship-subtitle">船舶类型</view>
+                                    <view class="ship-text">{{shipItem.mtShip.typeShip}}</view>
+                                </view>
+                                <view class="ship-item">
+                                    <view class="ship-subtitle">AIS码</view>
+                                    <view class="ship-text">{{shipItem.mtShip.ais}}</view>
                                 </view>
                             </view>
                         </view>

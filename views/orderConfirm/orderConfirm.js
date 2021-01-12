@@ -1,5 +1,6 @@
-import user from "../../models/user/user";
 import User from "../../models/user/user";
+
+
 const {
     formatTime
 } = require('../../utils/util');
@@ -29,22 +30,13 @@ Page({
             type: 'danger',
             state: 3
         }],
-
-        // // 货主按钮
-        // cargoButton: [{
-        //     title: '发起聊天',
-        //     cargoShow: true
-        // }, {
-        //     title: '发起合同',
-        //     cargoShow: false
-        // }],
         shipShow: false, //船东确认弹框
         cargoShow: false, //货主确认弹框
     },
 
     onShow: function () {
         this.getUserInfo();
-        this.getUserOrderList();
+        
         this.btnStaatus();
     },
 
@@ -53,18 +45,18 @@ Page({
         let userInfo = App.globalData.userInfo;
         this.setData({
             userInfo,
-            navbarTitle: '任务订单确认'
         })
+        this.getUserOrderList(userInfo);
     },
     //获取订单列表
-    getUserOrderList() {
-        let userInfo = this.data.userInfo;
+    getUserOrderList(userInfo) {
+        // let userInfo = this.data.userInfo;
+        console.log(userInfo)
         let Authorization = wx.getStorageSync('Authorization');
         let identity = 1;
         if (userInfo.cargo === true) {
             identity = 2
         }
-        console.log(identity)
         let params = {
             Authorization,
             identity,
@@ -72,6 +64,7 @@ Page({
             rows: 10,
             status: 0
         };
+        console.log(params)
         User.UserOrderQueryList(params).then(res => {
             let rows = res.data.data;
             rows.rows.forEach(data => {
@@ -101,13 +94,19 @@ Page({
             })
         } else if (userInfo.cargo) {
             btn.forEach(data => {
-                if (data.state == 2) {
-                    data.show = false
+                if (data.state == 1) {
+                    data.show = true,
+                    data.type = 'danger'
                 } else {
-                    data.show = true
+                    data.show = false
                 }
             })
         }
+
+        this.setData({
+            btn
+        })
+        console.log(btn)
     },
 
 

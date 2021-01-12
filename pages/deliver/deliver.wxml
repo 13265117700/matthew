@@ -1,7 +1,4 @@
 <view class="page-container">
-    <view class="page-navbar">
-        <vtu-navbar title="发布信息资源" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan"></vtu-navbar>
-    </view>
     <view class="page-main">
         <!-- <view class="current-time">
             <view class="number">12</view>

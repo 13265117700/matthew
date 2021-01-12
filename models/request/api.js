@@ -19,13 +19,16 @@ export default {
     UserShipAdd: `${PREFIX}/user/ship/mtShipSave`, //用户添加船舶
     UserShipQuery: `${PREFIX}/user/ship/myFriendsRequestFriends`, //用户船列表查询   
     UserShipInfoQuery: `${PREFIX}/user/ship/findByShipId`, //用户船信息查询
-    UserShipWhetherFocusOn: `${PREFIX}/user/focusShips/shipYouConcerned`, //查询船是否已关注
-    UserShipFocus: `${PREFIX}/user/focusShips/mtFocusShipsSave`, //用户船关注
-    UserShipCancelFocus: `${PREFIX}/user/focusShips/delete`, //用户船取消关注
     UserShipPeriodAdd: `${PREFIX}/user/releaseShipSource/saveReleaseShipSource`, //用户船期发布
     UserShipPeriodList: `${PREFIX}/user/releaseShipSource/releaseShipSourceFriends`, //用户船期列表
     UserShipPeriodOnUnderFrame: `${PREFIX}/user/releaseShipSource/upAndDownUpdate`, //用户船期上下架
     UserShipPeriodDel: `${PREFIX}/user/releaseShipSource/deleteDownUpdate`, //用户船期删除
+
+    //用户船关注管理
+    UserShipWhetherFocusOn: `${PREFIX}/user/focusShips/shipYouConcerned`, //查询船是否已关注
+    UserShipFocus: `${PREFIX}/user/focusShips/mtFocusShipsSave`, //用户船关注
+    UserShipCancelFocus: `${PREFIX}/user/focusShips/delete`, //用户船取消关注
+    UserFocusShips:`${PREFIX}/user/focusShips/focusShipsFindAll`,//关注列表查询
 
 
 
@@ -36,6 +39,9 @@ export default {
     UserMtCargoQueryInfo: `${PREFIX}/user/cargo/findByCargoId`, //用户货源信息查询
     UserCargoOnUnderFrame: `${PREFIX}/user/cargo/upAndDownUpdate`, //用户货源上下架
     UserCargoUpdate: `${PREFIX}/user/cargo/mtCargoUpdate`, //用户货源修改
+
+    //用户货关注API
+    UserCargoFocusOn:`${PREFIX}/user/focusCargo/cargoYouConcerned`,//用户货源是否已关注
 
 
     //用户车API

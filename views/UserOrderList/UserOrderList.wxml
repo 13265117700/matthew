@@ -1,9 +1,4 @@
 <view class="paeg-container">
-    <view class="page-navbar">
-        <vtu-navbar title="我的订单" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff"
-            icon="iconfont icon-shangchuan">
-        </vtu-navbar>
-    </view>
     <view class="page-main">
         <vtu-tabs value="{{tabsActive}}" bind:change="tabsOnChange" active-color="#E3211F" bg-color="#fff">
             <vtu-tab wx:for="{{ tabs }}" wx:key="index" wx:for-item="tabItem" label="{{tabItem.title}}"
@@ -48,7 +43,7 @@
                     <!-- <view class="order-msg" wx:if="{{ shiOrderItem.status === 1 }}">请等待货主发起合同</view> -->
                     <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
                         wx:if="{{ btuItem.show }}">
-                        <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                        <van-button round size="small" type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
                             data-status="{{ shipOrderItem.status }}" data-userShipId="{{ shipOrderItem.userShipId }}"
                             data-id="{{ shipOrderItem.id }}" data-userCargoId="{{ shipOrderItem.userCargoId }}"
                             bind:click="handleButton">
@@ -95,7 +90,7 @@
                 <view class="order-bottom">
                     <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
                         wx:if="{{ btuItem.show }}">
-                        <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                        <van-button round size="small" type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
                             data-userShipId="{{ cargoOrderItem.userShipId }}" data-id="{{ cargoOrderItem.id }}"
                             data-userCargoId="{{ cargoOrderItem.userCargoId }}" bind:click="handleButton">
                             {{btuItem.title}}</van-button>

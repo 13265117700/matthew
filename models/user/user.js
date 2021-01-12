@@ -25,18 +25,6 @@ export default {
     UserShipInfoQuery: function (data) {
         return request.get(api.UserShipInfoQuery, data)
     },
-    //用户船是否已关注
-    UserShipWhetherFocusOn: function (data) {
-        return request.get(api.UserShipWhetherFocusOn, data)
-    },
-    //用户船关注
-    UserShipFocus: function (data) {
-        return request.post(api.UserShipFocus, data)
-    },
-    //用户船取消关注
-    UserShipCancelFocus: function (data) {
-        return request.post(api.UserShipCancelFocus, data)
-    },
     //用户船期发布
     UserShipPeriodAdd: function (data) {
         return request.post(api.UserShipPeriodAdd, data)
@@ -52,6 +40,26 @@ export default {
     //用户船期删除
     UserShipPeriodDel: function (data) {
         return request.post(api.UserShipPeriodDel, data)
+    },
+
+
+
+
+    //用户船是否已关注
+    UserShipWhetherFocusOn: function (data) {
+        return request.get(api.UserShipWhetherFocusOn, data)
+    },
+    //用户船关注
+    UserShipFocus: function (data) {
+        return request.post(api.UserShipFocus, data)
+    },
+    //用户船取消关注
+    UserShipCancelFocus: function (data) {
+        return request.post(api.UserShipCancelFocus, data)
+    },
+    //船关注列表
+    UserFocusShips: function (data) {
+        return request.get(api.UserFocusShips, data)
     },
 
 
@@ -81,6 +89,11 @@ export default {
     //用户货源修改
     UserCargoUpdate: function (data) {
         return request.post(api.UserCargoUpdate, data)
+    },
+
+    //用户货源是否已关注
+    UserCargoFocusOn:function(data){
+        return request.get(api.UserCargoFocusOn, data)
     },
 
 
@@ -138,7 +151,7 @@ export default {
         return request.post(api.UserShipUploadProcess, data)
     },
     //货主确认订单金额
-    UserCargoConfirmOrderMoney:function(data) {
+    UserCargoConfirmOrderMoney: function (data) {
         return request.post(api.UserCargoConfirmOrderMoney, data)
     },
 

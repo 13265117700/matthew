@@ -1,8 +1,6 @@
 <!--views/OrderAppeal/OrderAppeal.wxml-->
 <!-- 发起申述 -->
 
-<vtu-navbar title="发起申述" homeStyle="cachet" bgColor="#F0222F" fontColor="#FFFFFF" icon=" arrow-left">"></vtu-navbar>
-
 <view class="box">
 
   <view class='input'>

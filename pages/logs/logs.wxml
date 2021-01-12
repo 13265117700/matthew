@@ -1,5 +1,4 @@
 <view class="login-container">
-    <vtu-navbar title="登录" homeStyle="cachet" bgColor="#FFFFFF" icon="iconfont icon-shangchuan"></vtu-navbar>
     <view class="company-info-container">
         <image class="company-info-logo" src="/images/login/logo@3x.png" />
         <view class="company-info-name">登录马太货运</view>

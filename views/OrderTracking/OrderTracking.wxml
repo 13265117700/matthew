@@ -1,8 +1,4 @@
 <view class="page-conatiner">
-  <view class="page-navbar">
-    <vtu-navbar title="{{navbarTitle}}" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff"
-      icon="iconfont icon-shangchuan"></vtu-navbar>
-  </view>
   <view class="page-mian">
     <view class="info-group">
       <view class="info-item">

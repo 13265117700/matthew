@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "选择要承运的货物",
   "usingComponents": {
     "van-search": "/miniprogram_npm/@vant/weapp/search/index"
   }

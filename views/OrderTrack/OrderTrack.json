@@ -1,4 +1,5 @@
 {
+  "navigationStyle": "custom",
   "usingComponents": {
     "banner":"/components/order/banner/banner",
     "steps":"/components/order/steps/steps",

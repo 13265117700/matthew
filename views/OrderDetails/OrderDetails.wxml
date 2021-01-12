@@ -1,8 +1,4 @@
 <view class="page-container">
-  <!-- <view class="page-navbar">
-    <vtu-navbar title="我的订单" homeStyle="cachet" bgColor="#F0222FFF" fontColor="#ffffff" icon="iconfont icon-shangchuan">
-    </vtu-navbar>
-  </view> -->
   <view class="page-main">
     <view class="banner">
       <view class="banner-span">
@@ -13,7 +9,7 @@
       </view>
       <view class="banner-content">
         <view class="banner-left">
-          <view class="banner-title">海珠65489船</view>
+          <view class="banner-title">{{bannertitle}}</view>
           <view class="banner-describe">货物承运中</view>
         </view>
         <view class="banner-right">

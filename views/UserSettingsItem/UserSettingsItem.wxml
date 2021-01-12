@@ -1,12 +1,4 @@
 <view class="page-container">
-    <view class="page-navbar">
-        <vtu-navbar 
-            title="绑定手机号" 
-            homeStyle="cachet" 
-            bgColor="#F0222FFF" 
-            fontColor="#ffffff" 
-            icon="iconfont icon-shangchuan"></vtu-navbar>
-    </view>
     <view class="form-container">
         <view class="form-list">
             <!-- 修改名字 -->

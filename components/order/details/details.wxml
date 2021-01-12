@@ -324,7 +324,7 @@
         <view class="order-btu-wrap">
             <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
                 wx:if="{{ btuItem.show }}">
-                <van-button round size="small" plain type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                <van-button round size="small" type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
                     data-status="{{ orderdetail.status }}" data-userShipId="{{ orderdetail.userShipId }}"
                     data-userCargoId="{{ orderdetail.userCargoId }}" bind:click="handleButton">
                     {{btuItem.title}}</van-button>

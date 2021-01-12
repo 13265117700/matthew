@@ -162,12 +162,10 @@ Page({
     getUserInfo() {
         let Authorization = wx.getStorageSync('Authorization');
         let uId = '';
-        User.userInfo({
-            Authorization,
-            uId
-        }).then(res => {
+        let receiverid = this.data.receiverid;
+        let params = {Authorization,uId}
+        User.userInfo(params).then(res => {
             let user = res.data.data;
-
             if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
                 user.cargo = true;
             } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
@@ -180,6 +178,16 @@ Page({
             })
 
         })
+
+        console.log(receiverid)
+        User.userInfo({Authorization,uId:receiverid}).then(res => {
+            console.log(res)
+            let rows = res.data.data;
+            wx.setNavigationBarTitle({
+                title: rows.nickName,
+            })
+        })
+
     },
 
     focusEven(e) {

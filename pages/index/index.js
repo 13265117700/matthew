@@ -3,46 +3,46 @@
 const app = getApp()
 
 Page({
-  data:{
+  data: {
     current: 1,
     imageList: [{
-      url: 'https://activity.vtuzx.com/doc/vtuUI/weapp/swiper/1.png',
+      url: 'https://img.gdmatt.com/images/2021/01/12/16104224555836415.png',
       mode: "widthFix"
-    },{
-      url: 'https://activity.vtuzx.com/doc/vtuUI/weapp/swiper/2.png',
+    }, {
+      url: 'https://img.gdmatt.com/images/2021/01/12/16104224555836415.png',
       mode: "widthFix"
-    },{
-      url: 'https://activity.vtuzx.com/doc/vtuUI/weapp/swiper/3.png',
+    }, {
+      url: 'https://img.gdmatt.com/images/2021/01/12/16104224555836415.png',
       mode: "widthFix"
-    },{
-      url: 'https://activity.vtuzx.com/doc/vtuUI/weapp/swiper/4.png',
+    }, {
+      url: 'https://img.gdmatt.com/images/2021/01/12/16104224555836415.png',
       mode: "widthFix"
-    },{
-      url: 'https://activity.vtuzx.com/doc/vtuUI/weapp/swiper/5.png',
+    }, {
+      url: 'https://img.gdmatt.com/images/2021/01/12/16104224555836415.png',
       mode: "widthFix"
     }],
-    cardList:[{
-      tips:'index',
-      id:9999999,
+    cardList: [{
+      tips: 'index',
+      id: 9999999,
       url: '/images/index/chuanyuan@3x.png',
       text: '船源信息'
-    },{
-      id:9999998,
-      tips:'index',
+    }, {
+      id: 9999998,
+      tips: 'index',
       url: '/images/index/huoyuan@3x.png',
       text: '船运货源'
-    },{
-      id:9999997,
-      tips:'index',
+    }, {
+      id: 9999997,
+      tips: 'index',
       url: '/images/index/cy@3x.png',
       text: '车运货源'
-    },{
-      tips:'index',
-      id:9999996,
+    }, {
+      tips: 'index',
+      id: 9999996,
       url: '/images/index/daolu@3x.png',
       text: '车辆信息'
     }],
-    orderList:[{
+    orderList: [{
       image: '/images/index/order_img3.png',
       name: '粤清远货3888',
       amount: '煤炭  2000吨',
@@ -52,7 +52,7 @@ Page({
       lowerImages: '/images/index/order-lower_info3.png',
       lowerInfo: '船已到装货港',
       lowerSeat: '/images/index/order-lower_seat3.png'
-    },{
+    }, {
       image: '/images/index/ly@3x.png',
       name: '粤B.88888',
       amount: '煤炭  2000吨',
@@ -62,7 +62,7 @@ Page({
       lowerImages: '/images/index/lowerImages.png',
       lowerInfo: '车已到装货站点',
       lowerSeat: '/images/index/order-lower_seat3.png'
-    },{
+    }, {
       image: '/images/index/order_img3.png',
       name: '粤清远货3888',
       amount: '煤炭  2000吨',
@@ -72,7 +72,7 @@ Page({
       lowerImages: '/images/index/order-lower_info3.png',
       lowerInfo: '船已到装货港',
       lowerSeat: '/images/index/order-lower_seat3.png'
-    },{
+    }, {
       image: '/images/index/ly@3x.png',
       name: '粤B.88888',
       amount: '煤炭  2000吨',
@@ -83,54 +83,77 @@ Page({
       lowerInfo: '车已到装货站点',
       lowerSeat: '/images/index/order-lower_seat3.png'
     }],
-    serviceList:[{
-      title:'马太保险',
-      image:'/images/index/bx@3x.png'
-    },{
-      title:'港口码头',
-      image:'/images/index/gk@3x.png'
-    },{
-      title:'港口里程',
-      image:'/images/index/mt@3x.png'
-    },{
-      title:'法律咨询',
-      image:'/images/index/ls@3x.png'
-    },{
-      title:'企业查询',
-      image:'/images/index/cx@3x.png'
-    },{
-      title:'台风路径',
-      image:'/images/index/tflj.png'
-    },{
-      title:'台风路径',
-      image:'/images/index/tq@3x.png'
-    },{
-      title:'更多',
-      image:'/images/index/gd@3x.png'
+    serviceList: [{
+      title: '马太保险',
+      image: '/images/index/bx@3x.png'
+    }, {
+      title: '港口码头',
+      image: '/images/index/gk@3x.png'
+    }, {
+      title: '港口里程',
+      image: '/images/index/mt@3x.png'
+    }, {
+      title: '法律咨询',
+      image: '/images/index/ls@3x.png'
+    }, {
+      title: '企业查询',
+      image: '/images/index/cx@3x.png'
+    }, {
+      title: '台风路径',
+      image: '/images/index/tflj.png'
+    }, {
+      title: '台风路径',
+      image: '/images/index/tq@3x.png'
+    }, {
+      title: '更多',
+      image: '/images/index/gd@3x.png'
     }],
     loading: false
   },
-  onShow(){
-    if(typeof this.getTabBar === "function" && this.getTabBar()){
+  onShow() {
+    if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({
-        activeIndex:0
+        activeIndex: 0
       })
     }
   },
-  bindChange: function(e) {
+  bindChange: function (e) {
     this.setData({
       current: e.detail.current
     })
   },
-  bindLoad: function() {
+  bindLoad: function () {
     this.loading = true
   },
-  gotoResourcesList(e){
+  gotoResourcesList(e) {
     console.log(e)
-    let id = e.currentTarget.dataset.id;
-    let data = e.currentTarget.dataset.data;
-    wx.navigateTo({
-      url: '/views/FindResources/FindResources?id=' + id + '&data=' + data,
-    })
+    let Authorization = wx.getStorageSync('Authorization');
+    if (Authorization) {
+      let id = e.currentTarget.dataset.id;
+      let data = e.currentTarget.dataset.data;
+      wx.navigateTo({
+        url: '/views/FindResources/FindResources?id=' + id + '&data=' + data,
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/logs/logs',
+      })
+    }
+
+  },
+
+  designedToChat() {
+    let Authorization = wx.getStorageSync('Authorization');
+    if(Authorization){
+      wx.navigateTo({
+        url: '/views/MyFriend/MyFriend',
+      })
+    }else{
+      wx.navigateTo({
+        url: '/pages/logs/logs',
+      })
+    }
+
+
   }
 })

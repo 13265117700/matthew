@@ -83,6 +83,10 @@ van-search{
     font-weight: Medium;
     font-size: 12px;
     color: #191919;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
 }
 .cargo-img{
 

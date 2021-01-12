@@ -1,12 +1,4 @@
 <view class="page-container">
-  <view class="page-navbar">
-    <vtu-navbar 
-      title="{{navbarTitle}}" 
-      homeStyle="cachet" 
-      bgColor="#F0222FFF" 
-      fontColor="#ffffff" 
-      icon="iconfont icon-shangchuan"></vtu-navbar>
-  </view>
   <view class="identit-form enterprise">
     <!-- 企业认证统一社会信用代码 -->
     <view class="identit-form-item" wx:if="{{identity === '1'}}">

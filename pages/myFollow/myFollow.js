@@ -1,15 +1,8 @@
-// pages/myFollow/myFollow.js
+import User from '../../models/user/user'
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
         activeIndex:0,
         tabsList:[{
-            id:1011001,
-            title:'关注车辆',
-        },{
             id:1011002,
             title:'关注船源',
         },{
@@ -17,6 +10,7 @@ Page({
             title:'关注货源',
         }],
         id:1011001,
+        shipList:[]
     },
 
     onLoad: function (options) {
@@ -24,31 +18,72 @@ Page({
     },
 
     onShow: function () {
-        if(typeof this.getTabBar === "function" && this.getTabBar()){
-            this.getTabBar().setData({
-                activeIndex:1
-            })
-        }
+        this.showtabBar();
         this.getMyFollow()
     },
 
-    getMyFollow(){
-        console.log(123123)
+    showtabBar: function () {
+        if (typeof this.getTabBar === "function" && this.getTabBar()) {
+            this.getTabBar().setData({
+                activeIndex: 1
+            })
+        }
     },
 
-    onClickTabs(e){
-        console.log(e)
-        let index = e.detail.index;
-        let name = e.detail.name;
-        let title = e.detail.title;
-        this.setData({
-            id:name
+    //获取关注列表
+    getMyFollow(){
+        let Authorization = wx.getStorageSync('Authorization');
+        let page = 1;
+        let rows = 10;
+        let params = {
+            Authorization,
+            page,
+            rows
+        }
+
+        User.UserFocusShips(params).then(res => {
+            console.log(res)
+            let rows = res.data.data.rows;
+            this.setData({
+                shipList:rows
+            })
         })
+    },
 
+    //tabs标签导航
+    onClickTabs(e){
+        let name = e.detail.name;
+        if(name == 0){
+            this.getMyFollow()
+        }else{
+            this.setData({
+                shipList:[]
+            })
+        }
+    },
 
-        // let index = e.detail.index;
-        // this.setData({
-        //     activeIndex:index
-        // })
+    cancelFollow(e){
+        console.log(e)
+        let Authorization = wx.getStorageSync('Authorization');
+        let id = e.currentTarget.dataset.id;
+        let params ={
+            Authorization,
+            id
+        }
+        User.UserShipCancelFocus(params).then(res => {
+            console.log(res)
+            if(res.data.state === 200){
+                wx.showToast({
+                  title: '成功取消关注',
+                  icon:'success'
+                })
+                this.getMyFollow()
+            }else{
+                wx.showToast({
+                  title: res.data.message,
+                  icon:'loading'
+                })
+            }
+        })
     }
 })

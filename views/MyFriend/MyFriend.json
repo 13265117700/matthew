@@ -1,4 +1,6 @@
 {
+  "navigationBarTitleText": "消息中心",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "van-search": "/miniprogram_npm/@vant/weapp/search/index",
     "van-image": "/miniprogram_npm/@vant/weapp/image/index",
