@@ -2,6 +2,7 @@ const {
     formatTime
 } = require('../../utils/util')
 import User from '../../models/user/user';
+import mtWharf from '../../models/frontEnd/mtWharf'
 
 
 
@@ -107,11 +108,10 @@ Page({
         let page = 1;
         let rows = 10;
         let params = {
-            Authorization,
             page,
             rows
         }
-        User.UserMtCargoQuery(params).then(res => {
+        mtWharf.frontDeskCargoFocusOn(params).then(res => {
             console.log(res)
             let rows = res.data.data.rows;
             let cargoList = [];

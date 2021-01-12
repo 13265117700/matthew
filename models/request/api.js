@@ -80,4 +80,5 @@ export default {
     frontDeskShipList: `${PREFIX}/reception/ship/myFriendsRequestFriends`, //船信息列表
     frontDeskShipItem: `${PREFIX}/reception/ship/findByShipId`, //船信息查询
     frontDeskDefaultCompany: `${PREFIX}/reception/information/findByAcquiescence`, //平台公司信息
+    frontDeskCargoFocusOn: `${PREFIX}/reception/cargo/mtCargoFriends`,//前端获取货源列表
 }

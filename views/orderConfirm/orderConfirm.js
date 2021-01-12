@@ -36,17 +36,38 @@ Page({
 
     onShow: function () {
         this.getUserInfo();
-        
-        this.btnStaatus();
     },
 
     //获取用户
     getUserInfo() {
-        let userInfo = App.globalData.userInfo;
-        this.setData({
-            userInfo,
+        let Authorization = wx.getStorageSync('Authorization');
+        let uid = ''
+        let params = {
+            Authorization,
+            uid
+        }
+        User.userInfo(params).then(res => {
+            let user = res.data.data;
+            console.log(user)
+            if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+                console.log('货主')
+                user.cargo = true
+            } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+                console.log('车主')
+                user.car = true
+            } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                console.log('船东')
+                user.ship = true
+            }
+
+            this.setData({
+                userInfo:user
+            })
+            this.getUserOrderList(user);
+            this.btnStaatus();
         })
-        this.getUserOrderList(userInfo);
+        
+        
     },
     //获取订单列表
     getUserOrderList(userInfo) {
@@ -83,6 +104,7 @@ Page({
     btnStaatus() {
         let btn = this.data.btn;
         let userInfo = this.data.userInfo;
+        console.log(userInfo)
         if (userInfo.ship === true) {
             btn.forEach(data => {
                 console.log(data)
@@ -96,7 +118,7 @@ Page({
             btn.forEach(data => {
                 if (data.state == 1) {
                     data.show = true,
-                    data.type = 'danger'
+                        data.type = 'danger'
                 } else {
                     data.show = false
                 }
@@ -117,16 +139,17 @@ Page({
         let senderid = e.currentTarget.dataset.senderid;
         let receiverid = e.currentTarget.dataset.receiverid;
         let userInfo = this.data.userInfo;
-        if(userInfo.ship){
+        console.log(userInfo)
+        if (userInfo.ship) {
             wx.navigateTo({
                 url: '/views/OrderDetails/OrderDetails?id=' + id + '&senderid=' + senderid + '&receiverid=' + receiverid,
             })
-        }else if(userInfo.cargo){
+        } else if (userInfo.cargo) {
             wx.navigateTo({
                 url: '/views/OrderDetails/OrderDetails?id=' + id + '&senderid=' + receiverid + '&receiverid=' + senderid,
             })
         }
-        
+
     },
     //按钮事件
     handleChatButton(e) {

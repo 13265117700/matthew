@@ -110,33 +110,7 @@ Component({
                     })
                 }
             })
-            // User.userInfo({Authorization,uid}).then(res => {
-            //     let mtCargoOwner = res.data.data.mtCargoOwner;//货主身份
-            //     let mtOwner = res.data.data.mtOwner;//车主身份
-            //     let mtShipowner = res.data.data.mtShipowner;//船东身份
-            //     if(mtCargoOwner.idNumber != ' ' || mtCargoOwner.idNumber != null){
-            //         console.log('货主')
-            //         this.setData({
-            //             IdentityID:'855'
-            //         })
-            //         return
-            //     }
-            //     if(mtOwner.idNumber != ' ' || mtOwner.idNumber != null){
-            //         console.log('车主')
-            //         this.setData({
-            //             IdentityID:'609'
-            //         })
-            //         return
-            //     }
-            //     if(mtShipowner.idNumber != ' ' || mtShipowner.idNumber != null){
-            //         console.log('船东')
-            //         this.setData({
-            //             IdentityID:'567'
-            //         })
-            //         return
-            //     }
-            // })
-
+            
 
         }
     }
