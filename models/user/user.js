@@ -92,8 +92,20 @@ export default {
     },
 
     //用户货源是否已关注
-    UserCargoFocusOn:function(data){
+    UserCargoFocusOn: function (data) {
         return request.get(api.UserCargoFocusOn, data)
+    },
+    //用户货源关注
+    UserCargoFocus: function (data) {
+        return request.post(api.UserCargoFocus, data)
+    },
+    //用户货源取消关注
+    UserCargoCancelFocus: function (data) {
+        return request.post(api.UserCargoCancelFocus, data)
+    },
+    //用户货关注列表
+    UserFocusCargo: function (data) {
+        return request.get(api.UserFocusCargo, data)
     },
 
 
@@ -103,6 +115,7 @@ export default {
         return request.post(api.mtOwnerUpdate, data)
     },
 
+    
 
 
     //船东\货主接单查询

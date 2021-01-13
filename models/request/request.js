@@ -10,6 +10,7 @@ const randomString = (len) => {
   return pwd;
 }
 
+
 const request = (method, url, data, header) => {
   let params = { 
     'Authorization': data.Authorization,

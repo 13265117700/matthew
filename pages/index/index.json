@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
-  "navigationStyle": "custom"
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "van-divider": "/miniprogram_npm/@vant/weapp/divider/index"
+  }
 }

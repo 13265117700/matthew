@@ -1,0 +1,5 @@
+<view class="page-container">
+    <view class="page-header">
+        <banner></banner>
+    </view>
+</view>

@@ -1,9 +1,12 @@
 //index.js
 //获取应用实例
 const app = getApp()
+import User from "../../models/user/user"
 
 Page({
   data: {
+    // userInfo: {},
+    CargoStatus:'船准备到港',
     current: 1,
     imageList: [{
       url: 'https://img.gdmatt.com/images/2021/01/12/16104224555836415.png',
@@ -42,47 +45,7 @@ Page({
       url: '/images/index/daolu@3x.png',
       text: '车辆信息'
     }],
-    orderList: [{
-      image: '/images/index/order_img3.png',
-      name: '粤清远货3888',
-      amount: '煤炭  2000吨',
-      begin: '广州黄埔装货港',
-      end: '珠海大湾区目的港',
-      time: '2020-03-26',
-      lowerImages: '/images/index/order-lower_info3.png',
-      lowerInfo: '船已到装货港',
-      lowerSeat: '/images/index/order-lower_seat3.png'
-    }, {
-      image: '/images/index/ly@3x.png',
-      name: '粤B.88888',
-      amount: '煤炭  2000吨',
-      begin: '成都武侯区',
-      end: '德阳中江县',
-      time: '2020-08-11',
-      lowerImages: '/images/index/lowerImages.png',
-      lowerInfo: '车已到装货站点',
-      lowerSeat: '/images/index/order-lower_seat3.png'
-    }, {
-      image: '/images/index/order_img3.png',
-      name: '粤清远货3888',
-      amount: '煤炭  2000吨',
-      begin: '广州黄埔装货港',
-      end: '珠海大湾区目的港',
-      time: '2020-03-26',
-      lowerImages: '/images/index/order-lower_info3.png',
-      lowerInfo: '船已到装货港',
-      lowerSeat: '/images/index/order-lower_seat3.png'
-    }, {
-      image: '/images/index/ly@3x.png',
-      name: '粤B.88888',
-      amount: '煤炭  2000吨',
-      begin: '成都武侯区',
-      end: '德阳中江县',
-      time: '2020-08-11',
-      lowerImages: '/images/index/lowerImages.png',
-      lowerInfo: '车已到装货站点',
-      lowerSeat: '/images/index/order-lower_seat3.png'
-    }],
+    orderList: [],
     serviceList: [{
       title: '马太保险',
       image: '/images/index/bx@3x.png'
@@ -108,25 +71,127 @@ Page({
       title: '更多',
       image: '/images/index/gd@3x.png'
     }],
-    loading: false
   },
   onShow() {
+    this.showtabBar()
+    this.getUserInfo();
+  },
+  showtabBar: function () {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({
         activeIndex: 0
       })
     }
   },
+
+  //获取用户
+  getUserInfo() {
+    let Authorization = wx.getStorageSync('Authorization');
+    let uid = ''
+    let params = {
+      Authorization,
+      uid
+    }
+    User.userInfo(params).then(res => {
+      let user = res.data.data;
+      if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+        console.log('货主')
+        user.cargo = true
+      } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+        console.log('车主')
+        user.car = true
+      } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+        console.log('船东')
+        user.ship = true
+      }
+      this.getOrderList(user)
+
+    })
+
+
+  },
+
+  //获取订单列表
+  getOrderList: function (user) {
+    let identity = 1;
+    let page = 1;
+    let rows = 10;
+    let Authorization = wx.getStorageSync('Authorization');
+    if (user.ship) {
+      identity = 2
+    };
+
+    let params = {
+      Authorization,
+      identity,
+      page,
+      rows,
+      status: 3
+    };
+    console.log(params)
+    User.UserOrderListQuery(params).then(res => {
+      let rows = res.data.data;
+      console.log(rows)
+      let total = rows.total;
+      rows.rows.forEach(data => {
+        console.log(data)
+        switch(data.transportStatus){
+          case 0:
+            this.setData({
+              CargoStatus:'船准备到港',
+            })
+            break
+          case 1:
+            this.setData({
+              CargoStatus:'船已到装货港',
+            })
+            break
+          case 2:
+            this.setData({
+              CargoStatus:'已装好货',
+            })
+            break
+          case 3:
+            this.setData({
+              CargoStatus:'起航运输中',
+            })
+            break
+          case 4:
+            this.setData({
+              CargoStatus:'已到达目的港',
+            })
+            break
+        }
+      })
+
+      if (total <= 5) {
+        this.setData({
+          orderList:rows.rows
+        })
+      } else {
+        let orderList = []
+        for (let i = 0; i < 5; i++) {
+          orderList.push(rows.rows[i])
+        }
+        this.setData({
+          orderList
+        })
+      }
+
+    })
+
+
+  },
+
+  //轮播图
   bindChange: function (e) {
     this.setData({
       current: e.detail.current
     })
   },
-  bindLoad: function () {
-    this.loading = true
-  },
+
+  //进入船、货源信息
   gotoResourcesList(e) {
-    console.log(e)
     let Authorization = wx.getStorageSync('Authorization');
     if (Authorization) {
       let id = e.currentTarget.dataset.id;
@@ -142,18 +207,21 @@ Page({
 
   },
 
+  //浮标进入聊天页面
   designedToChat() {
     let Authorization = wx.getStorageSync('Authorization');
-    if(Authorization){
+    if (Authorization) {
       wx.navigateTo({
         url: '/views/MyFriend/MyFriend',
       })
-    }else{
+    } else {
       wx.navigateTo({
         url: '/pages/logs/logs',
       })
     }
 
 
-  }
+  },
+
+
 })

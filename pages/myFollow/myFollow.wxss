@@ -1,55 +1,63 @@
-.tabs-list{
+.tabs-list {
     padding: 10px 14.5px 0;
 }
-.tabs-item{
+
+.tabs-item {
     background: #FFFFFF;
     margin-bottom: 10px;
     padding: 17px 19px 19px;
     border-radius: 10px;
 }
-.tabs-top{
+
+.tabs-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 11.5px;
     border-bottom: 1px solid #EEEEEE;
 }
-.tabs-icon{
+
+.tabs-icon {
     margin-right: 15px;
 }
-.tabs-icon image{
+
+.tabs-icon image {
     width: 15px;
     height: 14px;
 }
-.tabs-title{
+
+.tabs-title {
     flex: 1;
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
     color: #191919;
     font-size: 17px;
 }
-.tabs-title text:first-child{
+
+.tabs-title text:first-child {
     margin-right: 10px;
 }
-.tabs-active{
 
-}
-.tabs-bottom{
+.tabs-active {}
+
+.tabs-bottom {
     margin-top: 16.5px;
 }
 
 
 /* 货源 */
-.cargo-container{
+.cargo-container {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
-.cargo-item{
+
+.cargo-item {
     display: flex;
     align-items: center;
 }
-.cargo-icon{
+
+.cargo-icon {
     color: #FFFFFF;
     font-family: PingFang-SC-Bold;
     font-weight: bold;
@@ -60,33 +68,39 @@
     line-height: 12px;
     margin-right: 5px;
 }
-.cargo-subTitle{
+
+.cargo-subTitle {
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
     font-size: 12px;
     color: #191919;
+    width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-.cargo-img{
 
-}
-.cargo-img image{
+.cargo-img {}
+
+.cargo-img image {
     width: 55px;
     height: 7.5px;
 }
-.cargo-icon.start{
+
+.cargo-icon.start {
     background: #E3211F;
 }
-.cargo-icon.end{
+
+.cargo-icon.end {
     background: #369D40;
 }
 
 
 
 /* 车源 */
-.car-container{
+.car-container {}
 
-}
-.car-item{
+.car-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -95,23 +109,25 @@
     font-weight: Medium;
     margin-bottom: 20.5px;
 }
-.car-item:last-child{
+
+.car-item:last-child {
     margin-bottom: 0;
 }
-.car-subtitle{
+
+.car-subtitle {
     color: #878787;
 }
-.car-text{
+
+.car-text {
     color: #191919;
 }
 
 
 
 /* 船源 */
-.ship-container{
+.ship-container {}
 
-}
-.ship-item{
+.ship-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -121,12 +137,11 @@
     margin-bottom: 20.5px;
     color: #191919;
 }
-.ship-subtitle{
+
+.ship-subtitle {
     color: #878787;
 }
-.ship-describe{
 
-}
-.ship-text{
+.ship-describe {}
 
-}
+.ship-text {}

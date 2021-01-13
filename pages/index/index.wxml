@@ -1,26 +1,14 @@
 <!--index.wxml-->
 <view class="home-container">
     <view class="banner-section">
-        <vtu-swiper 
-            list="{{imageList}}" 
-            height="{{200}}px"
-            dot-type="round" 
-            indicator-active-color="#F0222F" 
-            swiper-class="swiperClass" 
-            indicator-dots="{{true}}" 
-            circular="true"
-            current="{{current}}" 
+        <vtu-swiper list="{{imageList}}" height="{{200}}px" dot-type="round" indicator-active-color="#F0222F"
+            swiper-class="swiperClass" indicator-dots="{{true}}" circular="true" current="{{current}}"
             bind:change="bindChange"></vtu-swiper>
     </view>
     <view class="card-section">
         <view class="card-list">
-            <view
-                class="card-item"
-                wx:for="{{cardList}}"
-                wx:key="index"
-                data-data="{{ item.tips }}"
-                data-id="{{ item.id }}"
-                bindtap="gotoResourcesList">
+            <view class="card-item" wx:for="{{cardList}}" wx:key="index" data-data="{{ item.tips }}"
+                data-id="{{ item.id }}" bindtap="gotoResourcesList">
                 <image src="{{item.url}}"></image>
                 <view class="card-item-tag">{{item.text}}</view>
             </view>
@@ -28,51 +16,68 @@
     </view>
     <view class="service-section">
         <vtu-grids col="4" img-width="37px">
-            <vtu-grid 
-                wx:for="{{serviceList}}"
-                wx:key="index"
-                label="{{item.title}}" 
-                img-src="{{item.image}}"></vtu-grid>
+            <vtu-grid wx:for="{{serviceList}}" wx:key="index" label="{{item.title}}" img-src="{{item.image}}">
+            </vtu-grid>
         </vtu-grids>
     </view>
     <view class="order-section">
         <view class="order-crumbs">
             <view class="order-title">订单跟踪</view>
-            <view class="order-tag">查看更多订单<image src="/images/index/order-tag3.png"></image></view>
+            <view class="order-tag" bindtap="ToviewOrder">查看更多订单<image src="/images/index/order-tag3.png"></image>
+            </view>
         </view>
         <view class="order-list">
-            <view
-                class="order-item"
-                wx:for="{{orderList}}"
-                wx:key="index">
+            <view class="order-item" wx:for="{{orderList}}" wx:key="index" wx:for-item="orderItem">
                 <view class="order-item-top">
                     <view class="order-item-img">
-                        <image src="{{item.image}}"></image>
+                        <image src="/images/index/order_img3.png"></image>
                     </view>
                     <view class="order-item-info">
-                        <view class="order-item-info item-summary">
-                            <view class="order-item-info item-summary_name">{{item.name}}</view>
-                            <view class="order-item-info item-summary_amount">{{item.amount}}</view>
+                        <view class="item-summary">
+                            <view class="item-summary_name">{{orderItem.mtShip.nameVessel}}</view>
+                            <view class="item-summary_amount">{{orderItem.mtCargo.mtNameGoods.name}}
+                                {{orderItem.mtCargo.number}}T</view>
                         </view>
-                        <view class="order-item-info item-msg">
-                            <view class="order-item-info item-msg_process">
-                                <view class="order-item-info item-msg_process begin">{{item.begin}}</view>
-                                <view class="order-item-info item-msg_process img"><image src="/images/index/order-item_direction3.png"></image></view>
-                                <view class="order-item-info item-msg_process end">{{item.end}}</view>
+                        <view class="item-msg">
+                            <view class="item-msg_process">
+                                <view class="process-item">
+                                    <view class="process-icon start">始</view>
+                                    <view class="process-subTitle">{{orderItem.mtCargo.portDepartureAddress}}</view>
+                                </view>
+                                <view class="process-item">
+                                    <view class="process-img">
+                                        <image src="/images/myFollow/item-info_img2.png"></image>
+                                    </view>
+                                </view>
+                                <view class="process-item">
+                                    <view class="process-icon end">终</view>
+                                    <view class="process-subTitle">{{orderItem.mtCargo.portArrivalAddress}}</view>
+                                </view>
                             </view>
-                            <view class="order-item-info item-msg_time">{{item.time}}</view>
+                            <!-- <view class="order-item-info item-msg_process">
+                                <view class="order-item-info item-msg_process begin">
+                                    {{orderItem.mtCargo.portDepartureAddress}}</view>
+                                <view class="order-item-info item-msg_process img">
+                                    <image src="/images/index/order-item_direction3.png"></image>
+                                </view>
+                                <view class="order-item-info item-msg_process end">
+                                    {{orderItem.mtCargo.portArrivalAddress}}</view>
+                            </view> -->
+                            <view class="item-msg_time">{{orderItem.createTime}}</view>
                         </view>
                     </view>
                 </view>
                 <view class="order-item-lower">
-                    <view class="order-item-lower_info"><image src="{{item.lowerImages}}"></image>{{item.lowerInfo}}</view>
+                    <view class="order-item-lower_info">
+                        <image src="/images/index/order-lower_info3.png"></image>{{CargoStatus}}
+                    </view>
                     <view class="order-item-lower_seat">
-                        <image src="{{item.lowerSeat}}"></image>
+                        <image src="/images/index/order-lower_seat3.png"></image>
                     </view>
                 </view>
             </view>
             <view class="order-item">
-                <i-load-more tip="没有更多了" loading="{{ loading }}" />
+                <van-divider contentPosition="center">没有更多了</van-divider>
             </view>
         </view>
     </view>

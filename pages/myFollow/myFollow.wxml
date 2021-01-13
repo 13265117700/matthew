@@ -3,23 +3,26 @@
         <van-tabs active="{{activeIndex}}" bind:click="onClickTabs">
             <van-tab wx:for="{{ tabsList }}" wx:key="index" wx:for-item="tabsItem" title="{{ tabsItem.title }}">
                 <view class="tabs-list">
-                    <!-- <view class="tabs-item" wx:if="{{ id === 1011003 }}">
+
+                    <view class="tabs-item" wx:for="{{cargoList}}" wx:key="index" wx:for-item="cargoItem"
+                        wx:if="{{ activeIndex == 1 }}">
                         <view class="tabs-top">
                             <view class="tabs-icon">
                                 <image src="/images/myFollow/chuan@3x.png"></image>
                             </view>
                             <view class="tabs-title">
-                                <text>煤炭</text><text>318963.00吨</text>
+                                <text>{{cargoItem.mtCargo.mtNameGoods.name}}</text><text>{{cargoItem.mtCargo.number}}T</text>
                             </view>
                             <view class="tabs-active">
-                                <vtu-btn plain="true" size="small" round="true">取消关注</vtu-btn>
+                                <vtu-btn plain="true" size="small" round="true" data-id="{{cargoItem.mtCargo.id}}"
+                                    bind:click="cargoCancelFollow">取消关注</vtu-btn>
                             </view>
                         </view>
                         <view class="tabs-bottom">
                             <view class="cargo-container">
                                 <view class="cargo-item">
                                     <view class="cargo-icon start">始</view>
-                                    <view class="cargo-subTitle">广州黄埔装货港</view>
+                                    <view class="cargo-subTitle">{{cargoItem.mtCargo.portDepartureAddress}}</view>
                                 </view>
                                 <view class="cargo-item">
                                     <view class="cargo-img">
@@ -28,12 +31,14 @@
                                 </view>
                                 <view class="cargo-item">
                                     <view class="cargo-icon end">终</view>
-                                    <view class="cargo-subTitle">珠海大湾区目的港</view>
+                                    <view class="cargo-subTitle">{{cargoItem.mtCargo.portArrivalAddress}}</view>
                                 </view>
                             </view>
                         </view>
                     </view>
-                    <view class="tabs-item" wx:if="{{ id === 1011002 }}">
+
+
+                    <!-- <view class="tabs-item" wx:if="{{ id === 1011002 }}">
                         <view class="tabs-top">
                             <view class="tabs-icon">
                                 <image src="/images/myFollow/chuan@3x.png"></image>
@@ -62,7 +67,10 @@
                             </view>
                         </view>
                     </view> -->
-                    <view class="tabs-item" wx:for="{{shipList}}" wx:key="index" wx:for-item="shipItem">
+
+
+                    <view class="tabs-item" wx:for="{{shipList}}" wx:key="index" wx:for-item="shipItem"
+                        wx:if="{{activeIndex == 0}}">
                         <view class="tabs-top">
                             <view class="tabs-icon">
                                 <image src="/images/myFollow/chuan@3x.png"></image>
@@ -71,7 +79,8 @@
                                 <text>{{shipItem.mtShip.nameVessel}}</text>
                             </view>
                             <view class="tabs-active">
-                                <vtu-btn plain="true" size="small" round="true" data-id="{{shipItem.mtShip.id}}" bind:click="cancelFollow">取消关注</vtu-btn>
+                                <vtu-btn plain="true" size="small" round="true" data-id="{{shipItem.mtShip.id}}"
+                                    bind:click="cancelFollow">取消关注</vtu-btn>
                             </view>
                         </view>
                         <view class="tabs-bottom">

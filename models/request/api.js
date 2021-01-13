@@ -42,6 +42,9 @@ export default {
 
     //用户货关注API
     UserCargoFocusOn:`${PREFIX}/user/focusCargo/cargoYouConcerned`,//用户货源是否已关注
+    UserCargoFocus:`${PREFIX}/user/focusCargo/focusCargoSave`,//用户货源关注
+    UserCargoCancelFocus:`${PREFIX}/user/focusCargo/delete`,//用户货源取消关注
+    UserFocusCargo:`${PREFIX}/user/focusCargo/focusCargoFindAll`,//用户货关注列表
 
 
     //用户车API

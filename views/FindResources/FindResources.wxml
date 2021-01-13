@@ -25,7 +25,11 @@
                             plain="true" 
                             type="{{cargoItem.focusStatus != true ? 'danger':''}}"
                             size="small" 
-                            round="true">{{cargoItem.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
+                            round="true"
+                            data-id="{{cargoItem.id}}"
+                            data-index="{{index}}"
+                            data-status="{{cargoItem.focusStatus}}"
+                            bind:click="handleCargoFocus">{{cargoItem.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
                     </view>
                 </view>
                 <view class="resources-bottom">

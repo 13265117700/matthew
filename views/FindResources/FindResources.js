@@ -112,7 +112,6 @@ Page({
             rows
         }
         mtWharf.frontDeskCargoFocusOn(params).then(res => {
-            console.log(res)
             let rows = res.data.data.rows;
             let cargoList = [];
             rows.forEach(data => {
@@ -156,6 +155,15 @@ Page({
                     this.setData({
                         [`shipList[${index}].focusStatus`]: true
                     })
+                    wx.showToast({
+                        title: '关注成功',
+                        icon:'success'
+                    })
+                }else{
+                    wx.showToast({
+                      title: res.data.message,
+                      icon:'loading'
+                    })
                 }
             })
         } else {
@@ -167,10 +175,70 @@ Page({
                     this.setData({
                         [`shipList[${index}].focusStatus`]: false
                     })
+                    wx.showToast({
+                      title: '成功取消关注',
+                      icon:'success'
+                    })
+                }else{
+                    wx.showToast({
+                      title: res.data.message,
+                      icon:'loading'
+                    })
                 }
             })
         }
 
-        // console.log(this.data.shipList[0].focusStatus)
     },
+    handleCargoFocus(e) {
+        let Authorization = wx.getStorageSync('Authorization');
+        let status = e.currentTarget.dataset.status;
+        let index = e.currentTarget.dataset.index;
+        let shipId = e.currentTarget.dataset.id;
+        let params = {
+            Authorization,
+            shipId
+        }
+        if (status != true) {
+            User.UserCargoFocus(params).then(res => {
+                console.log(res)
+                if (res.data.state == 200) {
+                    this.setData({
+                        [`cargoList[${index}].focusStatus`]: true
+                    })
+                    wx.showToast({
+                        title: '关注成功',
+                        icon:'success'
+                    })
+
+                } else {
+                    wx.showToast({
+                        title: res.data.message,
+                        icon:'loading'
+                    })
+                }
+            })
+        } else {
+            User.UserCargoCancelFocus({
+                Authorization,
+                id:shipId
+            }).then(res => {
+                console.log(res)
+                if(res.data.state == 200){
+                    this.setData({
+                        [`cargoList[${index}].focusStatus`]: false
+                    })
+                    wx.showToast({
+                      title: '成功取消关注',
+                      icon:'success'
+                    })
+                }else{
+                    wx.showToast({
+                      title: res.data.message,
+                      icon:'loading'
+                    })
+                }
+            })
+        }
+        console.log(status, index, shipId)
+    }
 })

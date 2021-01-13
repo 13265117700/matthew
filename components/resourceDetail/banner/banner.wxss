@@ -1,0 +1,94 @@
+.page-banner {
+    background: linear-gradient(90deg, #E01923, #F45919);
+    height: 170px;
+    position: relative;
+}
+
+.banner-span {
+    /* position: relative; */
+    text-align: center;
+    /* top: 15%;
+    height: 30px; */
+    line-height: 30px;
+    display: flex;
+    padding: 25px 25px 0;
+}
+
+.banner-span_status {
+    flex: 1;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    font-size: 18px;
+    color: #fff;
+}
+
+.banner-span_icon {
+    font-family: "vtu-icon" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #fff;
+}
+
+.banner-span_icon::before {
+    content: "\e6cb";
+}
+
+
+.user-info{
+    width: 85%;
+    height: 96px;
+    background: #fff;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    /* text-align: center; */
+}
+.user-avatar{
+    position: absolute;
+    z-index: 1;
+    left: 13%;
+    bottom: -15%;
+}
+.user-avatar image{
+    width: 100px;
+    height: 100px;
+}
+
+.user-top{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-25%);
+    width: 150px;
+}
+.user-name{
+    font-family: PingFang-SC-Heavy;
+    font-weight: Heavy;
+    color: #434343;
+    font-size: 15px;
+    padding-right: 10px;
+}
+.user-status{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #00C80E;
+    font-size: 10px;
+}
+.user-record{
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: #878787;
+    font-size: 12px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-25%);
+    width: 150px;
+}
