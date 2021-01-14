@@ -12,13 +12,13 @@ Component({
     lifetimes: {
         ready: function () {
             this.getUserInfo();
-
         }
     },
     data: {
         user: {},
         deatil: {},
         show: false,
+        shipShow: false,
         btn: [{
             id: 1,
             icon: 'https://img.gdmatt.com/images/2021/01/14/16106173558876345.png',
@@ -219,10 +219,12 @@ Component({
                     }
                     break
                 case 4:
-                    console.log(4)
+                    wx.navigateTo({
+                      url: '/views/UserSpecifiedShip/UserSpecifiedShip',
+                    })
                     break
             }
 
-        }
+        },
     }
 })

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "选择船东",
+  "usingComponents": {
+    "van-search": "/miniprogram_npm/@vant/weapp/search/index"
+  }
+}
