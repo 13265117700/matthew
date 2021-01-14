@@ -1,6 +1,7 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "banner":"/components/resourceDetail/banner/banner"
+    "banner":"/components/resourceDetail/banner/banner",
+    "detail":"/components/resourceDetail/cargoDetails/cargoDetails"
   }
 }

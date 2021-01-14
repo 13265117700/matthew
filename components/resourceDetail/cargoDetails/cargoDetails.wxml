@@ -1,0 +1,194 @@
+<view class="detail-container">
+    <view class="info-group">
+        <view class="info-item">
+            <view class="info-title">
+                <text>货源信息</text>
+            </view>
+            <view class="info-btn">
+                <vtu-btn plain="true" type="{{deatil.focusStatus != true ? 'danger':''}}" size="small" round="true"
+                    data-id="{{deatil.id}}" data-status="{{deatil.focusStatus}}" bind:click="handleCargoFocus">
+                    {{deatil.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>货物名称</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.mtNameGoods.name}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>货物代码</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.mtNameGoods.cargoCode}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>货物数量</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.number}}T</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>起运港</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.portDepartureAddress}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>目的港</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.portArrivalAddress}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>装货日期</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.loadingDate}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>运价(含税)</text>
+            </view>
+            <view class="info-text">
+                <text wx:if="{{show === true}}">运费单价 {{deatil.freightAmount}}元/T</text>
+                <text wx:if="{{show === false}}">运费单价 ****元/T</text>
+                <view class="info-icon" wx:if="{{show === true}}" bindtap="showHidden">
+                    <image src="https://img.gdmatt.com/images/2021/01/14/16105936990985524.png"></image>
+                </view>
+                <view class="info-icon" wx:if="{{show === false}}" bindtap="showHidden">
+                    <image src="https://img.gdmatt.com/images/2021/01/14/16105941032665925.png"></image>
+                </view>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>其它费用</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.otherExpenses}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-item" bindtap="handleshow">
+            <view class="info-title">
+                <text>更多信息</text>
+            </view>
+            <view class="info-btn">
+                <image src="https://img.gdmatt.com/images/2021/01/14/16105945497712062.png"></image>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>滞期约定：</text>
+            </view>
+            <view class="info-text">
+                <view class="info-text_item">
+                    <text>装货{{deatil.delayedLoading}}{{deatil.lagPeriodType == 1 ? '天':'小时'}}-卸货{{deatil.delayedDischarge}}{{deatil.lagPeriodType == 1 ? '天':'小时'}}</text>
+                </view>
+                <view class="info-text_item">
+                    <text>滞期费：{{deatil.delayedCost}}元</text>
+                </view>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船舶类型：</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.mtTypeShip.name}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船舶大小：</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.vesselMinimum}}</text>
+                <text>-</text>
+                <text>{{deatil.vesselMaximum}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>货物交接:</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.deliveryGoods}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>货损赔偿约定：</text>
+            </view>
+            <view class="info-text" wx:if="{{deatil.compensation == 1}}">
+                <text>货损≤ {{deatil.lossGoods}}% </text>
+                <text>按{{deatil.goodsDamages}}元/T</text>
+            </view>
+            <view class="info-text" wx:if="{{deatil.compensation == 0}}">
+                <text>不约定</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>封仓要求：</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.warehouse}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>装货方式:</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.loadingMethod}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>卸货方式:</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.unloadingMode}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>备注:</text>
+            </view>
+            <view class="info-text">
+                <text>{{deatil.remarks}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-group_btn" wx:for="{{btn}}" wx:key="index" wx:for-item="btnItem" wx:if="{{btnItem.show}}"
+            style="background:{{btnItem.background}};color:{{btnItem.color}};font-family:{{btnItem.family}};font-weight:{{btnItem.weight}};font-size:{{btnItem.size}};width:{{btnItem.width}};flex:{{btnItem.flex}}"
+            data-id="{{btnItem.id}}" bindtap="handleBtn">
+            <view class="btn-wrap">
+                <view class="btn_icon" wx:if="{{btnItem.icon}}">
+                    <image src="{{btnItem.icon}}"></image>
+                </view>
+                <view class="btn_text">
+                    <text>{{btnItem.title}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

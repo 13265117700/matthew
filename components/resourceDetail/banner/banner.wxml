@@ -1,20 +1,22 @@
-<view class="page-banner">
+<view class="banner-container">
     <view class="banner-span">
         <view class="banner-span_icon" bindtap="pageclose"></view>
         <view class="banner-span_status">
             <text>货盘详情</text>
         </view>
     </view>
-    <view class="user-avatar">
-        <image src="https://img.yzcdn.cn/vant/cat.jpeg"></image>
-    </view>
-    <view class="user-info">
-        <view class="user-top">
-            <view class="user-name">chataaa</view>
-            <view class="user-status">未实名认证</view>
+    <view class="user-wrap">
+        <view class="user-avatar">
+            <image src="{{userInfo.faceImage}}"></image>
         </view>
-        <view class="user-record">
-            <text>成交次数：188</text>
+        <view class="user-info">
+            <view class="user-block">
+                <view class="user-name">{{userInfo.nickName}}</view>
+                <view class="user-status">已实名认证</view>
+            </view>
+            <view class="user-record">
+                <text>成交次数：{{userInfo.mtCargoOwner.transactionTimes}}</text>
+            </view>
         </view>
     </view>
 </view>

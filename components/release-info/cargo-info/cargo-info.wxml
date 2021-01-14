@@ -47,7 +47,7 @@
             <!-- 地址弹框 -->
             <van-popup
                 show="{{ addressShow }}"
-                custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;"
+                custom-style="height: 100%;width: 100%;border-radius: 0;"
                 round
                 position="right">
                 <view class="region-title-close" bindtap="onCloseAddress">
@@ -253,7 +253,7 @@
         show="{{ specifiedShow }}"
         round
         position="right"
-        custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;">
+        custom-style="height: 100%;width: 100%;border-radius: 0;">
         <view class="region-title-close" bindtap="onCloseAddress">
             <image src="/images/my/region/gb@1.png"></image>
         </view>

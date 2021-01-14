@@ -77,6 +77,7 @@ export default {
     //前端API
     frontDeskShipTypeList: `${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`, //船类型列表
     frontDeskCargoList: `${PREFIX}/reception/mtNameGoods/mtNameGoodsFriends`, //货物名列表
+    frontDeskCargoDeatil:`${PREFIX}/reception/cargo/findByCargoId`,//前端货源详情
     frontDeskShipPeriodList: `${PREFIX}/reception/releaseShipSource/releaseShipSourceFriends`, //船期列表
     frontDeskShipPeriodItem: `${PREFIX}/reception/releaseShipSource/findByReleaseShipSourceId`, //前端船期信息查询
     frontDeskWharfList: `${PREFIX}/reception/mtWharf/findAll`, //码头列表查询
@@ -84,4 +85,5 @@ export default {
     frontDeskShipItem: `${PREFIX}/reception/ship/findByShipId`, //船信息查询
     frontDeskDefaultCompany: `${PREFIX}/reception/information/findByAcquiescence`, //平台公司信息
     frontDeskCargoFocusOn: `${PREFIX}/reception/cargo/mtCargoFriends`,//前端获取货源列表
+
 }

@@ -23,11 +23,11 @@
     <view class="order-section">
         <view class="order-crumbs">
             <view class="order-title">订单跟踪</view>
-            <view class="order-tag" bindtap="ToviewOrder">查看更多订单<image src="/images/index/order-tag3.png"></image>
+            <view class="order-tag" bindtap="toviewOrder">查看更多订单<image src="/images/index/order-tag3.png"></image>
             </view>
         </view>
         <view class="order-list">
-            <view class="order-item" wx:for="{{orderList}}" wx:key="index" wx:for-item="orderItem">
+            <view class="order-item" wx:for="{{orderList}}" wx:key="index" wx:for-item="orderItem" data-id="{{orderItem.id}}" bindtap="goOrderDetail">
                 <view class="order-item-top">
                     <view class="order-item-img">
                         <image src="/images/index/order_img3.png"></image>

@@ -1,23 +1,33 @@
-// components/resourceDetail/banner/banner.js
+import mtWharf from "../../../models/frontEnd/mtWharf"
+
 Component({
-    /**
-     * 组件的属性列表
-     */
     properties: {
-
+        porID: Number
     },
-
-    /**
-     * 组件的初始数据
-     */
+    lifetimes: {
+        ready: function () {
+            this.getCargoInfo()
+        }
+    },
     data: {
-
+        userInfo:{}
     },
-
-    /**
-     * 组件的方法列表
-     */
     methods: {
+        pageclose() {
+            wx.navigateBack({
+                data: 1
+            })
+        },
+        getCargoInfo(){
+            let id = this.properties.porID;
+            mtWharf.frontDeskCargoDeatil({id}).then(res => {
+                let userInfo = res.data.data.mtUser;
+                console.log(userInfo)
+                this.setData({
+                    userInfo
+                })
+            })
 
+        }
     }
 })

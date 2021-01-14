@@ -1,18 +1,16 @@
 <view class="page-container">
     <view class="page-main">
         <view class="resources-search">
-            <van-search 
-                value="{{ value }}" 
-                shape="round"
-                background="#ffffff"
-                input-align="center" 
+            <van-search value="{{ value }}" shape="round" background="#ffffff" input-align="center"
                 placeholder="请输入船名/AIS名" />
             <view class="resources-btu" wx:if="{{ pageState }}">
-                <text>筛选</text> 
+                <text>筛选</text>
             </view>
         </view>
         <view class="resources-list">
-            <view class="resources-item" wx:if="{{ id === '9999998' }}" wx:for="{{cargoList}}" wx:key="index" wx:for-item="cargoItem">
+            <view class="resources-item" wx:if="{{ id === '9999998' }}" wx:for="{{cargoList}}" wx:key="index"
+                wx:for-item="cargoItem">
+                
                 <view class="resources-top">
                     <view class="resources-icon">
                         <image src="/images/myFollow/chuan@3x.png"></image>
@@ -21,18 +19,13 @@
                         <text>{{cargoItem.mtNameGoods.name}}</text><text>{{cargoItem.number}}T</text>
                     </view>
                     <view class="resources-active">
-                        <vtu-btn 
-                            plain="true" 
-                            type="{{cargoItem.focusStatus != true ? 'danger':''}}"
-                            size="small" 
-                            round="true"
-                            data-id="{{cargoItem.id}}"
-                            data-index="{{index}}"
-                            data-status="{{cargoItem.focusStatus}}"
-                            bind:click="handleCargoFocus">{{cargoItem.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
+                        <vtu-btn plain="true" type="{{cargoItem.focusStatus != true ? 'danger':''}}" size="small"
+                            round="true" data-id="{{cargoItem.id}}" data-index="{{index}}"
+                            data-status="{{cargoItem.focusStatus}}" bind:click="handleCargoFocus">
+                            {{cargoItem.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
                     </view>
                 </view>
-                <view class="resources-bottom">
+                <view class="resources-bottom" data-id="{{cargoItem.id}}" bindtap="goCargoDetail">
                     <view class="cargo-container">
                         <view class="cargo-item">
                             <view class="cargo-icon start">始</view>
@@ -79,11 +72,8 @@
                     </view>
                 </view>
             </view>
-            <view class="resources-item"  wx:if="{{ id === '9999999' }}"
-                wx:for="{{ shipList }}" 
-                wx:key="index" 
-                wx:for-item="shipItem"
-                >
+            <view class="resources-item" wx:if="{{ id === '9999999' }}" wx:for="{{ shipList }}" wx:key="index"
+                wx:for-item="shipItem">
                 <view class="resources-top">
                     <view class="resources-icon">
                         <image src="/images/myFollow/chuan@3x.png"></image>
@@ -92,15 +82,10 @@
                         <text>{{shipItem.mtShip.nameVessel}}</text>
                     </view>
                     <view class="resources-active">
-                        <vtu-btn 
-                            plain="true" 
-                            size="small"
-                            type="{{shipItem.focusStatus != true ? 'danger':''}}"
-                            round="true" 
-                            data-status="{{ shipItem.focusStatus }}"
-                            data-index="{{ index }}"
-                            data-id="{{ shipItem.mtShip.id }}" 
-                            bind:click="handleShipFocus">{{shipItem.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
+                        <vtu-btn plain="true" size="small" type="{{shipItem.focusStatus != true ? 'danger':''}}"
+                            round="true" data-status="{{ shipItem.focusStatus }}" data-index="{{ index }}"
+                            data-id="{{ shipItem.mtShip.id }}" bind:click="handleShipFocus">
+                            {{shipItem.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
                     </view>
                 </view>
                 <view class="resources-bottom" data-id="{{ shipItem.id }}" bindtap="handleCheckDetails">

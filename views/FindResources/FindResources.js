@@ -1,10 +1,6 @@
-const {
-    formatTime
-} = require('../../utils/util')
 import User from '../../models/user/user';
-import mtWharf from '../../models/frontEnd/mtWharf'
-
-
+import mtWharf from '../../models/frontEnd/mtWharf';
+const {formatTime} = require('../../utils/util')
 
 Page({
     data: {
@@ -69,69 +65,83 @@ Page({
 
     //获取船期列表
     getShipList() {
-        let Authorization = wx.getStorageSync('Authorization');
-        let page = 1;
-        let rows = 10;
-        let params = {
-            Authorization,
-            page,
-            rows
-        }
-        User.UserShipPeriodList(params).then(res => {
-            let rows = res.data.data.rows;
-            let shipList = []
-            rows.forEach(data => {
-                let emptyDate = new Date(data.emptyDate).toLocaleDateString();
-                data.emptyDate = emptyDate.replace(/\//g, "-");
-                let collegeId = data.mtShip.id; //船的ID
-                User.UserShipWhetherFocusOn({
-                    Authorization,
-                    collegeId
-                }).then(focus => {
+        let id = this.data.id;
+        if (id == '9999999') {
+            let Authorization = wx.getStorageSync('Authorization');
+            let page = 1;
+            let rows = 10;
+            let params = {
+                Authorization,
+                page,
+                rows
+            }
+            User.UserShipPeriodList(params).then(res => {
+                let rows = res.data.data.rows;
+                let shipList = []
+                rows.forEach(data => {
+                    // let emptyDate = new Date(data.emptyDate).toLocaleDateString();
+                    
+                    data.emptyDate = formatTime(new Date(data.emptyDate)).replace(/\//g, "-");
+                    let collegeId = data.mtShip.id; //船的ID
+                    User.UserShipWhetherFocusOn({
+                        Authorization,
+                        collegeId
+                    }).then(focus => {
 
-                    Promise.all([focus]).then(result => {
-                        let focusStatus = result[0].data.data;
-                        data.focusStatus = focusStatus;
-                        shipList.push(data)
-                        this.setData({
-                            shipList
+                        Promise.all([focus]).then(result => {
+                            let focusStatus = result[0].data.data;
+                            data.focusStatus = focusStatus;
+                            shipList.push(data)
+                            this.setData({
+                                shipList
+                            })
                         })
                     })
+
+                    
                 })
             })
-        })
+        }
+
 
     },
     //获取货源列表
     getCargoList() {
-        let Authorization = wx.getStorageSync('Authorization');
-        let page = 1;
-        let rows = 10;
-        let params = {
-            page,
-            rows
-        }
-        mtWharf.frontDeskCargoFocusOn(params).then(res => {
-            let rows = res.data.data.rows;
-            let cargoList = [];
-            rows.forEach(data => {
-                let collegeId = data.id;
-                User.UserCargoFocusOn({
-                    Authorization,
-                    collegeId
-                }).then(focus => {
-                    Promise.all([focus]).then(result => {
-                        let focusStatus = result[0].data.data;
-                        data.focusStatus = focusStatus;
-                        cargoList.push(data)
-                        this.setData({
-                            cargoList
+        let id = this.data.id;
+        if (id == '9999998') {
+            let Authorization = wx.getStorageSync('Authorization');
+            let page = 1;
+            let rows = 10;
+            let params = {
+                page,
+                rows
+            }
+            mtWharf.frontDeskCargoFocusOn(params).then(res => {
+                let rows = res.data.data.rows;
+                let cargoList = [];
+                rows.forEach(data => {
+                    let collegeId = data.id;
+                    console.log(collegeId)
+                    User.UserCargoFocusOn({
+                        Authorization,
+                        collegeId
+                    }).then(focus => {
+                        console.log(focus)
+                        Promise.all([focus]).then(result => {
+                            let focusStatus = result[0].data.data;
+                            data.focusStatus = focusStatus;
+                            cargoList.push(data)
+                            this.setData({
+                                cargoList
+                            })
+                            console.log(cargoList)
                         })
-                        console.log(cargoList)
                     })
                 })
             })
-        })
+        }
+
+
     },
 
     //船期关注
@@ -157,12 +167,12 @@ Page({
                     })
                     wx.showToast({
                         title: '关注成功',
-                        icon:'success'
+                        icon: 'success'
                     })
-                }else{
+                } else {
                     wx.showToast({
-                      title: res.data.message,
-                      icon:'loading'
+                        title: res.data.message,
+                        icon: 'loading'
                     })
                 }
             })
@@ -176,19 +186,20 @@ Page({
                         [`shipList[${index}].focusStatus`]: false
                     })
                     wx.showToast({
-                      title: '成功取消关注',
-                      icon:'success'
+                        title: '成功取消关注',
+                        icon: 'success'
                     })
-                }else{
+                } else {
                     wx.showToast({
-                      title: res.data.message,
-                      icon:'loading'
+                        title: res.data.message,
+                        icon: 'loading'
                     })
                 }
             })
         }
 
     },
+    //货关注
     handleCargoFocus(e) {
         let Authorization = wx.getStorageSync('Authorization');
         let status = e.currentTarget.dataset.status;
@@ -207,38 +218,46 @@ Page({
                     })
                     wx.showToast({
                         title: '关注成功',
-                        icon:'success'
+                        icon: 'success'
                     })
 
                 } else {
                     wx.showToast({
                         title: res.data.message,
-                        icon:'loading'
+                        icon: 'loading'
                     })
                 }
             })
         } else {
             User.UserCargoCancelFocus({
                 Authorization,
-                id:shipId
+                id: shipId
             }).then(res => {
                 console.log(res)
-                if(res.data.state == 200){
+                if (res.data.state == 200) {
                     this.setData({
                         [`cargoList[${index}].focusStatus`]: false
                     })
                     wx.showToast({
-                      title: '成功取消关注',
-                      icon:'success'
+                        title: '成功取消关注',
+                        icon: 'success'
                     })
-                }else{
+                } else {
                     wx.showToast({
-                      title: res.data.message,
-                      icon:'loading'
+                        title: res.data.message,
+                        icon: 'loading'
                     })
                 }
             })
         }
-        console.log(status, index, shipId)
+
+    },
+
+    goCargoDetail(e) {
+        console.log(e)
+        let id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/views/cargoDetails/cargoDetails?id=' + id,
+        })
     }
 })

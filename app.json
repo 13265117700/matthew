@@ -1,6 +1,6 @@
 {
     "pages": [
-        "views/cargoDetails/cargoDetails",
+        
         "pages/index/index",
         "pages/logs/logs",
         "pages/myFollow/myFollow",
@@ -27,7 +27,7 @@
         "views/orderConfirm/orderConfirm",
         "views/UserOrderList/UserOrderList",
         "views/FindResources/FindResources",
-
+        "views/cargoDetails/cargoDetails",
 
         
         "views/MyAddress/MyAddress",

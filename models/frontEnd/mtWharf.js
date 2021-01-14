@@ -33,5 +33,9 @@ export default {
     //前端货源列表
     frontDeskCargoFocusOn: function (data) {
         return request.get(api.frontDeskCargoFocusOn, data)
-    }
+    },
+    //前端货源详情
+    frontDeskCargoDeatil: function (data) {
+        return request.get(api.frontDeskCargoDeatil, data)
+    },
 }

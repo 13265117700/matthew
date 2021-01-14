@@ -6,7 +6,7 @@ import User from "../../models/user/user"
 Page({
   data: {
     // userInfo: {},
-    CargoStatus:'船准备到港',
+    CargoStatus: '船准备到港',
     current: 1,
     imageList: [{
       url: 'https://img.gdmatt.com/images/2021/01/12/16104224555836415.png',
@@ -128,37 +128,37 @@ Page({
       rows,
       status: 3
     };
-    console.log(params)
+
     User.UserOrderListQuery(params).then(res => {
       let rows = res.data.data;
-      console.log(rows)
+
       let total = rows.total;
       rows.rows.forEach(data => {
-        console.log(data)
-        switch(data.transportStatus){
+
+        switch (data.transportStatus) {
           case 0:
             this.setData({
-              CargoStatus:'船准备到港',
+              CargoStatus: '船准备到港',
             })
             break
           case 1:
             this.setData({
-              CargoStatus:'船已到装货港',
+              CargoStatus: '船已到装货港',
             })
             break
           case 2:
             this.setData({
-              CargoStatus:'已装好货',
+              CargoStatus: '已装好货',
             })
             break
           case 3:
             this.setData({
-              CargoStatus:'起航运输中',
+              CargoStatus: '起航运输中',
             })
             break
           case 4:
             this.setData({
-              CargoStatus:'已到达目的港',
+              CargoStatus: '已到达目的港',
             })
             break
         }
@@ -166,7 +166,7 @@ Page({
 
       if (total <= 5) {
         this.setData({
-          orderList:rows.rows
+          orderList: rows.rows
         })
       } else {
         let orderList = []
@@ -223,5 +223,20 @@ Page({
 
   },
 
+  //进入查看全部订单
+  toviewOrder() {
+    wx.navigateTo({
+      url: '/views/UserOrderList/UserOrderList',
+    })
+  },
+
+  //进入订单详情
+  goOrderDetail(e) {
+    console.log(e)
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/views/OrderTrack/OrderTrack?id=' + id
+    })
+  },
 
 })
