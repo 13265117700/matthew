@@ -1,0 +1,247 @@
+<view class="detail-container">
+    <view class="info-group">
+        <view class="info-item">
+            <view class="info-title">
+                <text>船源信息</text>
+            </view>
+            <view class="info-btn">
+                <vtu-btn plain="true" type="{{deatil.focusStatus != true ? 'danger':''}}" size="small" round="true"
+                    data-id="{{deatil.id}}" data-status="{{deatil.focusStatus}}" bind:click="handleCargoFocus">
+                    {{deatil.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船名</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.nameVessel}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>空船港</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtWharf.name}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船区/载货量(T）</text>
+            </view>
+            <view class="info-text">
+                <text>A级：{{detail.mtShip.ladenA}}T</text><text>B级：{{detail.mtShip.ladenB}}T</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船舶类型</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.typeShip}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-item">
+            <view class="info-title">
+                <text>船家信息</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船主姓名：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtUser.mtShipowner.contacts}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>联系方式：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtUser.mtShipowner.phone}}</text>
+            </view>
+        </view>
+        <view class="info-item" wx:if="{{detail.mtUser.mtShipowner.nameEnterprise}}">
+            <view class="info-subtitle">
+                <text>企业名称：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtUser.mtShipowner.nameEnterprise}}</text>
+            </view>
+        </view>
+        <!-- <view class="info-item">
+            <view class="info-subtitle">
+                <text>船代公司：</text>
+            </view>
+            <view class="info-text">
+                <text>否</text>
+            </view>
+        </view> -->
+    </view>
+    <view class="info-group">
+        <view class="info-item" bindtap="handleshow">
+            <view class="info-title">
+                <text>更多信息</text>
+            </view>
+            <view class="info-btn">
+                <image src="https://img.gdmatt.com/images/2021/01/14/16105945497712062.png"></image>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>AIS码：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.ais}}</text>
+            </view>
+        </view>
+        <!-- <view class="info-item">
+            <view class="info-subtitle">
+                <text>与船舶关系：</text>
+            </view>
+            <view class="info-text">
+                <text>自有船舶</text>
+            </view>
+        </view> -->
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>封仓设备：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.closure}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船龄：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.ageShip}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船籍港:</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.membership}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船总吨位：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.tonnage}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船总长：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.chief}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船总宽:</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.breadth}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船总高：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.shipHeight}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>满载吃水：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.typeDepth}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>型深:</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.depthProfile}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>监控装备：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.monitoring == 0 ? '否':'是'}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>船舶保险：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.insurance}}</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>可拉货物：</text>
+            </view>
+            <view class="info-text">
+                <text>{{detail.mtShip.kola}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-img">
+            <image src="/images/order/c000.png"></image>
+        </view>
+        <view class="info-img">
+            <image src="/images/order/c000.png"></image>
+        </view>
+        <view class="info-img">
+            <image src="/images/order/c000.png"></image>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-video">
+            <video src=""></video>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>备注:</text>
+            </view>
+            <view class="info-text">
+                <text>备注内容备注内容备注内容备注内容备注内容备注内容备注内容</text>
+            </view>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-group_btn" wx:for="{{btn}}" wx:key="index" wx:for-item="btnItem" wx:if="{{btnItem.show}}"
+            style="background:{{btnItem.background}};color:{{btnItem.color}};font-family:{{btnItem.family}};font-weight:{{btnItem.weight}};font-size:{{btnItem.size}};width:{{btnItem.width}};flex:{{btnItem.flex}}"
+            data-id="{{btnItem.id}}" bindtap="handleBtn">
+            <view class="btn-wrap">
+                <view class="btn_icon" wx:if="{{btnItem.icon}}">
+                    <image src="{{btnItem.icon}}"></image>
+                </view>
+                <view class="btn_text">
+                    <text>{{btnItem.title}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

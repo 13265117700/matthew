@@ -5,7 +5,7 @@ import User from "../../models/user/user"
 
 Page({
   data: {
-    // userInfo: {},
+    userInfo: {},
     CargoStatus: '船准备到港',
     current: 1,
     imageList: [{
@@ -104,6 +104,10 @@ Page({
         console.log('船东')
         user.ship = true
       }
+
+      this.setData({
+        userInfo: user
+      })
       this.getOrderList(user)
 
     })
@@ -192,13 +196,43 @@ Page({
 
   //进入船、货源信息
   gotoResourcesList(e) {
+    console.log(e)
     let Authorization = wx.getStorageSync('Authorization');
     if (Authorization) {
       let id = e.currentTarget.dataset.id;
       let data = e.currentTarget.dataset.data;
-      wx.navigateTo({
-        url: '/views/FindResources/FindResources?id=' + id + '&data=' + data,
-      })
+      let userInfo = this.data.userInfo;
+      switch (id) {
+        case 9999998:
+          if (userInfo.cargo) {
+            wx.showToast({
+              title: '您当前是货主身份',
+              icon: 'loading'
+            })
+            return
+          } else {
+            wx.navigateTo({
+              url: '/views/FindResources/FindResources?id=' + id + '&data=' + data,
+            })
+          }
+          break;
+
+        case 9999999:
+          if (userInfo.ship) {
+            wx.showToast({
+              title: '您当前是船东身份',
+              icon: 'loading'
+            })
+            return
+          } else {
+            wx.navigateTo({
+              url: '/views/FindResources/FindResources?id=' + id + '&data=' + data,
+            })
+          }
+          break;
+          
+      }
+
     } else {
       wx.navigateTo({
         url: '/pages/logs/logs',

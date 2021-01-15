@@ -1,6 +1,8 @@
 import User from '../../models/user/user';
 import mtWharf from '../../models/frontEnd/mtWharf';
-const {formatTime} = require('../../utils/util')
+const {
+    formatTime
+} = require('../../utils/date')
 
 Page({
     data: {
@@ -77,11 +79,10 @@ Page({
             }
             User.UserShipPeriodList(params).then(res => {
                 let rows = res.data.data.rows;
+                console.log(rows)
                 let shipList = []
                 rows.forEach(data => {
-                    // let emptyDate = new Date(data.emptyDate).toLocaleDateString();
-                    
-                    data.emptyDate = formatTime(new Date(data.emptyDate)).replace(/\//g, "-");
+                    data.emptyDate = formatTime(new Date(data.emptyDate));
                     let collegeId = data.mtShip.id; //船的ID
                     User.UserShipWhetherFocusOn({
                         Authorization,
@@ -98,7 +99,7 @@ Page({
                         })
                     })
 
-                    
+
                 })
             })
         }
@@ -121,7 +122,6 @@ Page({
                 let cargoList = [];
                 rows.forEach(data => {
                     let collegeId = data.id;
-                    console.log(collegeId)
                     User.UserCargoFocusOn({
                         Authorization,
                         collegeId
@@ -253,6 +253,14 @@ Page({
 
     },
 
+    handleCheckDetails(e) {
+        console.log(e)
+        let id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/views/shipDetails/shipDetails?id=' + id,
+        })
+    },
+    //进入货详情
     goCargoDetail(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;

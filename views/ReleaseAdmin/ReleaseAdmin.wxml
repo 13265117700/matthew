@@ -1,6 +1,6 @@
 <view class="page-container">
   <view class="page-main">
-    <van-tabs bind:click="switchButton">
+    <van-tabs active="{{upAndDownState}}" bind:click="switchButton">
       <van-tab wx:for="{{ statusList }}" wx:key="index" wx:for-item="statusItem" name="{{ statusItem.status }}"
         title="{{statusItem.title}}">
         <view class="release-list">
@@ -72,7 +72,7 @@
                   </view>
                 </view>
               </view>
-              <view class="release-cell">
+              <view class="release-cell" data-id="{{cargoItem.id}}" bindtap="goCargoDetail">
                 <view class="release-cell-container">
                   <view class="release-cell_item">
                     <view class="start">
@@ -93,7 +93,7 @@
           </view>
 
           <!-- 车源列表 -->
-          <view class="release-item" wx:if="{{ id === '609' }}">
+          <!-- <view class="release-item" wx:if="{{ id === '609' }}">
             <view class="release-container">
               <view class="release-cell">
                 <view class="release-cell_title">
@@ -126,7 +126,7 @@
                 </view>
               </view>
             </view>
-          </view>
+          </view> -->
         </view>
       </van-tab>
     </van-tabs>

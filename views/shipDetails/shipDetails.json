@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "banner":"/components/shipDetail/banner/banner",
+    "detail":"/components/shipDetail/details/details"
+  }
+}

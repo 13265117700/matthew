@@ -1,5 +1,105 @@
 <view class="container">
-    <view class="page-main">
+    <view class="tabs-list">
+
+        <view class="tabs-item" wx:for="{{cargoList}}" wx:key="index" wx:for-item="cargoItem"
+            wx:if="{{ userInfo.ship }}">
+            <view class="tabs-top">
+                <view class="tabs-icon">
+                    <image src="/images/myFollow/chuan@3x.png"></image>
+                </view>
+                <view class="tabs-title">
+                    <text>{{cargoItem.mtCargo.mtNameGoods.name}}</text><text>{{cargoItem.mtCargo.number}}T</text>
+                </view>
+                <view class="tabs-active">
+                    <vtu-btn plain="true" size="small" round="true" data-id="{{cargoItem.mtCargo.id}}"
+                        bind:click="cargoCancelFollow">取消关注</vtu-btn>
+                </view>
+            </view>
+            <view class="tabs-bottom" data-id="{{cargoItem.mtCargo.id}}" bindtap="goCargoDetail">
+                <view class="cargo-container">
+                    <view class="cargo-item">
+                        <view class="cargo-icon start">始</view>
+                        <view class="cargo-subTitle">{{cargoItem.mtCargo.portDepartureAddress}}</view>
+                    </view>
+                    <view class="cargo-item">
+                        <view class="cargo-img">
+                            <image src="/images/myFollow/item-info_img2.png"></image>
+                        </view>
+                    </view>
+                    <view class="cargo-item">
+                        <view class="cargo-icon end">终</view>
+                        <view class="cargo-subTitle">{{cargoItem.mtCargo.portArrivalAddress}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+
+        <!-- <view class="tabs-item" wx:if="{{ id === 1011002 }}">
+    <view class="tabs-top">
+        <view class="tabs-icon">
+            <image src="/images/myFollow/chuan@3x.png"></image>
+        </view>
+        <view class="tabs-title">
+            <text>煤炭</text>
+        </view>
+        <view class="tabs-active">
+            <vtu-btn plain="true" size="small" round="true">取消关注</vtu-btn>
+        </view>
+    </view>
+    <view class="tabs-bottom">
+        <view class="car-container">
+            <view class="car-item">
+                <view class="car-subtitle">空车地</view>
+                <view class="car-text">成都武侯区</view>
+            </view>
+            <view class="car-item">
+                <view class="car-subtitle">空车地</view>
+                <view class="car-text">成都武侯区</view>
+            </view>
+            <view class="car-item">
+                <view class="car-subtitle">空车地</view>
+                <view class="car-text">成都武侯区</view>
+            </view>
+        </view>
+    </view>
+</view> -->
+
+
+        <view class="tabs-item" wx:for="{{shipList}}" wx:key="index" wx:for-item="shipItem"
+            wx:if="{{ userInfo.cargo }}">
+            <view class="tabs-top">
+                <view class="tabs-icon">
+                    <image src="/images/myFollow/chuan@3x.png"></image>
+                </view>
+                <view class="tabs-title">
+                    <text>{{shipItem.mtShip.nameVessel}}</text>
+                </view>
+                <view class="tabs-active">
+                    <vtu-btn plain="true" size="small" round="true" data-id="{{shipItem.mtShip.id}}"
+                        bind:click="cancelFollow">取消关注</vtu-btn>
+                </view>
+            </view>
+            <view class="tabs-bottom">
+                <view class="ship-container">
+                    <view class="ship-item">
+                        <view class="ship-subtitle">载重级别</view>
+                        <view class="ship-describe">A级</view>
+                        <view class="ship-text">{{shipItem.mtShip.ladenA}}T</view>
+                    </view>
+                    <view class="ship-item">
+                        <view class="ship-subtitle">船舶类型</view>
+                        <view class="ship-text">{{shipItem.mtShip.typeShip}}</view>
+                    </view>
+                    <view class="ship-item">
+                        <view class="ship-subtitle">AIS码</view>
+                        <view class="ship-text">{{shipItem.mtShip.ais}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <!-- <view class="page-main">
         <van-tabs active="{{activeIndex}}" bind:click="onClickTabs">
             <van-tab wx:for="{{ tabsList }}" wx:key="index" wx:for-item="tabsItem" title="{{ tabsItem.title }}">
                 <view class="tabs-list">
@@ -18,7 +118,7 @@
                                     bind:click="cargoCancelFollow">取消关注</vtu-btn>
                             </view>
                         </view>
-                        <view class="tabs-bottom">
+                        <view class="tabs-bottom" data-id="{{cargoItem.mtCargo.id}}" bindtap="goCargoDetail">
                             <view class="cargo-container">
                                 <view class="cargo-item">
                                     <view class="cargo-icon start">始</view>
@@ -36,38 +136,6 @@
                             </view>
                         </view>
                     </view>
-
-
-                    <!-- <view class="tabs-item" wx:if="{{ id === 1011002 }}">
-                        <view class="tabs-top">
-                            <view class="tabs-icon">
-                                <image src="/images/myFollow/chuan@3x.png"></image>
-                            </view>
-                            <view class="tabs-title">
-                                <text>煤炭</text>
-                            </view>
-                            <view class="tabs-active">
-                                <vtu-btn plain="true" size="small" round="true">取消关注</vtu-btn>
-                            </view>
-                        </view>
-                        <view class="tabs-bottom">
-                            <view class="car-container">
-                                <view class="car-item">
-                                    <view class="car-subtitle">空车地</view>
-                                    <view class="car-text">成都武侯区</view>
-                                </view>
-                                <view class="car-item">
-                                    <view class="car-subtitle">空车地</view>
-                                    <view class="car-text">成都武侯区</view>
-                                </view>
-                                <view class="car-item">
-                                    <view class="car-subtitle">空车地</view>
-                                    <view class="car-text">成都武侯区</view>
-                                </view>
-                            </view>
-                        </view>
-                    </view> -->
-
 
                     <view class="tabs-item" wx:for="{{shipList}}" wx:key="index" wx:for-item="shipItem"
                         wx:if="{{activeIndex == 0}}">
@@ -104,5 +172,5 @@
                 </view>
             </van-tab>
         </van-tabs>
-    </view>
+    </view> -->
 </view>

@@ -1,0 +1,121 @@
+.detail-container {}
+
+.info-group {
+    padding: 0 30px 0 19px;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.info-group .info-item:nth-child(1) {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-group:nth-child(1) .info-item:first-child {
+    border-bottom: 1px solid #E6E6E6;
+}
+
+.info-group:nth-child(2) .info-item:nth-child(2) .info-text {
+    display: block;
+}
+
+.info-group:nth-child(3) .info-item {
+    align-items: baseline;
+}
+
+.info-group:nth-child(3) .info-item .info-subtitle {
+    min-width: 50px;
+}
+
+.info-group:last-child {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.info-group:last-child .info-group_btn {
+    /* flex: 1; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    cursor: pointer;
+}
+
+.info-item {
+    display: flex;
+    padding: 15px 0;
+}
+
+.info-title {
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: #191919;
+    font-size: 15px;
+}
+
+.info-group:nth-child(1) .info-btn {
+    min-width: 70px;
+}
+
+.info-subtitle {
+    min-width: 115px;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #454545;
+    font-size: 15px;
+}
+
+.info-group:nth-child(1) .info-text {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: #191919;
+    font-size: 15px;
+}
+
+.info-group:nth-child(2) .info-text {
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #191919;
+    font-size: 15px;
+}
+
+.info-icon {
+    margin-left: 15px;
+    height: 15px;
+}
+
+.info-icon image:first-child {
+    width: 15px;
+    height: 15px;
+}
+
+.info-icon image:last-child {
+    width: 15px;
+    height: 15px;
+}
+
+.info-item .info-btn image {
+    width: 14px;
+    height: 14px;
+}
+
+.btn_are {}
+
+.btn_icon {
+    text-align: center;
+}
+
+
+.info-group_btn image {
+    width: 19px;
+    height: 19px;
+}
+.info-group:first-child .info-item:nth-child(4) .info-text text{
+    padding-right: 20px;
+}

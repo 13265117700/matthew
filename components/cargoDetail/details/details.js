@@ -1,9 +1,10 @@
 import User from "../../../models/user/user";
-import mtWharf from "../../../models/frontEnd/mtWharf"
-import user from "../../../models/user/user";
+import mtWharf from "../../../models/frontEnd/mtWharf";
+
+
 const {
     formatTime
-} = require('../../../utils/util')
+} = require('../../../utils/date')
 
 Component({
     properties: {
@@ -94,7 +95,7 @@ Component({
                     Promise.all([focus]).then(result => {
                         let focusStatus = result[0].data.data;
                         rows.focusStatus = focusStatus
-                        rows.loadingDate = formatTime(new Date(rows.loadingDate)).replace(/\//g, "-");
+                        rows.loadingDate = formatTime(new Date(rows.loadingDate));
                         let btn = this.data.btn;
                         if (user.uid === rows.mtUser.uid) {
                             btn.forEach(data => {
@@ -189,7 +190,7 @@ Component({
 
         },
         //是否展示所有信息
-        handleshow() {
+        handleshow(e) {
             console.log(e)
         },
         //按钮事件
@@ -197,11 +198,13 @@ Component({
             let id = e.currentTarget.dataset.id;
             let user = this.data.user;
             let deatil = this.data.deatil;
-            console.log(id, user, deatil)
-
+            let porID = this.properties.porID;
             switch (id) {
                 case 1:
                     console.log(1)
+                    wx.navigateTo({
+                        url: '/views/cargoEdit/cargoEdit?id=' + porID,
+                    })
                     break
                 case 2:
                     console.log(2)
@@ -220,7 +223,7 @@ Component({
                     break
                 case 4:
                     wx.navigateTo({
-                      url: '/views/UserSpecifiedShip/UserSpecifiedShip',
+                        url: '/views/UserSpecifiedShip/UserSpecifiedShip',
                     })
                     break
             }

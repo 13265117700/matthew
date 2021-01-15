@@ -1,5 +1,4 @@
-<!--components/my/release-info/cargo-info/cargo-info.wxml-->
-<view class="release-cargoInfo-container">
+<view class="page-container">
     <!-- 信息分组1 -->
     <view class="info-group">
         <vtu-input-group>
@@ -109,10 +108,12 @@
                     </view>
                     <view class="item-input-child" wx:if="{{ GroupThree.on }}">
                         <view class="input-child-wrap">
-                            <vtu-input placeholder="请输入" type="input" text-align="center" bind:input="vesselMinimum">
+                            <vtu-input placeholder="{{shipMinimum}}" type="input" text-align="center"
+                                bind:input="vesselMinimum">
                             </vtu-input>
                             至
-                            <vtu-input type="input" text-align="center" bind:input="vesselMaximum"></vtu-input>
+                            <vtu-input placeholder="{{shipMaximum}}" type="input" text-align="center"
+                                bind:input="vesselMaximum"></vtu-input>
                             吨
                         </view>
                     </view>
@@ -133,8 +134,8 @@
     <!-- 信息分组4 -->
     <view class="info-group">
         <vtu-input-group>
-            <vtu-input placeholder="请输入留言给船东" type="textarea" text-align="left" show-max-label="{{false}}"
-                text-height="100px" bind:input="infoGroupFour"></vtu-input>
+            <vtu-input placeholder="请输入留言给船东" value="{{remarks}}" type="textarea" text-align="left"
+                show-max-label="{{false}}" text-height="100px" bind:input="infoGroupFour"></vtu-input>
         </vtu-input-group>
     </view>
     <!-- 功能弹框 -->
@@ -150,10 +151,10 @@
             </view>
         </van-popup>
     </view>
-    <!-- 添加按钮 -->
+    <!-- 编辑按钮 -->
     <view class="info-group">
         <van-button type="danger" size="large" square custom-style="{{buttonStyle}}" bind:click="handleCargoRelease">
-            发布货源</van-button>
+            确认修改</van-button>
     </view>
     <van-dialog use-slot title="是否指定船东" show="{{ visible }}" show-cancel-button="{{ false }}"
         show-confirm-button="{{ false }}">
@@ -163,10 +164,7 @@
                 {{button.name}}</view>
         </view>
     </van-dialog>
-    <!-- <van-popup
-        show="{{ specifiedShow }}"
-        round
-        position="right"
+    <!-- <van-popup show="{{ specifiedShow }}" round position="right"
         custom-style="height: 100%;width: 100%;border-radius: 0;">
         <view class="region-title-close" bindtap="onCloseAddress">
             <image src="/images/my/region/gb@1.png"></image>

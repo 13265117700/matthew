@@ -1,8 +1,5 @@
 import User from '../../models/user/user';
-import {
-    formatTime
-} from '../../utils/util';
-const App = getApp();
+
 Page({
     data: {
         id: null,

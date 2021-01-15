@@ -190,7 +190,8 @@ Page({
 
 
                 this.setData({
-                    shipOrderList
+                    shipOrderList,
+                    tabsActive:data.status
                 })
             })
             console.log('船东')
@@ -210,7 +211,8 @@ Page({
                 })
                 console.log(cargoOrderList)
                 this.setData({
-                    cargoOrderList
+                    cargoOrderList,
+                    tabsActive:data.status
                 })
             })
             console.log('货主')

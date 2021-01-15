@@ -13,11 +13,13 @@ Page({
       title: '已下架'
     }],
     upAndDownState: 3,
+    // active:3,
     cargoList: [], //货源列表
     shipList: [], //船期列表
   },
 
   onLoad: function (options) {
+    console.log(options)
     this.setData({
       id: options.id
     })
@@ -45,7 +47,8 @@ Page({
 
   //获取资源列表
   isRelease() {
-    let status = this.data.upAndDownState
+    let status = this.data.upAndDownState;
+    console.log(status)
     let id = this.data.id;
 
     switch (id) {
@@ -228,7 +231,8 @@ Page({
       })
       this.setData({
         addButton: '添加货源',
-        cargoList
+        cargoList,
+        upAndDownState:status
       })
     })
 
@@ -289,6 +293,14 @@ Page({
           title: res.data.message,
         })
       }
+    })
+  },
+  //进入货详情
+  goCargoDetail(e) {
+    console.log(e)
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/views/cargoDetails/cargoDetails?id=' + id,
     })
   },
 

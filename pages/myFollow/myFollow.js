@@ -1,7 +1,8 @@
 import User from '../../models/user/user'
 Page({
     data: {
-        activeIndex: 0,
+        userInfo:{},
+        // activeIndex: 0,
         tabsList: [{
             id: 1011002,
             title: '关注船源',
@@ -19,7 +20,7 @@ Page({
 
     onShow: function () {
         this.showtabBar();
-        this.getMyFollow()
+        this.getUserInfo();
     },
 
     showtabBar: function () {
@@ -30,32 +31,70 @@ Page({
         }
     },
 
+    //获取用户
+    getUserInfo() {
+        let Authorization = wx.getStorageSync('Authorization');
+        let uid = ''
+        let params = {
+            Authorization,
+            uid
+        }
+        User.userInfo(params).then(res => {
+            let user = res.data.data;
+            if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+                console.log('货主')
+                user.cargo = true
+            } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+                console.log('车主')
+                user.car = true
+            } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                console.log('船东')
+                user.ship = true
+            }
+            this.setData({
+                userInfo: user
+            })
+            this.getMyFollow(user)
+
+        })
+
+
+    },
+
     //获取关注列表
-    getMyFollow() {
-        let index = this.data.activeIndex;
-        if (index == 0) {
+    getMyFollow(user) {
+        console.log(user)
+        if(user.cargo){
             this.getShipFollow()
-        } else {
+        }else if(user.ship){
             this.getCargoFollow()
         }
+        // let index = this.data.activeIndex;
+        // if (index == 0) {
+        //     this.getShipFollow()
+        // } else {
+        //     this.getCargoFollow()
+        // }
     },
 
     //tabs标签导航
-    onClickTabs(e) {
-        let name = e.detail.name;
-        console.log(name)
-        if (name == 0) {
-            this.getShipFollow()
-            this.setData({
-                activeIndex: name
-            })
-        } else {
-            this.getCargoFollow()
-            this.setData({
-                activeIndex: name
-            })
-        }
-    },
+    // onClickTabs(e) {
+    //     let name = e.detail.name;
+    //     console.log(name)
+    //     if (name == 0) {
+    //         this.getShipFollow()
+    //         this.setData({
+    //             activeIndex: name
+    //         })
+    //     } else {
+    //         this.getCargoFollow()
+    //         this.setData({
+    //             activeIndex: name
+    //         })
+    //     }
+    // },
+
+
     getShipFollow() {
         let Authorization = wx.getStorageSync('Authorization');
         let page = 1;
@@ -67,6 +106,7 @@ Page({
         };
         User.UserFocusShips(params).then(res => {
             let rows = res.data.data.rows;
+            console.log(rows)
             this.setData({
                 shipList: rows,
             })
@@ -134,5 +174,9 @@ Page({
                 })
             }
         })
+    },
+
+    goCargoDetail(e) {
+
     }
 })
