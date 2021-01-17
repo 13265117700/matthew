@@ -5,9 +5,9 @@
                 <text>船源信息</text>
             </view>
             <view class="info-btn">
-                <vtu-btn plain="true" type="{{deatil.focusStatus != true ? 'danger':''}}" size="small" round="true"
-                    data-id="{{deatil.id}}" data-status="{{deatil.focusStatus}}" bind:click="handleCargoFocus">
-                    {{deatil.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
+                <vtu-btn plain="true" type="{{detail.focusStatus != true ? 'danger':''}}" size="small" round="true"
+                    data-id="{{detail.mtShip.id}}" data-status="{{detail.focusStatus}}" bind:click="handleShipFocus">
+                    {{detail.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
             </view>
         </view>
         <view class="info-item">
@@ -205,19 +205,26 @@
         </view>
     </view>
     <view class="info-group">
-        <view class="info-img">
-            <image src="/images/order/c000.png"></image>
+        <view class="info-item">
+            <view class="info-title">
+                <text>船图片</text>
+            </view>
         </view>
-        <view class="info-img">
-            <image src="/images/order/c000.png"></image>
-        </view>
-        <view class="info-img">
-            <image src="/images/order/c000.png"></image>
+        <view class="info-item">
+            <view class="info-img" wx:for="{{detail.shipChart}}" wx:key="index" wx:for-item="shipChart">
+                <image src="{{shipChart.url}}" mode="aspectFill" data-url="{{ shipChart.url }}"
+                    catchtap="handleShipImage"></image>
+            </view>
         </view>
     </view>
     <view class="info-group">
+        <view class="info-item">
+            <view class="info-title">
+                <text>船视频</text>
+            </view>
+        </view>
         <view class="info-video">
-            <video src=""></video>
+            <video src="{{detail.mtShip.shipVideo}}"></video>
         </view>
     </view>
     <view class="info-group">

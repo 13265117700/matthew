@@ -16,7 +16,7 @@ Component({
         detail: {},
         btn: [{
             id: 1,
-            title: '发起聊天',
+            title: '下架船源',
             background: '#FF7038',
             color: '#FFFFFF',
             family: 'PingFang-SC-Bold',
@@ -26,7 +26,7 @@ Component({
             show: false
         }, {
             id: 2,
-            title: '选择船东承运',
+            title: '修改船源信息',
             background: '#FF3C07',
             color: '#FFFFFF',
             family: 'PingFang-SC-Bold',
@@ -65,7 +65,8 @@ Component({
             flex: 1,
             size: '15px',
             show: true
-        }]
+        }],
+        image: []
     },
     methods: {
         getUserInfo() {
@@ -83,39 +84,155 @@ Component({
         },
         //获取船期信息
         getShipInfo(user) {
-            console.log(user)
             let id = this.properties.porID;
             mtWharf.frontDeskShipPeriodItem({
                 id
             }).then(res => {
                 let rows = res.data.data;
+                let Authorization = wx.getStorageSync('Authorization');
+                let collegeId = rows.mtShip.id;
+                let params = {
+                    Authorization,
+                    collegeId
+                };
+                User.UserShipWhetherFocusOn(params).then(focus => {
+                    Promise.all([focus]).then(result => {
+                        //关注状态
+                        let focusStatus = result[0].data.data;
+                        rows.focusStatus = focusStatus;
 
-                let nowYears = new Date().getFullYear(); //当前年
-                let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
-                let nowMonth = new Date().getMonth(); //当前月
-                let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
-                let nowDay = new Date().getDate(); //当前日
-                let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
+                        //船图片
+                        let shipChart = rows.mtShip.shipChart.split(',');
+                        let array = []
+                        shipChart.forEach(data => {
+                            let arr = {}
+                            arr.url = data
+                            array.push(arr)
+                        })
+                        rows.shipChart = array
 
-                let age = nowYears - years;
-                let ageMonth = nowMonth - month;
-                if (age <= 0) {
-                    if (ageMonth <= 0) {
-                        rows.ageShip = nowDay - day + '天'
-                    } else {
-                        rows.ageShip = ageMonth + '月'
-                    }
-                } else {
-                    rows.ageShip = age + '年'
-                }
+                        //船龄
+                        let nowYears = new Date().getFullYear(); //当前年
+                        let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
+                        let nowMonth = new Date().getMonth(); //当前月
+                        let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
+                        let nowDay = new Date().getDate(); //当前日
+                        let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
+                        let age = nowYears - years;
+                        let ageMonth = nowMonth - month;
+                        if (age <= 0) {
+                            if (ageMonth <= 0) {
+                                rows.ageShip = nowDay - day + '天'
+                            } else {
+                                rows.ageShip = ageMonth + '月'
+                            }
+                        } else {
+                            rows.ageShip = age + '年'
+                        }
 
-                console.log(rows)
+                        //按钮
+                        let btn = this.data.btn;
+                        if(user.uid === rows.mtUser.uid){
+                            btn.forEach(data => {
+                                console.log(data)
+                                if(data.id < 3){
+                                    data.show = true
+                                }else{
+                                    data.show = false
+                                }
+                            })
+                        }else{
+                            btn.forEach(data => {
+                                console.log(data)
+                                if(data.id > 2){
+                                    data.show = true
+                                }else{
+                                    data.show = false
+                                }
+                            })
+                        }
+                        
 
-                this.setData({
-                    detail: rows
+                        this.setData({
+                            detail: rows,
+                            image: shipChart,
+                            btn
+                        })
+
+                    })
                 })
 
+
+
+
+
+
             })
-        }
+
+
+        },
+        handleShipFocus(e) {
+            let Authorization = wx.getStorageSync('Authorization');
+            let status = e.currentTarget.dataset.status;
+            let shipId = e.currentTarget.dataset.id;
+            let params = {
+                Authorization,
+                shipId
+            }
+            console.log(params, status)
+
+            if (status != true) {
+                User.UserShipFocus(params).then(res => {
+                    console.log(res)
+                    if (res.data.state == 200) {
+                        this.setData({
+                            [`detail.focusStatus`]: true
+                        })
+                        wx.showToast({
+                            title: '关注成功',
+                            icon: 'success'
+                        })
+
+                    } else {
+                        wx.showToast({
+                            title: res.data.message,
+                            icon: 'loading'
+                        })
+                    }
+                })
+            } else {
+                User.UserShipCancelFocus({
+                    Authorization,
+                    id: shipId
+                }).then(res => {
+                    console.log(res)
+                    if (res.data.state == 200) {
+                        this.setData({
+                            [`detail.focusStatus`]: false
+                        })
+                        wx.showToast({
+                            title: '成功取消关注',
+                            icon: 'success'
+                        })
+                    } else {
+                        wx.showToast({
+                            title: res.data.message,
+                            icon: 'loading'
+                        })
+                    }
+                })
+            }
+        },
+        //浏览船图片
+        handleShipImage(e) {
+            let url = e.currentTarget.dataset.url;
+            let image = this.data.image;
+            console.log(this.data.image)
+            wx.previewImage({
+                current: url,
+                urls: image
+            })
+            console.log(this.data.detail)
+        },
     }
 })
