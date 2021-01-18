@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "筛选",
+  "usingComponents": {
+    "siderBar":"/components/screening/sidebar/sidebar"
+  }
+}

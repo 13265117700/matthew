@@ -206,7 +206,7 @@ Page({
         case 9999998:
           if (userInfo.cargo) {
             wx.showToast({
-              title: '您当前是货主身份',
+              title: '您当前是货主',
               icon: 'loading'
             })
             return
@@ -220,7 +220,7 @@ Page({
         case 9999999:
           if (userInfo.ship) {
             wx.showToast({
-              title: '您当前是船东身份',
+              title: '您当前是船东',
               icon: 'loading'
             })
             return

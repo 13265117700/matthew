@@ -1,7 +1,7 @@
 import User from '../../models/user/user'
 Page({
     data: {
-        userInfo:{},
+        userInfo: {},
         // activeIndex: 0,
         tabsList: [{
             id: 1011002,
@@ -63,38 +63,31 @@ Page({
 
     //获取关注列表
     getMyFollow(user) {
-        console.log(user)
-        if(user.cargo){
+        if (user.cargo) {
             this.getShipFollow()
-        }else if(user.ship){
+        } else if (user.ship) {
             this.getCargoFollow()
         }
-        // let index = this.data.activeIndex;
-        // if (index == 0) {
+    },
+
+    // tabs标签导航
+    onClickTabs(e) {
+        // let name = e.detail.name;
+        // console.log(name)
+        // if (name == 0) {
         //     this.getShipFollow()
+        //     this.setData({
+        //         activeIndex: name
+        //     })
         // } else {
         //     this.getCargoFollow()
+        //     this.setData({
+        //         activeIndex: name
+        //     })
         // }
     },
 
-    //tabs标签导航
-    // onClickTabs(e) {
-    //     let name = e.detail.name;
-    //     console.log(name)
-    //     if (name == 0) {
-    //         this.getShipFollow()
-    //         this.setData({
-    //             activeIndex: name
-    //         })
-    //     } else {
-    //         this.getCargoFollow()
-    //         this.setData({
-    //             activeIndex: name
-    //         })
-    //     }
-    // },
-
-
+    //获取已关注船期列表
     getShipFollow() {
         let Authorization = wx.getStorageSync('Authorization');
         let page = 1;
@@ -106,12 +99,13 @@ Page({
         };
         User.UserFocusShips(params).then(res => {
             let rows = res.data.data.rows;
-            console.log(rows)
+
             this.setData({
                 shipList: rows,
             })
         })
     },
+    //获取已关注货源列表
     getCargoFollow() {
         let Authorization = wx.getStorageSync('Authorization');
         let page = 1;
@@ -123,7 +117,7 @@ Page({
         };
         User.UserFocusCargo(params).then(res => {
             let rows = res.data.data.rows;
-            console.log(rows)
+
             this.setData({
                 cargoList: rows
             })
@@ -144,7 +138,7 @@ Page({
                     title: '成功取消关注',
                     icon: 'success'
                 })
-                this.getMyFollow()
+                this.getUserInfo()
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -166,7 +160,7 @@ Page({
                     title: '成功取消关注',
                     icon: 'success'
                 })
-                this.getMyFollow()
+                this.getUserInfo()
             } else {
                 wx.showToast({
                     title: res.data.message,
@@ -176,7 +170,17 @@ Page({
         })
     },
 
+    //船详情
+    goShipDetail(e) {
+        console.log(e)
+        let id = e.currentTarget.dataset.id;
+        console.log(id)
+        wx.navigateTo({
+            url: '/views/shipDetail/shipDetail?id=' + id,
+        })
+    },
+    //货源详情
     goCargoDetail(e) {
-
+        console.log(e)
     }
 })

@@ -384,6 +384,9 @@ Component({
             switch (state) {
                 case 1:
                     console.log('申诉')
+                    wx.navigateTo({
+                        url: '/views/OrderAppeal/OrderAppeal',
+                    })
                     break;
                 case 2:
                     console.log('查看合同')

@@ -300,7 +300,7 @@ Page({
     console.log(e)
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/views/cargoDetails/cargoDetails?id=' + id,
+      url: '/views/cargoDateDetails/cargoDateDetails?id=' + id,
     })
   },
 

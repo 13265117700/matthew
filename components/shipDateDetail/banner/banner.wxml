@@ -2,20 +2,23 @@
     <view class="banner-span">
         <view class="banner-span_icon" bindtap="pageclose"></view>
         <view class="banner-span_status">
-            <text>船详情</text>
+            <text>船期详情</text>
         </view>
     </view>
     <view class="user-wrap">
         <view class="user-avatar">
-            <image src="{{userInfo.faceImage}}"></image>
+            <image src="{{userInfo.mtUser.faceImage}}"></image>
         </view>
         <view class="user-info">
             <view class="user-block">
-                <view class="user-name">{{userInfo.nickName}}</view>
+                <view class="user-name">{{userInfo.mtUser.nickName}}</view>
                 <view class="user-status">已实名认证</view>
             </view>
             <view class="user-record">
-                <text>成交次数：{{userInfo.mtShipowner.transactionTimes}}</text>
+                <text>成交次数：{{userInfo.mtUser.mtShipowner.transactionTimes}}</text>
+            </view>
+            <view class="user-date">
+                <text>船源发布时间：</text> <text>{{userInfo.createTime}}</text>
             </view>
         </view>
     </view>

@@ -1,0 +1,8 @@
+<view class="page-container">
+    <view class="page-sider">
+        <siderBar></siderBar>
+    </view>
+    <view class="page-main">
+        <text>123123</text>
+    </view>
+</view>

@@ -82,13 +82,15 @@
             </view>
         </view>
     </view>
-    <view class="info-group">
+    <view class="info-group {{itemShow == true ? 'active':''}}">
         <view class="info-item" bindtap="handleshow">
             <view class="info-title">
                 <text>更多信息</text>
             </view>
             <view class="info-btn">
-                <image src="https://img.gdmatt.com/images/2021/01/14/16105945497712062.png"></image>
+                <!-- <image src="https://img.gdmatt.com/images/2021/01/14/16105945497712062.png"></image> -->
+                <image class="btn-icon {{itemShow == true ? 'active':''}}"
+                    src="https://img.gdmatt.com/images/2021/01/18/16109534874933321.png"></image>
             </view>
         </view>
         <view class="info-item">

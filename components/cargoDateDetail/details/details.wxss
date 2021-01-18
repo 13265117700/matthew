@@ -101,3 +101,21 @@
     width: 19px;
     height: 19px;
 }
+
+.btn-icon{
+    transform:rotate(0deg);
+    transition: transform .3s ease-in;
+}
+
+.btn-icon.active {
+    transform: rotate(-180deg);
+    transition: transform .3s ease-in;
+}
+.info-group:nth-child(2){
+    height: 260px;
+    overflow:hidden;
+}
+
+.info-group.active{
+    height: 100%;
+}

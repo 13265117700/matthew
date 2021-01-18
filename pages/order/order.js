@@ -513,42 +513,83 @@ Page({
 
     //订单按钮事件
     handleButton(e) {
+        console.log(e)
         let id = e.currentTarget.dataset.id;
         let state = e.currentTarget.dataset.state;
         let userInfo = this.data.userInfo;
-        if (userInfo.ship) {
-            let senderId = e.currentTarget.dataset.usershipid;
-            let receiverId = e.currentTarget.dataset.usercargoid;
-            // let shipStatus = e.currentTarget.dataset.status;
-            switch (state) {
-                case 3:
-                    wx.navigateTo({
-                        url: '/views/chat/chat?senderid=' + senderId + '&receiverid=' + receiverId,
-                    })
-                    break
-                case 4:
-                    wx.navigateTo({
-                        url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
-                    })
-                    break
-            }
-        } else if (userInfo.cargo) {
-            let senderId = e.currentTarget.dataset.usercargoid;
-            let receiverId = e.currentTarget.dataset.usershipid;
-            switch (state) {
-                case 3:
-                    wx.navigateTo({
-                        url: '/views/chat/chat?senderid=' + senderId + '&receiverid=' + receiverId,
-                    })
-                    break
-                case 5:
-                    wx.navigateTo({
-                        url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
-                    })
-                    break
-            }
+        let orderBtu = this.data.orderBtu;
+        let usershipid = e.currentTarget.dataset.usershipid;
+        let usercargoid = e.currentTarget.dataset.usercargoid;
+        console.log(orderBtu)
+        switch (state) {
+            case 1:
+                console.log('申诉')
+                wx.navigateTo({
+                  url: '/views/OrderAppeal/OrderAppeal',
+                })
+                break;
+            case 2:
+                console.log(2)
+                break;
+            case 3:
+                this.initiateChat(userInfo, usershipid, usercargoid)
+                break;
+            case 4:
+                wx.navigateTo({
+                    url: '/views/OrderTrack/OrderTrack?id=' + id,
+                })
+                break;
+            case 5:
+                wx.navigateTo({
+                    url: '/views/OrderTrack/OrderTrack?id=' + id,
+                })
+                break;
+            case 6:
+                console.log('船到装货港')
+                wx.navigateTo({
+                    url: '/views/OrderShipment/OrderShipment?id=' + id,
+                })
+                break;
+            case 7:
+                console.log('承运轨迹')
+                break;
+            case 8:
+                console.log('确认价格')
+                break;
+            case 9:
+                console.log('删除订单')
+                break;
+            case 10:
+                console.log('订单轨迹')
+                wx.navigateTo({
+                    url: '/views/OrderTracking/OrderTracking?id=' + id,
+                })
+                break;
+            case 11:
+                console.log('订单价格')
+                break;
+            case 12:
+                console.log('售后中')
+                break;
+            case 13:
+                console.log('评价')
+                break;
+
         }
 
+    },
+
+    //发起聊天
+    initiateChat(userInfo, usershipid, usercargoid) {
+        if (userInfo.cargo) {
+            wx.navigateTo({
+                url: '/views/chat/chat?senderid=' + usercargoid + '&receiverid=' + usershipid,
+            })
+        } else if (userInfo.ship) {
+            wx.navigateTo({
+                url: '/views/chat/chat?senderid=' + usershipid + '&receiverid=' + usercargoid,
+            })
+        }
     },
 
 

@@ -9,12 +9,16 @@
 
 
   <view class="imgBox">
-    <van-uploader>
-      <image src="/images/order/sc.png" style="width:30px; height:30px; margin:26px;"></image>
+    <van-uploader preview-size="85px" file-list="{{ imgList }}" max-count="9" bind:after-read="handImgUpload"
+      bind:delete="shipImgDel">
+      <view class="imgBox-img">
+        <image src="/images/order/sc.png"></image>
+      </view>
+      <view class="imgBox-text">
+        <text>上传照片</text>
+      </view>
     </van-uploader>
-
   </view>
-  <text>上传照片</text>
 </view>
 
 <view class="btn">

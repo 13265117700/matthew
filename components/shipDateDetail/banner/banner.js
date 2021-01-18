@@ -1,13 +1,12 @@
 import mtWharf from '../../../models/frontEnd/mtWharf';
 
-
 Component({
     properties: {
         porID: Number
     },
     lifetimes: {
         ready: function () {
-            this.getShipInfo()
+            this.getCargoInfo()
         }
     },
     data: {
@@ -19,10 +18,11 @@ Component({
                 data: 1
             })
         },
-        getShipInfo() {
+        getCargoInfo() {
             let id = this.properties.porID;
-            mtWharf.frontDeskShipItem({id}).then(res => {
-                let userInfo = res.data.data.mtUser;
+            mtWharf.frontDeskShipPeriodItem({id}).then(res => {
+                console.log(res)
+                let userInfo = res.data.data;
                 this.setData({
                     userInfo
                 })

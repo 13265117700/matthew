@@ -80,7 +80,7 @@
                         bind:click="cancelFollow">取消关注</vtu-btn>
                 </view>
             </view>
-            <view class="tabs-bottom">
+            <view class="tabs-bottom" data-id="{{shipItem.mtShip.id}}" bindtap="goShipDetail">
                 <view class="ship-container">
                     <view class="ship-item">
                         <view class="ship-subtitle">载重级别</view>

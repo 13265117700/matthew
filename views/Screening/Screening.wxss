@@ -1,0 +1,11 @@
+.page-container{
+    display: flex;
+    height: 100%;
+}
+.page-sider{
+    width: 125px;
+    border-right: 1px solid #EEEEEE;
+}
+.page-main{
+    flex: 1;
+}

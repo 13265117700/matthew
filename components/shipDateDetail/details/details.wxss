@@ -185,8 +185,8 @@
     width: 100%;
 }
 
-.btn-icon{
-    transform:rotate(0deg);
+.btn-icon {
+    transform: rotate(0deg);
     transition: transform .3s ease-in;
 }
 
@@ -194,11 +194,12 @@
     transform: rotate(-180deg);
     transition: transform .3s ease-in;
 }
-.info-group:nth-child(3){
+
+.info-group:nth-child(3) {
     height: 260px;
-    overflow:hidden;
+    overflow: hidden;
 }
 
-.info-group.active{
+.info-group.active {
     height: 100%;
 }

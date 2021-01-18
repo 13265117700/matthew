@@ -2,6 +2,7 @@ import User from '../../../models/user/user';
 import mtWharf from "../../../models/frontEnd/mtWharf";
 
 
+
 Component({
     properties: {
         porID: Number
@@ -83,17 +84,18 @@ Component({
                 this.getShipInfo(rows)
             })
         },
-        //获取船信息
+        //获取船期信息
         getShipInfo(user) {
-            let Authorization = wx.getStorageSync('Authorization');
             let id = this.properties.porID;
-            mtWharf.frontDeskShipItem({
+            mtWharf.frontDeskShipPeriodItem({
                 id
             }).then(res => {
                 let rows = res.data.data;
+                let Authorization = wx.getStorageSync('Authorization');
+                let collegeId = rows.mtShip.id;
                 let params = {
                     Authorization,
-                    collegeId: id
+                    collegeId
                 };
                 User.UserShipWhetherFocusOn(params).then(focus => {
                     Promise.all([focus]).then(result => {
@@ -102,7 +104,7 @@ Component({
                         rows.focusStatus = focusStatus;
 
                         //船图片
-                        let shipChart = rows.shipChart.split(',');
+                        let shipChart = rows.mtShip.shipChart.split(',');
                         let array = []
                         shipChart.forEach(data => {
                             let arr = {}
@@ -113,11 +115,11 @@ Component({
 
                         //船龄
                         let nowYears = new Date().getFullYear(); //当前年
-                        let years = new Date(parseInt(rows.ageShip)).getFullYear(); //船创建的年份
+                        let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
                         let nowMonth = new Date().getMonth(); //当前月
-                        let month = new Date(parseInt(rows.ageShip)).getMonth(); //船创建的月份
+                        let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
                         let nowDay = new Date().getDate(); //当前日
-                        let day = new Date(parseInt(rows.ageShip)).getDate(); //船创建的日
+                        let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
                         let age = nowYears - years;
                         let ageMonth = nowMonth - month;
                         if (age <= 0) {
@@ -129,9 +131,6 @@ Component({
                         } else {
                             rows.ageShip = age + '年'
                         }
-
-                        console.log(rows)
-
 
                         //按钮
                         let btn = this.data.btn;
@@ -153,6 +152,7 @@ Component({
                             })
                         }
 
+
                         this.setData({
                             userInfo: user,
                             detail: rows,
@@ -162,7 +162,10 @@ Component({
 
                     })
                 })
+
             })
+
+
         },
         //关注
         handleShipFocus(e) {
@@ -234,8 +237,8 @@ Component({
                 current: url,
                 urls: image
             })
+            console.log(this.data.detail)
         },
-
 
         //按钮事件
         handleBtn(e) {
@@ -261,6 +264,7 @@ Component({
                     break;
             }
         },
+
         //下架船源
         shelvesDelete() {
             console.log('下架')

@@ -86,4 +86,5 @@ export default {
     frontDeskDefaultCompany: `${PREFIX}/reception/information/findByAcquiescence`, //平台公司信息
     frontDeskCargoFocusOn: `${PREFIX}/reception/cargo/mtCargoFriends`,//前端获取货源列表
 
+
 }

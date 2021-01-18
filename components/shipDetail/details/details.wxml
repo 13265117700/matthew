@@ -6,7 +6,7 @@
             </view>
             <view class="info-btn">
                 <vtu-btn plain="true" type="{{detail.focusStatus != true ? 'danger':''}}" size="small" round="true"
-                    data-id="{{detail.mtShip.id}}" data-status="{{detail.focusStatus}}" bind:click="handleShipFocus">
+                    data-id="{{detail.id}}" data-status="{{detail.focusStatus}}" bind:click="handleShipFocus">
                     {{detail.focusStatus != true ? '关注':'取消关注'}}</vtu-btn>
             </view>
         </view>
@@ -15,23 +15,23 @@
                 <text>船名</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.nameVessel}}</text>
+                <text>{{detail.nameVessel}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <!-- <view class="info-item">
             <view class="info-subtitle">
                 <text>空船港</text>
             </view>
             <view class="info-text">
                 <text>{{detail.mtWharf.name}}</text>
             </view>
-        </view>
+        </view> -->
         <view class="info-item">
             <view class="info-subtitle">
                 <text>船区/载货量(T）</text>
             </view>
             <view class="info-text">
-                <text>A级：{{detail.mtShip.ladenA}}T</text><text>B级：{{detail.mtShip.ladenB}}T</text>
+                <text>A级：{{detail.ladenA}}T</text><text>B级：{{detail.ladenB}}T</text>
             </view>
         </view>
         <view class="info-item">
@@ -39,7 +39,7 @@
                 <text>船舶类型</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.typeShip}}</text>
+                <text>{{detail.typeShip}}</text>
             </view>
         </view>
     </view>
@@ -82,13 +82,14 @@
             </view>
         </view> -->
     </view>
-    <view class="info-group">
+    <view class="info-group {{itemShow == true ? 'active':''}}">
         <view class="info-item" bindtap="handleshow">
             <view class="info-title">
                 <text>更多信息</text>
             </view>
             <view class="info-btn">
-                <image src="https://img.gdmatt.com/images/2021/01/14/16105945497712062.png"></image>
+                <!-- <image src="https://img.gdmatt.com/images/2021/01/14/16105945497712062.png"></image> -->
+                <image class="btn-icon {{itemShow == true ? 'active':''}}" src="https://img.gdmatt.com/images/2021/01/18/16109534874933321.png"></image>
             </view>
         </view>
         <view class="info-item">
@@ -96,23 +97,15 @@
                 <text>AIS码：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.ais}}</text>
+                <text>{{detail.ais}}</text>
             </view>
         </view>
-        <!-- <view class="info-item">
-            <view class="info-subtitle">
-                <text>与船舶关系：</text>
-            </view>
-            <view class="info-text">
-                <text>自有船舶</text>
-            </view>
-        </view> -->
         <view class="info-item">
             <view class="info-subtitle">
                 <text>封仓设备：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.closure}}</text>
+                <text>{{detail.closure}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -128,7 +121,7 @@
                 <text>船籍港:</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.membership}}</text>
+                <text>{{detail.membership}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -136,7 +129,7 @@
                 <text>船总吨位：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.tonnage}}</text>
+                <text>{{detail.tonnage}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -144,7 +137,7 @@
                 <text>船总长：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.chief}}</text>
+                <text>{{detail.chief}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -152,7 +145,7 @@
                 <text>船总宽:</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.breadth}}</text>
+                <text>{{detail.breadth}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -160,7 +153,7 @@
                 <text>船总高：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.shipHeight}}</text>
+                <text>{{detail.shipHeight}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -168,7 +161,7 @@
                 <text>满载吃水：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.typeDepth}}</text>
+                <text>{{detail.typeDepth}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -176,7 +169,7 @@
                 <text>型深:</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.depthProfile}}</text>
+                <text>{{detail.depthProfile}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -184,7 +177,7 @@
                 <text>监控装备：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.monitoring == 0 ? '否':'是'}}</text>
+                <text>{{detail.monitoring == 0 ? '否':'是'}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -192,7 +185,7 @@
                 <text>船舶保险：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.insurance}}</text>
+                <text>{{detail.insurance}}</text>
             </view>
         </view>
         <view class="info-item">
@@ -200,7 +193,7 @@
                 <text>可拉货物：</text>
             </view>
             <view class="info-text">
-                <text>{{detail.mtShip.kola}}</text>
+                <text>{{detail.kola}}</text>
             </view>
         </view>
     </view>
@@ -224,7 +217,7 @@
             </view>
         </view>
         <view class="info-video">
-            <video src="{{detail.mtShip.shipVideo}}"></video>
+            <video src="{{detail.shipVideo}}" controls="{{true}}" objectFit="cover"></video>
         </view>
     </view>
     <view class="info-group">

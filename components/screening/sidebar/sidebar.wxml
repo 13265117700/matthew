@@ -1,0 +1,7 @@
+<view class="page-sidebar">
+    <van-sidebar active-key="{{ activeKey }}">
+        <van-sidebar-item title="标签名" />
+        <van-sidebar-item title="标签名" />
+        <van-sidebar-item title="标签名" />
+    </van-sidebar>
+</view>

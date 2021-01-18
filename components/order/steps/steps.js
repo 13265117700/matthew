@@ -13,7 +13,7 @@ Component({
         }
     },
     data: {
-        userInfo:{},
+        userInfo: {},
         stepsummary: [{
             title: '船到装货港',
             describe: '待船东上传船到港图片',
@@ -92,13 +92,13 @@ Component({
             state: 6
         }],
         index: 0,
-        status:null,
+        status: null,
     },
     methods: {
-        getUserInfo(){
+        getUserInfo() {
             let userInfo = App.globalData.userInfo
             this.setData({
-                userInfo:userInfo
+                userInfo: userInfo
             })
         },
         getOrderInfo() {
@@ -113,7 +113,7 @@ Component({
                 let rows = res.data.data;
                 this.btnStatus(rows)
                 this.setData({
-                    status:rows.status
+                    status: rows.status
                 })
             })
         },
@@ -250,6 +250,8 @@ Component({
 
 
         },
+
+        //船东订单状态按钮
         handleStepsBtn(e) {
             let state = e.currentTarget.dataset.state;
             let id = this.properties.orderID;
@@ -295,6 +297,14 @@ Component({
                     break;
 
             }
+        },
+
+        //货主查看订单轨迹
+        handCargoStepsBtu() {
+            let id = this.properties.orderID;
+            wx.navigateTo({
+                url: '/views/OrderTracking/OrderTracking?id=' + id,
+            })
         }
     }
 })

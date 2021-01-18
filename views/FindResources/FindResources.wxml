@@ -2,8 +2,8 @@
     <view class="page-main">
         <view class="resources-search">
             <van-search value="{{ value }}" shape="round" background="#ffffff" input-align="center"
-                placeholder="请输入船名/AIS名" />
-            <view class="resources-btu" wx:if="{{ pageState }}">
+                placeholder="请输入船名" bind:change="handleSearch" />
+            <view class="resources-btu" wx:if="{{ pageState }}" bindtap="handleSidebar">
                 <text>筛选</text>
             </view>
         </view>

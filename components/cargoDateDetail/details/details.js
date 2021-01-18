@@ -189,9 +189,13 @@ Component({
             }
 
         },
-        //是否展示所有信息
-        handleshow(e) {
-            console.log(e)
+        //更多信息
+        handleshow() {
+            let itemShow = this.data.itemShow = !this.data.itemShow;
+            console.log(itemShow)
+            this.setData({
+                itemShow
+            })
         },
         //按钮事件
         handleBtn(e) {
@@ -207,7 +211,10 @@ Component({
                     })
                     break
                 case 2:
-                    console.log(2)
+                    console.log('投诉')
+                    wx.navigateTo({
+                        url: '/views/OrderAppeal/OrderAppeal',
+                    })
                     break
                 case 3:
                     console.log(3)

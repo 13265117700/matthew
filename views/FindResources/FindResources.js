@@ -66,18 +66,19 @@ Page({
     },
 
     //获取船期列表
-    getShipList() {
+    getShipList(nameVessel) { 
         let id = this.data.id;
         if (id == '9999999') {
             let Authorization = wx.getStorageSync('Authorization');
             let page = 1;
             let rows = 10;
             let params = {
-                Authorization,
                 page,
                 rows
-            }
-            User.UserShipPeriodList(params).then(res => {
+            };
+            if(nameVessel) params = {nameVessel, page, rows};
+
+            mtWharf.frontDeskShipPeriodList(params).then(res => {
                 let rows = res.data.data.rows;
                 console.log(rows)
                 let shipList = []
@@ -107,7 +108,7 @@ Page({
 
     },
     //获取货源列表
-    getCargoList() {
+    getCargoList(nameVessel) {
         let id = this.data.id;
         if (id == '9999998') {
             let Authorization = wx.getStorageSync('Authorization');
@@ -117,6 +118,9 @@ Page({
                 page,
                 rows
             }
+            if(nameVessel) params = {nameVessel, page, rows};
+
+
             mtWharf.frontDeskCargoFocusOn(params).then(res => {
                 let rows = res.data.data.rows;
                 let cargoList = [];
@@ -257,7 +261,7 @@ Page({
         console.log(e)
         let id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/views/shipDetails/shipDetails?id=' + id,
+            url: '/views/shipDateDetails/shipDateDetails?id=' + id,
         })
     },
     //进入货详情
@@ -265,7 +269,28 @@ Page({
         console.log(e)
         let id = e.currentTarget.dataset.id;
         wx.navigateTo({
-            url: '/views/cargoDetails/cargoDetails?id=' + id,
+            url: '/views/cargoDateDetails/cargoDateDetails?id=' + id,
+        })
+    },
+
+    //输入搜索
+    handleSearch(e){
+        let nameVessel = e.detail;
+        let id = this.data.id;
+        switch(id){
+            case '9999999':
+                this.getShipList(nameVessel)
+                break;
+            case '9999998':
+                this.getCargoList(nameVessel)
+                break;
+        }
+
+    },
+
+    handleSidebar(){
+        wx.navigateTo({
+          url: '/views/Screening/Screening',
         })
     }
 })
