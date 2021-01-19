@@ -1,0 +1,21 @@
+.type-item{
+    height: 59px;
+    line-height: 59px;
+    padding-left: 25px;
+    border-bottom: 1px solid #EEEEEE;
+    display: flex;
+    align-items: center;
+}
+.type-title{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #191919;
+    font-size: 15px;
+}
+.type-active{
+    margin-left: 9px;
+}
+.type-active image{
+    width: 12px;
+    height: 12px;
+}

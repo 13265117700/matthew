@@ -43,7 +43,7 @@
                     </view>
                 </view>
             </view>
-            <view class="resources-item" wx:if="{{ id === '9999996' }}">
+            <!-- <view class="resources-item" wx:if="{{ id === '9999996' }}">
                 <view class="resources-top">
                     <view class="resources-icon">
                         <image src="/images/myFollow/chuan@3x.png"></image>
@@ -71,7 +71,7 @@
                         </view>
                     </view>
                 </view>
-            </view>
+            </view> -->
             <view class="resources-item" wx:if="{{ id === '9999999' }}" wx:for="{{ shipList }}" wx:key="index"
                 wx:for-item="shipItem">
                 <view class="resources-top">

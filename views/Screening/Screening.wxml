@@ -1,8 +1,43 @@
 <view class="page-container">
-    <view class="page-sider">
-        <siderBar></siderBar>
+    <view class="mian-container">
+        <siderBar porID="{{id}}" bind:onsidebar="onSidebar"></siderBar>
+        <view class="page-content">
+            <view class="item {{index == 0 ? 'active':''}}">
+                <!-- 船空船港 -->
+                <address porState="{{state}}" id="address" bind:onaddress="onAddress" wx:if="{{state < 5}}"></address> 
+                
+                <!-- 货类型 -->
+                <shiptype porID="{{id}}" id="ontype" bind:ontype="onType" wx:if="{{state >= 5}}"></shiptype>
+            </view>
+            <view class="item {{index == 1 ? 'active':''}}">
+                <!-- 船吨数 -->
+                <shipamount bind:minvalue="minValue" id="mount" bind:maxvalue="maxValue" wx:if="{{state < 5}}"></shipamount>
+
+                <!-- 货装货地 -->
+                <address porState="{{state}}" id="address" bind:onaddress="onAddress" wx:if="{{state >= 5}}"></address> 
+            </view>
+            <view class="item {{index == 2 ? 'active':''}}">
+                <!-- 船类型 -->
+                <shiptype porID="{{id}}" id="ontype" bind:ontype="onType" wx:if="{{state < 5}}"></shiptype>
+
+                <!-- 货收货地 -->
+                <address porState="{{state}}" id="address" bind:onaddress="onAddress" wx:if="{{state >= 5}}"></address> 
+            </view>
+            <view class="item {{index == 3 ? 'active':''}}">
+                <!-- 空船期 -->
+                <shipdate bind:startdate="startDate" id="ondate" bind:enddate="endDate" wx:if="{{state < 5}}"></shipdate>
+
+                <!-- 装货吨数 -->
+                <shipamount bind:minvalue="minValue" id="mount" bind:maxvalue="maxValue" wx:if="{{state >= 5}}"></shipamount>
+            </view>
+        </view>
     </view>
-    <view class="page-main">
-        <text>123123</text>
+    <view class="footer-container">
+        <view class="btn">
+            <van-button type="warning" size="large" custom-style="{{buttonStyle}}" bind:click="handleremove">重置</van-button>
+        </view>
+        <view class="btn">
+            <van-button type="danger" size="large" custom-style="{{buttonStyle}}">确认</van-button>
+        </view>
     </view>
 </view>

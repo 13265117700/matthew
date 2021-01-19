@@ -1,0 +1,24 @@
+<view class="date-container">
+    <view class="title">
+        <text>请选择空船期</text>
+    </view>
+    <view class="wrap">
+        <view class="picker">
+            <picker mode="date" value="{{start}}" bindchange="startDateChange">
+                <view class="text">
+                    <text>{{start}}</text>
+                </view>
+            </picker>
+        </view>
+        <view class="icon">
+            <text>-</text>
+        </view>
+        <view class="picker">
+            <picker mode="date" value="{{end}}" bindchange="endDateChange">
+                <view class="text">
+                    <text>{{end}}</text>
+                </view>
+            </picker>
+        </view>
+    </view>
+</view>

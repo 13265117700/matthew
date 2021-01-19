@@ -243,6 +243,8 @@ Component({
         //按钮事件
         handleBtn(e) {
             let id = e.currentTarget.dataset.id;
+            let shippingOrderId = this.properties.porID;
+            console.log(this.properties.porID)
             switch (id) {
                 case 1:
                     this.shelvesDelete()
@@ -253,7 +255,7 @@ Component({
                 case 3:
                     console.log('投诉')
                     wx.navigateTo({
-                        url: '/views/OrderAppeal/OrderAppeal',
+                        url: '/views/OrderAppeal/OrderAppeal?shippingOrderId=' + shippingOrderId,
                     })
                     break;
                 case 4:

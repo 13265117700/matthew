@@ -66,7 +66,7 @@ Page({
     },
 
     //获取船期列表
-    getShipList(nameVessel) { 
+    getShipList(nameVessel) {
         let id = this.data.id;
         if (id == '9999999') {
             let Authorization = wx.getStorageSync('Authorization');
@@ -76,7 +76,11 @@ Page({
                 page,
                 rows
             };
-            if(nameVessel) params = {nameVessel, page, rows};
+            if (nameVessel) params = {
+                nameVessel,
+                page,
+                rows
+            };
 
             mtWharf.frontDeskShipPeriodList(params).then(res => {
                 let rows = res.data.data.rows;
@@ -118,7 +122,11 @@ Page({
                 page,
                 rows
             }
-            if(nameVessel) params = {nameVessel, page, rows};
+            if (nameVessel) params = {
+                nameVessel,
+                page,
+                rows
+            };
 
 
             mtWharf.frontDeskCargoFocusOn(params).then(res => {
@@ -274,10 +282,10 @@ Page({
     },
 
     //输入搜索
-    handleSearch(e){
+    handleSearch(e) {
         let nameVessel = e.detail;
         let id = this.data.id;
-        switch(id){
+        switch (id) {
             case '9999999':
                 this.getShipList(nameVessel)
                 break;
@@ -288,9 +296,10 @@ Page({
 
     },
 
-    handleSidebar(){
+    handleSidebar() {
+        let id = this.data.id;
         wx.navigateTo({
-          url: '/views/Screening/Screening',
+            url: '/views/Screening/Screening?id=' + id,
         })
     }
 })

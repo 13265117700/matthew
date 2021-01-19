@@ -1,6 +1,10 @@
 {
   "navigationBarTitleText": "筛选",
   "usingComponents": {
-    "siderBar":"/components/screening/sidebar/sidebar"
+    "siderBar":"/components/screening/sidebar/sidebar",
+    "address":"/components/screening/addressChoose/addressChoose",
+    "shipamount":"/components/screening/shipamount/shipamount",
+    "shiptype":"/components/screening/shiptype/shiptype",
+    "shipdate":"/components/screening/shipdate/shipdate"
   }
 }

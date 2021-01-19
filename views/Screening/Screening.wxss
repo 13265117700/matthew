@@ -1,11 +1,32 @@
 .page-container{
-    display: flex;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
-.page-sider{
-    width: 125px;
+.mian-container{
+    display: flex;
+    flex: 1;
+}
+siderBar{
+    width: 120px;
     border-right: 1px solid #EEEEEE;
 }
-.page-main{
+.item{
+    display: none;
+}
+.item.active{
+    height: 100%;
+    background: #fff;
+    display: block;
+}
+.page-content{
+    flex: 1;
+}
+.footer-container{
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.btn{
     flex: 1;
 }

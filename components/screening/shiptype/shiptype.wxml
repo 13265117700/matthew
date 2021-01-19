@@ -1,0 +1,13 @@
+<view class="type-container">
+    <view class="type-list">
+        <view class="type-item" wx:for="{{list}}" wx:key="index" wx:for-item="typeItem" data-index="{{index}}"
+            bindtap="handletype">
+            <view class="type-title">
+                <text>{{typeItem.name}}</text>
+            </view>
+            <view class="type-active" wx:if="{{typeItem.active}}">
+                <image src="/images/my/region/xz@3x.png"></image>
+            </view>
+        </view>
+    </view>
+</view>

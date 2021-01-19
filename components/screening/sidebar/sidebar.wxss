@@ -1,0 +1,6 @@
+.sidebar-item{
+    display: none;
+}
+.sidebar-item.active{
+    display: block;
+}

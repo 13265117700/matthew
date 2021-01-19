@@ -1,0 +1,16 @@
+<view class="amount-container">
+    <view class="title">
+        <text>装货吨</text>
+    </view>
+    <view class="wrap">
+        <view class="input">
+            <input type="number" placeholder="最低吨" placeholder-style="color: #DCDCDC;" value="{{minValue}}" bindconfirm="handleMinValue" />
+        </view>
+        <view class="icon">
+            <text>-</text>
+        </view>
+        <view class="input">
+            <input type="number" placeholder="最高吨" placeholder-style="color: #DCDCDC;" value="{{maxValue}}" bindconfirm="handleMaxValue" />
+        </view>
+    </view>
+</view>
