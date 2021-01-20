@@ -45,7 +45,6 @@ Page({
     },
 
     onMyEvent: function (e) {
-        console.log(e)
         this.setData({
             navbarTitle: e.detail
         })

@@ -107,13 +107,12 @@ Component({
                             })
                         } else {
                             btn.forEach(data => {
-                                if (data.id == 1 || data.id == 4) {
+                                console.log(data)
+                                if(data.id == 3){
+                                    data.show = true,
+                                    data.background = '#FF3C07'
+                                }else{
                                     data.show = false
-                                } else {
-                                    data.show = true
-                                    if (data.id == 3) {
-                                        data.background = "#FF3C07"
-                                    }
                                 }
                             })
                         }

@@ -27,7 +27,8 @@ Page({
         let params = {
             Authorization,
             page,
-            rows
+            rows,
+            status:3
         }
         user.UserMtCargoQuery(params).then(res => {
             console.log(res)

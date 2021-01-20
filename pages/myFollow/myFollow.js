@@ -182,5 +182,9 @@ Page({
     //货源详情
     goCargoDetail(e) {
         console.log(e)
+        let id = e.currentTarget.dataset.id;
+        wx.navigateTo({
+            url: '/views/cargoDateDetails/cargoDateDetails?id=' + id,
+        })
     }
 })

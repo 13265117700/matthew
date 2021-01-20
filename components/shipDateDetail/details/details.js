@@ -45,7 +45,7 @@ Component({
             weight: 'Medium',
             width: '89.5px',
             size: '12px',
-            show: true
+            show: false
         }, {
             id: 4,
             title: '发起聊天',
@@ -136,6 +136,7 @@ Component({
                         let btn = this.data.btn;
                         if (user.uid === rows.mtUser.uid) {
                             btn.forEach(data => {
+                                console.log(data)
                                 if (data.id < 3) {
                                     data.show = true
                                 } else {
@@ -144,7 +145,8 @@ Component({
                             })
                         } else {
                             btn.forEach(data => {
-                                if (data.id > 2) {
+                                console.log(data)
+                                if (data.id > 3) {
                                     data.show = true
                                 } else {
                                     data.show = false

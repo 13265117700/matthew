@@ -48,7 +48,7 @@ Page({
   //获取资源列表
   isRelease() {
     let status = this.data.upAndDownState;
-    console.log(status)
+
     let id = this.data.id;
 
     switch (id) {
@@ -207,12 +207,18 @@ Page({
       }
     })
   },
+  //进入船源详情
+  goShipDetail(e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/views/userShipDateDetail/userShipDateDetail?id=' + id
+    })
+  },
 
 
 
   //货源管理
   cargoSourceAdmin(status) {
-    console.log(status)
     let Authorization = wx.getStorageSync('Authorization');
     let page = 1;
     let rows = 10;
@@ -222,17 +228,17 @@ Page({
       rows,
       status
     }
-    console.log(params)
+
     User.UserMtCargoQuery(params).then(res => {
       let cargoList = res.data.data.rows;
-      console.log(cargoList)
+
       wx.setNavigationBarTitle({
         title: '我发布的货源',
       })
       this.setData({
         addButton: '添加货源',
         cargoList,
-        upAndDownState:status
+        upAndDownState: status
       })
     })
 

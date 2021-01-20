@@ -1,46 +1,46 @@
 import User from '../../models/user/user'
 Page({
     data: {
-        id:null,
-        navbarTitle:'船舶管理',
-        addButtonText:'添加船舶',
-        tabsStatus:0,
-        tabsList:[{
-            status:0,
-            title:'审核中'
-        },{
-            status:2,
-            title:'已通过'
-        },{
-            status:1,
-            title:'未通过'
+        id: null,
+        navbarTitle: '船舶管理',
+        addButtonText: '添加船舶',
+        tabsStatus: 0,
+        tabsList: [{
+            status: 0,
+            title: '审核中'
+        }, {
+            status: 2,
+            title: '已通过'
+        }, {
+            status: 1,
+            title: '未通过'
         }],
-        resourcesList:[],//资源列表
-        resourcesShow:false,
-        total:0,
+        resourcesList: [], //资源列表
+        resourcesShow: false,
+        total: 0,
 
     },
     onLoad: function (options) {
         this.setData({
-            id:options.id
+            id: options.id
         })
-        
+
     },
     onShow: function () {
         this.navbarTitle()
         this.DiscriminatingController()
     },
-    
+
     //修改导航栏标题
-    navbarTitle:function(){
+    navbarTitle: function () {
         let id = this.data.id;
-        switch(id){
+        switch (id) {
             case '115':
                 wx.setNavigationBarTitle({
                     title: '船舶管理',
                 })
                 this.setData({
-                    addButtonText:'添加船舶'
+                    addButtonText: '添加船舶'
                 })
                 break
             case '192':
@@ -48,16 +48,16 @@ Page({
                     title: '车辆管理',
                 })
                 this.setData({
-                    addButtonText:'添加车辆'
+                    addButtonText: '添加车辆'
                 })
                 break
         }
     },
 
     //区分船、货、车控制器
-    DiscriminatingController(){
+    DiscriminatingController() {
         let id = this.data.id;
-        switch(id){
+        switch (id) {
             case '115':
                 this.myFriendsRequestFriends();
                 break
@@ -67,19 +67,25 @@ Page({
         }
     },
     //获取资源
-    handleGetResources(e){
+    handleGetResources(e) {
         console.log(e)
         let tabsStatus = e.detail.name;
-        this.setData({
-            tabsStatus
-        })
+        this.myFriendsRequestFriends(tabsStatus)
     },
     //获取船列表
-    myFriendsRequestFriends(){
+    myFriendsRequestFriends(status) {
         let Authorization = wx.getStorageSync('Authorization');
         let page = 1;
         let rows = 10;
-        let params = {Authorization,page,rows}
+        if (!status) {
+            status = 0
+        }
+        let params = {
+            Authorization,
+            page,
+            rows,
+            status
+        }
         User.UserShipQuery(params).then(res => {
             console.log(res)
             let total = res.data.data.total;
@@ -92,64 +98,60 @@ Page({
         })
     },
     //获取车辆列表
-    vehicleAdminList(){
+    vehicleAdminList() {
         let resourcesList = [{
-            id:6000001,
-            status:0,
-            title:'粤B 888888'
-        },{
-            id:6000002,
-            status:1,
-            title:'浙G 965413'
-        },{
-            id:6000003,
-            status:2,
-            title:'粤B 369874'
-        },{
-            id:6000003,
-            status:2,
-            title:'粤A 369874'
-        },{
-            id:6000003,
-            status:2,
-            title:'粤C 369874'
-        },{
-            id:6000002,
-            status:1,
-            title:'浙B 965413'
-        },{
-            id:6000002,
-            status:1,
-            title:'浙M 965413'
+            id: 6000001,
+            status: 0,
+            title: '粤B 888888'
+        }, {
+            id: 6000002,
+            status: 1,
+            title: '浙G 965413'
+        }, {
+            id: 6000003,
+            status: 2,
+            title: '粤B 369874'
+        }, {
+            id: 6000003,
+            status: 2,
+            title: '粤A 369874'
+        }, {
+            id: 6000003,
+            status: 2,
+            title: '粤C 369874'
+        }, {
+            id: 6000002,
+            status: 1,
+            title: '浙B 965413'
+        }, {
+            id: 6000002,
+            status: 1,
+            title: '浙M 965413'
         }]
         this.setData({
             resourcesList
         })
     },
 
-    getResourcesItem(e){
+    getResourcesItem(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;
-        let Authorization = wx.getStorageSync('Authorization');
-        User.UserShipInfoQuery({Authorization,id}).then(res => {
-            console.log(res)
+
+        wx.navigateTo({
+            url: '/views/userShipDetail/userShipDetail?id=' + id,
         })
-        // this.setData({
-        //     resourcesID:id,
-        //     resourcesShow:true
-        // })
     },
-    onClosePopup(){
+    onClosePopup() {
         this.setData({
-            resourcesShow:false
+            resourcesShow: false
         })
     },
 
-    addButton(){
+    addButton() {
         let id = this.data.id;
         console.log(id)
         wx.navigateTo({
-          url: '/views/ResourceAdd/ResourceAdd?id=' + id,
+            url: '/views/ResourceAdd/ResourceAdd?id=' + id,
         })
     }
 })

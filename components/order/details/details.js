@@ -1,8 +1,10 @@
 import User from '../../../models/user/user';
-const App = getApp()
+
+
 const {
     formatTime
 } = require('../../../utils/util');
+
 Component({
     properties: {
         orderID: Number
@@ -118,10 +120,34 @@ Component({
         loss: '',
     },
     methods: {
+        //获取用户
         getUserInfo() {
-            this.setData({
-                userInfo: App.globalData.userInfo
+            let Authorization = wx.getStorageSync('Authorization');
+            let uid = ''
+            let params = {
+                Authorization,
+                uid
+            }
+            User.userInfo(params).then(res => {
+                let user = res.data.data;
+                if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+                    console.log('货主')
+                    user.cargo = true
+                } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+                    console.log('车主')
+                    user.car = true
+                } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                    console.log('船东')
+                    user.ship = true
+                }
+
+                this.setData({
+                    userInfo:user
+                })
+
             })
+
+
         },
         //获取订单详情
         getOrderInfo() {
@@ -133,7 +159,7 @@ Component({
             };
             User.UserOrderQuery(params).then(res => {
                 let rows = res.data.data;
-                console.log(rows)
+
                 let loadingDate = formatTime(new Date(parseInt(rows.mtCargo.loadingDate))).replace(/\//g, "-");
                 rows.loadingDate = loadingDate
 
@@ -156,7 +182,6 @@ Component({
                     rows.ageShip = age + '年'
                 }
 
-
                 this.setData({
                     orderdetail: rows
                 })
@@ -167,7 +192,7 @@ Component({
         },
         //状态切换按钮
         tabsOnChange() {
-            let userInfo = App.globalData.userInfo;
+            let userInfo = this.data.userInfo;
             let orderBtu = this.data.orderBtu;
             let orderdetail = this.data.orderdetail;
 
@@ -175,6 +200,7 @@ Component({
                 switch (orderdetail.status) {
                     case 2:
                         orderBtu.forEach(data => {
+                            console.log(data)
                             if (data.state === 3 || data.state === 4) {
                                 data.show = true
                                 if (data.state === 4) {
@@ -379,13 +405,13 @@ Component({
             let state = e.currentTarget.dataset.state;
             let usercargoid = this.data.usercargoid;
             let usershipid = this.data.usershipid;
-            let userInfo = App.globalData.userInfo;
-
+            let userInfo = this.data.userInfo;
+            let shippingOrderId = this.properties.orderID;
             switch (state) {
                 case 1:
                     console.log('申诉')
                     wx.navigateTo({
-                        url: '/views/OrderAppeal/OrderAppeal',
+                        url: '/views/OrderAppeal/OrderAppeal?shippingOrderId=' + shippingOrderId,
                     })
                     break;
                 case 2:
@@ -410,6 +436,7 @@ Component({
                     break;
                 case 5:
                     let orderPrice = this.data.orderPrice;
+                    console.log(orderPrice)
                     if (orderPrice == '') {
                         wx.showToast({
                             title: '单价不能为空',

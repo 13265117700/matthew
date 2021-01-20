@@ -277,7 +277,7 @@
                 <text class="info-rate">*</text>单价：
             </view>
             <view class="info-input">
-                <vtu-input placeholder="请输入单价" value="{{orderPrice}}" type="input" text-align="left" input-type="digit"
+                <vtu-input placeholder="请输入单价" value="{{orderPrice}}" type="input" text-align="left"
                     bind:confirm="handleOrderPrice">
                     <view class="unit" slot="after">元</view>
                 </vtu-input>

@@ -25,20 +25,18 @@ Page({
     }],
     status: null, //同意或拒绝
     show: false,
-    bannertitle:''
+    bannertitle: ''
   },
   onLoad: function (options) {
     console.log(options)
-    let userInfo = App.globalData.userInfo;
     this.setData({
       id: options.id,
       senderid: options.senderid,
-      receiverid: options.receiverid,
-      userInfo
+      receiverid: options.receiverid
     })
   },
   onShow: function () {
-    this.getOrderDetails()
+    this.getUserInfo()
   },
   pageclose() {
     wx.navigateBack({
@@ -46,11 +44,39 @@ Page({
     })
   },
 
+  //获取用户
+  getUserInfo() {
+    let Authorization = wx.getStorageSync('Authorization');
+    let uid = ''
+    let params = {
+      Authorization,
+      uid
+    }
+    User.userInfo(params).then(res => {
+      let user = res.data.data;
+      if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+        console.log('货主')
+        user.cargo = true
+      } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+        console.log('车主')
+        user.car = true
+      } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+        console.log('船东')
+        user.ship = true
+      }
+      this.setData({
+        userInfo: user
+      })
+      this.getOrderDetails(user)
+
+    })
+
+
+  },
 
 
   //获取订单详情
-  getOrderDetails() {
-    let userInfo = this.data.userInfo;
+  getOrderDetails(userInfo) {
     let id = this.data.id;
     let Authorization = wx.getStorageSync('Authorization');
     let params = {
@@ -86,7 +112,7 @@ Page({
         console.log(rows.mtShip.nameVessel)
         this.setData({
           cargoOrderInfo: rows,
-          bannertitle:rows.mtShip.nameVessel
+          bannertitle: rows.mtShip.nameVessel
         })
       })
     } else if (userInfo.ship) {
@@ -115,8 +141,8 @@ Page({
         }
 
         this.setData({
-          shipOrderInfo:rows,
-          bannertitle:rows.mtShip.nameVessel
+          shipOrderInfo: rows,
+          bannertitle: rows.mtShip.nameVessel
         })
       })
     }

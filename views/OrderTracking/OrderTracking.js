@@ -4,6 +4,7 @@ import User from "../../models/user/user"
 Page({
     data: {
       id:null,
+      orderInfo:{}
     },
 
     onLoad: function (options) {
@@ -22,9 +23,16 @@ Page({
       let id = this.data.id;
       let params = {Authorization,id}
       User.UserOrderQuery(params).then(res => {
-        console.log(res)
+        let rows = res.data.data;
+        console.log(rows)
+        this.setData({
+          orderInfo:rows
+        })
       })
-    }
+    },
 
+    shipArrivalLoading(){
+      
+    }
   
   })

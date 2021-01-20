@@ -5,6 +5,7 @@ export default {
     UserFriendChat: `${WebSocket}/ws`, //websocket连接通信
 
     //登录API
+    passwordLogin:`${PREFIX}/login`,//密码登录
     wxLogin: `${PREFIX}/login/code`, // 微信登录
 
     //上传API
@@ -21,6 +22,7 @@ export default {
     UserShipInfoQuery: `${PREFIX}/user/ship/findByShipId`, //用户船信息查询
     UserShipPeriodAdd: `${PREFIX}/user/releaseShipSource/saveReleaseShipSource`, //用户船期发布
     UserShipPeriodList: `${PREFIX}/user/releaseShipSource/releaseShipSourceFriends`, //用户船期列表
+    UserShipDateInfoQuery:`${PREFIX}/user/releaseShipSource/findByReleaseShipSourceId`,//用户船期详情
     UserShipPeriodOnUnderFrame: `${PREFIX}/user/releaseShipSource/upAndDownUpdate`, //用户船期上下架
     UserShipPeriodDel: `${PREFIX}/user/releaseShipSource/deleteDownUpdate`, //用户船期删除
 
@@ -73,6 +75,13 @@ export default {
     UserShipConfirmOrderMoney:`${PREFIX}/user/shippingOrder/shipConfirmationAmount`,//船东确认订单金额
     UserShipUploadProcess:`${PREFIX}/user/shippingOrder/transportationProcess`,//船东上传运输流程
     UserCargoConfirmOrderMoney:`${PREFIX}/user/shippingOrder/cargoConfirmationAmount`,//货主确认订单金额
+
+
+
+    //用户维权管理
+    UserActivistComplaint:`${PREFIX}/user/rightsProtection/rightsProtectionSave`,//用户维权申请
+
+
 
     //前端API
     frontDeskShipTypeList: `${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`, //船类型列表

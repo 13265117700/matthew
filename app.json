@@ -40,7 +40,9 @@
         "views/InvoiceAgreement/InvoiceAgreement",
         "views/OrderEvaluate/OrderEvaluate",
         "views/OrderInformation/OrderInformation",
-        "views/Screening/Screening"
+        "views/Screening/Screening",
+        "views/userShipDateDetail/userShipDateDetail",
+        "views/userShipDetail/userShipDetail"
     ],
     "window": {
         "backgroundTextStyle": "dark",

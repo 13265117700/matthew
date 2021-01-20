@@ -61,18 +61,16 @@ Page({
             }
 
             this.setData({
-                userInfo:user
+                userInfo: user
             })
             this.getUserOrderList(user);
             this.btnStaatus();
         })
-        
-        
+
+
     },
     //获取订单列表
     getUserOrderList(userInfo) {
-        // let userInfo = this.data.userInfo;
-        console.log(userInfo)
         let Authorization = wx.getStorageSync('Authorization');
         let identity = 1;
         if (userInfo.cargo === true) {
@@ -85,7 +83,7 @@ Page({
             rows: 10,
             status: 0
         };
-        console.log(params)
+
         User.UserOrderQueryList(params).then(res => {
             let rows = res.data.data;
             rows.rows.forEach(data => {
@@ -155,14 +153,17 @@ Page({
     handleChatButton(e) {
         console.log(e)
         let index = e.currentTarget.dataset.index;
+        let id = e.currentTarget.dataset.id;
+        let receiverid = e.currentTarget.dataset.receiverid;
+        let senderid = e.currentTarget.dataset.senderid;
         switch (index) {
             case 0:
-                let receiverid = e.currentTarget.dataset.receiverid;
-                let senderid = e.currentTarget.dataset.senderid;
                 this.Enterthechat(receiverid, senderid)
                 break
             case 1:
-                this.handleShipConfirmOrderButton();
+                wx.navigateTo({
+                    url: '/views/OrderDetails/OrderDetails?id=' + id + '&senderid=' + senderid + '&receiverid=' + receiverid,
+                })
                 break
             case 2:
                 this.handleCargoConfirmContractButton();
@@ -182,68 +183,60 @@ Page({
             })
         }
     },
-    //船东同意按钮
-    handleShipConfirmOrderButton(e) {
-        console.log(e)
-        let id = e.currentTarget.dataset.id;
-        this.setData({
-            shipShow: true,
-            shipOrderID: id
-        })
-    },
+
+
+
+
     //船东同意承运
-    handleConfirm() {
-        let Authorization = wx.getStorageSync('Authorization');
-        let id = this.data.shipOrderID;
-        let params = {
-            Authorization,
-            id,
-            status: 1
-        }
-        console.log(params)
+    // handleConfirm() {
+    //     // let Authorization = wx.getStorageSync('Authorization');
+    //     // let id = this.data.shipOrderID;
+    //     // let params = {
+    //     //     Authorization,
+    //     //     id,
+    //     //     status: 1
+    //     // }
+    //     // console.log(params)
 
-        User.UserShipOrderAgreeOrRefused(params).then(res => {
-            if (res.data.state === 200) {
-                wx.showLoading({
-                    title: '成功同意承运',
-                })
-                setTimeout(function () {
-                    wx.hideLoading()
-                    wx.navigateTo({
-                        url: '/views/UserOrderList/UserOrderList',
-                    })
-                }, 2000)
-            }
-        })
-    },
-
-
-
-    //货主查看订单详情
-    handleCargoOrderDetails(e) {
-        console.log(e)
-        let id = e.currentTarget.dataset.id;
-        let senderid = e.currentTarget.dataset.senderid;
-        let receiverid = e.currentTarget.dataset.receiverid;
-        wx.navigateTo({
-            url: '/views/OrderDetails/OrderDetails?id=' + id + '&senderid=' + senderid + '&receiverid=' + receiverid,
-        })
-    },
+    //     // User.UserShipOrderAgreeOrRefused(params).then(res => {
+    //     //     if (res.data.state === 200) {
+    //     //         wx.showLoading({
+    //     //             title: '成功同意承运',
+    //     //         })
+    //     //         setTimeout(function () {
+    //     //             wx.hideLoading()
+    //     //             wx.navigateTo({
+    //     //                 url: '/views/UserOrderList/UserOrderList',
+    //     //             })
+    //     //         }, 2000)
+    //     //     }
+    //     // })
+    // },
+    // //货主查看订单详情
+    // handleCargoOrderDetails(e) {
+    //     console.log(e)
+    //     let id = e.currentTarget.dataset.id;
+    //     let senderid = e.currentTarget.dataset.senderid;
+    //     let receiverid = e.currentTarget.dataset.receiverid;
+    //     wx.navigateTo({
+    //         url: '/views/OrderDetails/OrderDetails?id=' + id + '&senderid=' + senderid + '&receiverid=' + receiverid,
+    //     })
+    // },
     //货主发起聊天
-    handleCargoChatButton(e) {
-        console.log(e)
-        let receiverid = e.currentTarget.dataset.receiverid;
-        let senderid = e.currentTarget.dataset.senderid;
-        wx.navigateTo({
-            url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid,
-        })
-    },
-    //货主发起合同
-    handleCargoConfirmContractButton(e) {
-        let id = e.currentTarget.dataset.id;
+    // handleCargoChatButton(e) {
+    //     console.log(e)
+    //     let receiverid = e.currentTarget.dataset.receiverid;
+    //     let senderid = e.currentTarget.dataset.senderid;
+    //     wx.navigateTo({
+    //         url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid,
+    //     })
+    // },
+    // //货主发起合同
+    // handleCargoConfirmContractButton(e) {
+    //     let id = e.currentTarget.dataset.id;
 
-        wx.navigateTo({
-            url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
-        })
-    },
+    //     wx.navigateTo({
+    //         url: '/views/cargoOrderDetails/cargoOrderDetails?id=' + id,
+    //     })
+    // },
 })

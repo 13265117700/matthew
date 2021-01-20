@@ -87,9 +87,11 @@ Component({
         getShipInfo(user) {
             let Authorization = wx.getStorageSync('Authorization');
             let id = this.properties.porID;
+            // console.log(id)
             mtWharf.frontDeskShipItem({
                 id
             }).then(res => {
+                console.log(res)
                 let rows = res.data.data;
                 let params = {
                     Authorization,
@@ -145,7 +147,7 @@ Component({
                             })
                         } else {
                             btn.forEach(data => {
-                                if (data.id > 2) {
+                                if (data.id > 3) {
                                     data.show = true
                                 } else {
                                     data.show = false

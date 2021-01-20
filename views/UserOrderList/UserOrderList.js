@@ -516,7 +516,7 @@ Page({
             case 1:
                 console.log('申诉')
                 wx.navigateTo({
-                    url: '/views/OrderAppeal/OrderAppeal',
+                    url: '/views/OrderAppeal/OrderAppeal?shippingOrderId=' + id,
                 })
                 break;
             case 2:

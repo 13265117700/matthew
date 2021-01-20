@@ -3,16 +3,11 @@
         <view class="user-container">
             <view class="user-chat" wx:if="{{ activeIndex === 0 }}">
                 <view class="user-search">
-                    <van-search input-align="center" clearable  shape="round" background="#fff" placeholder="请输入搜索关键词" /> 
+                    <van-search input-align="center" clearable shape="round" background="#fff" placeholder="请输入搜索关键词" />
                 </view>
                 <view class="user-list">
-                    <view 
-                        class="user-item"
-                        wx:for="{{ unreadChatInfo }}" 
-                        wx:key="index" 
-                        wx:for-item="unreadChat"
-                        data-receiverId="{{ unreadChat.senderId }}"
-                        data-senderId="{{ unreadChat.receiverId }}"
+                    <view class="user-item" wx:for="{{ unreadChatInfo }}" wx:key="index" wx:for-item="unreadChat"
+                        data-receiverId="{{ unreadChat.senderId }}" data-senderId="{{ unreadChat.receiverId }}"
                         bindtap="BeganToChat">
                         <view class="user-avatar">
                             <vtu-avatar src="{{ unreadChat.sendUserId.faceImage }}" circle></vtu-avatar>
@@ -29,7 +24,8 @@
             </view>
             <view class="user-friend" wx:if="{{ activeIndex === 1 }}">
                 <view class="user-search">
-                    <van-search input-align="center" clearable  shape="round" background="#fff" placeholder="搜索用户名/手机号" />
+                    <van-search input-align="center" clearable shape="round" background="#fff" placeholder="搜索用户名/手机号"
+                        bind:change="handleuserFriendSearch" />
                     <view class="user-search_btu" bindtap="showSearchFriends">
                         <image src="/images/my/MyFriend/tjhy@3x.png"></image>
                     </view>
@@ -41,15 +37,12 @@
                         </view>
                         <view class="user-name">新的好友</view>
                     </view>
-                    <view class="user-item" 
-                        wx:for="{{ myFriendList }}" 
-                        wx:key="index" 
-                        wx:for-item="myFriendItem"
+                    <view class="user-item" wx:for="{{ myFriendList }}" wx:key="index" wx:for-item="myFriendItem"
                         data-receiverId="{{ myFriendItem.myFriendUser.uid }}"
-                        data-senderId="{{ myFriendItem.myUser.uid }}"
-                        bindtap="BeganToChat">
+                        data-senderId="{{ myFriendItem.myUser.uid }}" bindtap="BeganToChat">
                         <view class="user-avatar">
-                            <van-image round width="40px" height="40px" src="{{ myFriendItem.myFriendUser.faceImage }}" />
+                            <van-image round width="40px" height="40px"
+                                src="{{ myFriendItem.myFriendUser.faceImage }}" />
                         </view>
                         <view class="user-name">{{ myFriendItem.myFriendUser.nickName }}</view>
                     </view>
@@ -59,13 +52,10 @@
                 </view>
             </view>
         </view>
-        <van-popup 
-            show="{{ show }}"
-            custom-style="height: 100%;width: 100%;border-radius: 0;"
-            round
-            position="right">
+        <van-popup show="{{ show }}" custom-style="height: 100%;width: 100%;border-radius: 0;" round position="right">
             <view class="user-search friend-search">
-                <van-search value="{{ value }}" input-align="center" clearable  shape="round" background="#fff" placeholder="搜索手机号/用户名" bind:search="getUserFriendSearch" /> 
+                <van-search value="{{ value }}" input-align="center" clearable shape="round" background="#fff"
+                    placeholder="搜索手机号/用户名" bind:search="getUserFriendSearch" />
                 <view class="user-search_btu" bindtap="onCloseAddress">
                     <text>取消</text>
                 </view>
@@ -79,15 +69,11 @@
                         <text>{{ friendSearch.nickName }}</text>
                     </view>
                     <view class="friend-btu">
-                        <vtu-btn 
-                            size="medium" 
-                            type="{{ friendSearch.addstate === false ? 'danger':''}}" 
-                            font-color="{{ friendSearch.addstate === false ? '#ffffff':'#B3B3B3' }}"
-                            round="true" 
-                            disabled="{{ friendSearch.addstate }}"
-                            data-id="{{ friendSearch.uid }}"
-                            data-index="{{index}}"
-                            bind:click="handleAddFriend">{{ friendSearch.addstate === false ?  '添加好友':'已申请'}}</vtu-btn>
+                        <vtu-btn size="medium" type="{{ friendSearch.addstate === false ? 'danger':''}}"
+                            font-color="{{ friendSearch.addstate === false ? '#ffffff':'#B3B3B3' }}" round="true"
+                            disabled="{{ friendSearch.addstate }}" data-id="{{ friendSearch.uid }}"
+                            data-index="{{index}}" bind:click="handleAddFriend">
+                            {{ friendSearch.addstate === false ?  '添加好友':'已申请'}}</vtu-btn>
                     </view>
                 </view>
                 <view class="divider" wx:if="{{ searchOf.total === 0 }}">
@@ -102,9 +88,7 @@
                     <view class="friend-name">
                         <text>{{ friendValidation.mtSendUser.nickName }}</text>
                     </view>
-                    <view class="friend-btu" 
-                        data-id="{{ friendValidation.mtSendUser.uid }}" 
-                        data-index="{{ index }}"
+                    <view class="friend-btu" data-id="{{ friendValidation.mtSendUser.uid }}" data-index="{{ index }}"
                         bindtap="verifyCurrentItem">
                         <text>{{ VerifyTitle }}</text>
                     </view>
@@ -114,10 +98,7 @@
                 </view>
             </view>
         </van-popup>
-        <van-popup 
-            show="{{ VerifyShow }}"
-            custom-style="height: 100%;width: 100%;border-radius: 0;"
-            round
+        <van-popup show="{{ VerifyShow }}" custom-style="height: 100%;width: 100%;border-radius: 0;" round
             position="right">
             <view class="friend-list">
                 <view class="friend-item">
@@ -132,12 +113,10 @@
                     </view>
                 </view>
                 <view class="friend-validation">
-                    <view class="friend-validation_button" wx:for="{{ VerifyItemButton }}" wx:key="index" wx:for-item="buttonItem">
-                        <van-button 
-                            data-status="{{ buttonItem.status }}" 
-                            custom-style="{{ buttonItem.customStyle }}" 
-                            size="large"
-                            bind:click="handleVerifyItemButton">{{ buttonItem.title }}</van-button>
+                    <view class="friend-validation_button" wx:for="{{ VerifyItemButton }}" wx:key="index"
+                        wx:for-item="buttonItem">
+                        <van-button data-status="{{ buttonItem.status }}" custom-style="{{ buttonItem.customStyle }}"
+                            size="large" bind:click="handleVerifyItemButton">{{ buttonItem.title }}</van-button>
                     </view>
                 </view>
             </view>
@@ -146,8 +125,8 @@
     <view class="page-tabbar">
         <van-tabbar active="{{ activeIndex }}" bind:change="handleClickTabbar">
             <van-tabbar-item wx:for="{{ tabBar }}" wx:key="index" wx:for-item="tabbarItem">
-                <image slot="icon" src="{{ tabbarItem.icon.normal }}" mode="aspectFit"  style="{{tabbarStyle}}" />
-                <image slot="icon-active" src="{{ tabbarItem.icon.active }}" mode="aspectFit" style="{{tabbarStyle}}"/>
+                <image slot="icon" src="{{ tabbarItem.icon.normal }}" mode="aspectFit" style="{{tabbarStyle}}" />
+                <image slot="icon-active" src="{{ tabbarItem.icon.active }}" mode="aspectFit" style="{{tabbarStyle}}" />
                 <text>{{ tabbarItem.name }}</text>
             </van-tabbar-item>
         </van-tabbar>

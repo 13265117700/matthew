@@ -9,7 +9,7 @@
                 placeholder="请输入货物名称" />
         </view>
         <view class="resources-list">
-            <view class="resources-item" wx:for="{{ cargoList }}" wx:key="index" wx:for-item="cargoItem" wx:if="{{ cargoItem.status === 3 }}">
+            <view class="resources-item" wx:for="{{ cargoList }}" wx:key="index" wx:for-item="cargoItem">
                 <view class="resources-top">
                     <view class="resources-icon">
                         <image src="/images/myFollow/chuan@3x.png"></image>

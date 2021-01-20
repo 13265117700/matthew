@@ -88,8 +88,34 @@ Page({
                 myFriendList,
                 total
             })
-            console.log(this.data.myFriendList)
+
         });
+    },
+    handleuserFriendSearch(e) {
+        let value = e.detail;
+        // if (value) {
+        //     let myFriendList = this.data.myFriendList;
+        //     let friend = []
+        //     if (/^1[34578]\d{9}$/.test(value)) {
+        //         myFriendList.forEach(data => {
+        //             if (data.myFriendUser.phone == value) {
+        //                 friend.push(data)
+        //             }
+        //         })
+        //     } else {
+        //         myFriendList.forEach(data => {
+        //             console.log(data)
+        //             if (data.myFriendUser.nickName == value) {
+        //                 friend.push(data)
+        //             }
+        //         })
+        //     }
+        //     this.setData({
+        //         myFriendList: friend
+        //     })
+        // } else {
+        //     this.getUserFriendList()
+        // }
     },
     //显示好友搜索框
     showSearchFriends() {
@@ -102,7 +128,7 @@ Page({
         })
         this.getUserFriendapply()
     },
-    //用户搜索好友
+    //用户搜索未添加好友
     getUserFriendSearch(e) {
         let value = e.detail;
         let page = 1;

@@ -31,11 +31,11 @@
             <view class="form-item">
                 <vtu-input-group>
                     <vtu-input
-                        placeholder="请输入手机号码"
+                        placeholder="请输入账号"
                         border
                         type="input"
                         text-align="left"
-                        input-type="number"
+                        input-type="text"
                         bind:input="phoneInput"></vtu-input>
                     <vtu-input
                         placeholder="请输入密码"

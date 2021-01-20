@@ -3,15 +3,15 @@
     <view class="info-group">
       <view class="info-item">
         <view class="info-subtitle">订单编号:</view>
-        <view class="info-text">202008181020BG78</view>
+        <view class="info-text">{{orderInfo.shippingOrderId}}</view>
       </view>
       <view class="info-item">
         <view class="info-subtitle">承运船名:</view>
-        <view class="info-text">粤珠海瑞丰65489船</view>
+        <view class="info-text">{{orderInfo.mtShip.nameVessel}}</view>
       </view>
       <view class="info-item">
         <view class="info-subtitle">卸货完成:</view>
-        <view class="info-text">2020-08-20 18:40</view>
+        <view class="info-text">{{orderInfo.unloadingCompleted.updateTime ? orderInfo.unloadingCompleted.updateTime:'运输中'}}</view>
       </view>
     </view>
     <view class="info-group">

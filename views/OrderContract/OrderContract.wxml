@@ -48,7 +48,7 @@
       <view class="contract-group" wx:if="{{ userInfo.ship }}">
         <view class="contract-item"
           wx:if="{{cargoUser.mtCargoOwner.nameEnterprise != ' ' && cargoUser.mtCargoOwner.nameEnterprise != null}}">
-          <view class="subtitle">
+          <view class="subtitle"> 
             <text>托运方（甲方）：</text>
           </view>
           <view class="text">

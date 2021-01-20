@@ -53,17 +53,13 @@ Component({
                 }
             }
         ],
-        IdentityID: null
     },
     lifetimes: {
-        attached: function () {
-            this.getUserInfo()
-        }
+        
     },
     methods: {
         onChange(e) {
             let index = e.detail.current;
-            let IdentityID = this.data.IdentityID;
             let Authorization = wx.getStorageSync('Authorization');
             console.log(index)
             if (index != 0 && index != 4) {
@@ -75,9 +71,7 @@ Component({
                 }
             }
             if (index === 2) {
-                wx.navigateTo({
-                    url: '/views/ResourceAdd/ResourceAdd?id=' + IdentityID,
-                })
+                this.getUserInfo()
             } else {
                 wx.switchTab({
                     url: this.data.tabBar[index].pagePath,
@@ -93,25 +87,27 @@ Component({
             }
             User.userInfo(params).then(res => {
                 let user = res.data.data;
+                console.log(user)
                 if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
                     console.log('货主')
-                    this.setData({
-                        IdentityID: '855'
+                    wx.navigateTo({
+                        url: '/views/ResourceAdd/ResourceAdd?id=' + '855',
                     })
                 } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
-                   console.log('车主')
-                    this.setData({
-                        IdentityID: '609'
+                    console.log('车主')
+                    wx.navigateTo({
+                        url: '/views/ResourceAdd/ResourceAdd?id=' + '609',
                     })
                 } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
-                    console.log('船东 w')
-                    this.setData({
-                        IdentityID: '567'
+                    console.log('船东')
+                    wx.navigateTo({
+                        url: '/views/ResourceAdd/ResourceAdd?id=' + '567',
                     })
                 }
             })
-            
 
-        }
+
+        },
+
     }
 })

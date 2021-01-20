@@ -1,5 +1,6 @@
 import User from '../../models/user/user';
-const App = getApp();
+
+
 Page({
   data: {
     orderInfo: {}, //订单信息
@@ -60,37 +61,64 @@ Page({
     })
   },
   onShow: function () {
-    this.getUserOrder()
+    this.getUserInfo()
   },
+
+  //获取用户
+  getUserInfo() {
+    let Authorization = wx.getStorageSync('Authorization');
+    let uid = ''
+    let params = {
+      Authorization,
+      uid
+    }
+    User.userInfo(params).then(res => {
+      let user = res.data.data;
+      if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+        console.log('货主')
+        user.cargo = true
+      } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+        console.log('车主')
+        user.car = true
+      } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+        console.log('船东')
+        user.ship = true
+      }
+      this.setData({
+        userInfo: user
+      })
+      this.getUserOrder()
+
+    })
+
+
+  },
+
 
   getUserOrder() {
     let id = this.data.id;
     let Authorization = wx.getStorageSync('Authorization');
-    let userInfo = App.globalData.userInfo;
-    console.log(userInfo)
     let params = {
       Authorization,
       id
     }
     User.UserOrderQuery(params).then(res => {
+      console.log(res)
       let rows = res.data.data;
+      console.log(rows)
       this.setData({
         orderInfo: rows,
         cargoUser: rows.cargoUser,
         shipUser: rows.shipUser
       })
-      console.log(this.data.orderInfo)
       console.log(this.data.cargoUser)
-      console.log(this.data.shipUser)
     })
 
     User.frontDeskDefaultCompany(params).then(data => {
       let rows = data.data.data;
       this.setData({
         platformInfo: rows,
-        userInfo
       })
-      console.log(this.data.platformInfo)
     })
 
   },

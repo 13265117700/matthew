@@ -32,13 +32,14 @@
                 <view class="tabs-btnBox">
                     <van-button round size="small" type="{{btnItem.type}}" wx:for="{{btn}}" wx:key="index"
                         wx:for-item="btnItem" wx:if="{{btnItem.show == true}}" data-index="{{index}}"
-                        data-senderid="{{ shiOrderItem.userShipId }}" data-receiverid="{{ shiOrderItem.userCargoId }}"
-                        style="margin-right:5px" bind:click="handleChatButton">
+                        data-id="{{shiOrderItem.id}}" data-senderid="{{ shiOrderItem.userShipId }}"
+                        data-receiverid="{{ shiOrderItem.userCargoId }}" style="margin-right:5px"
+                        bind:click="handleChatButton">
                         {{btnItem.title}}</van-button>
                 </view>
 
             </view>
-            <view class="dialog">
+            <!-- <view class="dialog">
                 <van-dialog use-slot title="确认同意承运吗？" show="{{ shipShow }}" show-cancel-button show-confirm-button
                     data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirm">
                 </van-dialog>
@@ -47,7 +48,7 @@
                 <van-dialog use-slot title="确认发起合同吗？" show="{{ cargoShow }}" show-cancel-button show-confirm-button
                     bind:close="onClose" bind:confirm="handleCargoHairContract">
                 </van-dialog>
-            </view>
+            </view> -->
         </view>
 
         <!-- 货主待确认订单列表 -->

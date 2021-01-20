@@ -1,12 +1,11 @@
 import User from '../../models/user/user'
-const App = getApp()
 
 Page({
   data: {
     userInfo: {}, //用户信息
     contractContent: null, //合同内容
     btutitle: '生成合同', //按钮
-    dialogmsg:null,//弹框提示
+    dialogmsg: null, //弹框提示
     id: null, //订单ID
 
     addressPartyA: null, //甲方详细地址(货主信息)
@@ -28,39 +27,66 @@ Page({
   },
 
   onLoad: function (options) {
-    console.log(options)
-    let userInfo = App.globalData.userInfo;
-
-    if (userInfo.cargo) {
-      this.setData({
-        addressPartyA: options.addressPartyA,
-        contactPartyA: options.contactPartyA,
-        creditCodePartyA: options.creditCodePartyA,
-        id: options.id,
-        partyAContacts: options.partyAContacts,
-        partyACorporateName: options.partyACorporateName,
-        partyAEmail: options.partyAEmail,
-        btutitle: '生成合同',
-        dialogmsg:'发起合同'
-      })
-    } else {
-      this.setData({
-        addressPartyC: options.addressPartyC,
-        contactPartyC: options.contactPartyC,
-        creditCodePartyC: options.creditCodePartyC,
-        id: options.id,
-        partyCContacts: options.partyCContacts,
-        partyCCorporateName: options.partyCCorporateName,
-        partyCEmail: options.partyCEmail,
-        btutitle: '确认合同',
-        dialogmsg:'合同信息'
-      })
-    }
-
+    this.getUserInfo(options)
   },
 
   onShow: function () {
-    this.getContractInfo()
+    this.getContractInfo();
+    this.getUserInfo()
+  },
+
+  //获取用户
+  getUserInfo(options) {
+    let Authorization = wx.getStorageSync('Authorization');
+    let uid = ''
+    let params = {
+      Authorization,
+      uid
+    }
+    User.userInfo(params).then(res => {
+      let user = res.data.data;
+      if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+        console.log('货主')
+        user.cargo = true
+      } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+        console.log('车主')
+        user.car = true
+      } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+        console.log('船东')
+        user.ship = true
+      }
+
+      if (user.cargo) {
+        this.setData({
+          addressPartyA: options.addressPartyA,
+          contactPartyA: options.contactPartyA,
+          creditCodePartyA: options.creditCodePartyA,
+          id: options.id,
+          partyAContacts: options.partyAContacts,
+          partyACorporateName: options.partyACorporateName,
+          partyAEmail: options.partyAEmail,
+          btutitle: '生成合同',
+          dialogmsg: '发起合同',
+          userInfo: user
+        })
+      } else {
+        this.setData({
+          addressPartyC: options.addressPartyC,
+          contactPartyC: options.contactPartyC,
+          creditCodePartyC: options.creditCodePartyC,
+          id: options.id,
+          partyCContacts: options.partyCContacts,
+          partyCCorporateName: options.partyCCorporateName,
+          partyCEmail: options.partyCEmail,
+          btutitle: '确认合同',
+          dialogmsg: '合同信息',
+          userInfo: user
+        })
+      }
+
+    })
+
+
   },
 
   getContractInfo() {
@@ -81,7 +107,7 @@ Page({
     })
   },
   handleConfirmContract() {
-    let userInfo = App.globalData.userInfo;
+    let userInfo = this.data.userInfo;
     let Authorization = wx.getStorageSync('Authorization');
     let id = this.data.id;
     if (userInfo.cargo) {
@@ -101,6 +127,8 @@ Page({
         partyACorporateName,
         partyAEmail
       }
+
+      console.log(params)
 
       User.UserCargoOrderContractGenerate(params).then(res => {
         if (res.data.state === 200) {
@@ -133,9 +161,11 @@ Page({
         partyCContacts,
         partyCCorporateName,
         partyCEmail,
-        whether:1,
+        whether: 1,
       }
 
+      console.log(params)
+      
       User.UserShipOrderConfirmContract(params).then(res => {
         if (res.data.state === 200) {
           wx.showLoading({

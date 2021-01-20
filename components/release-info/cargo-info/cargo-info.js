@@ -1,16 +1,9 @@
 import mtWharf from '../../../models/frontEnd/mtWharf';
 import User from '../../../models/user/user';
 Component({
-    /**
-     * 组件的属性列表
-     */
     properties: {
 
     },
-
-    /**
-     * 组件的初始数据
-     */
     data: {
         buttonStyle: 'border-top-left-radius: 10px;border-top-right-radius: 10px;',
         //信息分组1
@@ -231,13 +224,8 @@ Component({
     lifetimes: {
         attached: function () {}
     },
-
-    /**
-     * 组件的方法列表
-     */
     methods: {
         onMyEvent(e) {
-            console.log(e)
             let detailedAddress = e.detail.detailedAddress;
             let propID = e.detail.propID;
             let wharfID = e.detail.wharfID;
@@ -258,7 +246,6 @@ Component({
                     })
                 }
             }
-            console.log(this.data.addressShow)
         },
 
         /**

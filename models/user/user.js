@@ -33,6 +33,9 @@ export default {
     UserShipPeriodList: function (data) {
         return request.get(api.UserShipPeriodList, data)
     },
+    UserShipDateInfoQuery: function (data) {
+        return request.get(api.UserShipDateInfoQuery, data)
+    },
     //用户船期上下架
     UserShipPeriodOnUnderFrame: function (data) {
         return request.post(api.UserShipPeriodOnUnderFrame, data)
@@ -115,7 +118,7 @@ export default {
         return request.post(api.mtOwnerUpdate, data)
     },
 
-    
+
 
 
     //船东\货主接单查询

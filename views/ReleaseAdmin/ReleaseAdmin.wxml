@@ -29,7 +29,7 @@
                 </view>
               </view>
               <view class="release-cell">
-                <view class="release-cell-container">
+                <view class="release-cell-container" data-id="{{shipItem.id}}" bindtap="goShipDetail">
                   <view class="release-cell_item">
                     <view class="release-cell_item_hd">空船港</view>
                     <view class="release-cell_item_bd">{{shipItem.mtWharf.name}}</view>

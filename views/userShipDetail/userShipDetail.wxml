@@ -1,0 +1,8 @@
+<view class="page-container">
+    <view class="page-header">
+        <banner porID="{{id}}"></banner>
+    </view>
+    <view class="page-main">
+        <detail porID="{{id}}"></detail>
+    </view>
+</view>

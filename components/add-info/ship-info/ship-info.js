@@ -212,15 +212,15 @@ Component({
         typeShip: '', //船舶类型
         captainName: '', //船长姓名
         captainPhone: '', //船长电话
-        idenJust: '', // 身份证正面
-        idenBack: '', // 身份证反面
-        traitList: [], //船长特征
+        corporateId: '', // 身份证正面
+        backViewIdCard: '', // 身份证反面
+        captainFeatures: [], //船长特征
         mainItemsShip: [], //船舶主要项目
         aisCertificate: '', // AIS证书
         hanoiCertificate: '', // 内河证书
-        shipOperationCertificate: '', // 船运营证书
-        shipAnnualCertificate: '', // 船年审证书
-        shipTestCertificate: [], // 船检验证书
+        operationCertificate: '', // 船运营证书
+        annualCertificate : '', // 船年审证书
+        certificateInspection: [], // 船检验证书
         closure: '', //封仓设备
         ageShip: '', //船龄
         membership: '', //船籍
@@ -382,12 +382,12 @@ Component({
                     }
                 })
                 this.setData({
-                    idenJust: res
+                    corporateId: res
                 })
             })
         },
         //点开身份正面图片
-        handleIdenJustImage(e) {
+        handlecorporateIdImage(e) {
             let url = e.currentTarget.dataset.url;
             wx.previewImage({
                 current: url,
@@ -400,12 +400,12 @@ Component({
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    idenBack: res
+                    backViewIdCard: res
                 })
             })
         },
         //打开身份证反面图面
-        handleIdenBackImage(e) {
+        handlebackViewIdCardImage(e) {
             let url = e.currentTarget.dataset.url;
             wx.previewImage({
                 current: url,
@@ -421,23 +421,23 @@ Component({
             let filePath = file.url;
             upload.upload.uploadFile(filePath).then(res => {
                 console.log(res)
-                let traitList = this.data.traitList;
-                traitList.push({
+                let captainFeatures = this.data.captainFeatures;
+                captainFeatures.push({
                     url: res
                 })
-                console.log(traitList)
+                console.log(captainFeatures)
                 this.setData({
-                    traitList
+                    captainFeatures
                 })
             })
         },
         //删除船长特征图片
-        traitListDel(e) {
+        captainFeaturesDel(e) {
             let index = e.detail.index;
-            let traitList = this.data.traitList;
-            traitList.splice(index, 1)
+            let captainFeatures = this.data.captainFeatures;
+            captainFeatures.splice(index, 1)
             this.setData({
-                traitList
+                captainFeatures
             })
         },
 
@@ -462,10 +462,10 @@ Component({
         //删除船舶项目图片
         mainItemsShipDel(e) {
             let index = e.detail.index;
-            let traitList = this.data.traitList;
-            traitList.splice(index, 1)
+            let captainFeatures = this.data.captainFeatures;
+            captainFeatures.splice(index, 1)
             this.setData({
-                traitList
+                captainFeatures
             })
         },
 
@@ -506,11 +506,11 @@ Component({
         },
 
         // 船运营证书
-        handShipOperationCertificate() {
+        handoperationCertificate() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    shipOperationCertificate: res
+                    operationCertificate: res
                 })
             })
         },
@@ -524,11 +524,11 @@ Component({
         },
 
         //船年审证书
-        handShipAnnualCertificate() {
+        handannualCertificate () {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    shipAnnualCertificate: res
+                    annualCertificate : res
                 })
             })
         },
@@ -541,30 +541,30 @@ Component({
             })
         },
         // 船检验证书
-        handShipTestCertificate(event) {
+        handcertificateInspection(event) {
             const {
                 file
             } = event.detail;
             let filePath = file.url;
             upload.upload.uploadFile(filePath).then(res => {
                 console.log(res)
-                let shipTestCertificate = this.data.shipTestCertificate;
-                shipTestCertificate.push({
+                let certificateInspection = this.data.certificateInspection;
+                certificateInspection.push({
                     url: res
                 })
-                console.log(shipTestCertificate)
+                console.log(certificateInspection)
                 this.setData({
-                    shipTestCertificate
+                    certificateInspection
                 })
             })
         },
         //删除船舶检验证书
-        shipTestCertificateDel(e) {
+        certificateInspectionDel(e) {
             let index = e.detail.index;
-            let traitList = this.data.traitList;
-            traitList.splice(index, 1)
+            let captainFeatures = this.data.captainFeatures;
+            captainFeatures.splice(index, 1)
             this.setData({
-                traitList
+                captainFeatures
             })
         },
 
@@ -762,10 +762,10 @@ Component({
         //删除船图片
         shipChartDel(e) {
             let index = e.detail.index;
-            let traitList = this.data.traitList;
-            traitList.splice(index, 1)
+            let captainFeatures = this.data.captainFeatures;
+            captainFeatures.splice(index, 1)
             this.setData({
-                traitList
+                captainFeatures
             })
         },
 
@@ -804,9 +804,9 @@ Component({
         //     }
         // },
         handleSubmit() {
-            let traitList = [...(this.data.traitList.map(data => data.url))];
+            let captainFeatures = [...(this.data.captainFeatures.map(data => data.url))];
             let mainItemsShip = [...(this.data.mainItemsShip.map(data => data.url))];
-            let shipTestCertificate = [...(this.data.shipTestCertificate.map(data => data.url))];
+            let certificateInspection = [...(this.data.certificateInspection.map(data => data.url))];
             let shipChart = [...(this.data.shipChart.map(data => data.url))];
 
             let params = {
@@ -818,15 +818,15 @@ Component({
                 typeShip: this.data.typeShip,
                 captainName: this.data.captainName,
                 captainPhone: this.data.captainPhone,
-                idenJust: this.data.idenJust,
-                idenBack: this.data.idenBack,
-                traitList: traitList.toString(),
+                corporateId: this.data.corporateId,
+                backViewIdCard: this.data.backViewIdCard,
+                captainFeatures: captainFeatures.toString(),
                 mainItemsShip: mainItemsShip.toString(),
                 aisCertificate: this.data.aisCertificate,
                 hanoiCertificate: this.data.hanoiCertificate,
-                shipOperationCertificate: this.data.shipOperationCertificate,
-                shipAnnualCertificate: this.data.shipAnnualCertificate,
-                shipTestCertificate: shipTestCertificate.toString(),
+                operationCertificate: this.data.operationCertificate,
+                annualCertificate : this.data.annualCertificate ,
+                certificateInspection: certificateInspection.toString(),
                 closure: this.data.closure,
                 ageShip: this.data.ageShip,
                 membership: this.data.membership,
@@ -855,15 +855,15 @@ Component({
                 !this.data.typeShip ||
                 !this.data.captainName ||
                 !this.data.captainPhone ||
-                !this.data.idenJust ||
-                !this.data.idenBack ||
-                !this.data.traitList ||
+                !this.data.corporateId ||
+                !this.data.backViewIdCard ||
+                !this.data.captainFeatures ||
                 !this.data.mainItemsShip ||
                 !this.data.aisCertificate ||
                 !this.data.hanoiCertificate ||
-                !this.data.shipOperationCertificate ||
-                !this.data.shipAnnualCertificate ||
-                !this.data.shipTestCertificate ||
+                !this.data.operationCertificate ||
+                !this.data.annualCertificate  ||
+                !this.data.certificateInspection ||
                 !this.data.closure ||
                 !this.data.ageShip ||
                 !this.data.membership ||
@@ -890,26 +890,20 @@ Component({
 
             User.UserShipAdd(params).then(res => {
                 console.log(res)
-                if (!res.data.data) {
-                    wx.showLoading({
-                        title: res.data.message,
-                    });
-                    setTimeout(function () {
-                        wx.hideLoading()
-                        wx.navigateBack({
-                            changed: true
-                        })
-                    }, 2000)
-                } else if (res.data.state === 200) {
+                if (res.data.state == 200) {
                     wx.showLoading({
                         title: '添加成功',
-                    });
+                    })
                     setTimeout(function () {
                         wx.hideLoading();
                         wx.navigateBack({
-                            changed: true
+                            delta: 1,
                         })
-                    }, 2000)
+                    }, 1000)
+                }else{
+                    wx.showToast({
+                      title: '服务器出错',
+                    })
                 }
             })
         }
