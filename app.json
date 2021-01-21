@@ -42,7 +42,8 @@
         "views/OrderInformation/OrderInformation",
         "views/Screening/Screening",
         "views/userShipDateDetail/userShipDateDetail",
-        "views/userShipDetail/userShipDetail"
+        "views/userShipDetail/userShipDetail",
+        "views/contractOrderDetail/contractOrderDetail"
     ],
     "window": {
         "backgroundTextStyle": "dark",

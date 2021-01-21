@@ -1,15 +1,37 @@
 <view class="page-container">
   <view class="page-mian">
-    <view class="contract-text">
+    <view class="contract-group">
+      <view class="contract-item">
+        <view class="subtitle">
+          <text>合同编号：</text>
+        </view>
+        <view class="text">
+          <text>{{orderInfo.mtShippingContract.shippingContractId}}</text>
+        </view>
+      </view>
+      <view class="contract-item">
+        <view class="subtitle">
+          <text>订单信息：</text>
+        </view>
+        <view class="text">
+          <text bindtap="goOrderDeatil">查看订单</text>
+        </view>
+      </view>
+    </view>
+    <view class="contract-group">
       <text>{{contractContent}}</text>
     </view>
-    <view class="contract-btu">
-      <text bindtap="handleHairContract">{{btutitle}}</text>
-    </view>
-    <view class="dialog">
-      <van-dialog use-slot title="确认{{dialogmsg}}吗？" show="{{ hairShow }}" show-cancel-button show-confirm-button
-        data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirmContract">
-      </van-dialog>
+    
+    <!-- 按钮 -->
+    <view class="contract-group">
+      <view class="contract-btu">
+        <text bindtap="handleHairContract">{{btutitle}}</text>
+      </view>
+      <view class="dialog">
+        <van-dialog use-slot title="确认{{dialogmsg}}吗？" show="{{ hairShow }}" show-cancel-button show-confirm-button
+          data-id="{{orderItem.id}}" bind:close="onClose" bind:confirm="handleConfirmContract">
+        </van-dialog>
+      </view>
     </view>
   </view>
 </view>

@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "订单跟踪",
   "usingComponents": {
+    "van-divider": "/miniprogram_npm/@vant/weapp/divider/index"
   }
 }

@@ -1,11 +1,12 @@
 import User from '../../models/user/user';
+import Company from '../../models/frontEnd/companyInfo';
 
 
 Page({
   data: {
     orderInfo: {}, //订单信息
-    cargoUser: {}, //货主信息
-    shipUser: {}, //船东信息
+    // cargoUser: {}, //货主信息
+    // shipUser: {}, //船东信息
     platformInfo: {}, //平台信息
     userInfo: {}, //用户信息
 
@@ -74,16 +75,18 @@ Page({
     }
     User.userInfo(params).then(res => {
       let user = res.data.data;
-      if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+      if (user.mtCargoOwner.status == 1) {
         console.log('货主')
         user.cargo = true
-      } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+      } else if (user.mtOwner.status == 1) {
         console.log('车主')
         user.car = true
-      } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+      } else if (user.mtShipowner.status == 1) {
         console.log('船东')
         user.ship = true
       }
+
+
       this.setData({
         userInfo: user
       })
@@ -103,18 +106,15 @@ Page({
       id
     }
     User.UserOrderQuery(params).then(res => {
-      console.log(res)
       let rows = res.data.data;
       console.log(rows)
       this.setData({
         orderInfo: rows,
-        cargoUser: rows.cargoUser,
-        shipUser: rows.shipUser
       })
-      console.log(this.data.cargoUser)
+     
     })
 
-    User.frontDeskDefaultCompany(params).then(data => {
+    Company.frontDeskDefaultCompany({Authorization}).then(data => {
       let rows = data.data.data;
       this.setData({
         platformInfo: rows,
@@ -184,13 +184,13 @@ Page({
   handleConfirmButton() {
     let userInfo = this.data.userInfo;
     let id = this.data.id;
+    let orderInfo = this.data.orderInfo;
     if (userInfo.cargo) {
-      let cargoUser = this.data.cargoUser;
       let addressPartyA = this.data.addressPartyA; //甲方详细地址
       let contactPartyA = this.data.contactPartyA; //甲方联系方式
-      let creditCodePartyA = cargoUser.mtCargoOwner.creditCode; //甲方统一信用代码
+      let creditCodePartyA = orderInfo.cargoUser.mtCargoOwner.creditCode; //甲方统一信用代码
       let partyAContacts = this.data.partyAContacts; //甲方联系人
-      let partyACorporateName = cargoUser.mtCargoOwner.nameEnterprise; //甲方公司名称
+      let partyACorporateName = orderInfo.cargoUser.mtCargoOwner.nameEnterprise; //甲方公司名称
       let partyAEmail = this.data.partyAEmail; //甲方联系邮件
 
       if (!addressPartyA || !contactPartyA || !partyAContacts || !partyAEmail) {
@@ -205,14 +205,17 @@ Page({
       })
 
     } else if (userInfo.ship) {
-      let shipUser = this.data.shipUser;
       let addressPartyC = this.data.addressPartyC;
       let contactPartyC = this.data.contactPartyC;
       let partyCContacts = this.data.partyCContacts;
       let partyCEmail = this.data.partyCEmail;
-      let creditCodePartyC = shipUser.mtShipowner.nameEnterprise;
-      let partyCCorporateName = shipUser.mtShipowner.creditCode;
+      let creditCodePartyC = orderInfo.shipUser.mtShipowner.nameEnterprise;
+      let partyCCorporateName = orderInfo.shipUser.mtShipowner.creditCode;
 
+      let params ={
+        addressPartyC,contactPartyC,partyCContacts,partyCEmail,creditCodePartyC,partyCCorporateName
+      }
+      console.log(params)
       if (!addressPartyC || !contactPartyC || !partyCContacts || !partyCEmail) {
         wx.showToast({
           title: '所有输入框都是必填项目',

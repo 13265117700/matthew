@@ -1,4 +1,56 @@
+.page-container{
+  height: 100%;
+}
+.page-mian {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
+.contract-group:nth-child(2) {
+  flex: 1;
+  margin-top: 0;
+}
+
+.contract-group {
+  background: #fff;
+  margin: 10px 0;
+  border-radius: 10px;
+  padding: 15px 15px;
+}
+
+.contract-item {
+  display: flex;
+  padding-bottom: 20px;
+}
+
+.contract-item .subtitle {
+  font-family: PingFang-SC-Regular;
+  font-weight: Regular;
+  color: #333333;
+  font-size: 14px;
+  min-width: 100px;
+}
+
+.contract-item .text {
+  flex: 1;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #191919;
+  font-size: 14px;
+}
+.contract-group:first-child .contract-item:last-child{
+  padding: 0;
+}
+.contract-group:first-child .contract-item:last-child .text {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #0974E7;
+  font-size: 14px;
+}
+.contract-group:last-child{
+  margin-bottom: 0;
+}
 
 
 .contract-btu {

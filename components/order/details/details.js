@@ -1,6 +1,5 @@
 import User from '../../../models/user/user';
 
-
 const {
     formatTime
 } = require('../../../utils/util');
@@ -182,6 +181,7 @@ Component({
                     rows.ageShip = age + '年'
                 }
 
+                console.log(rows)
                 this.setData({
                     orderdetail: rows
                 })
@@ -393,6 +393,8 @@ Component({
 
             }
 
+            console.log(orderBtu)
+
             this.setData({
                 orderBtu
             })
@@ -401,7 +403,6 @@ Component({
         },
         //按钮事件
         handleButton(e) {
-            console.log(e)
             let state = e.currentTarget.dataset.state;
             let usercargoid = this.data.usercargoid;
             let usershipid = this.data.usershipid;
@@ -429,14 +430,14 @@ Component({
                     }
                     break;
                 case 4:
-                    let id = this.data.id;
+                    let id = this.properties.orderID;
                     wx.navigateTo({
                         url: '/views/OrderContract/OrderContract?id=' + id,
                     })
                     break;
                 case 5:
                     let orderPrice = this.data.orderPrice;
-                    console.log(orderPrice)
+
                     if (orderPrice == '') {
                         wx.showToast({
                             title: '单价不能为空',
@@ -471,6 +472,9 @@ Component({
                     break
                 case 10:
                     console.log('订单轨迹')
+                    wx.navigateTo({
+                        url: '/views/OrderTracking/OrderTracking?id=' + shippingOrderId,
+                    })
                     break
                 case 11:
                     console.log('订单价格')
@@ -490,7 +494,6 @@ Component({
 
         //货主输入订单金额
         handleOrderPrice(e) {
-            console.log(e)
             let value = e.detail.value;
             let price = Math.round(parseFloat(value) * 100) / 100;
             let xsd = price.toString().split(".");
@@ -565,10 +568,8 @@ Component({
                 portArrivalId,
                 portDepartureId
             }
-            console.log(params)
 
             User.UserCargoUpdate(params).then(res => {
-                console.log(res)
                 if (res.data.state) {
                     wx.navigateTo({
                         url: '/views/OrderContract/OrderContract?id=' + orderID,

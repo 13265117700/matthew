@@ -1,14 +1,16 @@
-.info-group{
+.info-group {
   background: #fff;
   padding: 20px 15px;
   margin-bottom: 15px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
-.info-group:last-child{
-  border-radius: 10px;
+
+.info-group:last-child {
+  border-radius: 15px;
 }
-.info-item{
+
+.info-item {
   display: flex;
   align-items: center;
   font-family: PingFang-SC-Medium;
@@ -17,82 +19,99 @@
   color: #333333;
   margin-bottom: 10px;
 }
-.info-item:last-child{
+
+.info-item:last-child {
   margin: 0;
 }
-.info-subtitle{
+
+.info-subtitle {
   margin-right: 3%;
 }
-.info-text{
+
+.info-text {
   font-family: PingFang-SC-Bold;
   font-weight: bold;
 }
-.info-step{
 
-}
-.info-step-item{
+.info-step {}
+
+.info-step-item {
   display: flex;
 }
-.info-item_left{
+
+.info-item_left {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-right: 10px;
 }
-.info-step_status{
+
+.info-step_status {
   width: 17px;
   height: 17px;
 }
-.info-step_status image{
+
+.info-step_status image {
   width: 17px;
   height: 17px;
 }
-.info-step_line{
+
+.info-step_line {
   width: 1px;
   height: 100%;
   background: #DCDCDC;
 }
-.info-item_right{
+
+.info-item_right {
   padding-bottom: 15px;
 }
-.info-step_subtitle{
+
+.info-step_subtitle {
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   color: #191919;
   font-size: 17px;
   margin-bottom: 10px;
 }
-.info-step_describe{
+
+.info-step_describe {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #666666;
   font-size: 14px;
   margin-bottom: 5px;
 }
-.info-step_time{
+
+.info-step_time {
   font-family: PingFang-SC-Bold;
   font-weight: bold;
   color: #191919;
   font-size: 14px;
   margin-bottom: 20px;
 }
-.info-step_instruction{
+
+.info-step_instruction {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #333333;
   font-size: 15px;
   margin-bottom: 10px;
 }
-.info-step_image{
+
+.info-step_image {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
 }
-.info-step_image image{
+
+.info-step_image image {
   max-width: 134px;
   max-height: 137px;
-  /* margin-right: 10px; */
+  border-radius: 7px;
 }
-.info-step_image_item{
-  margin-right: 10px;
-  /* padding: 10px; */
+
+.info-step_image_item {
+  margin: 10px;
+  margin-left: 0;
+  max-width: 134px;
+  max-height: 137px;
 }

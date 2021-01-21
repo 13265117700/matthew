@@ -7,7 +7,7 @@
             <text>合同编号：</text>
           </view>
           <view class="text">
-            <text>33332226552</text>
+            <text>{{orderInfo.mtShippingContract.shippingContractId}}</text>
           </view>
         </view>
       </view>
@@ -15,21 +15,21 @@
       <!-- 货主输入信息 -->
       <view class="contract-group" wx:if="{{ userInfo.cargo }}">
         <view class="contract-item"
-          wx:if="{{cargoUser.mtCargoOwner.nameEnterprise != ' ' && cargoUser.mtCargoOwner.nameEnterprise != null}}">
+          wx:if="{{orderInfo.cargoUser.mtCargoOwner.nameEnterprise != '' && orderInfo.cargoUser.mtCargoOwner.nameEnterprise != null}}">
           <view class="subtitle">
             <text>托运方(甲方):</text>
           </view>
           <view class="text">
-            <text>{{cargoUser.mtCargoOwner.nameEnterprise}}</text>
+            <text>{{orderInfo.cargoUser.mtCargoOwner.nameEnterprise}}</text>
           </view>
         </view>
         <view class="contract-item"
-          wx:if="{{cargoUser.mtCargoOwner.creditCode != ' ' && cargoUser.mtCargoOwner.creditCode != null}}">
+          wx:if="{{orderInfo.cargoUser.mtCargoOwner.creditCode != '' && orderInfo.cargoUser.mtCargoOwner.creditCode != null}}">
           <view class="subtitle">
             <text>统一信用代码：</text>
           </view>
           <view class="text">
-            <text>{{cargoUser.mtCargoOwner.creditCode}}</text>
+            <text>{{orderInfo.cargoUser.mtCargoOwner.creditCode}}</text>
           </view>
         </view>
         <view class="contract-item" wx:for="{{ partyAinputList }}" wx:key="index" wx:for-item="partyAitem">
@@ -47,37 +47,37 @@
       <!-- 船东时显示 -->
       <view class="contract-group" wx:if="{{ userInfo.ship }}">
         <view class="contract-item"
-          wx:if="{{cargoUser.mtCargoOwner.nameEnterprise != ' ' && cargoUser.mtCargoOwner.nameEnterprise != null}}">
-          <view class="subtitle"> 
+          wx:if="{{orderInfo.mtShippingContract.partyACorporateName != '' && orderInfo.mtShippingContract.partyACorporateName != null}}">
+          <view class="subtitle">
             <text>托运方（甲方）：</text>
           </view>
           <view class="text">
-            <text>{{cargoUser.mtCargoOwner.nameEnterprise}}</text>
+            <text>{{orderInfo.mtShippingContract.partyACorporateName}}</text>
           </view>
         </view>
         <view class="contract-item"
-          wx:if="{{cargoUser.mtCargoOwner.creditCode != ' ' && cargoUser.mtCargoOwner.creditCode != null}}">
+          wx:if="{{orderInfo.mtShippingContract.creditCodePartyA != '' && orderInfo.mtShippingContract.creditCodePartyA != null}}">
           <view class="subtitle">
             <text>统一信用代码：</text>
           </view>
           <view class="text">
-            <text>{{cargoUser.mtCargoOwner.creditCode}}</text>
+            <text>{{orderInfo.mtShippingContract.creditCodePartyA}}</text>
           </view>
         </view>
-        <!-- <view class="contract-item">
+        <view class="contract-item">
           <view class="subtitle">
             <text>住所：</text>
           </view>
           <view class="text">
-            <text>住所</text>
+            <text>{{orderInfo.mtShippingContract.addressPartyA}}</text>
           </view>
-        </view> -->
+        </view>
         <view class="contract-item">
           <view class="subtitle">
             <text>跟单人姓名：</text>
           </view>
           <view class="text">
-            <text>{{cargoUser.mtCargoOwner.contacts}}</text>
+            <text>{{orderInfo.mtShippingContract.partyAContacts}}</text>
           </view>
         </view>
         <view class="contract-item">
@@ -85,17 +85,17 @@
             <text>跟单人电话：</text>
           </view>
           <view class="text">
-            <text>{{cargoUser.mtCargoOwner.phone}}</text>
+            <text>{{orderInfo.mtShippingContract.contactPartyA}}</text>
           </view>
         </view>
-        <!-- <view class="contract-item">
+        <view class="contract-item">
           <view class="subtitle">
             <text>跟单人邮箱：</text>
           </view>
           <view class="text">
-            <text>121321321322</text>
+            <text>{{orderInfo.mtShippingContract.partyAEmail}}</text>
           </view>
-        </view> -->
+        </view>
       </view>
 
       <!-- 平台信息 -->
@@ -152,20 +152,22 @@
 
       <!-- 船东输入信息 -->
       <view class="contract-group" wx:if="{{ userInfo.ship }}">
-        <view class="contract-item" wx:if="{{ shipUser.mtShipowner.nameEnterprise != null }}">
+        <view class="contract-item"
+          wx:if="{{orderInfo.shipUser.mtShipowner.nameEnterprise != '' && orderInfo.shipUser.mtShipowner.nameEnterprise != null}}">
           <view class="subtitle">
             <text>实际运输方：</text>
           </view>
           <view class="text">
-            <text>{{shipUser.mtShipowner.nameEnterprise}}</text>
+            <text>{{orderInfo.shipUser.mtShipowner.nameEnterprise}}</text>
           </view>
         </view>
-        <view class="contract-item" wx:if="{{ shipUser.mtShipowner.creditCode != null }}">
+        <view class="contract-item"
+          wx:if="{{orderInfo.shipUser.mtShipowner.creditCode != '' && orderInfo.shipUser.mtShipowner.creditCode != null}}">
           <view class="subtitle">
             <text>统一信用代码：</text>
           </view>
           <view class="text">
-            <text>{{shipUser.mtShipowner.creditCode}}</text>
+            <text>{{orderInfo.shipUser.mtShipowner.creditCode}}</text>
           </view>
         </view>
         <view class="contract-item" wx:for="{{ partyBinputList }}" wx:key="index" wx:for-item="partyBitem">
@@ -174,27 +176,30 @@
             <text>{{partyBitem.title}}</text>
           </view>
           <view class="input">
-            <vtu-input placeholder="{{partyBitem.placeholder}}" data-index="{{index}}" type="input" text-align="left" bind:input="partyBinput"></vtu-input>
+            <vtu-input placeholder="{{partyBitem.placeholder}}" data-index="{{index}}" type="input" text-align="left"
+              bind:input="partyBinput"></vtu-input>
           </view>
         </view>
       </view>
 
       <!-- 货主时显示 -->
       <view class="contract-group" wx:if="{{ userInfo.cargo }}">
-        <view class="contract-item" wx:if="{{shipUser.mtShipowner.nameEnterprise != null}}">
+        <view class="contract-item"
+          wx:if="{{orderInfo.shipUser.mtShipowner.nameEnterprise != '' && orderInfo.shipUser.mtShipowner.nameEnterprise != null}}">
           <view class="subtitle">
             <text>实际运输方(丙方):</text>
           </view>
           <view class="text">
-            <text>{{shipUser.mtShipowner.nameEnterprise}}</text>
+            <text>{{orderInfo.shipUser.mtShipowner.nameEnterprise}}</text>
           </view>
         </view>
-        <view class="contract-item" wx:if="{{shipUser.mtShipowner.creditCode != null}}">
+        <view class="contract-item"
+          wx:if="{{orderInfo.shipUser.mtShipowner.creditCode != '' && orderInfo.shipUser.mtShipowner.creditCode != null}}">
           <view class="subtitle">
             <text>统一信用代码：</text>
           </view>
           <view class="text">
-            <text>{{shipUser.mtShipowner.creditCode}}</text>
+            <text>{{orderInfo.shipUser.mtShipowner.creditCode}}</text>
           </view>
         </view>
         <!-- <view class="contract-item">
@@ -210,7 +215,7 @@
             <text>联系人姓名：</text>
           </view>
           <view class="text">
-            <text>{{shipUser.mtShipowner.contacts}}</text>
+            <text>{{orderInfo.shipUser.mtShipowner.contacts}}</text>
           </view>
         </view>
         <view class="contract-item">
@@ -218,7 +223,7 @@
             <text>联系人电话：</text>
           </view>
           <view class="text">
-            <text>{{shipUser.mtShipowner.phone}}</text>
+            <text>{{orderInfo.shipUser.mtShipowner.phone}}</text>
           </view>
         </view>
         <!-- <view class="contract-item">

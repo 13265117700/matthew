@@ -1,7 +1,9 @@
-import User from '../../models/user/user'
+import User from '../../models/user/user';
+import Company from '../../models/frontEnd/companyInfo';
 
 Page({
   data: {
+    orderInfo: {},
     userInfo: {}, //用户信息
     contractContent: null, //合同内容
     btutitle: '生成合同', //按钮
@@ -31,8 +33,7 @@ Page({
   },
 
   onShow: function () {
-    this.getContractInfo();
-    this.getUserInfo()
+
   },
 
   //获取用户
@@ -84,22 +85,41 @@ Page({
         })
       }
 
+      this.getContractInfo();
     })
 
 
   },
 
   getContractInfo() {
+    let id = this.data.id;
     let Authorization = wx.getStorageSync('Authorization');
-    User.frontDeskDefaultCompany({
+    let params = {
+      Authorization,
+      id
+    }
+    console.log(params)
+    User.UserOrderQuery(params).then(res => {
+      console.log(res)
+      let rows = res.data.data;
+      console.log(rows)
+      this.setData({
+        orderInfo: rows,
+      })
+
+    })
+
+    Company.frontDeskDefaultCompany({
       Authorization
     }).then(res => {
       let rows = res.data.data;
       this.setData({
         contractContent: rows.contractContent
       })
-      console.log(rows)
     })
+
+
+
   },
   handleHairContract() {
     this.setData({
@@ -165,7 +185,7 @@ Page({
       }
 
       console.log(params)
-      
+
       User.UserShipOrderConfirmContract(params).then(res => {
         if (res.data.state === 200) {
           wx.showLoading({
@@ -186,5 +206,13 @@ Page({
 
 
 
+  },
+  //进入订单详情
+  goOrderDeatil() {
+    let id = this.data.id;
+    console.log(id)
+    wx.navigateTo({
+      url: '/views/contractOrderDetail/contractOrderDetail?id=' + id,
+    })
   }
 })

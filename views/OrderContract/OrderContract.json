@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "生成合同",
   "usingComponents": {
     "van-field": "/miniprogram_npm/@vant/weapp/field/index"
   }

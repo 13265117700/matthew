@@ -10,57 +10,39 @@
         <view class="info-text">{{orderInfo.mtShip.nameVessel}}</view>
       </view>
       <view class="info-item">
-        <view class="info-subtitle">卸货完成:</view>
-        <view class="info-text">{{orderInfo.unloadingCompleted.updateTime ? orderInfo.unloadingCompleted.updateTime:'运输中'}}</view>
+        <view class="info-subtitle">{{orderStatus.title}}</view>
+        <view class="info-text">
+          {{orderStatus.date}}</view>
       </view>
     </view>
     <view class="info-group">
       <view class="info-step">
-        <view class="info-step-item">
+        <view class="info-step-item" wx:for="{{step}}" wx:key="index" wx:for-item="stepItem">
           <view class="info-item_left">
             <view class="info-step_status">
-              <image src="/images/order/ok@3x.png"></image>
+              <image
+                src="{{stepItem.active === true ? '/images/order/ok@3x.png':'https://img.gdmatt.com/images/2021/01/21/16112120761612359.png'}}">
+              </image>
             </view>
             <view class="info-step_line"></view>
           </view>
           <view class="info-item_right">
-            <view class="info-step_subtitle">卸货完成</view>
-            <view class="info-step_describe">卸货完成 签收时间:</view>
-            <view class="info-step_time">2020-08-20 14:40</view>
-            <view class="info-step_instruction">补充内容说明：补充内容说明补充内容说明补充内容说明补充内容说明补充内容说明</view>
-            <view class="info-step_image">
-              <view class="info-step_image_item">
-                <image src="/images/order/dww.png"></image>
-              </view>
-              <view class="info-step_image_item">
-                <image src="/images/order/dww.png"></image>
-              </view>
+            <view class="info-step_subtitle">{{stepItem.title}}</view>
+            <view class="info-step_describe">{{stepItem.subtitle}}</view>
+            <view class="info-step_time">{{stepItem.createTime}}</view>
+            <view class="info-step_instruction" wx:if="{{stepItem.processContent}}">补充内容说明：{{stepItem.processContent}}
             </view>
-          </view>
-        </view>
-        <view class="info-step-item">
-          <view class="info-item_left">
-            <view class="info-step_status">
-              <image src="/images/order/ok@3x.png"></image>
-            </view>
-            <view class="info-step_line"></view>
-          </view>
-          <view class="info-item_right">
-            <view class="info-step_subtitle">卸货完成</view>
-            <view class="info-step_describe">卸货完成 签收时间:</view>
-            <view class="info-step_time">2020-08-20 14:40</view>
-            <view class="info-step_instruction">补充内容说明：补充内容说明补充内容说明补充内容说明补充内容说明补充内容说明</view>
-            <view class="info-step_image">
-              <view class="info-step_image_item">
-                <image src="/images/order/dww.png"></image>
-              </view>
-              <view class="info-step_image_item">
-                <image src="/images/order/dww.png"></image>
+            <view class="info-step_image" wx:if="{{stepItem.processImg}}">
+              <view class="info-step_image_item" wx:for="{{stepItem.processImg}}" wx:key="index" wx:for-item="imgItem">
+                <image mode="aspectFill" src="{{imgItem.url}}" data-url="{{imgItem.url}}"
+                  data-list="{{stepItem.processImg}}" catchtap="onOpenImage"></image>
               </view>
             </view>
           </view>
         </view>
       </view>
+      <van-divider contentPosition="center" wx:if="{{orderInfo.transportStatus == 0 && orderInfo.status > 6}}">正在售后中，请等待</van-divider>
+      <van-divider contentPosition="center" wx:if="{{orderInfo.transportStatus == 0 && orderInfo.status < 7}}">船正在去装货港，请等候</van-divider>
     </view>
   </view>
 </view>
