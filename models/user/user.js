@@ -6,6 +6,14 @@ export default {
     userInfo: function (data) {
         return request.get(api.userInfo, data)
     },
+    //用户偏好设置
+    userPreference: function (data) {
+        return request.post(api.userPreference, data)
+    },
+    //用户发票添加
+    userInvoiceAdd: function (data) {
+        return request.post(api.userInvoiceAdd, data)
+    },
 
 
 
@@ -175,5 +183,5 @@ export default {
 
 
 
-    
+
 }

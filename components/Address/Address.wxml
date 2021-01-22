@@ -1,0 +1,31 @@
+<view class="address-container">
+    <view class="address-title">
+        <text>请选择地区</text>
+    </view>
+    <view class="address-crumbs">
+        <view class="address-crumbs_item {{ addressNameItem.active ? 'active':'' }}"
+            wx:for="{{ addressName }}"
+            wx:key="index"
+            wx:for-item="addressNameItem"
+            data-index="{{ index }}"
+            data-id="{{ addressNameItem.id }}"
+            bindtap="clickCrumbs">{{ addressNameItem.name }}</view>
+        <view class="address-crumbs_item">请选择</view>
+    </view>
+    <view class="address-list">
+        <view class="address-item"
+            wx:for="{{ address }}"
+            wx:key="index"
+            wx:for-item="addressItem"
+            data-index="{{ index }}"
+            data-id="{{ addressItem.id }}"
+            bindtap="getAddressChild">
+            <view class="address-item_active" wx:if="{{ addressItem.active }}">
+                <image src="/images/my/region/xz@3x.png"></image>
+            </view>
+            <view class="address-item_name">
+                <text>{{ addressItem.name }}</text>
+            </view>
+        </view>
+    </view>
+</view>

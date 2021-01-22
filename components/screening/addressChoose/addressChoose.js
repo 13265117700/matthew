@@ -2,7 +2,7 @@ import mtWharf from '../../../models/frontEnd/mtWharf';
 
 Component({
     properties: {
-        porState:Number
+        porState: Number
     },
     lifetimes: {
         attached: function () {
@@ -127,17 +127,17 @@ Component({
                     state
                 })
                 this.setData({
-                    cellValue:popupInputValue,
-                    popupShow:false
+                    cellValue: popupInputValue,
+                    popupShow: false
                 })
-            }else{
+            } else {
                 this.triggerEvent('onaddress', {
                     onMyEvent: value,
                     state
                 })
                 this.setData({
-                    cellValue:value,
-                    popupShow:false
+                    cellValue: value,
+                    popupShow: false
                 })
             }
 
@@ -219,12 +219,12 @@ Component({
             })
         },
 
-        onRemove(){
+        onRemove() {
             this.getAddress()
             this.setData({
-                addressName:[],
-                crumbsLength:null,
-                pickerList:[]
+                addressName: [],
+                crumbsLength: null,
+                pickerList: []
             })
         }
     }

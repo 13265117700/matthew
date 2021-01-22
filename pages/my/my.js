@@ -1,6 +1,7 @@
 const {
   $Toast
 } = require('../../miniprogram_npm/iview-weapp/base/index');
+import user from '../../models/user/user';
 import User from '../../models/user/user';
 
 Page({
@@ -279,7 +280,6 @@ Page({
     let userInfo = this.data.userInfo;
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
-    console.log(id)
     let Authorization = wx.getStorageSync('Authorization');
     if (Authorization) {
       switch (id) {
@@ -331,9 +331,16 @@ Page({
           })
           break
         case '820':
-          wx.navigateTo({
-            url: '/views/InvoiceAdmin/InvoiceAdmin',
-          })
+          if (userInfo.mtUserInvoice) {
+            wx.navigateTo({
+              url: '/views/invoiceInfo/invoiceInfo',
+            })
+          } else {
+            wx.navigateTo({
+              url: '/views/InvoiceAdmin/InvoiceAdmin',
+            })
+          }
+
           break
         case '998':
           wx.navigateTo({

@@ -1,74 +1,31 @@
 <view class="page-container">
     <view class="page-main">
         <view class="input-list">
-            <view class="input-item">
+            <view class="input-item" wx:for="{{addInputList}}" wx:key="index" wx:for-item="addItem">
                 <van-cell-group>
-                    <van-field
-                        label="收件人"
-                        placeholder-style="color: #E5E5E5;"
-                        placeholder="请输入收件人姓名"
-                        type="input"
-                        border="{{ false }}"
-                        custom-style="height: 50px;align-items: center;"
-                        bind:change="onChange"
-                    />
-                </van-cell-group>
-            </view>
-            <view class="input-item">
-                <van-cell-group>
-                    <van-field
-                        value="{{ value }}"
-                        label="手机号码"
-                        placeholder="请输入手机号码"
-                        border="{{ false }}"
-                        custom-style="height: 50px;align-items: center;"
-                        bind:change="onChange"
-                    />
-                </van-cell-group>
-            </view>
-            <view class="input-item">
-                <van-cell-group>
-                    <van-cell custom-class="new-cell_style" is-link>
+                    <van-field label="{{addItem.label}}" placeholder-style="color: #E5E5E5;"
+                        placeholder="{{addItem.placeholder}}" type="{{addItem.type}}" border="{{ false }}"
+                        custom-style="height: 50px;align-items: center;" data-index="{{index}}"
+                        wx:if="{{addItem.type == 'input' || addItem.type == 'number'}}" bind:change="onChange" />
+                    <van-cell custom-class="new-cell_style" is-link wx:if="{{addItem.type == 'default'}}"
+                        bind:click="onOpenAddress">
                         <view slot="title" class="cell-container">
-                            <view class="cell-title">地址</view>
-                            <view class="cell-describe">请选择详细地址</view>
-                        </view>
-                    </van-cell>
-                </van-cell-group>
-            </view>
-            <view class="input-item">
-                <van-cell-group>
-                    <van-field
-                        value="{{ value }}"
-                        label="详细地址"
-                        placeholder="请输入收货详细地址"
-                        border="{{ false }}"
-                        custom-style="height: 50px;align-items: center;"
-                        bind:change="onChange"
-                    />
-                </van-cell-group>
-            </view>
-            <view class="input-item">
-                <van-cell-group>
-                    <van-cell custom-class="new-cell_style">
-                        <view slot="title" class="cell-container">
-                            <view class="cell-title">设为默认地址</view>
-                            <view class="cell-switch">
-                                <van-switch checked="{{ checked }}" active-color="#D61718" size="16px" bind:change="onChange" />
-                            </view>
+                            <view class="cell-title">{{addItem.label}}</view>
+                            <view class="cell-placeholder" wx:if="{{!addItem.value}}">{{addItem.placeholder}}</view>
+                            <view class="cell-text" wx:if="{{addItem.value}}">{{addItem.value}}</view>
                         </view>
                     </van-cell>
                 </van-cell-group>
             </view>
         </view>
+        <view class="popup-wrap">
+            <van-popup show="{{ show }}" closeable close-icon="close" round position="bottom" custom-style="height: 70%"
+                bind:close="onClose">
+                <address bind:onaddress="onAddress"></address>
+            </van-popup>
+        </view>
         <view class="add-button">
-            <van-button 
-                type="danger" 
-                square 
-                size="large" 
-                custom-style="{{ buttonStyle }}" 
-                bindtap="handleAddButton"
-                >
+            <van-button type="danger" square size="large" custom-style="{{ buttonStyle }}" bindtap="handleAddButton">
                 <view class="add-button_text">保存</view>
             </van-button>
         </view>

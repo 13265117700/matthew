@@ -33,17 +33,21 @@
         "views/cargoEdit/cargoEdit",
         "views/OrderTracking/OrderTracking",
         "views/OrderAppeal/OrderAppeal",
-        "views/MyAddress/MyAddress",
+        "views/contractOrderDetail/contractOrderDetail",
+        "views/userShipDetail/userShipDetail",
+        "views/userShipDateDetail/userShipDateDetail",
         "views/MyAddressAdd/MyAddressAdd",
+
+
+        "views/MyAddress/MyAddress",
         "views/Preferences/Preferences",
         "views/InvoiceAdmin/InvoiceAdmin",
         "views/InvoiceAgreement/InvoiceAgreement",
         "views/OrderEvaluate/OrderEvaluate",
         "views/OrderInformation/OrderInformation",
         "views/Screening/Screening",
-        "views/userShipDateDetail/userShipDateDetail",
-        "views/userShipDetail/userShipDetail",
-        "views/contractOrderDetail/contractOrderDetail"
+       
+        "views/invoiceInfo/invoiceInfo"
     ],
     "window": {
         "backgroundTextStyle": "dark",

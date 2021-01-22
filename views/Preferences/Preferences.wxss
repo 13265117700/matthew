@@ -28,5 +28,4 @@
 }
 .item-input{
     flex: 1;
-    
 }

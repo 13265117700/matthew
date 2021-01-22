@@ -1,37 +1,48 @@
-.page-container{
+.page-container {}
 
-}
-.page-main{
+.page-main {
     padding: 0 20px;
 }
-.input-list{
+
+.input-list {
     margin-top: 12px;
 }
-.input-item{
+
+.input-item {
     margin-bottom: 12px;
     display: flex;
     align-items: center;
 }
-van-cell-group{
+
+van-cell-group {
     width: 100%;
 }
-.cell-container{
+
+.cell-container {
     display: flex;
     padding: 3px 0;
     align-items: center;
 }
-.cell-title{
+
+.cell-title {
     width: 87px;
 }
-.cell-describe{
+
+.cell-placeholder {
     margin-left: 10px;
     color: #E5E5E5;
 }
-.cell-switch{
+
+.cell-switch {
     flex: 1;
     text-align: right;
     height: 19px;
 }
-.new-cell_style{
+
+.new-cell_style {
     border-radius: 10px;
+}
+
+.add-button {
+    margin-top: 25%;
 }

@@ -1,43 +1,50 @@
-.page-container{
+.page-container {
     height: 100%;
     display: flex;
     flex-direction: column;
 
 }
-.page-main{
+
+.page-main {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
-.noContent-box{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-.form-section{
+
+.form-section {
     background: #fff;
     margin-top: 10px;
-    padding: 20px 15px;
+    padding: 20px 15px 0;
 }
-.form-item{
-    margin-bottom: 30px;
-}
-.form-item.active{
-    margin-bottom: 19px;
+
+.form-item {
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 }
-.form-subtitle{
+
+.form-item:first-child {
+    margin-bottom: 30px;
+    display: block;
+}
+
+.form-item:last-child {
+    margin: 0;
+}
+
+.form-subtitle {
     margin-bottom: 21.5px;
     font-family: PingFang-SC-Bold;
     font-weight: bold;
     font-size: 14px;
     color: #191919;
 }
-.form-status{
+
+.form-status {
     display: flex;
 }
-.form-status_btu{
+
+.form-status_btu {
     width: 75px;
     height: 28px;
     line-height: 28px;
@@ -49,29 +56,42 @@
     margin-right: 18px;
     border-radius: 14px;
 }
-.form-status_btu.active{
+
+.form-status_btu.active {
     color: #FF0000;
     border: 1px solid;
     background: #fff;
 }
-.item-rate{
+
+.item-rate {
     color: #E3211F;
     font-size: 14px;
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
 }
-.item-input{
+
+.item-subtitle {
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #454545;
+    font-size: 14px;
+}
+
+.item-input {
     flex: 1;
 }
-.address-section{
+
+.address-section {
     background: #fff;
     margin-top: 10px;
     height: 87px;
+    min-height: 87px;
     position: relative;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-.address-icon image{
+
+.address-icon image {
     width: 19px;
     height: 19px;
     position: absolute;
@@ -79,7 +99,8 @@
     left: 50%;
     transform: translateX(-50%);
 }
-.address-msg{
+
+.address-msg {
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
     color: #666666;
@@ -90,22 +111,27 @@
     transform: translateX(-50%);
     white-space: nowrap;
 }
-.address-border image{
+
+.address-border image {
     height: 3px;
     width: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
 }
-.save-section{
+
+.save-section {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-height: 100px;
 }
-.save-tag{
+
+.save-tag {
     flex: 1;
 }
-.save-note{
+
+.save-note {
     margin: 0 0 15px 15px;
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
@@ -113,6 +139,54 @@
     color: #868686;
     display: flex;
 }
-navigator{
+
+navigator {
     color: #5C92D0;
+}
+
+.user-section {
+    background: #fff;
+    margin-top: 10px;
+    padding: 16px 42px 16px 22px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+}
+
+.user-top {
+    display: flex;
+    font-family: PingFang-SC-Heavy;
+    font-weight: bold;
+    color: #222222;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.user-name {
+    margin-right: 25px;
+}
+
+.user-phone {}
+
+.user-bottom {
+    display: flex;
+    align-items: center;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #333333;
+    font-size: 13px;
+}
+
+.user-icon {
+    margin-right: 10px;
+    line-height: 30px;
+}
+
+.user-icon image {
+    width: 12.5px;
+    height: 15px;
+}
+
+.user-address {
+    line-height: 22px;
 }

@@ -5,7 +5,7 @@ export default {
     UserFriendChat: `${WebSocket}/ws`, //websocket连接通信
 
     //登录API
-    passwordLogin:`${PREFIX}/login`,//密码登录
+    passwordLogin: `${PREFIX}/login`, //密码登录
     wxLogin: `${PREFIX}/login/code`, // 微信登录
 
     //上传API
@@ -14,6 +14,9 @@ export default {
 
     //用户API
     userInfo: `${PREFIX}/user/information/mtUserIdS`, //用户查询
+    userPreference:`${PREFIX}/user/information/upperPreference`,//用户偏好设置
+    userInvoiceAdd:`${PREFIX}/user/information/updateUserInvoice`,//用户添加发票
+
 
     // 用户船API
     mtShipownerUpdate: `${PREFIX}/user/information/mtShipownerUpdate`, //船东信息修改
@@ -22,7 +25,7 @@ export default {
     UserShipInfoQuery: `${PREFIX}/user/ship/findByShipId`, //用户船信息查询
     UserShipPeriodAdd: `${PREFIX}/user/releaseShipSource/saveReleaseShipSource`, //用户船期发布
     UserShipPeriodList: `${PREFIX}/user/releaseShipSource/releaseShipSourceFriends`, //用户船期列表
-    UserShipDateInfoQuery:`${PREFIX}/user/releaseShipSource/findByReleaseShipSourceId`,//用户船期详情
+    UserShipDateInfoQuery: `${PREFIX}/user/releaseShipSource/findByReleaseShipSourceId`, //用户船期详情
     UserShipPeriodOnUnderFrame: `${PREFIX}/user/releaseShipSource/upAndDownUpdate`, //用户船期上下架
     UserShipPeriodDel: `${PREFIX}/user/releaseShipSource/deleteDownUpdate`, //用户船期删除
 
@@ -30,7 +33,7 @@ export default {
     UserShipWhetherFocusOn: `${PREFIX}/user/focusShips/shipYouConcerned`, //查询船是否已关注
     UserShipFocus: `${PREFIX}/user/focusShips/mtFocusShipsSave`, //用户船关注
     UserShipCancelFocus: `${PREFIX}/user/focusShips/delete`, //用户船取消关注
-    UserFocusShips:`${PREFIX}/user/focusShips/focusShipsFindAll`,//关注列表查询
+    UserFocusShips: `${PREFIX}/user/focusShips/focusShipsFindAll`, //关注列表查询
 
 
 
@@ -43,10 +46,10 @@ export default {
     UserCargoUpdate: `${PREFIX}/user/cargo/mtCargoUpdate`, //用户货源修改
 
     //用户货关注API
-    UserCargoFocusOn:`${PREFIX}/user/focusCargo/cargoYouConcerned`,//用户货源是否已关注
-    UserCargoFocus:`${PREFIX}/user/focusCargo/focusCargoSave`,//用户货源关注
-    UserCargoCancelFocus:`${PREFIX}/user/focusCargo/delete`,//用户货源取消关注
-    UserFocusCargo:`${PREFIX}/user/focusCargo/focusCargoFindAll`,//用户货关注列表
+    UserCargoFocusOn: `${PREFIX}/user/focusCargo/cargoYouConcerned`, //用户货源是否已关注
+    UserCargoFocus: `${PREFIX}/user/focusCargo/focusCargoSave`, //用户货源关注
+    UserCargoCancelFocus: `${PREFIX}/user/focusCargo/delete`, //用户货源取消关注
+    UserFocusCargo: `${PREFIX}/user/focusCargo/focusCargoFindAll`, //用户货关注列表
 
 
     //用户车API
@@ -70,30 +73,30 @@ export default {
     UserOrderDetails: `${PREFIX}/user/appoint/findByAppointId`, //用户接单详情
     UserOrderListQuery: `${PREFIX}/user/shippingOrder/mtShippingOrderFindAll`, //用户订单列表查询
     UserOrderQuery: `${PREFIX}/user/shippingOrder/userFindByShippingOrderId`, //用户订单查询
-    UserCargoOrderContractGenerate:`${PREFIX}/user/shippingOrder/cargoContract`,//用户货主合同生成
-    UserShipOrderConfirmContract:`${PREFIX}/user/shippingOrder/shipContract`,//用户船东确认合同信息
-    UserShipConfirmOrderMoney:`${PREFIX}/user/shippingOrder/shipConfirmationAmount`,//船东确认订单金额
-    UserShipUploadProcess:`${PREFIX}/user/shippingOrder/transportationProcess`,//船东上传运输流程
-    UserCargoConfirmOrderMoney:`${PREFIX}/user/shippingOrder/cargoConfirmationAmount`,//货主确认订单金额
+    UserCargoOrderContractGenerate: `${PREFIX}/user/shippingOrder/cargoContract`, //用户货主合同生成
+    UserShipOrderConfirmContract: `${PREFIX}/user/shippingOrder/shipContract`, //用户船东确认合同信息
+    UserShipConfirmOrderMoney: `${PREFIX}/user/shippingOrder/shipConfirmationAmount`, //船东确认订单金额
+    UserShipUploadProcess: `${PREFIX}/user/shippingOrder/transportationProcess`, //船东上传运输流程
+    UserCargoConfirmOrderMoney: `${PREFIX}/user/shippingOrder/cargoConfirmationAmount`, //货主确认订单金额
 
 
 
     //用户维权管理
-    UserActivistComplaint:`${PREFIX}/user/rightsProtection/rightsProtectionSave`,//用户维权申请
+    UserActivistComplaint: `${PREFIX}/user/rightsProtection/rightsProtectionSave`, //用户维权申请
 
 
 
     //前端API
     frontDeskShipTypeList: `${PREFIX}/reception/mtTypeShip/mtNameGoodsFriends`, //船类型列表
     frontDeskCargoList: `${PREFIX}/reception/mtNameGoods/mtNameGoodsFriends`, //货物名列表
-    frontDeskCargoDeatil:`${PREFIX}/reception/cargo/findByCargoId`,//前端货源详情
+    frontDeskCargoDeatil: `${PREFIX}/reception/cargo/findByCargoId`, //前端货源详情
     frontDeskShipPeriodList: `${PREFIX}/reception/releaseShipSource/releaseShipSourceFriends`, //船期列表
     frontDeskShipPeriodItem: `${PREFIX}/reception/releaseShipSource/findByReleaseShipSourceId`, //前端船期信息查询
     frontDeskWharfList: `${PREFIX}/reception/mtWharf/findAll`, //码头列表查询
     frontDeskShipList: `${PREFIX}/reception/ship/myFriendsRequestFriends`, //船信息列表
     frontDeskShipItem: `${PREFIX}/reception/ship/findByShipId`, //船信息查询
     frontDeskDefaultCompany: `${PREFIX}/reception/information/findByAcquiescence`, //平台公司信息
-    frontDeskCargoFocusOn: `${PREFIX}/reception/cargo/mtCargoFriends`,//前端获取货源列表
-
+    frontDeskCargoFocusOn: `${PREFIX}/reception/cargo/mtCargoFriends`, //前端获取货源列表
+    frontDeskRouteList:`${PREFIX}/reception/mtRoute/mtRouteFriends`,//前端航线查询
 
 }

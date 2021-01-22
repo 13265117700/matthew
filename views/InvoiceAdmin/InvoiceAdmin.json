@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "发票管理",
-  "usingComponents": {}
+  "usingComponents": {
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index"
+  }
 }
