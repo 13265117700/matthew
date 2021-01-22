@@ -1,2 +1,52 @@
-<!--views/invoiceInfo/invoiceInfo.wxml-->
-<text>views/invoiceInfo/invoiceInfo.wxml</text>
+<view class="page-container">
+    <view class="info-group">
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>发票抬头</text>
+            </view>
+            <view class="info-text">
+                <text>asdsad</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>发票抬头</text>
+            </view>
+            <view class="info-text">
+                <text>asdsad</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>发票抬头</text>
+            </view>
+            <view class="info-text">
+                <text>asdsad</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>发票抬头</text>
+            </view>
+            <view class="info-text">
+                <text>asdsad</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>发票抬头</text>
+            </view>
+            <view class="info-text">
+                <text>asdsad</text>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>发票抬头</text>
+            </view>
+            <view class="info-text">
+                <text>asdsad</text>
+            </view>
+        </view>
+    </view>
+</view>
