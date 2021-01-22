@@ -16,6 +16,7 @@ export default {
     userInfo: `${PREFIX}/user/information/mtUserIdS`, //用户查询
     userPreference:`${PREFIX}/user/information/upperPreference`,//用户偏好设置
     userInvoiceAdd:`${PREFIX}/user/information/updateUserInvoice`,//用户添加发票
+    userPhoneBinding:`${PREFIX}/user/information/phoneBinding`,//用户手机绑定
 
 
     // 用户船API
@@ -80,9 +81,12 @@ export default {
     UserCargoConfirmOrderMoney: `${PREFIX}/user/shippingOrder/cargoConfirmationAmount`, //货主确认订单金额
 
 
-
     //用户维权管理
     UserActivistComplaint: `${PREFIX}/user/rightsProtection/rightsProtectionSave`, //用户维权申请
+
+
+    //sms短信服务
+    UserSendsmsPhone:`${PREFIX}/registeSms/sendSmsPhone`,//用户手机认证短信验证码
 
 
 

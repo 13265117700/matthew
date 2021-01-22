@@ -2,51 +2,85 @@
     <view class="info-group">
         <view class="info-item">
             <view class="info-subtitle">
-                <text>发票抬头</text>
+                <text>发票抬头:</text>
             </view>
             <view class="info-text">
-                <text>asdsad</text>
+                <text>{{mtUserInvoice.invoiceTitle}}</text>
             </view>
         </view>
         <view class="info-item">
             <view class="info-subtitle">
-                <text>发票抬头</text>
+                <text>统一社会信用代码:</text>
             </view>
             <view class="info-text">
-                <text>asdsad</text>
+                <text>{{mtUserInvoice.creditCode}}</text>
             </view>
         </view>
         <view class="info-item">
             <view class="info-subtitle">
-                <text>发票抬头</text>
+                <text>税号:</text>
             </view>
             <view class="info-text">
-                <text>asdsad</text>
+                <text>{{mtUserInvoice.dutyParagraph}}</text>
             </view>
         </view>
         <view class="info-item">
             <view class="info-subtitle">
-                <text>发票抬头</text>
+                <text>注册地址:</text>
             </view>
             <view class="info-text">
-                <text>asdsad</text>
+                <text>{{mtUserInvoice.detailedAddress}}</text>
             </view>
         </view>
         <view class="info-item">
             <view class="info-subtitle">
-                <text>发票抬头</text>
+                <text>注册电话:</text>
             </view>
             <view class="info-text">
-                <text>asdsad</text>
+                <text>{{mtUserInvoice.telephoneRegistration}}</text>
             </view>
         </view>
         <view class="info-item">
             <view class="info-subtitle">
-                <text>发票抬头</text>
+                <text>开户银行:</text>
             </view>
             <view class="info-text">
-                <text>asdsad</text>
+                <text>{{mtUserInvoice.bankDeposit}}</text>
             </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text>银行账号:</text>
+            </view>
+            <view class="info-text">
+                <text>{{mtUserInvoice.mtUserInvoice}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-top">
+            <view class="user-name">
+                <text>{{mtUserInvoice.contacts}}</text>
+            </view>
+            <view class="user-phone">
+                <text>{{mtUserInvoice.contactInformation}}</text>
+            </view>
+        </view>
+        <view class="info-middle">
+            <view class="user-icon">
+                <image src="https://img.gdmatt.com/images/2021/01/22/16113083476862697.png"></image>
+            </view>
+            <view class="user-address">
+                <text>{{mtUserInvoice.contactAddress}}</text>
+            </view>
+        </view>
+        <view class="info-bottom">
+            <image src="/images/my/invoice/jdt@3x.png"></image>
+        </view>
+    </view>
+    <view class="info-group">
+        <view class="info-summary">
+            <text>如需要修改发票信息请联系在线客服</text>
         </view>
     </view>
 </view>

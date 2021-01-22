@@ -14,6 +14,10 @@ export default {
     userInvoiceAdd: function (data) {
         return request.post(api.userInvoiceAdd, data)
     },
+    //用户手机绑定
+    userPhoneBinding: function (data) {
+        return request.post(api.userPhoneBinding, data)
+    },
 
 
 
