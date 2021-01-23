@@ -22,9 +22,17 @@ export default {
     userForgotPassword: function (data) {
         return request.post(api.userForgotPassword, data)
     },
+    //用户修改密码
+    userEditorPassword: function (data) {
+        return request.post(api.userEditorPassword, data)
+    },
+    //用户修改昵称/头像
+    userEditorNickName: function (data) {
+        return request.post(api.userEditorNickName, data)
+    },
 
 
-    
+
 
 
 

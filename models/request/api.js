@@ -18,6 +18,8 @@ export default {
     userInvoiceAdd:`${PREFIX}/user/information/updateUserInvoice`,//用户添加发票
     userPhoneBinding:`${PREFIX}/user/information/phoneBinding`,//用户手机绑定
     userForgotPassword:`${PREFIX}/user/information/forgetPassword`,//设置登录密码/忘记密码
+    userEditorPassword:`${PREFIX}/user/information/changePassword`,//用户修改密码
+    userEditorNickName:`${PREFIX}/user/information/modifyUserInformation`,//用户修改昵称/头像
 
 
 
@@ -90,6 +92,8 @@ export default {
     //sms短信服务
     UserSendsmsPhone:`${PREFIX}/registeSms/sendSmsPhone`,//用户手机认证短信验证码
     UserForgetPasswordSMS:`${PREFIX}/registeSms/forgetPassword`,//用户忘记密码验证码
+    UserModifyPasswordSMS:`${PREFIX}/registeSms/changePassword`,//修改密码验证码
+    UserEditorPhoneSMS:`${PREFIX}/registeSms/phoneBinding`,//用户更换手机号验证码
 
 
 

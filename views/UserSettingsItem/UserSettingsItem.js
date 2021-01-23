@@ -145,7 +145,7 @@ Page({
                 if (user.password) {
                     console.log(inputList)
                     inputList.forEach(data => {
-                        if (data.state > 3) {
+                        if (data.state > 2) {
                             data.show = true
                         } else {
                             data.show = false
@@ -196,6 +196,9 @@ Page({
         switch (state) {
             case 1:
                 console.log('设置用户名')
+                this.setData({
+                    name: value
+                })
                 break;
             case 2:
                 console.log('绑定手机')
@@ -209,6 +212,9 @@ Page({
                 break;
             case 4:
                 console.log('旧密码')
+                this.setData({
+                    oldPassword: value
+                })
                 break;
             case 5:
                 console.log('新密码')
@@ -228,16 +234,9 @@ Page({
 
     //手机绑定输入
     handlePhone(value) {
-        let userInfo = this.data.userInfo;
-        if (userInfo.phone) {
-            this.setData({
-                phone: userInfo.phone
-            })
-        } else {
-            this.setData({
-                phone: value
-            })
-        }
+        this.setData({
+            phone: value
+        })
     },
 
     //获取验证码
@@ -258,11 +257,15 @@ Page({
             })
 
             if (peIndex == 2) {
-                this.handleEditPhoneSMS(phone)
+                if (userInfo.phone) {
+                    this.handleReplacePhoneSMS()
+                } else {
+                    this.handleEditPhoneSMS(phone)
+                }
             } else if (peIndex == 3) {
-                if(userInfo.password){
-
-                }else{
+                if (userInfo.password) {
+                    this.handleModifyPasswordSMS()
+                } else {
                     this.handleEditPasswordSMS(phone)
                 }
             }
@@ -270,7 +273,47 @@ Page({
         }
     },
 
-    //绑定手机验证码
+
+    //更换手机号验证吗
+    handleReplacePhoneSMS() {
+        let Authorization = wx.getStorageSync('Authorization');
+        SMS.UserEditorPhoneSMS({
+            Authorization
+        }).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showToast({
+                    title: '验证码发送成功',
+                    icon: 'none'
+                })
+
+                let time = 60;
+                this.setData({
+                    buttonName: `(${time})秒重新发送`
+                })
+                const interval = setInterval(() => {
+                    time -= 1;
+                    this.setData({
+                        buttonName: `(${time})秒重新发送`
+                    })
+                    if (time <= 0) {
+                        this.setData({
+                            buttonName: '秒重新发送',
+                            disabled: false,
+                        })
+                        clearInterval(interval)
+                    }
+                }, 1000);
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                })
+            }
+        })
+    },
+
+    //绑定新手机验证码
     handleEditPhoneSMS(phone) {
         SMS.UserSendsmsPhone({
             phone
@@ -307,9 +350,47 @@ Page({
             }
         })
     },
-    
 
-    //没有密码设置密码获取短信
+    //修改密码验证码
+    handleModifyPasswordSMS() {
+        let Authorization = wx.getStorageSync('Authorization');
+        SMS.UserModifyPasswordSMS({
+            Authorization
+        }).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showToast({
+                    title: '验证码发送成功',
+                    icon: 'none'
+                })
+
+                let time = 60;
+                this.setData({
+                    buttonName: `(${time})秒重新发送`
+                })
+                const interval = setInterval(() => {
+                    time -= 1;
+                    this.setData({
+                        buttonName: `(${time})秒重新发送`
+                    })
+                    if (time <= 0) {
+                        this.setData({
+                            buttonName: '秒重新发送',
+                            disabled: false,
+                        })
+                        clearInterval(interval)
+                    }
+                }, 1000);
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                })
+            }
+        })
+    },
+
+    //添加密码验证码
     handleEditPasswordSMS(phone) {
         console.log(phone)
         SMS.UserForgetPasswordSMS({
@@ -368,6 +449,31 @@ Page({
     //修改昵称
     handleEditName() {
         console.log('修改名称')
+        let Authorization = wx.getStorageSync('Authorization');
+        let nickName = this.data.name;
+        let params = {
+            Authorization,
+            nickName
+        }
+        User.userEditorNickName(params).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showLoading({
+                    title: '昵称修改成功',
+                })
+                setTimeout(function () {
+                    wx.hideLoading()
+                    wx.navigateBack({
+                        delta: 1,
+                    })
+                }, 1500)
+
+            } else {
+                wx.showToast({
+                    title: res.data.data,
+                })
+            }
+        })
     },
     //手机绑定
     handleEditPhone() {
@@ -381,8 +487,8 @@ Page({
             code
         }
 
+        console.log(params)
         User.userPhoneBinding(params).then(res => {
-            console.log(res)
             if (res.data.state == 200) {
                 wx.showLoading({
                     title: '手机绑定成功',
@@ -402,17 +508,55 @@ Page({
         })
 
     },
+
+
+
     //密码设置
     handeleEditPassword() {
         console.log('修改密码')
         let userInfo = this.data.userInfo;
         if (userInfo.password) {
-
+            this.handleEditorPassword()
         } else {
             this.handleAddPassword()
         }
     },
+    //修改密码
+    handleEditorPassword() {
+        let Authorization = wx.getStorageSync('Authorization');
+        let code = this.data.code;
+        let confirmNewPassword = this.data.confirmPassword;
+        let newPassword = this.data.newPassword;
+        let oldPassword = this.data.oldPassword;
+        let params = {
+            Authorization,
+            code,
+            confirmNewPassword,
+            newPassword,
+            oldPassword
+        };
+        console.log(params)
 
+        User.userEditorPassword(params).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showLoading({
+                    title: '密码修改成功',
+                })
+                setTimeout(function () {
+                    wx.hideLoading()
+                    wx.navigateBack({
+                        delta: 1,
+                    })
+                }, 1500)
+
+            } else {
+                wx.showToast({
+                    title: res.data.data,
+                })
+            }
+        })
+    },
     //添加密码
     handleAddPassword() {
         let userInfo = this.data.userInfo;
