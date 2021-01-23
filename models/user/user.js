@@ -18,6 +18,13 @@ export default {
     userPhoneBinding: function (data) {
         return request.post(api.userPhoneBinding, data)
     },
+    //设置登录密码/忘记密码
+    userForgotPassword: function (data) {
+        return request.post(api.userForgotPassword, data)
+    },
+
+
+    
 
 
 

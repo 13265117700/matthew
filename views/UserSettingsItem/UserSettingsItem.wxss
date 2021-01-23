@@ -8,10 +8,9 @@
 .form-list{
   margin-top: 10px;
 }
-.form-item_input{
-  padding: 9px 0;
+.form-item{
+  padding: 9px 10px;
   border-bottom: 1px solid #E5E5E5;
-  /* margin: 0 10px; */
 }
 .setUp-Submit{
   width: 225px;
@@ -33,4 +32,16 @@
   font-size: 13px;
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
+}
+
+navigator{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #CD1F38;
+  font-size: 12px;
+  padding: 10px 28px 0 15px;
+}
+
+.Vtuzx_Input_Top_Title{
+  min-width: 90px !important;
 }

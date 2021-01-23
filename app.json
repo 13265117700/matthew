@@ -37,17 +37,16 @@
         "views/userShipDetail/userShipDetail",
         "views/userShipDateDetail/userShipDateDetail",
         "views/MyAddressAdd/MyAddressAdd",
-
-
-        "views/MyAddress/MyAddress",
+        "views/invoiceInfo/invoiceInfo",
+        "views/Screening/Screening",
         "views/Preferences/Preferences",
         "views/InvoiceAdmin/InvoiceAdmin",
         "views/InvoiceAgreement/InvoiceAgreement",
+        "views/creditQuery/creditQuery",
         "views/OrderEvaluate/OrderEvaluate",
-        "views/OrderInformation/OrderInformation",
-        "views/Screening/Screening",
-       
-        "views/invoiceInfo/invoiceInfo"
+        "views/MyAddress/MyAddress",
+        "views/OrderInformation/OrderInformation"
+        
     ],
     "window": {
         "backgroundTextStyle": "dark",

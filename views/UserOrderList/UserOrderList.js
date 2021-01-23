@@ -1,4 +1,7 @@
 import User from "../../models/user/user";
+const {
+    formatTime
+} = require('../../utils/date');
 
 Page({
     data: {
@@ -89,8 +92,7 @@ Page({
             show: false,
             state: 13, //按钮状态
         }],
-        shipOrderList: [],
-        cargoOrderList: [],
+        orderList: [],
     },
 
 
@@ -108,9 +110,7 @@ Page({
         User.userInfo(params).then(res => {
             let user = res.data.data;
             let orderBtu = this.data.orderBtu;
-            if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
-                user.cargo = true
-
+            if (user.identityDifference == 2) {
                 orderBtu.forEach(data => {
                     if (data.state === 3 || data.state === 5) {
                         data.show = true
@@ -130,16 +130,13 @@ Page({
                     status: 1
                 })
 
-            } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
-                user.car = true
-                console.log(this.data.orderBtu)
+            } else if (user.identityDifference == 3) {
                 this.getUserOrderList({
                     identity: 3,
                     Authorization,
                     status: 1
                 })
-            } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
-                user.ship = true
+            } else if (user.identityDifference == 1) {
                 orderBtu.forEach(data => {
                     if (data.state === 3 || data.state === 4) {
                         data.show = true
@@ -171,52 +168,53 @@ Page({
 
     //获取订单
     getUserOrderList(data) {
-        console.log(data)
-        if (data.identity === 2) {
-            let params = {
-                Authorization: data.Authorization,
-                identity: data.identity,
-                status: data.status,
-                page: 1,
-                rows: 10,
-            }
-            User.UserOrderListQuery(params).then(res => {
-                let shipOrderList = res.data.data.rows;
-                console.log(shipOrderList)
-                shipOrderList.forEach(data => {
-                    let loadingDate = new Date(data.mtCargo.loadingDate).toLocaleDateString();
-                    data.mtCargo.loadingDate = loadingDate.replace(/\//g, "-")
-                })
-
-
-                this.setData({
-                    shipOrderList,
-                    tabsActive: data.status
-                })
-            })
-            console.log('船东')
-        } else {
-            let params = {
-                Authorization: data.Authorization,
-                identity: data.identity,
-                status: data.status,
-                page: 1,
-                rows: 10,
-            }
-            User.UserOrderListQuery(params).then(res => {
-                let cargoOrderList = res.data.data.rows;
-                cargoOrderList.forEach(data => {
-                    let loadingDate = new Date(data.mtCargo.loadingDate).toLocaleDateString();
-                    data.mtCargo.loadingDate = loadingDate.replace(/\//g, "-")
-                })
-                console.log(cargoOrderList)
-                this.setData({
-                    cargoOrderList,
-                    tabsActive: data.status
-                })
-            })
-            console.log('货主')
+        let params = {
+            Authorization: data.Authorization,
+            identity: data.identity,
+            status: data.status,
+            page: 1,
+            rows: 10,
         }
+        console.log(params)
+        User.UserOrderListQuery(params).then(res => {
+            let orderList = res.data.data.rows;
+            let userInfo = this.data.userInfo;
+            if (userInfo.cargo) {
+                orderList.forEach(data => {
+                    data.mtCargo.loadingDate = formatTime(new Date(data.mtCargo.loadingDate));
+                    if (data.status < 3) {
+                        data.start = '预计装货时间：' + data.mtCargo.loadingDate
+                    } else if (data.status == 8) {
+                        data.start = '关闭时间' + data.updateTime
+                    } else {
+                        data.start = data.mtShip.nameVessel
+                    }
+                })
+
+            } else if (userInfo.ship) {
+                orderList.forEach(data => {
+                    data.mtCargo.loadingDate = formatTime(new Date(data.mtCargo.loadingDate));
+                    if (data.status < 4) {
+                        data.start = '预计装货时间：' + data.mtCargo.loadingDate
+                    } else if (data.status == 4 || data.status == 5) {
+                        data.start = '卸货完成时间：' + data.unloadingCompleted.createTime
+                    } else if (data.status == 6 || data.status == 7) {
+                        data.start = '已完成' + data.updateTime
+                    } else {
+                        data.start = '关闭时间' + data.updateTime
+                    }
+                })
+            }
+
+
+            this.setData({
+                orderList,
+                tabsActive: data.status
+            })
+
+        })
+
+
     },
 
     //订单按钮状态切换
@@ -226,7 +224,7 @@ Page({
         let userInfo = this.data.userInfo;
         let orderBtu = this.data.orderBtu;
 
-        if (userInfo.ship) {
+        if (userInfo.identityDifference == 1) {
             console.log('船')
             let params = {
                 Authorization,
@@ -370,7 +368,7 @@ Page({
                     break
             }
 
-        } else if (userInfo.cargo) {
+        } else if (userInfo.identityDifference == 2) {
             console.log('货')
             let params = {
                 Authorization,
@@ -504,14 +502,12 @@ Page({
 
     //订单按钮事件
     handleButton(e) {
-        console.log(e)
         let id = e.currentTarget.dataset.id;
         let state = e.currentTarget.dataset.state;
         let userInfo = this.data.userInfo;
-        let orderBtu = this.data.orderBtu;
         let usershipid = e.currentTarget.dataset.usershipid;
         let usercargoid = e.currentTarget.dataset.usercargoid;
-        console.log(orderBtu)
+
         switch (state) {
             case 1:
                 console.log('申诉')
@@ -551,24 +547,31 @@ Page({
                 console.log('删除订单')
                 break;
             case 10:
+                console.log('订单轨迹')
                 wx.navigateTo({
                     url: '/views/OrderTracking/OrderTracking?id=' + id,
                 })
-                console.log('订单轨迹')
                 break;
             case 11:
                 console.log('订单价格')
+                wx.navigateTo({
+                    url: '/views/OrderTrack/OrderTrack?id=' + id,
+                })
                 break;
             case 12:
                 console.log('售后中')
                 break;
             case 13:
                 console.log('评价')
+                wx.navigateTo({
+                    url: '/views/OrderEvaluate/OrderEvaluate?id=' + id,
+                })
                 break;
 
         }
 
     },
+
     //发起聊天
     initiateChat(userInfo, usershipid, usercargoid) {
         if (userInfo.cargo) {
@@ -582,22 +585,12 @@ Page({
         }
     },
 
-
-    //货主订单详情
-    cargoOrderDetails(e) {
+    //订单详情
+    OrderDetails(e) {
         let id = e.currentTarget.dataset.id;
         wx.navigateTo({
             url: '/views/OrderTrack/OrderTrack?id=' + id,
         })
     },
-    //船东订单详情
-    shipOrderDetails(e) {
-        console.log(e)
-        let id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/views/OrderTrack/OrderTrack?id=' + id,
-        })
-    }
-
 
 })

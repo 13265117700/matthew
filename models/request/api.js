@@ -17,6 +17,8 @@ export default {
     userPreference:`${PREFIX}/user/information/upperPreference`,//用户偏好设置
     userInvoiceAdd:`${PREFIX}/user/information/updateUserInvoice`,//用户添加发票
     userPhoneBinding:`${PREFIX}/user/information/phoneBinding`,//用户手机绑定
+    userForgotPassword:`${PREFIX}/user/information/forgetPassword`,//设置登录密码/忘记密码
+
 
 
     // 用户船API
@@ -87,6 +89,7 @@ export default {
 
     //sms短信服务
     UserSendsmsPhone:`${PREFIX}/registeSms/sendSmsPhone`,//用户手机认证短信验证码
+    UserForgetPasswordSMS:`${PREFIX}/registeSms/forgetPassword`,//用户忘记密码验证码
 
 
 

@@ -3,71 +3,253 @@ import User from "../../models/user/user";
 
 Page({
     data: {
+        userInfo: {},
+        btnTitle: '保存',
+        inputList: [{
+            title: '昵称',
+            placeholder: '请输入昵称',
+            state: 1,
+            type: 'input',
+            show: true
+        }, {
+            title: '绑定手机',
+            placeholder: '请输入手机号',
+            state: 2,
+            type: 'input',
+            show: true
+        }, {
+            title: '旧密码',
+            placeholder: '请输入旧密码',
+            state: 4,
+            type: 'input',
+            show: true
+        }, {
+            title: '新密码',
+            placeholder: '请输入新密码',
+            state: 5,
+            type: 'input',
+            show: true
+        }, {
+            title: '确认密码',
+            placeholder: '请再次输入新密码',
+            state: 6,
+            type: 'input',
+            show: true
+        }, {
+            title: '验证码',
+            placeholder: '请输入验证码',
+            state: 3,
+            type: 'sms',
+            show: true
+        }],
         name: '',
         phone: '',
         code: '',
-        password: '',
+        oldPassword: '',
         newPassword: '',
         confirmPassword: '',
         buttonName: "获取验证码",
         disabled: false,
-        peIndex: ''
-    },
-    onShow: function () {
-
+        peIndex: null
     },
     onLoad: function (options) {
-        console.log(options)
         this.setData({
-            peIndex: options.index
+            peIndex: parseInt(options.index)
         })
+    },
+    onShow: function () {
+        this.getUserInfo()
+    },
+    //获取用户
+    getUserInfo() {
+        let Authorization = wx.getStorageSync('Authorization');
+        let page = 1;
+        let rows = 10;
+        let params = {
+            Authorization,
+            page,
+            rows
+        }
+        User.userInfo(params).then(res => {
+            let user = res.data.data;
+            console.log(user)
+            this.navbarTitle(user)
+            this.setData({
+                userInfo: user
+            })
+        })
+
+    },
+    //状态切换
+    navbarTitle(user) {
+        let peIndex = this.data.peIndex;
+        let inputList = this.data.inputList;
+        switch (peIndex) {
+            case 1:
+                inputList.forEach(data => {
+                    if (data.state == 1) {
+                        data.show = true
+                    } else {
+                        data.show = false
+                    }
+                })
+                wx.setNavigationBarTitle({
+                    title: '设置用户名',
+                })
+                this.setData({
+                    btnTitle: '保存',
+                    inputList
+                })
+                break;
+            case 2:
+                if (user.phone) {
+                    inputList.forEach(data => {
+                        if (data.state == 2 || data.state == 3) {
+                            data.show = true
+                            if (data.state == 2) {
+                                data.title = '修改手机号码'
+                                data.placeholder = user.phone
+                            }
+                        } else {
+                            data.show = false
+                        }
+                    })
+                    console.log(inputList)
+                    wx.setNavigationBarTitle({
+                        title: '换绑手机',
+                    })
+                    this.setData({
+                        btnTitle: '下一步',
+                        inputList
+                    })
+                } else {
+                    inputList.forEach(data => {
+                        if (data.state == 2 || data.state == 3) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
+                    })
+                    console.log(inputList)
+                    wx.setNavigationBarTitle({
+                        title: '绑定手机号',
+                    })
+                    this.setData({
+                        btnTitle: '确认绑定',
+                        inputList
+                    })
+                }
+
+                break;
+            case 3:
+                if (user.password) {
+                    console.log(inputList)
+                    inputList.forEach(data => {
+                        if (data.state > 3) {
+                            data.show = true
+                        } else {
+                            data.show = false
+                        }
+                    })
+                    wx.setNavigationBarTitle({
+                        title: '修改登录密码',
+                    })
+                } else {
+                    inputList.forEach(data => {
+                        if (data.state == 1 || data.state == 4) {
+                            data.show = false
+                        } else {
+                            data.show = true
+                            if (data.state == 2) {
+                                data.title = '手机号'
+                                if (user.phone) {
+                                    data.placeholder = user.phone
+                                }
+                            }
+                            if (data.state == 5) {
+                                data.title = '设置新密码'
+                                data.placeholder = '输入密码'
+                            }
+                            if (data.state == 6) {
+                                data.title = '确认密码'
+                                data.placeholder = '请在此输入密码'
+                            }
+                        }
+                    })
+                    wx.setNavigationBarTitle({
+                        title: '设置登录密码',
+                    })
+                }
+                this.setData({
+                    btnTitle: '完成',
+                    inputList
+                })
+
+                break;
+        }
     },
 
-    // 名字更改
-    nameInput(event) {
-        let name = event.detail.value;
-        this.setData({
-            name
-        })
+    //输入框
+    handleInput(e) {
+        let state = e.currentTarget.dataset.state;
+        let value = e.detail.value;
+        switch (state) {
+            case 1:
+                console.log('设置用户名')
+                break;
+            case 2:
+                console.log('绑定手机')
+                this.handlePhone(value)
+                break;
+            case 3:
+                console.log('手机验证码')
+                this.setData({
+                    code: value
+                })
+                break;
+            case 4:
+                console.log('旧密码')
+                break;
+            case 5:
+                console.log('新密码')
+                this.setData({
+                    newPassword: value
+                })
+                break;
+            case 6:
+                console.log('确认密码')
+                this.setData({
+                    confirmPassword: value
+                })
+                break;
+        }
     },
 
-    // 密码更改
-    passwordInput(event) {
-        let password = event.detail.value;
-        this.setData({
-            password
-        })
-    },
-    newPasswordInput(event) {
-        let newPassword = event.detail.value;
-        this.setData({
-            newPassword
-        })
-    },
-    confirmPasswordInput(event) {
-        let confirmPassword = event.detail.value;
-        this.setData({
-            confirmPassword
-        })
+
+    //手机绑定输入
+    handlePhone(value) {
+        let userInfo = this.data.userInfo;
+        if (userInfo.phone) {
+            this.setData({
+                phone: userInfo.phone
+            })
+        } else {
+            this.setData({
+                phone: value
+            })
+        }
     },
 
-    // 手机绑定
-    phoneInput(event) {
-        let phone = event.detail.value;
-        this.setData({
-            phone
-        })
-    },
     //获取验证码
     handCode: function () {
+        let userInfo = this.data.userInfo;
+        let peIndex = this.data.peIndex;
         if (this.data.disabled) {
             return
         }
         let phone = this.data.phone;
-        // let Authorization = wx.getStorageSync('Authorization');
-        let params = {
-            // Authorization,
-            phone
+        if (userInfo.phone) {
+            phone = userInfo.phone
         }
         let source = /^1[34578]\d{9}$/.test(phone)
         if (source) {
@@ -75,77 +257,199 @@ Page({
                 disabled: true
             })
 
-            SMS.UserSendsmsPhone(params).then(res => {
-                console.log(res)
-                if (res.data.state == 200) {
-                    wx.showToast({
-                        title: '验证码发送成功',
-                        icon: 'none'
-                    })
+            if (peIndex == 2) {
+                this.handleEditPhoneSMS(phone)
+            } else if (peIndex == 3) {
+                if(userInfo.password){
 
-                    let time = 60;
-                    this.setData({
-                        buttonName: `(${time})秒重新发送`
-                    })
-                    const interval = setInterval(() => {
-                        time -= 1;
-                        this.setData({
-                            buttonName: `(${time})秒重新发送`
-                        })
-                        if (time <= 0) {
-                            this.setData({
-                                buttonName: '秒重新发送',
-                                disabled: false,
-                            })
-                            clearInterval(interval)
-                        }
-                    }, 1000);
-
-                } else {
-                    wx.showToast({
-                        title: res.data.message,
-                    })
+                }else{
+                    this.handleEditPasswordSMS(phone)
                 }
-            })
-
-
-
+            }
 
         }
     },
-    codeInput(event) {
-        let code = event.detail.value;
-        this.setData({
-            code
+
+    //绑定手机验证码
+    handleEditPhoneSMS(phone) {
+        SMS.UserSendsmsPhone({
+            phone
+        }).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showToast({
+                    title: '验证码发送成功',
+                    icon: 'none'
+                })
+
+                let time = 60;
+                this.setData({
+                    buttonName: `(${time})秒重新发送`
+                })
+                const interval = setInterval(() => {
+                    time -= 1;
+                    this.setData({
+                        buttonName: `(${time})秒重新发送`
+                    })
+                    if (time <= 0) {
+                        this.setData({
+                            buttonName: '秒重新发送',
+                            disabled: false,
+                        })
+                        clearInterval(interval)
+                    }
+                }, 1000);
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                })
+            }
+        })
+    },
+    
+
+    //没有密码设置密码获取短信
+    handleEditPasswordSMS(phone) {
+        console.log(phone)
+        SMS.UserForgetPasswordSMS({
+            phone
+        }).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showToast({
+                    title: '验证码发送成功',
+                    icon: 'none'
+                })
+
+                let time = 60;
+                this.setData({
+                    buttonName: `(${time})秒重新发送`
+                })
+                const interval = setInterval(() => {
+                    time -= 1;
+                    this.setData({
+                        buttonName: `(${time})秒重新发送`
+                    })
+                    if (time <= 0) {
+                        this.setData({
+                            buttonName: '秒重新发送',
+                            disabled: false,
+                        })
+                        clearInterval(interval)
+                    }
+                }, 1000);
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                })
+            }
         })
     },
 
-    // 保存按钮
+    //按钮事件
     handSubmit() {
+        let peIndex = this.data.peIndex;
+        console.log(peIndex)
+        switch (peIndex) {
+            case 1:
+                this.handleEditName()
+                break;
+            case 2:
+                this.handleEditPhone()
+                break
+            case 3:
+                this.handeleEditPassword()
+                break
+        }
+    },
+
+    //修改昵称
+    handleEditName() {
+        console.log('修改名称')
+    },
+    //手机绑定
+    handleEditPhone() {
+        console.log('手机绑定')
         let Authorization = wx.getStorageSync('Authorization');
         let phone = this.data.phone;
-        let code = this.data.phone;
+        let code = this.data.code;
         let params = {
             Authorization,
             phone,
             code
-        };
+        }
 
         User.userPhoneBinding(params).then(res => {
             console.log(res)
-            if(res.data.state == 200){
+            if (res.data.state == 200) {
                 wx.showLoading({
-                  title: '手机绑定成功',
+                    title: '手机绑定成功',
                 })
-                setTimeout(function(){
+                setTimeout(function () {
                     wx.hideLoading()
                     wx.navigateBack({
-                      delta: 1,
+                        delta: 1,
                     })
-                },1500)
-            }else{
+                }, 1500)
+
+            } else {
                 wx.showToast({
-                  title: res.data.data,
+                    title: res.data.data,
+                })
+            }
+        })
+
+    },
+    //密码设置
+    handeleEditPassword() {
+        console.log('修改密码')
+        let userInfo = this.data.userInfo;
+        if (userInfo.password) {
+
+        } else {
+            this.handleAddPassword()
+        }
+    },
+
+    //添加密码
+    handleAddPassword() {
+        let userInfo = this.data.userInfo;
+        let Authorization = wx.getStorageSync('Authorization');
+        let phone = this.data.phone;
+        let newPassword = this.data.newPassword;
+        let confirmNewPassword = this.data.confirmPassword;
+        let code = this.data.code;
+
+        if (userInfo.phone) {
+            phone = userInfo.phone
+        }
+
+        let params = {
+            Authorization,
+            phone,
+            newPassword,
+            confirmNewPassword,
+            code
+        }
+        console.log(params)
+        User.userForgotPassword(params).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showLoading({
+                    title: '密码设置成功',
+                })
+                setTimeout(function () {
+                    wx.hideLoading()
+                    wx.navigateBack({
+                        delta: 1,
+                    })
+                }, 1500)
+
+            } else {
+                wx.showToast({
+                    title: res.data.data,
                 })
             }
         })

@@ -51,8 +51,30 @@ Page({
 
     },
     onShow: function () {
-
+        this.getUserPreferences()
     },
+    getUserPreferences() {
+        let Authorization = wx.getStorageSync('Authorization');
+        let page = 1;
+        let rows = 10;
+        let params = {
+            Authorization,
+            page,
+            rows
+        }
+        User.userInfo(params).then(res => {
+            let mtUserPreferences = res.data.data.mtUserPreferences;
+            if (mtUserPreferences) {
+                this.setData({
+                    ['inputList[0].placeholder']: mtUserPreferences.mtRoute.name,
+                    ['inputList[1].placeholder']: mtUserPreferences.minimumTon,
+                    ['inputList[2].placeholder']: mtUserPreferences.maximumTon,
+                    ['inputList[3].placeholder']: mtUserPreferences.mtNameGoods.name,
+                })
+            }
+        })
+    },
+
     //输入框事件
     handleconfirm(e) {
         let id = e.currentTarget.dataset.id;
@@ -166,14 +188,14 @@ Page({
         let nameGoodsId = this.data.cargoID;
         let routeId = this.data.routeID;
 
-        if(!minimumTon || !maximumTon || !nameGoodsId || !routeId){
+        if (!minimumTon || !maximumTon || !nameGoodsId || !routeId) {
             wx.showToast({
-              title: '还有未填项',
-              icon:'none'
+                title: '还有未填项',
+                icon: 'none'
             })
             return
         }
-        
+
         let params = {
             Authorization,
             minimumTon,
@@ -187,8 +209,8 @@ Page({
             console.log(res)
             if (res.data.state == 200) {
                 wx.showToast({
-                  title: '设置成功',
-                  icon:'success'
+                    title: '设置成功',
+                    icon: 'success'
                 })
 
                 setTimeout(function () {
@@ -199,7 +221,7 @@ Page({
             } else {
                 wx.showToast({
                     title: res.data.message,
-                    icon:'loading'
+                    icon: 'loading'
                 })
             }
         })

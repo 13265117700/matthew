@@ -1,69 +1,228 @@
-/* views/OrderEvaluate/OrderEvaluate.wxss */
-
+.page-container {}
 
 .box {
+  background: #fff;
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 10px;
+}
 
-    background: #FFFFFF;
-    border-radius: 10px;
-    margin: 10px 0;
-    padding-top: 17px;
-  
-  }
-  
-  .box_a {
-    padding-left: 15px;
-  }
-  
-  .tabs-place {
-    font-size: 14px;
-    color: #191919;
-    margin-bottom: 15px;
-    display: flex;
-  }
-  
-  .tabs-goods {
-    display: flex;
-    margin-bottom: 15px;
-    padding-left: 80px;
-  }
-  
-  .tabs-type {
-    width: 45px;
-    height: 20px;
-    background: #F06622;
-    border-radius: 10px;
-    color: #FFFFFF;
-    font-size: 12px;
-    text-align: center;
-    line-height: 18px;
-  }
-  
-  .tabs-tonnage {
-    font-size: 14px;
-    color: #1F84E3;
-    margin-left: 20px;
-  }
-  
-  .tabs-ship-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: #191919;
-    margin-bottom: 12px;
-  
-  }
-  
-  .evaluate {
-  
-  }
-  
-  .custom-style {
-    width: 45px;
-  }
-  
-  .Add-video {
-    padding: 60px 170px 47px;
-    font-weight: 500;
-    color: #666666;
-    font-size: 12px;
-   text-align: center;
-  }
+.box:first-child {
+  display: flex;
+}
+
+.box:nth-child(2) .img-wrap {
+  width: 107px;
+  height: 107px;
+  border: 1px solid #DCDCDC;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.box:nth-child(3) {
+  min-height: 138px;
+  display: flex;
+  flex-direction: column;
+}
+
+.box:nth-child(4) {
+  background: none;
+}
+
+.box:nth-child(3) .subtitle {
+  position: relative;
+  padding-left: 10px;
+}
+
+.box:nth-child(3) .subtitle::after {
+  content: '';
+  width: 3px;
+  height: 20px;
+  background: #E3211F;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.avatar {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid #E5E5E5;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.avatar image {
+  width: 32px;
+  height: 31px;
+}
+
+.info {}
+
+.ship-name {
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #191919;
+  font-size: 14px;
+}
+
+.transport-route {
+  display: flex;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #191919;
+  font-size: 15px;
+  margin: 14px 0 11px;
+}
+
+
+.route-hd {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.route-bd {
+  display: flex;
+  align-items: center;
+  margin: 0 13px;
+}
+
+.route-bd image {
+  width: 55px;
+  height: 7px;
+}
+
+.route-ft {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transport-cargo {
+  display: flex;
+}
+
+.cargo-name {
+  font-size: 12px;
+  width: 45px;
+  height: 20px;
+  line-height: 20px;
+  background: #F06622;
+  text-align: center;
+  color: #fff;
+  border-radius: 10px;
+  margin-right: 3%;
+}
+
+.cargo-amount {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #1F84E3;
+  font-size: 14px;
+}
+
+
+
+
+.rate-box {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+  font-size: 15px;
+  margin-right: 10px;
+}
+
+.rate {}
+
+.input-box {
+  display: flex;
+  padding: 0 15px 15px;
+  border: 1px solid #E5E5E5;
+  min-height: 100px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.icon {
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.input-box image {
+  width: 13px;
+  height: 15px;
+}
+
+.input {
+  flex: 1;
+}
+
+.img-box {}
+
+.img-box-img {
+  display: flex;
+  justify-content: space-around;
+}
+
+.img-box-img image {
+  width: 40px;
+  height: 40px;
+}
+
+.img-box-text {
+  text-align: center;
+  margin-top: 10px;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #333333;
+  font-size: 14px;
+}
+
+.video {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  margin-top: 10px;
+}
+
+.video image {
+  width: 35px;
+  height: 30.5px;
+}
+
+.video video {
+  width: 100%;
+}
+
+.edit-video {
+  width: 100%;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  background: #F0222F;
+  color: #fff;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  font-size: 15px;
+}
+
+
+.button {
+  text-align: center;
+}

@@ -1,69 +1,91 @@
-// views/OrderEvaluate/OrderEvaluate.js
-Page({
+import User from "../../models/user/user";
+import upload from "../../models/upload/upload";
 
-    /**
-     * 页面的初始数据
-     */
-    data: {
-      value: '',
-    },onChange(event) {
-      // event.detail 为当前输入的值
-      console.log(event.detail);
-    },
-  
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function (options) {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-  
-    },
-  
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-  
-    },
-  
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-  
-    },
-  
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-  
-    },
-  
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-  
+
+Page({
+  data: {
+    buttonStyle: 'max-width: 255px;height: 50px;border-radius: 10px;',
+    id: null, //订单ID
+    orderInfo: {}, //订单信息
+
+    rateValue: 1, //评分值
+    value: '', //文本输入值
+    imageList: [], //照片
+    video: '', //视频
+  },
+  onLoad: function (options) {
+    this.setData({
+      id: options.id
+    })
+  },
+  onShow: function () {
+    this.getOrderInfo();
+  },
+  getOrderInfo() {
+    let id = this.data.id;
+    let Authorization = wx.getStorageSync('Authorization');
+    let params = {
+      Authorization,
+      id
     }
-  })
+    User.UserOrderQuery(params).then(res => {
+      let orderInfo = res.data.data;
+      this.setData({
+        orderInfo
+      })
+    })
+  },
+
+  //评分
+  handleRate(event) {
+    this.setData({
+      rateValue: event.detail
+    })
+  },
+  //评论输入文本
+  handleInput(event) {
+    this.setData({
+      value: event.detail
+    })
+  },
+  //添加图片
+  handImgUpload(event) {
+    const {
+      file
+    } = event.detail;
+    let filePath = file.url;
+    upload.upload.uploadFile(filePath).then(res => {
+      let imageList = this.data.imageList;
+      imageList.push({
+        url: res
+      })
+      this.setData({
+        imageList
+      })
+    })
+
+
+  },
+  //删除图片
+  shipImgDel(e) {
+    let index = e.detail.index;
+    let imageList = this.data.imageList;
+    imageList.splice(index, 1)
+    this.setData({
+      imageList
+    })
+  },
+  //视频上传
+  handleVideo(e) {
+    upload.upload.chooseVideo().then(res => {
+      this.setData({
+        video:res.name
+      })
+    })
+  },
+  //确认提交按钮
+  handleConfirm() {
+    console.log(23123)
+    
+  }
+})

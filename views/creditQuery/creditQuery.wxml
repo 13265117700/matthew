@@ -1,0 +1,40 @@
+<view class="page-container">
+    <view class="page-header">
+        <van-search value="{{ value }}" shape="round" background="#FFF" placeholder="请输入搜索关键词" />
+    </view>
+    <view class="page-main">
+        <view class="user-item">
+            <view class="user-top">
+                <view class="user-avatar">
+                    <image src="/images/login/logo@3x.png"></image>
+                </view>
+                <view class="user-info">
+                    <view class="user-primary">
+                        <view class="user-name">
+                            <text>MasdAssd</text>
+                        </view>
+                        <view class="user-total">
+                            <text>共300订单</text>
+                        </view>
+                    </view>
+                    <view class="user-scoring">
+                        <view class="rate">
+                            <van-rate value="{{ value }}" color="#E3211F" bind:change="onChange" />
+                        </view>
+                        <view class="number">
+                            <text>4.8分</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="user-bottom">
+                <view class="user-icon">
+                    <image src="/images/order/c000.png"></image>
+                </view>
+                <view class="user-cell">
+                    <van-cell title="单元格" border="{{false}}" is-link />
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

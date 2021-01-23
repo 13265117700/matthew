@@ -141,7 +141,7 @@ Component({
                 }
 
                 this.setData({
-                    userInfo:user
+                    userInfo: user
                 })
 
             })
@@ -484,6 +484,9 @@ Component({
                     break;
                 case 13:
                     console.log('评价')
+                    wx.navigateTo({
+                        url: '/views/OrderEvaluate/OrderEvaluate?id=' + shippingOrderId,
+                    })
                     break;
             }
 

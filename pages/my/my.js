@@ -284,6 +284,11 @@ Page({
     if (Authorization) {
       switch (id) {
         // 身份认证
+        case '101':
+          wx.navigateTo({
+            url: '/views/UserOrderList/UserOrderList',
+          })
+          break;
         case '112':
           this.setData({
             visible: true
@@ -357,10 +362,12 @@ Page({
             url: '/views/UserOrderList/UserOrderList',
           })
           break
-        case '101':
+        case '119':
           wx.navigateTo({
-            url: '/views/UserOrderList/UserOrderList',
+            url: '/views/creditQuery/creditQuery',
           })
+          break
+
       }
     } else {
       wx.navigateTo({
