@@ -1,0 +1,120 @@
+
+.banner-span {
+  position: relative;
+  text-align: center;
+  top: 15%;
+  height: 30px;
+  line-height: 30px;
+  padding: 25px 15px 0;
+  display: flex;
+  background: linear-gradient(90deg, #E01923, #F45919);
+}
+
+.banner-span_title {
+  flex: 1;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  font-size: 18px;
+  color: #fff;
+}
+
+.banner-span_icon {
+  font-family: "vtu-icon" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+}
+
+.banner-span_icon::before {
+  content: "\e6cb";
+}
+
+.wrap {}
+
+.wrap-up {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 34px 15px 40px;
+  background: linear-gradient(90deg, #E01923, #F45919);
+}
+
+.balance {
+  flex: 1;
+}
+
+.balance-amount {
+  font-size: 30px;
+  color: #fff;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.balance-subtitle {
+  color: #fff;
+  font-size: 14px;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  display: flex;
+  align-items: center;
+}
+
+.balance-subtitle image {
+  width: 12px;
+  height: 12px;
+  margin-left: 10px;
+}
+
+.wrap-up .btn {
+  flex: 1;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.wrap-down {
+  display: flex;
+  color: #fff;
+  font-size: 18px;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  padding: 5px 15px 8px;
+  background: linear-gradient(90deg, #E01923, #F45919);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  opacity: 0.95;
+  position: relative;
+}
+
+.wrap-down::after{
+  content: '';
+  width: 0.5px;
+  height: 24px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
+  opacity: 0.2;
+}
+
+.total {
+  flex: 1;
+  text-align: center;
+}
+
+.extract {
+  flex: 1;
+  text-align: center;
+}
+
+.wrap-down .amount {
+  margin-bottom: 8.5px;
+}
+
+.wrap-down .subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+}

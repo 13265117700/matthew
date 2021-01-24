@@ -1,0 +1,47 @@
+.wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.img {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.img.hd {
+  background: #FF7849;
+}
+
+.img.bd {
+  background: #49ACFF;
+}
+
+.img.ft {
+  background: #FFC82C;
+}
+
+.img.hd image {
+  width: 17px;
+  height: 18px;
+}
+
+.img.bd image {
+  width: 19px;
+  height: 14.5px;
+}
+
+.img.ft image {
+  width: 20px;
+  height: 17.5px;
+}
+
+.text {
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  font-size: 15px;
+  color: #191919;
+}

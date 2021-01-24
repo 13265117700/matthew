@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="left">
+    <view class="subtitle">
+      <text>可申请发票金额</text>
+    </view>
+    <view class="amount">
+      <text>10000.00</text>
+      <view class="unit">
+        <text>元</text>
+      </view>
+    </view>
+  </view>
+  <view class="right">
+    <view class="btn">
+      <van-button type="danger" custom-style="{{btnStyle}}">申请发票</van-button>
+    </view>
+  </view>
+</view>

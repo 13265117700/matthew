@@ -1,0 +1,99 @@
+.user-group {
+  background: #fff;
+  border-radius: 10px;
+  padding-top: 15px;
+  margin-bottom: 10px;
+}
+
+.user-top {
+  display: flex;
+  padding-bottom: 19px;
+  border-bottom: 1px solid #E5E5E5;
+  margin: 0 20px 0 15px;
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.user-avatar image {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-primary {
+  display: flex;
+}
+
+.user-name {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.user-total {
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #999999;
+  font-size: 12px;
+  line-height: 26px;
+}
+
+.user-scoring {
+  display: flex;
+  justify-content: space-between;
+}
+
+.number {
+  font-family: PingFang-SC-Heavy;
+  font-weight: Heavy;
+  color: #191919;
+  font-size: 12px;
+  line-height: 25px;
+}
+
+.user-bottom {
+  display: flex;
+  padding-left: 15px;
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon image {
+  width: 16px;
+  height: 16px;
+}
+
+.user-cell {
+  flex: 1;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px 20px;
+  font-size: 15px;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+}
+
+.subtitle {
+  color: #666666;
+}
+
+.text {
+  color: #191919;
+}

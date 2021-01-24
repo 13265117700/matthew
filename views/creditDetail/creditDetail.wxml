@@ -1,0 +1,125 @@
+<view class="page-container">
+  <view class="user-group">
+    <view class="user-top">
+      <view class="user-avatar">
+        <image src="/images/login/logo@3x.png"></image>
+      </view>
+      <view class="user-info">
+        <view class="user-primary">
+          <view class="user-name">
+            <text>MasdAssd</text>
+          </view>
+          <view class="user-total">
+            <text>共300订单</text>
+          </view>
+        </view>
+        <view class="user-scoring">
+          <view class="rate">
+            <van-rate readonly value="{{ rateValue }}" color="#E3211F" bind:change="onChange" />
+          </view>
+          <view class="number">
+            <text>{{rateValue}}分</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="user-bottom">
+      <view class="user-icon">
+        <image src="/images/order/c000.png"></image>
+      </view>
+      <view class="user-cell">
+        <van-cell title="单元格" border="{{false}}" />
+      </view>
+    </view>
+  </view>
+  <view class="user-group">
+    <view class="info-item">
+      <view class="subtitle">
+        <text>保险赔付次数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>用户信用查询次数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>保险赔付完成次数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>保险赔付完成金额</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>发生安全事故次数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>运输安全事故处理完成次数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>订单申诉次数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>订单申诉处理完成次数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>开票资格有没</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>开票分数</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+    <view class="info-item">
+      <view class="subtitle">
+        <text>开票金额</text>
+      </view>
+      <view class="text">
+        <text>是</text>
+      </view>
+    </view>
+  </view>
+</view>

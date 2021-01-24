@@ -27,7 +27,7 @@
                     </view>
                 </view>
             </view>
-            <view class="user-bottom">
+            <view class="user-bottom" bindtap="onCreditDetail">
                 <view class="user-icon">
                     <image src="/images/order/c000.png"></image>
                 </view>

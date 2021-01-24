@@ -88,17 +88,17 @@ Component({
             User.userInfo(params).then(res => {
                 let user = res.data.data;
                 console.log(user)
-                if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+                if (user.identityDifference == 2) {
                     console.log('货主')
                     wx.navigateTo({
                         url: '/views/ResourceAdd/ResourceAdd?id=' + '855',
                     })
-                } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+                } else if (user.identityDifference == 3) {
                     console.log('车主')
                     wx.navigateTo({
                         url: '/views/ResourceAdd/ResourceAdd?id=' + '609',
                     })
-                } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                } else if (user.identityDifference == 1) {
                     console.log('船东')
                     wx.navigateTo({
                         url: '/views/ResourceAdd/ResourceAdd?id=' + '567',

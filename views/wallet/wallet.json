@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "banner":"/components/wallet/banner/banner",
+    "invoice":"/components/wallet/invoice/invoice",
+    "record":"/components/wallet/record/record",
+    "trend":"/components/wallet/trend/trend"
+  }
+}

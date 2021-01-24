@@ -1,0 +1,14 @@
+<view class="page-container">
+  <view class="banner-section">
+    <banner></banner>
+  </view>
+  <view class="invoice-section">
+    <invoice></invoice>
+  </view>
+  <view class="record-section">
+    <record></record>
+  </view>
+  <view class="trend-section">
+    <trend></trend>
+  </view>
+</view>

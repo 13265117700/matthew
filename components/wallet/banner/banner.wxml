@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="banner-span">
+    <view class="banner-span_icon" bindtap="pageclose"></view>
+    <view class="banner-span_title">
+      <text>我的钱包</text>
+    </view>
+  </view>
+  <view class="wrap">
+    <view class="wrap-up">
+      <view class="balance">
+        <view class="balance-amount">
+          <text>88852.00</text>
+        </view>
+        <view class="balance-subtitle">
+          <text>账户余额(元)</text>
+          <image src="https://img.gdmatt.com/images/2021/01/24/16114955171583539.png"></image>
+        </view>
+      </view>
+      <view class="btn">
+        <van-button round type="info" custom-style="{{btnStyle}}">充值</van-button>
+        <van-button round type="info" custom-style="{{btnStyle}}">提现</van-button>
+      </view>
+    </view>
+    <view class="wrap-down">
+      <view class="total">
+        <view class="amount">
+          <text>￥225512.00</text>
+        </view>
+        <view class="subtitle">
+          <text>总金额(元)</text>
+        </view>
+      </view>
+      <view class="extract">
+        <view class="amount">
+          <text>￥225512.00</text>
+        </view>
+        <view class="subtitle">
+          <text>可提现金额(元)</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

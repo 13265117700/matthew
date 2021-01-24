@@ -1,8 +1,9 @@
+import User from '../../models/user/user';
 const {
   $Toast
 } = require('../../miniprogram_npm/iview-weapp/base/index');
-import user from '../../models/user/user';
-import User from '../../models/user/user';
+
+
 
 Page({
   data: {
@@ -188,7 +189,6 @@ Page({
   //如果申请认证区分显示模块
   displayModule: function () {
     let Authorization = wx.getStorageSync('Authorization');
-    console.log(Authorization)
     let uId = '';
     if (Authorization) {
       let params = {
@@ -197,40 +197,40 @@ Page({
       }
       User.userInfo(params).then(res => {
         let user = res.data.data;
-
-        if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
-          //货
-          user.idenID = user.mtCargoOwner.id;
-          user.status = user.mtCargoOwner.status;
-          this.setData({
-            userInfo: user,
-            ["ceilList[5].state"]: false,
-            ["ceilList[3].state"]: false,
-          })
-        } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
-          //车
-          user.idenID = user.mtOwner.id;
-          user.status = user.mtOwner.status;
-          this.setData({
-            userInfo: user,
-            ["ceilList[4].state"]: false,
-            ["ceilList[3].state"]: false,
-          })
-        } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
-          //船
-          user.idenID = user.mtShipowner.id;
-          user.status = user.mtShipowner.status;
-          this.setData({
-            userInfo: user,
-            ["ceilList[4].state"]: false,
-            ["ceilList[5].state"]: false,
-          })
-        } else {
-          this.setData({
-            userInfo: user
-          })
+        switch (user.identityDifference) {
+          case 0:
+            this.setData({
+              userInfo: user
+            })
+            break;
+          case 1:
+            user.idenID = user.mtShipowner.id;
+            user.status = user.mtShipowner.status;
+            this.setData({
+              userInfo: user,
+              ["ceilList[4].state"]: false,
+              ["ceilList[5].state"]: false,
+            })
+            break;
+          case 2:
+            user.idenID = user.mtCargoOwner.id;
+            user.status = user.mtCargoOwner.status;
+            this.setData({
+              userInfo: user,
+              ["ceilList[5].state"]: false,
+              ["ceilList[3].state"]: false,
+            })
+            break;
+          case 3:
+            user.idenID = user.mtOwner.id;
+            user.status = user.mtOwner.status;
+            this.setData({
+              userInfo: user,
+              ["ceilList[4].state"]: false,
+              ["ceilList[3].state"]: false,
+            })
+            break;
         }
-        console.log(this.data.userInfo)
 
         // 如果已申请认证显示对应模块
         if (user.idenID) {
@@ -274,6 +274,18 @@ Page({
   // 用户查看信息item
   seeItem: function (event) {
     console.log('this.seeItem', event)
+    let index = event.detail.index;
+    switch (index) {
+      case 0:
+        wx.navigateTo({
+          url: '/views/wallet/wallet',
+        })
+        break;
+      case 3:
+        wx.navigateTo({
+          url: '/views/wallet/wallet',
+        })
+    }
   },
   // 进入不同celiItem页面
   ceilItem: function (event) {

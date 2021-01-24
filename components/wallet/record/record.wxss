@@ -1,0 +1,35 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 21px 15px 17.5px;
+  background: #fff;
+  border-radius: 10px;
+}
+.left{
+
+}
+.subtitle{
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #666666;
+  font-size: 14px;
+  margin-bottom: 12.5px;
+}
+.amount{
+  display: flex;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+  font-size: 22px;
+  align-items: baseline;
+}
+.unit{
+  font-size: 15px;
+}
+.right{
+
+}
+.btn{
+  
+}
