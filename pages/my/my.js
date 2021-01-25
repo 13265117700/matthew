@@ -281,6 +281,11 @@ Page({
           url: '/views/wallet/wallet',
         })
         break;
+      case 2:
+        wx.navigateTo({
+          url: '/views/BankCard/BankCard',
+        })
+        break
       case 3:
         wx.navigateTo({
           url: '/views/wallet/wallet',

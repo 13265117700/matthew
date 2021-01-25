@@ -26,7 +26,9 @@ Component({
       let index = e.currentTarget.dataset.index;
       console.log(index)
       if (index == 1) {
-
+        wx.navigateTo({
+          url: '/views/BankCard/BankCard',
+        })
       } else {
         wx.navigateTo({
           url: '/views/walletRecord/walletRecord?index=' + index,

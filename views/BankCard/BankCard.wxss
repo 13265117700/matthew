@@ -1,1 +1,123 @@
-/* views/BankCard/BankCard.wxss */
+.page-container {}
+
+.background {
+  background: #F0222F;
+  height: 150px;
+  border-bottom-right-radius: 20%;
+  border-bottom-left-radius: 20%
+}
+
+.card-container {
+  position: absolute;
+  top: 10px;
+  width: 85%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  padding: 15px 15px 24px;
+  border-radius: 10px;
+}
+
+.card-wrap {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  font-size: 15px;
+  color: #191919;
+  margin-right: 10.5px;
+}
+
+.card-show {
+  width: 63px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 12px;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #F0222F;
+  text-align: center;
+  border: 1px solid #F7BCBB;
+  border-radius: 10px;
+}
+.card-show_hover{
+  opacity: 0.5;
+}
+
+.card-item {
+  margin-bottom: 15px;
+}
+
+.card-item .wrap {
+  display: flex;
+  align-items: center;
+  background: #F84C4C;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+van-swipe-cell {
+  flex: 1;
+}
+
+.card-item_img {
+  margin-right: 13px;
+}
+
+.card-item_img image {
+  width: 40px;
+  height: 40px;
+}
+
+.card-item_info {
+  flex: 1;
+  color: #fff;
+  font-family: PingFang-SC-Heavy;
+  font-weight: Heavy;
+}
+
+.card-item_info_name {
+  font-size: 16px;
+}
+
+.card-item_info_number {
+  font-size: 18px;
+}
+
+.card-btn {}
+
+.card-btn-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 3px;
+}
+
+.card-btn_icon {
+  margin-right: 5.5px;
+}
+
+.card-btn_icon image {
+  width: 18px;
+  height: 18px;
+}
+
+.caed-btn_text {
+  font-family: PingFang-SC-Heavy;
+  font-weight: Heavy;
+  font-size: 17px;
+}
+
+.card-right {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.card-right image {
+  width: 43px;
+  height: 43px;
+}
