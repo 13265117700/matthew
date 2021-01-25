@@ -1,0 +1,65 @@
+.container {
+    height: 100%;
+    background: #fff;
+}
+
+.primary {
+    text-align: center;
+    padding: 40px 0 45px;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: #191919;
+}
+
+.suntitle {
+    font-size: 15px;
+    margin-bottom: 19px;
+}
+
+.amount {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #666666;
+    font-size: 14px;
+}
+
+.status .icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+}
+
+.status .icon image {
+    width: 15px;
+    height: 15px;
+}
+
+.text {}
+
+.list {}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    font-size: 15px;
+    font-weight: Medium;
+    font-family: PingFang-SC-Medium;
+    margin-bottom: 21px;
+}
+
+.list .item .subtitle {
+    color: #929292;
+}
+
+.list .item .text {
+    color: #212221;
+}

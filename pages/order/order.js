@@ -516,7 +516,7 @@ Page({
         let userInfo = this.data.userInfo;
         let usershipid = e.currentTarget.dataset.usershipid;
         let usercargoid = e.currentTarget.dataset.usercargoid;
-
+        console.log(id)
         switch (state) {
             case 1:
                 console.log('申诉')
@@ -525,7 +525,11 @@ Page({
                 })
                 break;
             case 2:
-                console.log(2)
+                console.log('查看合同')
+                let btnSshow = false
+                wx.navigateTo({
+                    url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&btnShow=' + btnSshow,
+                })
                 break;
             case 3:
                 this.initiateChat(userInfo, usershipid, usercargoid)

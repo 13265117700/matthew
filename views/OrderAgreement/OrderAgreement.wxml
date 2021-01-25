@@ -23,7 +23,7 @@
     </view>
     
     <!-- 按钮 -->
-    <view class="contract-group">
+    <view class="contract-group" wx:if="{{btnShow}}">
       <view class="contract-btu">
         <text bindtap="handleHairContract">{{btutitle}}</text>
       </view>

@@ -516,7 +516,11 @@ Page({
                 })
                 break;
             case 2:
-                console.log(2)
+                console.log('查看合同')
+                let btnSshow = false
+                wx.navigateTo({
+                    url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&btnShow=' + btnSshow,
+                })
                 break;
             case 3:
                 this.initiateChat(userInfo, usershipid, usercargoid)

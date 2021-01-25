@@ -45,3 +45,7 @@
   font-size: 15px;
   color: #191919;
 }
+
+.btn-class{
+  opacity: 0.5;
+}

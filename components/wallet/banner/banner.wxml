@@ -17,8 +17,9 @@
         </view>
       </view>
       <view class="btn">
-        <van-button round type="info" custom-style="{{btnStyle}}">充值</van-button>
-        <van-button round type="info" custom-style="{{btnStyle}}">提现</van-button>
+        <van-button round type="info" custom-style="{{btnStyle}}" wx:for="{{btn}}" wx:key="index" wx:for-item="btnItem"
+          data-index="{{btnItem.index}}" bind:click="onBtn">
+          {{btnItem.title}}</van-button>
       </view>
     </view>
     <view class="wrap-down">

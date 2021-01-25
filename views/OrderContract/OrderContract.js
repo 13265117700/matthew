@@ -54,6 +54,7 @@ Page({
     // partyCCorporateName:null,//丙方公司名称(船东信息)
     partyCEmail: null, //丙方联系邮箱(船东信息)
 
+
   },
   onLoad: function (options) {
     console.log(options)
@@ -75,13 +76,14 @@ Page({
     }
     User.userInfo(params).then(res => {
       let user = res.data.data;
-      if (user.mtCargoOwner.status == 1) {
+      console.log(user)
+      if (user.identityDifference == 2) {
         console.log('货主')
         user.cargo = true
-      } else if (user.mtOwner.status == 1) {
+      } else if (user.identityDifference == 3) {
         console.log('车主')
         user.car = true
-      } else if (user.mtShipowner.status == 1) {
+      } else if (user.identityDifference == 1) {
         console.log('船东')
         user.ship = true
       }
@@ -111,10 +113,12 @@ Page({
       this.setData({
         orderInfo: rows,
       })
-     
+
     })
 
-    Company.frontDeskDefaultCompany({Authorization}).then(data => {
+    Company.frontDeskDefaultCompany({
+      Authorization
+    }).then(data => {
       let rows = data.data.data;
       this.setData({
         platformInfo: rows,
@@ -185,6 +189,7 @@ Page({
     let userInfo = this.data.userInfo;
     let id = this.data.id;
     let orderInfo = this.data.orderInfo;
+    let btnShow = true
     if (userInfo.cargo) {
       let addressPartyA = this.data.addressPartyA; //甲方详细地址
       let contactPartyA = this.data.contactPartyA; //甲方联系方式
@@ -201,7 +206,7 @@ Page({
       }
 
       wx.navigateTo({
-        url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&addressPartyA=' + addressPartyA + '&contactPartyA=' + contactPartyA + '&creditCodePartyA=' + creditCodePartyA + '&partyAContacts=' + partyAContacts + '&partyACorporateName=' + partyACorporateName + '&partyAEmail=' + partyAEmail,
+        url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&addressPartyA=' + addressPartyA + '&contactPartyA=' + contactPartyA + '&creditCodePartyA=' + creditCodePartyA + '&partyAContacts=' + partyAContacts + '&partyACorporateName=' + partyACorporateName + '&partyAEmail=' + partyAEmail + '&btnShow=' + btnShow,
       })
 
     } else if (userInfo.ship) {
@@ -212,8 +217,13 @@ Page({
       let creditCodePartyC = orderInfo.shipUser.mtShipowner.nameEnterprise;
       let partyCCorporateName = orderInfo.shipUser.mtShipowner.creditCode;
 
-      let params ={
-        addressPartyC,contactPartyC,partyCContacts,partyCEmail,creditCodePartyC,partyCCorporateName
+      let params = {
+        addressPartyC,
+        contactPartyC,
+        partyCContacts,
+        partyCEmail,
+        creditCodePartyC,
+        partyCCorporateName
       }
       console.log(params)
       if (!addressPartyC || !contactPartyC || !partyCContacts || !partyCEmail) {
@@ -224,7 +234,7 @@ Page({
       }
 
       wx.navigateTo({
-        url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&addressPartyC=' + addressPartyC + '&contactPartyC=' + contactPartyC + '&partyCContacts=' + partyCContacts + '&partyCEmail=' + partyCEmail + '&creditCodePartyC=' + creditCodePartyC + '&partyCCorporateName=' + partyCCorporateName,
+        url: '/views/OrderAgreement/OrderAgreement?id=' + id + '&addressPartyC=' + addressPartyC + '&contactPartyC=' + contactPartyC + '&partyCContacts=' + partyCContacts + '&partyCEmail=' + partyCEmail + '&creditCodePartyC=' + creditCodePartyC + '&partyCCorporateName=' + partyCCorporateName + '&btnShow=' + btnShow,
       })
 
     }

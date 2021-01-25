@@ -1,0 +1,36 @@
+<view class="container">
+    <view class="primary">
+        <view class="suntitle">
+            <text>充值</text>
+        </view>
+        <view class="amount">
+            <text>￥1500.00</text>
+        </view>
+        <view class="status">
+            <view class="icon hd">
+                <image src="https://img.gdmatt.com/images/2021/01/25/16115584651559959.png"></image>
+            </view>
+            <view class="text">
+                <text>充值成功</text>
+            </view>
+        </view>
+    </view>
+    <veiw class="list">
+        <view class="item">
+            <view class="subtitle">
+                <text>充值时间</text>
+            </view>
+            <view class="text">
+                <text>2020-12-19 13.00</text>
+            </view>
+        </view>
+        <view class="item">
+            <view class="subtitle">
+                <text>充值时间</text>
+            </view>
+            <view class="text">
+                <text>2020-12-19 13.00</text>
+            </view>
+        </view>
+    </veiw>
+</view>

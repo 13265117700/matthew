@@ -1,31 +1,11 @@
 <van-row>
-  <van-col span="8">
-    <view class="wrap">
-      <view class="img hd">
-        <image src="https://img.gdmatt.com/images/2021/01/24/16115008291998222.png"></image>
+  <van-col span="8" wx:for="{{list}}" wx:key="index">
+    <view class="wrap" data-index="{{item.index}}" hover-class="btn-class" hover-stay-time="0" bindtap="onCheng">
+      <view class="img {{item.bgColor}}">
+        <image src="{{item.img}}"></image>
       </view>
       <view class="text">
-        <text>充值记录</text>
-      </view>
-    </view>
-  </van-col>
-  <van-col span="8">
-    <view class="wrap">
-      <view class="img bd">
-        <image src="https://img.gdmatt.com/images/2021/01/24/16115008425214560.png"></image>
-      </view>
-      <view class="text">
-        <text>银行卡</text>
-      </view>
-    </view>
-  </van-col>
-  <van-col span="8">
-    <view class="wrap">
-      <view class="img ft">
-        <image src="https://img.gdmatt.com/images/2021/01/24/16115008765248344.png"></image>
-      </view>
-      <view class="text">
-        <text>提现记录</text>
+        <text>{{item.text}}</text>
       </view>
     </view>
   </van-col>

@@ -129,13 +129,14 @@ Component({
             }
             User.userInfo(params).then(res => {
                 let user = res.data.data;
-                if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+                console.log(user)
+                if (user.identityDifference == 2) {
                     console.log('货主')
                     user.cargo = true
-                } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+                } else if (user.identityDifference == 3) {
                     console.log('车主')
                     user.car = true
-                } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+                } else if (user.identityDifference == 1) {
                     console.log('船东')
                     user.ship = true
                 }
@@ -417,6 +418,10 @@ Component({
                     break;
                 case 2:
                     console.log('查看合同')
+                    let btnShow = false
+                    wx.navigateTo({
+                        url: '/views/OrderAgreement/OrderAgreement?id=' + shippingOrderId + '&btnShow=' + btnShow,
+                    })
                     break;
                 case 3:
                     if (userInfo.cargo) {

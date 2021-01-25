@@ -167,7 +167,7 @@
                 <text>{{orderdetail.mtCargo.mtNameGoods.name}}</text>
             </view>
         </view>
-        <view class="info-item" wx:if="{{ orderdetail.mtCargo.mtUser.mtCargoOwner.nameEnterprise != ' ' }}">
+        <view class="info-item" wx:if="{{ orderdetail.mtCargo.mtUser.mtCargoOwner.nameEnterprise}}">
             <view class="info-subtitle">货主公司:</view>
             <view class="info-text">
                 <text>{{orderdetail.mtCargo.mtUser.mtCargoOwner.nameEnterprise}}</text>
@@ -179,13 +179,13 @@
                 <text>{{orderdetail.mtCargo.mtNameGoods.cargoCode}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{orderdetail.mtCargo.mtUser.mtCargoOwner.contacts}}">
             <view class="info-subtitle">联系人:</view>
             <view class="info-text">
                 <text>{{orderdetail.mtCargo.mtUser.mtCargoOwner.contacts}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{orderdetail.mtCargo.mtUser.mtCargoOwner.phone}}">
             <view class="info-subtitle">联系方式:</view>
             <view class="info-text">
                 <text>{{orderdetail.mtCargo.mtUser.mtCargoOwner.phone}}</text>

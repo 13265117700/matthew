@@ -1,23 +1,24 @@
 // components/wallet/trend/trend.js
 Component({
-  /**
-   * 组件的属性列表
-   */
   properties: {
 
   },
-
-  /**
-   * 组件的初始数据
-   */
   data: {
-
+    active: 0,
+    tabs: [{
+      title: '充值',
+      status: 0
+    }, {
+      title: '收入',
+      status: 1
+    }, {
+      title: '支出',
+      status: 2
+    }]
   },
-
-  /**
-   * 组件的方法列表
-   */
   methods: {
-
+    onTabs(e) {
+      console.log(e)
+    }
   }
 })

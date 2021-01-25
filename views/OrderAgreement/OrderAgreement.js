@@ -9,6 +9,7 @@ Page({
     btutitle: '生成合同', //按钮
     dialogmsg: null, //弹框提示
     id: null, //订单ID
+    btnShow: true,
 
     addressPartyA: null, //甲方详细地址(货主信息)
     contactPartyA: null, //甲方联系方式(货主信息)
@@ -46,17 +47,18 @@ Page({
     }
     User.userInfo(params).then(res => {
       let user = res.data.data;
-      if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+      if (user.identityDifference == 2) {
         console.log('货主')
         user.cargo = true
-      } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+      } else if (user.mtOwner.identityDifference == 3) {
         console.log('车主')
         user.car = true
-      } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+      } else if (user.identityDifference == 1) {
         console.log('船东')
         user.ship = true
       }
 
+      let btnShow = JSON.parse(options.btnShow);
       if (user.cargo) {
         this.setData({
           addressPartyA: options.addressPartyA,
@@ -68,7 +70,8 @@ Page({
           partyAEmail: options.partyAEmail,
           btutitle: '生成合同',
           dialogmsg: '发起合同',
-          userInfo: user
+          userInfo: user,
+          btnShow
         })
       } else {
         this.setData({
@@ -81,7 +84,8 @@ Page({
           partyCEmail: options.partyCEmail,
           btutitle: '确认合同',
           dialogmsg: '合同信息',
-          userInfo: user
+          userInfo: user,
+          btnShow
         })
       }
 
@@ -98,15 +102,13 @@ Page({
       Authorization,
       id
     }
-    console.log(params)
+
     User.UserOrderQuery(params).then(res => {
-      console.log(res)
       let rows = res.data.data;
       console.log(rows)
       this.setData({
         orderInfo: rows,
       })
-
     })
 
     Company.frontDeskDefaultCompany({
@@ -117,8 +119,6 @@ Page({
         contractContent: rows.contractContent
       })
     })
-
-
 
   },
   handleHairContract() {

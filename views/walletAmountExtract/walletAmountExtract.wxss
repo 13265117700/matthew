@@ -1,0 +1,137 @@
+.container {
+   padding-top: 15px;
+}
+
+.bankCard-section {
+    display: flex;
+    background: #fff;
+    margin-bottom: 15px;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.bankCard-section .title {
+    margin-right: 16px;
+}
+
+.bankCard-section .bankCard-info {
+    display: flex;
+    flex: 1;
+}
+
+.bankCard-info .icon {
+    padding-top: 10px;
+}
+
+.bankCard-info .icon image {
+    width: 15px;
+    height: 11.5px;
+}
+
+van-cell {
+    flex: 1;
+}
+
+
+
+.submit-section {
+    background: #fff;
+    padding: 21px 15px;
+}
+
+.submit-section .title {
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #191919;
+    font-size: 13px;
+    margin-bottom: 31px;
+}
+
+.submit-section .input {
+    display: flex;
+    font-size: 34px;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid #E5E5E5;
+    margin-bottom: 23.5px;
+}
+
+.submit-section .input .icon {}
+
+.submit-section .input input {
+    height: 45px;
+    min-width: 45px;
+}
+
+.submit-section .msg {
+    display: flex;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #666666;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.submit-section .tips {
+    margin-left: 10px;
+    color: #009EEB;
+}
+
+.btn {
+    width: 300px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.btn-class {
+    height: 100%;
+    line-height: 25px !important;
+    font-family: PingFang-SC-Bold;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+
+.popup-section{
+
+}
+.popup-section .wrap{
+
+}
+.popup-section .item{
+    border-bottom: 1px solid #E5E5E5;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+.popup-section .title{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #191919;
+    font-size: 18px;
+    text-align: center;
+    padding: 12px 0;
+    flex: 1;
+}
+.popup-section .icon{
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #2FAAF0;
+}
+.popup-section .icon image{
+    width: 13px;
+    height: 10px;
+}
+.popup-section .guild{
+    padding: 28px 0;
+    flex: 1;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #191919;
+    font-size: 16px;
+}
+
+

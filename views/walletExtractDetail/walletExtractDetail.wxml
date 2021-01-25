@@ -1,0 +1,44 @@
+<view class="page-container">
+    <view class="detail-section">
+        <view class="primary">
+            <view class="status">
+                <image src="https://img.gdmatt.com/images/2021/01/25/16115695002968125.png"></image>
+            </view>
+            <view class="suntitle">
+                <text>提现申请提交成功</text>
+            </view>
+            <view class="describe">
+                <text>提现后请留意银行的时间到账时间</text>
+            </view>
+        </view>
+        <view class="secondary">
+            <view class="secondary-item">
+                <view class="subtitle">
+                    <text>到账银行卡</text>
+                </view>
+                <view class="text">
+                    <text>中国工商银行 尾号9288</text>
+                </view>
+            </view>
+            <view class="secondary-item">
+                <view class="subtitle">
+                    <text>提现金额</text>
+                </view>
+                <view class="text">
+                    <text>￥1892.00</text>
+                </view>
+            </view>
+            <view class="secondary-item">
+                <view class="subtitle">
+                    <text>申请时间</text>
+                </view>
+                <view class="text">
+                    <text>2020-08-15 10:00</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="btn-section">
+        <vtu-btn v-class="btn-class" bg-color="#E3211F" font-color="#FFFFFF" bind:click="onSubmit">返回</vtu-btn>
+    </view>
+</view>
