@@ -22,7 +22,9 @@ Component({
     onBtn(e){
       let index = e.currentTarget.dataset.index;
       if(index == 0){
-
+        wx.navigateTo({
+          url: '/views/top-up/top-up',
+        })
       }else{
         wx.navigateTo({
           url: '/views/walletAmountExtract/walletAmountExtract',

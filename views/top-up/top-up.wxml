@@ -1,0 +1,24 @@
+<view class="top-up">
+  <view class="wrap">
+    <view class="top-up_title">
+      <text>充值金额</text>
+    </view>
+    <view class="top-up_input">
+      <view class="icon">
+        <text>￥</text>
+      </view>
+      <input type="text" placeholder="请输入金额" placeholder-class="input-placeholder" bindinput="handleInput" />
+    </view>
+  </view>
+  <view class="wrap">
+    <view class="top-up_title">
+      <text>充值金额</text>
+    </view>
+    <view class="top-up_amount">
+      <text>￥{{value}}</text>
+    </view>
+    <view class="top-up_btn">
+      <van-button type="default" custom-style="{{btnstyle}}">充值</van-button>
+    </view>
+  </view>
+</view>
