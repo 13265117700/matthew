@@ -21,19 +21,20 @@ Page({
         let uId = '';
         User.userInfo({Authorization,uId}).then(res => {
             let user = res.data.data;
-            if(user.mtCargoOwner.idNumber != null){
+            console.log(user)
+            if(user.identityDifference == 2){
                 user.cargo = true;
                 user.status = user.mtCargoOwner.status;
                 this.setData({
                     trialList:user.mtCargoOwner
                 })
-            }else if(user.mtOwner.idNumber != null){
+            }else if(user.identityDifference == 3){
                 user.car = true;
                 user.status = user.mtOwner.status;
                 this.setData({
                     trialList:user.mtOwner
                 })
-            }else if(user.mtShipowner.idNumber != null){
+            }else if(user.identityDifference == 1){
                 user.ship = true
                 user.status = user.mtShipowner.status;
                 this.setData({

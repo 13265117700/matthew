@@ -1,0 +1,30 @@
+<view class="enroll-container">
+    <view class="company-info-container">
+        <image class="company-info-logo" src="/images/login/logo@3x.png" />
+        <view class="company-info-name">登录马太货运</view>
+        <view class="company-info-desc">货源 船源 车源</view>
+    </view>
+    <view class="enroll-form-container">
+        <vtu-input-group>
+            <view class="form-item" wx:for="{{inputList}}" wx:key="index" wx:for-item="inputItem"
+                wx:if="{{inputItem.show}}">
+                <vtu-input title="{{inputItem.title}}" placeholder="{{inputItem.placeholder}}" type="input"
+                    data-state="{{inputItem.state}}" text-align="left" bind:input="handleInput">
+                    <vtu-btn slot="after" my-class="phoneNumberBtn" size="small" wx:if="{{inputItem.type == 'sms'}}"
+                        bind:click="handCode">
+                        {{buttonName}}</vtu-btn>
+                </vtu-input>
+            </view>
+        </vtu-input-group>
+    </view>
+    <view class="enroll-btn-container">
+        <view class="enroll-btn">
+            <vtu-btn v-class="form-btn" type="danger" round="true" disabled="{{active}}" bind:click="handleConfirm">
+                注册</vtu-btn>
+        </view>
+        <view class="enroll-summary">
+            登录注册即表示同意
+            <navigator url="/pages/login/agree/agree">用户协议、隐私协议</navigator>
+        </view>
+    </view>
+</view>

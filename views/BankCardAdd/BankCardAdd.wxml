@@ -1,0 +1,19 @@
+<view class="page-container">
+    <view class="form-section">
+        <view class="form-item" wx:for="{{form}}" wx:key="index" wx:for-item="formitem">
+            <view class="form-title">
+                <text>{{formitem.label}}</text>
+            </view>
+            <view class="form-input" wx:if="{{formitem.type == 'input'}}">
+                <input type="text" placeholder="{{formitem.placeholder}}" placeholder-class="input-placeholder"
+                    data-state="{{formitem.state}}" bindinput="handleInput" />
+            </view>
+            <view class="form-switch" wx:if="{{formitem.type == 'switch'}}">
+                <van-switch checked="{{ checked }}" size="24px" active-color="#ee0a24" bind:change="onChange" />
+            </view>
+        </view>
+    </view>
+    <view class="btn-section">
+        <van-button type="danger" size="large" custom-style="{{btnStyle}}" bind:click="handleSave">保存银行卡</van-button>
+    </view>
+</view>

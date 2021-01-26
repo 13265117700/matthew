@@ -21,130 +21,150 @@ Page({
     // 用户查看列表
     seeList: [{
       text: '余额',
-      image: '/images/my/ye@3x.png',
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116509351511964.png',
       id: '12'
     }, {
       text: '我的分销',
-      image: '/images/my/dis@3x.png',
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116509152792556.png',
       id: '23'
     }, {
       text: '银行卡',
-      image: '/images/my/yhk@3x.png',
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116509495939934.png',
       id: '34'
     }, {
       text: '资金流水',
-      image: '/images/my/zjls@3x.png',
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116509646815453.png',
       id: '45'
     }],
     ceilList: [{
       state: true,
       ceilItem: [{
-        icon: '/images/my/hzrz@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116512997827720.png',
         text: '身份认证',
-        id: '112'
+        id: '112',
+        style: 'width: 20px;height: 16.5px;'
       }]
     }, {
       state: true,
       ceilItem: [{
-        icon: '/images/my/hzrz@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116512997827720.png',
         text: '我的认证资料',
-        id: '169'
+        id: '169',
+        style: 'width: 20px;height: 16.5px;'
       }]
     }, {
       state: true,
       ceilItem: [{
-        icon: '/images/my/xxzx@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/1611651425764211.png',
         text: '我的好友',
-        id: '113'
+        id: '113',
+        style: 'width: 19.5px;height: 16px;'
       }]
     }, {
       //船管理
       state: true,
       ceilItem: [{
-        icon: '/images/my/yhk@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116516518173963.png',
         text: '船舶管理',
-        id: '115'
+        id: '115',
+        style: 'width: 18.5px;height: 19px;'
       }, {
-        icon: '/images/my/ye@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116516853804051.png',
         text: '船东待确认订单信息',
-        id: '123'
+        id: '123',
+        style: 'width: 19px;height: 18px;'
       }, {
-        icon: '/images/my/xycx@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116516853804051.png',
         text: '船东订单',
-        id: '234'
+        id: '234',
+        style: 'width: 19px;height: 18px;'
       }, {
-        icon: '/images/my/xxzx@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116517148983553.png',
         text: '船东保证金',
-        id: '546'
+        id: '546',
+        style: 'width: 19px;height: 19px;'
       }, {
-        icon: '/images/my/wz@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116517304288687.png',
         text: '我发布的船源',
-        id: '567'
+        id: '567',
+        style: 'width: 18.5px;height: 19px;'
       }]
     }, {
       //货管理
       state: true,
       ceilItem: [{
-        icon: '/images/my/hzdd@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/1611651780470356.png',
         text: '货主待确认订单信息',
-        id: '998'
+        id: '998',
+        style: 'width: 19px;height: 18.5px;'
       }, {
-        icon: '/images/my/hzdd@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/1611651780470356.png',
         text: '货主订单',
-        id: '101'
+        id: '101',
+        style: 'width: 19px;height: 18.5px;'
       }, {
-        icon: '/images/my/hzbzj@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/1611651799008317.png',
         text: '货主保证金',
-        id: '809'
+        id: '809',
+        style: 'width: 19px;height: 19px;'
       }, {
-        icon: '/images/my/fbcy@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116517304288687.png',
         text: '我发布的货源',
-        id: '855'
+        id: '855',
+        style: 'width: 18.5px;height: 19px;'
       }]
     }, {
       //车管理
       state: true,
       ceilItem: [{
-        icon: '/images/my/clgl@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116518343201584.png',
         text: '车辆管理',
-        id: '192'
+        id: '192',
+        style: 'width: 18.5px;height: 16px;'
       }, {
-        icon: '/images/my/wldd@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116518550073440.png',
         text: '物流待确认订单信息',
-        id: '110'
+        id: '110',
+        style: 'width: 18.5px;height: 19px;'
       }, {
-        icon: '/images/my/wldd@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116518550073440.png',
         text: '物流订单',
-        id: '120'
+        id: '120',
+        style: 'width: 18.5px;height: 19px;'
       }, {
-        icon: '/images/my/cdbzj@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116517148983553.png',
         text: '物流保证金',
-        id: '100'
+        id: '100',
+        style: 'width: 19px;height: 19px;'
       }, {
-        icon: '/images/my/fbcy@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116517304288687.png',
         text: '我发布的车源',
-        id: '609'
+        id: '609',
+        style: 'width: 18.5px;height: 19px;'
       }]
     }, {
       state: true,
       ceilItem: [{
-        icon: '/images/my/zjls@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116514851687120.png',
         text: '偏好设置',
-        id: '114'
+        id: '114',
+        style: 'width: 19px;height: 19px;'
       }]
     }, {
       state: true,
       ceilItem: [{
-        icon: '/images/my/wz@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116527016234641.png',
         text: '发票管理',
-        id: '820'
+        id: '820',
+        style: 'width: 16px;height: 18px;'
       }]
     }, {
       state: true,
       ceilItem: [{
-        icon: '/images/my/xycx@3x.png',
+        icon: 'https://img.gdmatt.com/images/2021/01/26/16116515682431190.png',
         text: '信用查询',
-        id: '119'
+        id: '119',
+        style: 'width: 19px;height: 18px;'
       }]
     }],
     // 身份列表
@@ -263,9 +283,17 @@ Page({
   // 用户设置
   userSetUp: function () {
     console.log('用户设置')
-    wx.navigateTo({
-      url: '/views/UserSettings/UserSettings',
-    })
+    let Authorization = wx.getStorageSync('Authorization');
+    if (Authorization) {
+      wx.navigateTo({
+        url: '/views/UserSettings/UserSettings',
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/logs/logs',
+      })
+    }
+
   },
   // 人工智能服务
   userAi: function () {
@@ -273,23 +301,29 @@ Page({
   },
   // 用户查看信息item
   seeItem: function (event) {
-    console.log('this.seeItem', event)
+    let Authorization = wx.getStorageSync('Authorization');
     let index = event.detail.index;
-    switch (index) {
-      case 0:
-        wx.navigateTo({
-          url: '/views/wallet/wallet',
-        })
-        break;
-      case 2:
-        wx.navigateTo({
-          url: '/views/BankCard/BankCard',
-        })
-        break
-      case 3:
-        wx.navigateTo({
-          url: '/views/wallet/wallet',
-        })
+    if (Authorization) {
+      switch (index) {
+        case 0:
+          wx.navigateTo({
+            url: '/views/wallet/wallet',
+          })
+          break;
+        case 2:
+          wx.navigateTo({
+            url: '/views/BankCard/BankCard',
+          })
+          break
+        case 3:
+          wx.navigateTo({
+            url: '/views/wallet/wallet',
+          })
+      }
+    } else {
+      wx.navigateTo({
+        url: '/pages/logs/logs',
+      })
     }
   },
   // 进入不同celiItem页面
@@ -297,6 +331,7 @@ Page({
     let userInfo = this.data.userInfo;
     let dataset = event.currentTarget.dataset;
     let id = dataset.id;
+    console.log(id)
     let Authorization = wx.getStorageSync('Authorization');
     if (Authorization) {
       switch (id) {
@@ -383,8 +418,22 @@ Page({
           wx.navigateTo({
             url: '/views/creditQuery/creditQuery',
           })
-          break
-
+          break;
+        case '809':
+          wx.navigateTo({
+            url: '/views/walletEnsure/walletEnsure',
+          })
+          break;
+        case '546':
+          wx.navigateTo({
+            url: '/views/walletEnsure/walletEnsure',
+          })
+          break;
+        case '100':
+          wx.navigateTo({
+            url: '/views/walletEnsure/walletEnsure',
+          })
+          break;
       }
     } else {
       wx.navigateTo({

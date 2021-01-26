@@ -72,7 +72,7 @@
       </view>
     </view>
     <view class="card-btn">
-      <vtu-btn v-class="btn-class" bg-color="#4ABDF3" font-color="#fff">
+      <vtu-btn v-class="btn-class" bg-color="#4ABDF3" font-color="#fff" bind:click="noAddBtn">
         <view class="card-btn-wrap">
           <view class="card-btn_icon">
             <image src="https://img.gdmatt.com/images/2021/01/25/16115853669535604.png"></image>
@@ -85,7 +85,7 @@
     </view>
   </view>
   <view class="dialog-container">
-    <van-dialog title="确定删除吗？" show="{{ show }}" show-cancel-button 
+    <van-dialog title="确定解除绑定码？" show="{{ show }}" show-cancel-button 
       bind:close="onClose" bind:confirm="onConfirmDel">
     </van-dialog>
   </view>

@@ -1,0 +1,65 @@
+.ensure-container {
+    background: #fff;
+}
+
+.ensure-title {
+    font-family: PingFang-SC-Heavy;
+    font-weight: bold;
+    color: #191919;
+    font-size: 20px;
+    padding: 20px 20px;
+}
+
+.ensure-amount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 20px 25.5px;
+    padding: 11px 15px;
+    background: #5CCCFF;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.ensure-left {}
+
+.ensure-left_money {
+    font-size: 15px;
+}
+
+.ensure-left_money text {
+    font-size: 34px;
+}
+
+.ensure-left_text {}
+
+.ensure-right {}
+
+.ensure-right_btn {}
+
+.pay-info {
+    margin: 0 20px;
+}
+
+.pay-item {
+    display: flex;
+}
+
+.pay-title {
+    color: #191919;
+    font-family: PingFang-SC-Heavy;
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 9px;
+    
+}
+
+.pay-btn {}
+
+.pay-subtitle {}
+
+.pay-text {}
+
+.ensure-guild {}
+
+.note {}

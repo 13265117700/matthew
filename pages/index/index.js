@@ -27,49 +27,49 @@ Page({
     cardList: [{
       tips: 'index',
       id: 9999999,
-      url: '/images/index/chuanyuan@3x.png',
+      url: 'https://img.gdmatt.com/images/2021/01/26/16116504535152481.png',
       text: '船源信息'
     }, {
       id: 9999998,
       tips: 'index',
-      url: '/images/index/huoyuan@3x.png',
+      url: 'https://img.gdmatt.com/images/2021/01/26/16116504834364982.png',
       text: '船运货源'
     }, {
       id: 9999997,
       tips: 'index',
-      url: '/images/index/cy@3x.png',
+      url: 'https://img.gdmatt.com/images/2021/01/26/16116505013535769.png',
       text: '车运货源'
     }, {
       tips: 'index',
       id: 9999996,
-      url: '/images/index/daolu@3x.png',
+      url: 'https://img.gdmatt.com/images/2021/01/26/16116505123198852.png',
       text: '车辆信息'
     }],
     orderList: [],
     serviceList: [{
       title: '马太保险',
-      image: '/images/index/bx@3x.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/1611650576436108.png'
     }, {
       title: '港口码头',
-      image: '/images/index/gk@3x.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/1611650593990553.png'
     }, {
       title: '港口里程',
-      image: '/images/index/mt@3x.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116506086417862.png'
     }, {
       title: '法律咨询',
-      image: '/images/index/ls@3x.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116506215144543.png'
     }, {
       title: '企业查询',
-      image: '/images/index/cx@3x.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116506347954334.png'
     }, {
       title: '台风路径',
-      image: '/images/index/tflj.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116506546337695.png'
     }, {
       title: '台风路径',
-      image: '/images/index/tq@3x.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116506700888357.png'
     }, {
       title: '更多',
-      image: '/images/index/gd@3x.png'
+      image: 'https://img.gdmatt.com/images/2021/01/26/16116506837348818.png'
     }],
   },
   onShow() {

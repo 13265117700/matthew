@@ -82,6 +82,6 @@
         </view>
     </view>
     <view class="guild-section">
-        <image src="/images/index/kef@3x.png" bindtap="designedToChat"></image>
+        <image src="https://img.gdmatt.com/images/2021/01/26/16116507668058383.png" bindtap="designedToChat"></image>
     </view>
 </view>

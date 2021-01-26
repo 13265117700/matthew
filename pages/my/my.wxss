@@ -107,6 +107,10 @@
     padding-left: 15px;
     cursor: pointer;
 }
+.cell-icon{
+    display: flex;
+    align-items: center;
+}
 .cell-text{
     flex: 1;
     margin-left: 23px;

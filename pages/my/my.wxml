@@ -42,17 +42,14 @@
                         img-src="{{item.image}}"
                         data-id="{{item.id}}"
                         bind:click="seeItem"></vtu-grid>
-                    <!-- <vtu-grid label="我的分销" img-src="/images/my/dis@3x.png"></vtu-grid>
-                    <vtu-grid label="银行卡" img-src="/images/my/yhk@3x.png"></vtu-grid>
-                    <vtu-grid label="资金流水" img-src="/images/my/zjls@3x.png"></vtu-grid> -->
                 </vtu-grids>
             </view>
         </view>
         <view class="user-setUp" bindtap="userSetUp">
-            <image src="/images/my/sz@3x.png"></image>
+            <image src="https://img.gdmatt.com/images/2021/01/26/16116529337743364.png"></image>
         </view>
         <view class="user-ai" bindtap="userAi">
-            <image src="/images/my/wt@3x.png"></image>
+            <image src="https://img.gdmatt.com/images/2021/01/26/16116529475078637.png"></image>
         </view>
     </view>
     <view class="page-main">
@@ -68,7 +65,7 @@
                 data-id="{{ceilItem.id}}"
                 bindtap="ceilItem">
                 <view class="cell-icon">
-                    <image src="{{ceilItem.icon}}"></image>
+                    <image style="{{ceilItem.style}}" src="{{ceilItem.icon}}"></image>
                 </view>
                 <view class="cell-text">{{ceilItem.text}}</view>
                 <view class="cell-arrow">

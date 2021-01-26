@@ -1,0 +1,79 @@
+.enroll-container {
+    background: #ffffff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.company-info-container {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    flex: 1;
+}
+
+.company-info-logo {
+    width: 59.5px;
+    height: 60.5px;
+    margin-bottom: 12.5px;
+}
+
+.company-info-name {
+    font-size: 19px;
+    font-family: PingFang-SC-Bold;
+    font-weight: Bold;
+    margin-bottom: 9.5px;
+    color: #000000;
+}
+
+.company-info-desc {
+    font-size: 15px;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #555555;
+}
+
+
+
+
+.enroll-form-container {
+    padding: 0 15px;
+    flex: 1;
+    /* margin-top: 10%; */
+}
+
+.form-item {
+    border-bottom: 0.5px solid #E6E6E6;
+    margin-bottom: 15px;
+}
+
+.form-input {}
+
+.enroll-btn-container {}
+
+.enroll-btn {
+    padding: 0 15px;
+    /* margin-bottom: 10%; */
+}
+
+.form-btn {
+    height: 43px;
+    line-height: 21px !important;
+    font-size: 16px !important;
+}
+
+.enroll-summary {
+    display: flex;
+    justify-content: center;
+    color: #555555;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    font-size: 13px;
+    margin: 36px 0 19.5px;
+}
+
+navigator {
+    color: #3E80C9;
+}

@@ -6,6 +6,12 @@ Page({
         userInfo: {},
         btnTitle: '保存',
         inputList: [{
+            title:'手机号码',
+            value: '12321321321',
+            state: 7,
+            type: 'default',
+            show: true
+        },{
             title: '昵称',
             placeholder: '请输入昵称',
             state: 1,
@@ -39,8 +45,9 @@ Page({
             title: '验证码',
             placeholder: '请输入验证码',
             state: 3,
-            type: 'sms',
-            show: true
+            type: 'input',
+            show: true,
+            sms:true
         }],
         name: '',
         phone: '',
@@ -104,11 +111,10 @@ Page({
             case 2:
                 if (user.phone) {
                     inputList.forEach(data => {
-                        if (data.state == 2 || data.state == 3) {
+                        if (data.state == 7 || data.state == 3) {
                             data.show = true
-                            if (data.state == 2) {
-                                data.title = '修改手机号码'
-                                data.placeholder = user.phone
+                            if (data.state == 7) {
+                                data.value = user.phone
                             }
                         } else {
                             data.show = false
@@ -143,10 +149,12 @@ Page({
                 break;
             case 3:
                 if (user.password) {
-                    console.log(inputList)
                     inputList.forEach(data => {
                         if (data.state > 2) {
                             data.show = true
+                            if(data.state == 7){
+                                data.value = user.phone
+                            }
                         } else {
                             data.show = false
                         }

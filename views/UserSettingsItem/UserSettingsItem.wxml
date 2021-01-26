@@ -6,9 +6,9 @@
             <vtu-input-group>
                 <view class="form-item" wx:for="{{inputList}}" wx:key="index" wx:for-item="inputItem"
                     wx:if="{{inputItem.show}}">
-                    <vtu-input title="{{inputItem.title}}" placeholder="{{inputItem.placeholder}}" type="input"
+                    <vtu-input title="{{inputItem.title}}" value="{{inputItem.value}}" placeholder="{{inputItem.placeholder}}" type="{{inputItem.type}}"
                         data-state="{{inputItem.state}}" text-align="left" bind:input="handleInput">
-                        <vtu-btn slot="after" my-class="phoneNumberBtn" size="small" wx:if="{{inputItem.type == 'sms'}}"
+                        <vtu-btn slot="after" my-class="phoneNumberBtn" size="small" wx:if="{{inputItem.sms}}"
                             bind:click="handCode">
                             {{buttonName}}</vtu-btn>
                     </vtu-input>

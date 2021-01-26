@@ -63,6 +63,7 @@ Page({
             rows
         }
         User.userInfo(params).then(res => {
+            console.log(res)
             let mtUserPreferences = res.data.data.mtUserPreferences;
             if (mtUserPreferences) {
                 this.setData({

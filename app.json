@@ -52,7 +52,10 @@
         "views/walletTrendDetail/walletTrendDetail",
         "views/walletAmountExtract/walletAmountExtract",
         "views/walletExtractDetail/walletExtractDetail",
-        "views/BankCard/BankCard"
+        "views/BankCard/BankCard",
+        "views/BankCardAdd/BankCardAdd",
+        "pages/enroll/enroll",
+        "views/walletEnsure/walletEnsure"
     ],
     "window": {
         "backgroundTextStyle": "dark",

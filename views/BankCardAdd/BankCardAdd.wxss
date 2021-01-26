@@ -1,0 +1,38 @@
+.page-container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.form-section{
+    flex: 1;
+}
+.form-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background: #fff;
+    padding: 0 15px;
+}
+.form-title{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #333333;
+    font-size: 17px;
+    min-width: 100px;
+}
+.form-input{
+    flex: 1;
+}
+.form-input input{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #333333;
+    font-size: 17px;
+}
+.input-placeholder{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #EEEEEE;
+    font-size: 17px;
+}

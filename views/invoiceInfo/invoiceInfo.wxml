@@ -8,7 +8,7 @@
                 <text>{{mtUserInvoice.invoiceTitle}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{mtUserInvoice.creditCode}}">
             <view class="info-subtitle">
                 <text>统一社会信用代码:</text>
             </view>
@@ -16,7 +16,7 @@
                 <text>{{mtUserInvoice.creditCode}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{mtUserInvoice.dutyParagraph}}">
             <view class="info-subtitle">
                 <text>税号:</text>
             </view>
@@ -24,7 +24,7 @@
                 <text>{{mtUserInvoice.dutyParagraph}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{mtUserInvoice.detailedAddress}}">
             <view class="info-subtitle">
                 <text>注册地址:</text>
             </view>
@@ -32,7 +32,7 @@
                 <text>{{mtUserInvoice.detailedAddress}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{mtUserInvoice.telephoneRegistration}}">
             <view class="info-subtitle">
                 <text>注册电话:</text>
             </view>
@@ -40,7 +40,7 @@
                 <text>{{mtUserInvoice.telephoneRegistration}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{mtUserInvoice.bankDeposit}}">
             <view class="info-subtitle">
                 <text>开户银行:</text>
             </view>
@@ -48,7 +48,7 @@
                 <text>{{mtUserInvoice.bankDeposit}}</text>
             </view>
         </view>
-        <view class="info-item">
+        <view class="info-item" wx:if="{{mtUserInvoice.mtUserInvoice}}">
             <view class="info-subtitle">
                 <text>银行账号:</text>
             </view>

@@ -1,0 +1,83 @@
+<view class="ensure-container">
+    <view class="ensure-title">
+        <text>我的保证金</text>
+    </view>
+    <view class="ensure-amount">
+        <view class="ensure-left">
+            <view class="ensure-left_money">
+                <text>0</text>元
+            </view>
+            <view class="ensure-left_text">
+                <text>保证金可随时提现</text>
+            </view>
+        </view>
+        <view class="ensure-right">
+            <view class="ensure-right_btn">
+                <van-button color="#7232dd" custom-style="{{btnstyle}}">申请提现</van-button>
+            </view>
+        </view>
+    </view>
+    <view class="pay-info">
+        <view class="pay-item">
+            <view class="pay-title">
+                <text>支付信息</text>
+            </view>
+            <view class="pay-btn">
+                <van-button color="#7232dd" custom-style="{{paybtn}}">复制支付信息</van-button>
+            </view>
+        </view>
+        <view class="pay-item">
+            <view class="pay-subtitle">
+                <text>银行卡账号</text>
+            </view>
+            <view class="pay-text">
+                <text>621 723 360 200 141 9288</text>
+            </view>
+        </view>
+        <view class="pay-item">
+            <view class="pay-subtitle">
+                <text>开户银行</text>
+            </view>
+            <view class="pay-text">
+                <text>工商银行</text>
+            </view>
+        </view>
+        <view class="pay-item">
+            <view class="pay-subtitle">
+                <text>开户地址</text>
+            </view>
+            <view class="pay-text">
+                <text>广州市天河区天源路180号</text>
+            </view>
+        </view>
+        <view class="pay-item">
+            <view class="pay-subtitle">
+                <text>企业名称</text>
+            </view>
+            <view class="pay-text">
+                <text>广州创秀互联网科技有限公司</text>
+            </view>
+        </view>
+        <view class="pay-item">
+            <view class="pay-subtitle">
+                <text>项目类型</text>
+            </view>
+            <view class="pay-text">
+                <text>保证金</text>
+            </view>
+        </view>
+        <view class="pay-item">
+            <view class="pay-subtitle">
+                <text>项目金额</text>
+            </view>
+            <view class="pay-text">
+                <text>0元</text>
+            </view>
+        </view>
+    </view>
+    <view class="ensure-guild">
+        <view>联系平台客服进行线下银行转账</view>
+        <view>客服电话：020-888888</view>
+        <view class="note">注：保证金额度不足的情况下可能会影响您在平台的正常使用</view>
+    </view>
+</view>
