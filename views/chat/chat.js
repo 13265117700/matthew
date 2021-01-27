@@ -166,11 +166,11 @@ Page({
         let params = {Authorization,uId}
         User.userInfo(params).then(res => {
             let user = res.data.data;
-            if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+            if (user.identityDifference == 2) {
                 user.cargo = true;
-            } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+            } else if (user.identityDifference == 3) {
                 user.car = true;
-            } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+            } else if (user.identityDifference == 1) {
                 user.ship = true
             }
             this.setData({

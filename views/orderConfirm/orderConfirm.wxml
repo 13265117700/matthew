@@ -51,56 +51,6 @@
             </view> -->
         </view>
 
-        <!-- 货主待确认订单列表 -->
-        <!-- <view class="tabs-list" wx:if="{{userInfo.cargo === true }}">
-
-            <view class="tabs-item" wx:for="{{ cargoOrderList }}" wx:key="index" wx:for-item="cargoOrderItem">
-                <view style="border-bottom: 1px solid #E5E5E5;" data-senderid="{{ cargoOrderItem.userCargoId }}"
-                    data-receiverid="{{ cargoOrderItem.userShipId }}" data-id="{{ cargoOrderItem.id }}"
-                    bindtap="handleCargoOrderDetails">
-                    <view class="tabs-time">发起时间：{{cargoOrderItem.createTime}}</view>
-                    <view class="tabs-place">
-                        <view class="tabs-place_item">
-                            <view class="place-icon start">始</view>
-                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portArrivalAddress}}</view>
-                        </view>
-                        <view class="tabs-place_item">
-                            <view class="place-img">
-                                <image src="/images/myFollow/item-info_img2.png"></image>
-                            </view>
-                        </view>
-                        <view class="tabs-place_item">
-                            <view class="place-icon end">终</view>
-                            <view class="place-subTitle">{{cargoOrderItem.mtCargo.portDepartureAddress}}</view>
-                        </view>
-
-                    </view>
-                    <view class="tabs-goods">
-                        <view class="tabs-type">{{cargoOrderItem.mtCargo.mtNameGoods.name }}</view>
-                        <view class="tabs-tonnage">{{cargoOrderItem.mtCargo.number }}吨</view>
-                    </view>
-                    <view class="tabs-ship-name">预计装货时间:{{cargoOrderItem.loadingDate}}</view>
-                </view>
-                <view class="tabs-btnBox">
-                    <view class="order-msg" wx:if="{{ cargoOrderItem.status === 0 }}">请等待船东确认订单</view>
-                    <van-button round plain size="small" type="{{ cargoOrderItem.status != 1 ? 'danger':'default'}}"
-                        data-senderid="{{ cargoOrderItem.userCargoId }}"
-                        data-receiverid="{{ cargoOrderItem.userShipId }}" style="margin-right:5px"
-                        bind:click="handleCargoChatButton">
-                        发起聊天</van-button>
-                    <van-button round plain type="danger" size="small" data-id="{{ cargoOrderItem.id }}"
-                        wx:if="{{cargoOrderItem.status === 1}}" style="margin-right:5px"
-                        bind:click="handleCargoConfirmContractButton">
-                        发起合同</van-button>
-                </view>
-            </view>
-            <view class="dialog">
-                <van-dialog use-slot title="确认发起合同吗？" show="{{ cargoShow }}" show-cancel-button show-confirm-button
-                    bind:close="onClose" bind:confirm="handleCargoHairContract">
-                </van-dialog>
-            </view>
-        </view> -->
-
         <vtu-empty icon="iconfont icon-kong" fill-screen icon-color="orange" icon-size="50px" label="暂时没有待接订单"
             wx:if="{{total === 0}}"></vtu-empty>
     </view>

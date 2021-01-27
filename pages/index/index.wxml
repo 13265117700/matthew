@@ -1,4 +1,4 @@
-<!--index.wxml-->
+
 <view class="home-container">
     <view class="banner-section">
         <vtu-swiper list="{{imageList}}" height="{{200}}px" dot-type="round" indicator-active-color="#F0222F"

@@ -8,7 +8,63 @@
         </view>
     </view>
     <vew class="main">
-        <van-tabs active="{{active}}" bind:change="onTabs">
+        <view class="trend-list">
+            <view class="trend-item">
+                <view class="trend-info">
+                    <view class="trend-amount">
+                        <view class="trend-amount_subtitle">
+                            <text>充值金额：</text>
+                        </view>
+                        <view class="trend-amount_number">
+                            <text>￥1220.00</text>
+                        </view>
+                    </view>
+                    <view class="trend-date">
+                        <text>2020-08-22 16:22</text>
+                    </view>
+                </view>
+                <view class="trend-status">
+                    <text>充值成功</text>
+                </view>
+            </view>
+            <view class="trend-item">
+                <view class="trend-info">
+                    <view class="trend-amount">
+                        <view class="trend-amount_subtitle">
+                            <text>充值金额：</text>
+                        </view>
+                        <view class="trend-amount_number">
+                            <text>￥1220.00</text>
+                        </view>
+                    </view>
+                    <view class="trend-date">
+                        <text>2020-08-22 16:22</text>
+                    </view>
+                </view>
+                <view class="trend-status">
+                    <text>充值成功</text>
+                </view>
+            </view>
+            <view class="trend-item">
+                <view class="trend-info">
+                    <view class="trend-amount">
+                        <view class="trend-amount_subtitle">
+                            <text>充值金额：</text>
+                        </view>
+                        <view class="trend-amount_number">
+                            <text>￥1220.00</text>
+                        </view>
+                    </view>
+                    <view class="trend-date">
+                        <text>2020-08-22 16:22</text>
+                    </view>
+                </view>
+                <view class="trend-status">
+                    <text>充值成功</text>
+                </view>
+            </view>
+        </view>
+        <!-- <van-tabs active="{{active}}" bind:change="onTabs">
             <van-tab wx:for="{{tabs}}" wx:key="index" wx:for-item="tabitem" title="{{tabitem.title}}"
                 name="{{tabitem.status}}">
                 <view class="trend-list">
@@ -68,6 +124,6 @@
                     </view>
                 </view>
             </van-tab>
-        </van-tabs>
+        </van-tabs> -->
     </vew>
 </view>

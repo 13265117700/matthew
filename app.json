@@ -55,7 +55,8 @@
         "views/BankCard/BankCard",
         "views/BankCardAdd/BankCardAdd",
         "pages/enroll/enroll",
-        "views/walletEnsure/walletEnsure"
+        "views/walletEnsure/walletEnsure",
+        "views/top-up/top-up"
     ],
     "window": {
         "backgroundTextStyle": "dark",

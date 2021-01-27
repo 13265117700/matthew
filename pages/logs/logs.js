@@ -44,7 +44,8 @@ Page({
         })
       } else {
         wx.showToast({
-          title: res.data.message,
+          title: res.data.codeMsg,
+          icon:'loading'
         })
       }
     })

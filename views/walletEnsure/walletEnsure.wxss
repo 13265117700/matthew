@@ -1,5 +1,8 @@
 .ensure-container {
     background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .ensure-title {
@@ -31,7 +34,10 @@
     font-size: 34px;
 }
 
-.ensure-left_text {}
+.ensure-left_text {
+    color: #90DCFF;
+    font-size: 12px;
+}
 
 .ensure-right {}
 
@@ -39,10 +45,19 @@
 
 .pay-info {
     margin: 0 20px;
+    flex: 1;
 }
 
 .pay-item {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 19.5px;
+}
+
+.pay-item:first-child {
+    justify-content: end;
+    margin-bottom: 24px;
 }
 
 .pay-title {
@@ -51,15 +66,35 @@
     font-weight: bold;
     font-size: 15px;
     margin-right: 9px;
-    
+
 }
 
 .pay-btn {}
 
-.pay-subtitle {}
+.pay-subtitle {
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #999999;
+    font-size: 15px;
+}
 
-.pay-text {}
+.pay-text {
+    font-family: PingFang-SC-Bold;
+    font-weight: bold;
+    color: #191919;
+    font-size: 15px;
+}
 
-.ensure-guild {}
+.ensure-guild {
+    margin: 0 20px;
+    padding-bottom: 22.5px;
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #666666;
+    font-size: 12px;
+}
 
-.note {}
+.note {
+    color: #E3211F;
+    margin-top: 5%;
+}

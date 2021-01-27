@@ -267,7 +267,6 @@ Page({
         }
       })
     } else {
-      console.log(12312)
       this.setData({
         ["ceilList[1].state"]: false
       })

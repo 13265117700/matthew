@@ -9,7 +9,7 @@
     <view class="wrap-up">
       <view class="balance">
         <view class="balance-amount">
-          <text>88852.00</text>
+          <text>{{mtWallet.balance}}</text>
         </view>
         <view class="balance-subtitle">
           <text>账户余额(元)</text>
@@ -25,7 +25,7 @@
     <view class="wrap-down">
       <view class="total">
         <view class="amount">
-          <text>￥225512.00</text>
+          <text>￥{{mtWallet.total}}</text>
         </view>
         <view class="subtitle">
           <text>总金额(元)</text>
@@ -33,7 +33,7 @@
       </view>
       <view class="extract">
         <view class="amount">
-          <text>￥225512.00</text>
+          <text>￥{{mtWallet.withdrawalAmount}}</text>
         </view>
         <view class="subtitle">
           <text>可提现金额(元)</text>

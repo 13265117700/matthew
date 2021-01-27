@@ -8,19 +8,27 @@ Page({
       title: '头像',
       text: '请设置头像',
       avatar: 'https://activity.vtuzx.com/doc/vtuUI/weapp/avatar/1.png',
-      id: '1111112'
+      id: '1111112',
+      show: true,
+      state:1
     }, {
       title: '昵称',
       text: '请输入用户名称',
-      id: '112124'
+      id: '112124',
+      show: true,
+      state:2
     }, {
       title: '手机绑定',
       text: '请绑定手机号',
-      id: '1745236'
+      id: '1745236',
+      show: true,
+      state:3
     }, {
       title: '登录密码',
       text: '请设置登录密码',
-      id: '2288553'
+      id: '2288553',
+      show: true,
+      state:4
     }],
     show: false,
     popupButton: [{
@@ -45,10 +53,22 @@ Page({
       rows
     }
     User.userInfo(params).then(res => {
-      let faceImage = res.data.data.faceImage;
+      console.log(res)
+      let userInfo = res.data.data;
+      let faceImage = userInfo.faceImage;
+      let setUpList = this.data.setUpList;
+      if (userInfo.phone) {
+        setUpList.forEach(data => {
+          if(data.state == 3){
+            data.show = false
+          }
+        })
+      }
       this.setData({
-        ['setUpList[0].avatar']: faceImage
+        ['setUpList[0].avatar']: faceImage,
+        setUpList
       })
+
     })
 
   },

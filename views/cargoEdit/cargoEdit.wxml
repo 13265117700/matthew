@@ -164,11 +164,4 @@
                 {{button.name}}</view>
         </view>
     </van-dialog>
-    <!-- <van-popup show="{{ specifiedShow }}" round position="right"
-        custom-style="height: 100%;width: 100%;border-radius: 0;">
-        <view class="region-title-close" bindtap="onCloseAddress">
-            <image src="/images/my/region/gb@1.png"></image>
-        </view>
-        <shipowner-list></shipowner-list>
-    </van-popup> -->
 </view>

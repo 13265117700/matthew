@@ -5,7 +5,6 @@ import user from '../../models/user/user';
 
 Page({
   data: {
-    navbarTitle:'',
     radioTitle:'提交认证',
     // disabled: false,
     checked: false,
@@ -39,29 +38,26 @@ Page({
     let idenID = this.data.idenID;
     switch(idenID){
       case '153':
-        this.setData({
-          navbarTitle:'申请船东认证'
+        wx.setNavigationBarTitle({
+          title: '申请船东认证',
         })
         break;
       case '151':
-        this.setData({
-          navbarTitle:'申请货主认证'
+        wx.setNavigationBarTitle({
+          title: '申请货主认证',
         })
         break;
       case '152':
-        this.setData({
-          navbarTitle:'申请车主认证'
+        wx.setNavigationBarTitle({
+          title: '申请车主认证',
         })
         break;
     }
-    console.log(this.data.idenID,'认证身份')
-    console.log(this.data.identity,'认证方式')
   },
   handleAnimalChange({ detail = {} }) {
     this.setData({
         checked: detail.current
     });
-    console.log(this.data.checked)
   },
   // 统一社会信用代码input
   handcreditCode(e){
