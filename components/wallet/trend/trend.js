@@ -1,7 +1,14 @@
-// components/wallet/trend/trend.js
+import FundTrend from "../../../models/user/fundTrend";
+
+
 Component({
   properties: {
 
+  },
+  lifetimes: {
+    ready: function () {
+      this.getFundTrend()
+    }
   },
   data: {
     active: 0,
@@ -19,6 +26,22 @@ Component({
   methods: {
     onTabs(e) {
       console.log(e)
+    },
+    getFundTrend(){
+      let Authorization = wx.getStorageSync('Authorization');
+      console.log(Authorization)
+      let page = 1;
+      let rows = 10;
+      let params = {
+        Authorization,
+        page,
+        rows
+      };
+
+      FundTrend.UserFundTrendList(params).then(res => {
+        console.log(res)
+      })
+
     }
   }
 })

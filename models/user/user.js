@@ -197,10 +197,14 @@ export default {
     UserCargoConfirmOrderMoney: function (data) {
         return request.post(api.UserCargoConfirmOrderMoney, data)
     },
-
-
-
-
+    //货主评价
+    UserCargoEvaluation: function (data) {
+        return request.post(api.UserCargoEvaluation, data)
+    },
+    //船东评价
+    UserShipEvaluation: function (data) {
+        return request.post(api.UserShipEvaluation, data)
+    },
 
 
 }

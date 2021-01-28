@@ -1,7 +1,7 @@
 <view class="page-container">
   <view class="page-header">
     <banner orderID="{{id}}"></banner>
-    <steps orderID="{{id}}" wx:if="{{status >= 3}}"></steps>
+    <steps id="stepsPro" orderID="{{id}}" wx:if="{{status >= 3}}"></steps>
   </view>
   <view class="page-main">
     <details orderID="{{id}}"></details>

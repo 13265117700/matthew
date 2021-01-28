@@ -6,6 +6,7 @@ Page({
   data: {
     buttonStyle: 'max-width: 255px;height: 50px;border-radius: 10px;',
     id: null, //订单ID
+    userInfo: {},
     orderInfo: {}, //订单信息
 
     rateValue: 1, //评分值
@@ -19,7 +20,19 @@ Page({
     })
   },
   onShow: function () {
+    this.getUserInfo();
     this.getOrderInfo();
+  },
+  getUserInfo() {
+    let Authorization = wx.getStorageSync('Authorization');
+    User.userInfo({
+      Authorization
+    }).then(res => {
+      let userInfo = res.data.data;
+      this.setData({
+        userInfo
+      })
+    })
   },
   getOrderInfo() {
     let id = this.data.id;
@@ -38,6 +51,7 @@ Page({
 
   //评分
   handleRate(event) {
+    console.log(event)
     this.setData({
       rateValue: event.detail
     })
@@ -79,13 +93,84 @@ Page({
   handleVideo(e) {
     upload.upload.chooseVideo().then(res => {
       this.setData({
-        video:res.name
+        video: res.name
       })
     })
   },
   //确认提交按钮
   handleConfirm() {
-    console.log(23123)
-    
+    let userInfo = this.data.userInfo;
+    let id = this.data.id;
+    if (userInfo.identityDifference == 2) {
+      this.cargoEvaluation(id)
+    } else if (userInfo.identityDifference == 1) {
+      this.shipEvaluation(id)
+    }
+  },
+
+  cargoEvaluation(id) {
+    let Authorization = wx.getStorageSync('Authorization');
+    let secore = this.data.rateValue;
+    let scoringNotes = this.data.value;
+    let params = {
+      Authorization,
+      id,
+      secore,
+      scoringNotes
+    }
+    console.log(params)
+    User.UserCargoEvaluation(params).then(res => {
+      console.log(res)
+      if (res.data.state) {
+        wx.showLoading({
+          title: '评价成功',
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+          wx.navigateBack({
+            delta: 1,
+          })
+        }, 1000)
+      } else {
+        wx.showToast({
+          title: res.data.message,
+        })
+      }
+    })
+
+  },
+
+  //船东评价
+  shipEvaluation(id) {
+    let Authorization = wx.getStorageSync('Authorization');
+    let secore = this.data.rateValue;
+    let scoringNotes = this.data.value;
+    let params = {
+      Authorization,
+      id,
+      secore,
+      scoringNotes
+    };
+
+    User.UserShipEvaluation(params).then(res => {
+      console.log(res)
+      if (res.data.state) {
+        wx.showLoading({
+          title: '评价成功',
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+          wx.navigateBack({
+            delta: 1,
+          })
+        }, 1000)
+      } else {
+        wx.showToast({
+          title: res.data.message,
+        })
+      }
+    })
+
+
   }
 })

@@ -3,10 +3,9 @@ import User from '../../models/user/user';
 Page({
     data: {
         id: null,
-        status:null,
+        status: null,
     },
     onLoad: function (options) {
-        console.log(options)
         this.setData({
             id: options.id
         })
@@ -21,15 +20,15 @@ Page({
             Authorization,
             id
         };
-        console.log(params)
         User.UserOrderQuery(params).then(res => {
-            console.log(res)
             let rows = res.data.data;
             this.setData({
-                status:rows.status
+                status: rows.status
             })
-            console.log(this.data.status)
-            
+
         })
+    },
+    getstepsPro() {
+        this.selectComponent('#stepsPro').getOrderInfo();
     }
 })

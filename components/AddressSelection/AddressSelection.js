@@ -183,9 +183,7 @@ Component({
                         data.active = false
                     }
                 })
-                addressName.splice(2,1)
-                addressName.splice(2,1)
-                console.log(1231)
+                addressName.splice(1,3)
                 this.setData({
                     address:mtWharfList,
                     addressName,

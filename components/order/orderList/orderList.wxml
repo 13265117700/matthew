@@ -1,0 +1,52 @@
+<view class="page-main">
+    <vtu-tabs value="{{tabsActive}}" bind:change="tabsOnChange" active-color="#E3211F" bg-color="#fff">
+        <vtu-tab wx:for="{{ tabs }}" wx:key="index" wx:for-item="tabItem" label="{{tabItem.title}}"
+            name="{{tabItem.status}}"></vtu-tab>
+    </vtu-tabs>
+    <view class="order-list">
+        <view class="order-item" wx:for="{{ orderList }}" wx:key="index" wx:for-item="OrderItem">
+            <view class="order-top" data-id="{{ OrderItem.id }}" bindtap="OrderDetails">
+                <view class="order-top-item">
+                    <view class="order-number">运单编号：{{OrderItem.shippingOrderId}}</view>
+                </view>
+                <view class="order-top-item">
+                    <view class="order-top-hd">
+                        <view class="icon">
+                            <image src="/images/order/c.png" style="width:15px; height:15px; "></image>
+                        </view>
+                        <text>{{OrderItem.mtCargo.portDepartureAddress}}</text>
+                    </view>
+                    <view class="order-top-bd">
+                        <image src="/images/myFollow/item-info_img2.png"></image>
+                    </view>
+                    <view class="order-top-ft">
+                        <text>{{OrderItem.mtCargo.portArrivalAddress}}</text>
+                    </view>
+                </view>
+                <view class="order-top-item">
+                    <view class="order-cargo-name">
+                        <text>{{OrderItem.mtCargo.mtNameGoods.name}}</text>
+                    </view>
+                    <view class="order-cargo-number">
+                        <text>{{OrderItem.mtCargo.number}}吨</text>
+                    </view>
+                </view>
+                <view class="order-top-item">
+                    <view class="order-start-time">
+                        <text>{{ OrderItem.start }}</text>
+                    </view>
+                </view>
+            </view>
+            <view class="order-bottom">
+                <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
+                    wx:if="{{ btuItem.show }}">
+                    <van-button round size="small" disabled="{{btuItem.disabled}}" type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
+                        data-status="{{ OrderItem.status }}" data-userShipId="{{ OrderItem.userShipId }}"
+                        data-id="{{ OrderItem.id }}" data-userCargoId="{{ OrderItem.userCargoId }}"
+                        bind:click="handleButton">
+                        {{btuItem.title}}</van-button>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

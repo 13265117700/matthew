@@ -44,7 +44,8 @@
         <image src="/images/order/pingjia.png"></image>
       </view>
       <view class="input">
-        <van-field value="{{ value }}" placeholder="说说您对船东的评价吧  " border="{{ false }}" bind:change="handleInput" />
+        <van-field type="textarea" autosize value="{{ value }}" placeholder="说说您对船东的评价吧  " border="{{ false }}"
+          bind:change="handleInput" />
       </view>
     </view>
     <view class="img-box">

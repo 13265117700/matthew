@@ -688,6 +688,9 @@ Component({
                         title: '请注意填写所有必填项目',
                         icon: 'loading'
                     })
+                    this.setData({
+                        visible: false
+                    });
                 }
             })
         },
