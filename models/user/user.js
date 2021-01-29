@@ -30,6 +30,10 @@ export default {
     userEditorNickName: function (data) {
         return request.post(api.userEditorNickName, data)
     },
+    //用户注册
+    UserRegistered: function (data) {
+        return request.post(api.UserRegistered, data)
+    },
 
 
 

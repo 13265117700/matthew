@@ -27,7 +27,7 @@
                     <vtu-input placeholder="请输入密码" border type="input" text-align="left" input-type="password"
                         bind:input="passwordInput"></vtu-input>
                 </vtu-input-group>
-                <navigator class="form-item-text" url="/">忘记密码</navigator>
+                <navigator class="form-item-text" url="/views/UserForgotPassword/UserForgotPassword">忘记密码</navigator>
                 <view class="from-button">
                     <vtu-btn type="danger" round="true" disabled="{{phone === '' || password === '' ? true : false}}"
                         bind:click="submitForm">登录</vtu-btn>

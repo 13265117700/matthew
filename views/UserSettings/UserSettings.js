@@ -1,9 +1,11 @@
 import upload from "../../models/upload/upload";
+import user from "../../models/user/user";
 import User from "../../models/user/user";
 
 
 Page({
   data: {
+    userInfo:{},
     setUpList: [{
       title: '头像',
       text: '请设置头像',
@@ -66,7 +68,8 @@ Page({
       }
       this.setData({
         ['setUpList[0].avatar']: faceImage,
-        setUpList
+        setUpList,
+        userInfo
       })
 
     })
@@ -75,11 +78,22 @@ Page({
   handSetUp(event) {
     let dataset = event.currentTarget.dataset;
     let index = dataset.index;
+    let userInfo = this.data.userInfo;
+    console.log(userInfo)
     if (index === 0) {
       this.setData({
         show: true
       });
     } else {
+      if(index == 3){
+        if(!userInfo.phone){
+          wx.showToast({
+            title: '请先绑定手机',
+            icon:'none'
+          })
+          return
+        }
+      }
       wx.navigateTo({
         url: '/views/UserSettingsItem/UserSettingsItem?index=' + index,
       })

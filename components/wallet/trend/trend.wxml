@@ -4,27 +4,27 @@
             <text>资金流水单</text>
         </view>
         <view class="search">
-            <van-search value="{{ value }}" shape="round" background="#FFF" placeholder="搜索" />
+            <van-search value="{{ value }}" shape="round" background="#FFF" placeholder="输入流水单号" bind:change="handlesearch" />
         </view>
     </view>
     <vew class="main">
         <view class="trend-list">
-            <view class="trend-item">
+            <view class="trend-item" wx:for="{{trend}}" wx:key="index" wx:for-item="trendItem">
                 <view class="trend-info">
                     <view class="trend-amount">
                         <view class="trend-amount_subtitle">
                             <text>金额：</text>
                         </view>
                         <view class="trend-amount_number">
-                            <text>￥1220.00</text>
+                            <text>￥{{trendItem.amount}}</text>
                         </view>
                     </view>
                     <view class="trend-date">
-                        <text>2020-08-22 16:22</text>
+                        <text>{{trendItem.createTime}}</text>
                     </view>
                 </view>
-                <view class="trend-status">
-                    <text>充值成功</text>
+                <view class="trend-status {{trendItem.status == 0 ? 'active':''}}">
+                    <text>{{trendItem.status == 0 ? '失败':'成功'}}</text>
                 </view>
             </view>
             <!-- <view class="trend-item">

@@ -66,19 +66,19 @@
                     slot="after" 
                     type="success" 
                     size="medium" 
-                    wx:if="{{ msg != '' }}"
+                    wx:if="{{msg}}"
                     bind:click="handleChatSend">发送</vtu-btn>
                 <vtu-btn 
                     slot="after" 
                     type="primary" 
                     size="medium" 
-                    wx:if="{{ msg === '' && userInfo.cargo === true }}" 
+                    wx:if="{{ !msg && userInfo.identityDifference == 2 }}" 
                     bind:click="gotoCrewList">选择货源</vtu-btn>
                 <vtu-btn 
                     slot="after" 
                     type="primary" 
                     size="medium" 
-                    wx:if="{{ msg === '' && userInfo.ship === true }}" 
+                    wx:if="{{ !msg && userInfo.identityDifference == 1 }}" 
                     bind:click="gotoCrewList">选择船源</vtu-btn>
             </vtu-input>
         </view>

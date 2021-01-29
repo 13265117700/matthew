@@ -83,3 +83,7 @@
     color: #009EEB;
     font-size: 14px;
 }
+
+.trend-status.active{
+    color: #E3211F;
+}

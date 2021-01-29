@@ -146,17 +146,16 @@ Component({
             };
             User.UserOrderQuery(params).then(res => {
                 let rows = res.data.data;
-
+                console.log(rows)
+                //船龄
                 let loadingDate = formatTime(new Date(parseInt(rows.mtCargo.loadingDate))).replace(/\//g, "-");
                 rows.loadingDate = loadingDate
-
                 let nowYears = new Date().getFullYear(); //当前年
                 let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
                 let nowMonth = new Date().getMonth(); //当前月
                 let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
                 let nowDay = new Date().getDate(); //当前日
                 let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
-
                 let age = nowYears - years;
                 let ageMonth = nowMonth - month;
                 if (age <= 0) {
@@ -169,6 +168,21 @@ Component({
                     rows.ageShip = age + '年'
                 }
 
+
+                //订单金额
+                let price = Math.round(parseFloat(rows.mtCargo.freightAmount) * 100) / 100;
+                let xsd = price.toString().split(".");
+                if (xsd.length == 1) {
+                    price = price.toString() + ".00";
+                }
+                if (xsd.length > 1) {
+                    if (xsd[1].length < 2) {
+                        price = price.toString() + "0";
+                    }
+                }
+
+
+                rows.price = price
                 this.setData({
                     orderdetail: rows
                 })
@@ -179,9 +193,7 @@ Component({
         },
         //状态切换按钮
         tabsOnChange(rows) {
-            console.log(rows)
             let userInfo = this.data.userInfo;
-            console.log(userInfo)
             let orderBtu = this.data.orderBtu;
             switch (rows.status) {
                 case 1:
@@ -453,12 +465,11 @@ Component({
                     })
                     break
                 case 8:
-                    console.log('确认价格')
-                    if (userInfo.cargo) {
+                    if (userInfo.identityDifference == 2) {
                         this.setData({
                             moneyShow1: true
                         })
-                    } else if (userInfo.ship) {
+                    } else {
                         this.setData({
                             shipmoneyShow: true
                         })

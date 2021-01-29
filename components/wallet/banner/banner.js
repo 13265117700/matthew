@@ -13,9 +13,6 @@ Component({
   data: {
     mtWallet: {},
     btn: [{
-      title: '充值',
-      index: 0
-    }, {
       title: '提现',
       index: 1
     }],

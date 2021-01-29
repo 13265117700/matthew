@@ -20,10 +20,12 @@ export default {
     userForgotPassword:`${PREFIX}/user/information/forgetPassword`,//设置登录密码/忘记密码
     userEditorPassword:`${PREFIX}/user/information/changePassword`,//用户修改密码
     userEditorNickName:`${PREFIX}/user/information/modifyUserInformation`,//用户修改昵称/头像
+    UserRegistered:`${PREFIX}/login/register`,//用户注册
 
 
     //用户流水
     UserFundTrendList:`${PREFIX}/user/flowingWater/mtNameGoodsFriends`,//用户流水列表
+    moneyFunItem:`${PREFIX}/user/flowingWater/findByFlowingWaterId`,//资金流水单号查询
 
 
 

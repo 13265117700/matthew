@@ -1,6 +1,7 @@
 import User from '../../models/user/user';
 import WebSocket from '../../models/websocket/websocket';
 import mtWharf from '../../models/frontEnd/mtWharf'
+
 const App = getApp();
 
 Page({
@@ -8,6 +9,7 @@ Page({
         receiverid: null, //接收者ID
         senderid: null, //发送者ID
         msg: '', //聊天信息
+        action:null,//连接枚举动作
         bottom: 0,
         value: '', //文本框内容
         talkContent: [], //聊天内容
@@ -22,12 +24,10 @@ Page({
         this.setData({
             receiverid: options.receiverid,
             senderid: options.senderid,
-            // id: options.id
+            msg:options.msg,
+            action:options.action
         })
-
         this.WebSocketInit()
-        this.specifiedDialog(options.state)
-        this.getSendMsg(options.id)
     },
 
 
@@ -38,10 +38,12 @@ Page({
         let talkContent = this.data.talkContent;
         let receiverId = this.data.receiverid;
         let senderId = this.data.senderid;
+        let action = this.data.action;
         let Authorization = wx.getStorageSync('Authorization');
-        let action = 2;
+
+
         if (id) {
-            if (userInfo.cargo) {
+            if (userInfo.identityDifference == 2) {
                 User.UserMtCargoQueryInfo({
                     id
                 }).then(cargo => {
@@ -59,6 +61,7 @@ Page({
                             msg:talkContent,
                             action
                         }
+                        
                         WebSocket.sendSocketMessage(params).then(data => {
                             console.log(data)
                         })
@@ -96,8 +99,8 @@ Page({
     },
 
     //指定船东后弹出提示框
-    specifiedDialog(state) {
-        if (state) {
+    specifiedDialog(options) {
+        if (options.state) {
             this.setData({
                 state
             })
@@ -108,8 +111,8 @@ Page({
     WebSocketInit: function () {
         let senderId = this.data.senderid; //自己的ID
         let receiverId = this.data.receiverid; //对方的ID
-        let msg = null;
-        let action = 1;
+        let msg = this.data.msg;
+        let action = this.data.action;
         let params = {
             senderId,
             receiverId,
@@ -153,9 +156,9 @@ Page({
 
     },
 
+
     onShow: function () {
         this.getUserInfo();
-
     },
 
     //获取用户信息
@@ -252,6 +255,10 @@ Page({
         let userInfo = this.data.userInfo;
         let senderid = this.data.senderid;
         let receiverid = this.data.receiverid;
+        this.setData({
+            action:4
+        })
+        this.WebSocketInit()
         if (userInfo.cargo === true) {
             wx.navigateTo({
                 url: '/views/cargoPeriod/cargoPeriod?senderid=' + senderid + '&receiverid=' + receiverid,

@@ -49,14 +49,15 @@ Page({
     handleSendMsg(e) {
         console.log(e)
         let id = e.currentTarget.dataset.id;
-        // let senderid = this.data.senderid;
-        // let receiverid = this.data.receiverid;
+        let senderid = this.data.senderid;
+        let receiverid = this.data.receiverid;
         let pages = getCurrentPages()
         let prevPage = pages[pages.length - 2];
         prevPage.setData({
             resourcesID:id,
-            // senderid,
-            // receiverid
+            senderid,
+            receiverid,
+            action:1
         })
 
         wx.navigateBack({
@@ -65,9 +66,6 @@ Page({
             prevPage.getSendMsg()
           }
         })
-        // wx.navigateTo({
-        //     url: '/views/chat/chat?id=' + id+'&senderid='+senderid+'&receiverid='+receiverid,
-        // })
     },
 
     handleConfirm(e) {

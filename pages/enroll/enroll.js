@@ -1,4 +1,7 @@
-// pages/enroll/enroll.js
+import SMS from "../../models/sms/sms";
+import User from "../../models/user/user";
+
+
 Page({
     data: {
         inputList: [{
@@ -55,14 +58,61 @@ Page({
         if (!nickName || !password || !phone || !verifyCode || !username) {
             console.log(1)
             this.setData({
-                active: true
+                active: 1
             })
+
         } else {
             console.log(2)
             this.setData({
-                active: false
+                active: 2
             })
         }
+    },
+    handCode() {
+        let phone = this.data.phone;
+        console.log(phone)
+        let source = /^1[34578]\d{9}$/.test(phone);
+        if (source) {
+            this.setData({
+                disabled: true
+            })
+        }
+
+
+        SMS.UserSendsmsPhone({
+            phone
+        }).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showToast({
+                    title: '验证码发送成功',
+                    icon: 'none'
+                })
+
+                let time = 60;
+                this.setData({
+                    buttonName: `(${time})秒重新发送`
+                })
+                const interval = setInterval(() => {
+                    time -= 1;
+                    this.setData({
+                        buttonName: `(${time})秒重新发送`
+                    })
+                    if (time <= 0) {
+                        this.setData({
+                            buttonName: '秒重新发送',
+                            disabled: false,
+                        })
+                        clearInterval(interval)
+                    }
+                }, 1000);
+
+            } else {
+                wx.showToast({
+                    title: res.data.message,
+                })
+            }
+        })
     },
     handleInput(e) {
         let state = e.currentTarget.dataset.state;
@@ -96,6 +146,7 @@ Page({
         }
         this.btnstatus()
     },
+
     handleConfirm() {
         let nickName = this.data.nickName;
         let password = this.data.password;
@@ -109,5 +160,25 @@ Page({
             verifyCode,
             username
         }
+
+        User.UserRegistered(params).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showLoading({
+                    title: '注册成功',
+                })
+                setTimeout(function () {
+                    wx.hideLoading()
+                    wx.navigateBack({
+                        delta: 1,
+                    })
+                }, 1000)
+            } else {
+                wx.showToast({
+                  title: res.data.message,
+                })
+            }
+        })
+
     }
 })

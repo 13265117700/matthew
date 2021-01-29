@@ -220,7 +220,8 @@ Page({
         switch (user.identityDifference) {
           case 0:
             this.setData({
-              userInfo: user
+              userInfo: user,
+              ["ceilList[1].state"]: false
             })
             break;
           case 1:
@@ -230,6 +231,8 @@ Page({
               userInfo: user,
               ["ceilList[4].state"]: false,
               ["ceilList[5].state"]: false,
+              ["ceilList[0].state"]: false,
+              ["ceilList[1].state"]: true
             })
             break;
           case 2:
@@ -239,6 +242,8 @@ Page({
               userInfo: user,
               ["ceilList[5].state"]: false,
               ["ceilList[3].state"]: false,
+              ["ceilList[0].state"]: false,
+              ["ceilList[1].state"]: true
             })
             break;
           case 3:
@@ -248,23 +253,12 @@ Page({
               userInfo: user,
               ["ceilList[4].state"]: false,
               ["ceilList[3].state"]: false,
+              ["ceilList[0].state"]: false,
+              ["ceilList[1].state"]: true
             })
             break;
         }
 
-        // 如果已申请认证显示对应模块
-        if (user.idenID) {
-          console.log('有idenID')
-          this.setData({
-            ["ceilList[0].state"]: false,
-            ["ceilList[1].state"]: true
-          })
-        } else {
-          console.log('没有idenID')
-          this.setData({
-            ["ceilList[1].state"]: false
-          })
-        }
       })
     } else {
       this.setData({
