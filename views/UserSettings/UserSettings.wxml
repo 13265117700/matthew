@@ -4,6 +4,7 @@
       <view class="user-setUp_item"
         wx:for="{{setUpList}}"
         wx:key="index"
+        wx:if="{{item.show}}"
         data-index="{{index}}"
         data-id="{{item.id}}"
         bindtap="handSetUp">

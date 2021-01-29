@@ -48,7 +48,6 @@ Page({
   //获取资源列表
   isRelease() {
     let status = this.data.upAndDownState;
-
     let id = this.data.id;
 
     switch (id) {
@@ -231,6 +230,7 @@ Page({
 
     User.UserMtCargoQuery(params).then(res => {
       let cargoList = res.data.data.rows;
+      console.log(cargoList)
 
       wx.setNavigationBarTitle({
         title: '我发布的货源',

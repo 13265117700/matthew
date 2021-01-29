@@ -16,7 +16,7 @@
             </vtu-input-group>
             <view class="form-item_tips bottom" wx:if="{{peIndex == 3 && userInfo.password}}">
                 密码必须8个字符，而且同时包含字母和数字，不允许特殊字符，如%￥#*@</view>
-            <navigator url="" wx:if="{{peIndex == 3 && userInfo.password}}">忘记密码</navigator>
+            <navigator url="/views/UserForgotPassword/UserForgotPassword" wx:if="{{peIndex == 3 && userInfo.password}}">忘记密码</navigator>
         </view>
         <view class="setUp-Submit">
             <vtu-btn type="danger" bind:click="handSubmit">{{btnTitle}}</vtu-btn>

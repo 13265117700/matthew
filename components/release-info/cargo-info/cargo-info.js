@@ -672,6 +672,7 @@ Component({
             }
             console.log(params)
             User.UserMtCargoSave(params).then(res => {
+                console.log(res)
                 if (res.data.state === 200) {
                     wx.showLoading({
                         title: '添加成功,请等待审核通过',
@@ -685,9 +686,12 @@ Component({
 
                 } else {
                     wx.showToast({
-                        title: '请注意填写所有必填项目',
+                        title: res.data.message,
                         icon: 'loading'
                     })
+                    this.setData({
+                        visible: false
+                    });
                 }
             })
         },

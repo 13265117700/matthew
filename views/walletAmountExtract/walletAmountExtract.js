@@ -11,6 +11,7 @@ Page({
     onShow: function () {
 
     },
+    
     //打开弹框
     noShowPopup(){
         this.setData({

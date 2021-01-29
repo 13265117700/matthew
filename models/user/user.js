@@ -30,6 +30,10 @@ export default {
     userEditorNickName: function (data) {
         return request.post(api.userEditorNickName, data)
     },
+    //用户注册
+    UserRegistered: function (data) {
+        return request.post(api.UserRegistered, data)
+    },
 
 
 
@@ -197,10 +201,14 @@ export default {
     UserCargoConfirmOrderMoney: function (data) {
         return request.post(api.UserCargoConfirmOrderMoney, data)
     },
-
-
-
-
+    //货主评价
+    UserCargoEvaluation: function (data) {
+        return request.post(api.UserCargoEvaluation, data)
+    },
+    //船东评价
+    UserShipEvaluation: function (data) {
+        return request.post(api.UserShipEvaluation, data)
+    },
 
 
 }

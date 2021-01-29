@@ -10,7 +10,6 @@ Component({
     },
     lifetimes: {
         ready: function () {
-            this.getOrderInfo();
             this.getUserInfo()
         }
     },
@@ -129,22 +128,10 @@ Component({
             }
             User.userInfo(params).then(res => {
                 let user = res.data.data;
-                console.log(user)
-                if (user.identityDifference == 2) {
-                    console.log('货主')
-                    user.cargo = true
-                } else if (user.identityDifference == 3) {
-                    console.log('车主')
-                    user.car = true
-                } else if (user.identityDifference == 1) {
-                    console.log('船东')
-                    user.ship = true
-                }
-
                 this.setData({
                     userInfo: user
                 })
-
+                this.getOrderInfo();
             })
 
 
@@ -159,17 +146,16 @@ Component({
             };
             User.UserOrderQuery(params).then(res => {
                 let rows = res.data.data;
-
+                console.log(rows)
+                //船龄
                 let loadingDate = formatTime(new Date(parseInt(rows.mtCargo.loadingDate))).replace(/\//g, "-");
                 rows.loadingDate = loadingDate
-
                 let nowYears = new Date().getFullYear(); //当前年
                 let years = new Date(parseInt(rows.mtShip.ageShip)).getFullYear(); //船创建的年份
                 let nowMonth = new Date().getMonth(); //当前月
                 let month = new Date(parseInt(rows.mtShip.ageShip)).getMonth(); //船创建的月份
                 let nowDay = new Date().getDate(); //当前日
                 let day = new Date(parseInt(rows.mtShip.ageShip)).getDate(); //船创建的日
-
                 let age = nowYears - years;
                 let ageMonth = nowMonth - month;
                 if (age <= 0) {
@@ -182,39 +168,88 @@ Component({
                     rows.ageShip = age + '年'
                 }
 
-                console.log(rows)
+
+                //订单金额
+                let price = Math.round(parseFloat(rows.mtCargo.freightAmount) * 100) / 100;
+                let xsd = price.toString().split(".");
+                if (xsd.length == 1) {
+                    price = price.toString() + ".00";
+                }
+                if (xsd.length > 1) {
+                    if (xsd[1].length < 2) {
+                        price = price.toString() + "0";
+                    }
+                }
+
+
+                rows.price = price
                 this.setData({
                     orderdetail: rows
                 })
 
-                this.tabsOnChange();
+                this.tabsOnChange(rows);
 
             })
         },
         //状态切换按钮
-        tabsOnChange() {
+        tabsOnChange(rows) {
             let userInfo = this.data.userInfo;
             let orderBtu = this.data.orderBtu;
-            let orderdetail = this.data.orderdetail;
-
-            if (userInfo.ship) {
-                switch (orderdetail.status) {
-                    case 2:
-                        orderBtu.forEach(data => {
-                            console.log(data)
-                            if (data.state === 3 || data.state === 4) {
-                                data.show = true
-                                if (data.state === 4) {
-                                    data.type = 'danger'
-                                } else {
-                                    data.type = 'default'
-                                }
+            switch (rows.status) {
+                case 1:
+                    console.log(1)
+                    orderBtu.forEach(data => {
+                        if (data.state === 3 || data.state === 5) {
+                            data.show = true
+                            if (data.state === 5) {
+                                data.type = 'danger'
                             } else {
-                                data.show = false
+                                data.type = 'default'
                             }
-                        })
-                        break
-                    case 3:
+                        } else {
+                            data.show = false
+                        }
+                    })
+                    break;
+                case 2:
+                    console.log(2)
+                    orderBtu.forEach(data => {
+                        if (data.state === 3 || data.state === 4) {
+                            data.show = true
+                            if (data.state === 4) {
+                                data.type = 'danger'
+                            } else {
+                                data.type = 'default'
+                            }
+                        } else {
+                            data.show = false
+                        }
+                    })
+                    break;
+                case 3:
+                    console.log(3)
+                    if (userInfo.identityDifference == 1) {
+                        switch (rows.transportStatus) {
+                            case 0:
+                                orderBtu[5].title = '船准备到装货港'
+                                break;
+                            case 1:
+                                orderBtu[5].title = '船到装货港'
+                                break;
+                            case 2:
+                                orderBtu[5].title = '装好货'
+                                break;
+                            case 3:
+                                orderBtu[5].title = '运输中'
+                                break;
+                            case 4:
+                                orderBtu[5].title = '到达目的港'
+                                break;
+                            case 5:
+                                orderBtu[5].title = '卸货完成'
+                                break;
+                        }
+
                         orderBtu.forEach(data => {
                             if (data.state < 4 || data.state === 6) {
                                 data.show = true
@@ -227,26 +262,56 @@ Component({
                                 data.show = false;
                             }
                         })
-
-                        break
-                    case 5:
+                    } else {
                         orderBtu.forEach(data => {
-                            if (data.state < 4 && data.state > 1) {
+                            if (data.state < 4 || data.state === 10) {
                                 data.show = true
-                            } else if (data.state < 9 && data.state > 6) {
-                                data.show = true
-                                if (data.state === 8) {
+                                if (data.state === 10) {
                                     data.type = 'danger'
                                 } else {
                                     data.type = 'default'
                                 }
                             } else {
-                                data.show = false
+                                data.show = false;
                             }
                         })
+                    }
 
-                        break
-                    case 6:
+                    break;
+                case 4:
+                    console.log(4)
+                    orderBtu.forEach(data => {
+                        if (data.state < 4 && data.state > 1) {
+                            data.show = true
+                        } else if (data.state === 8) {
+                            data.show = true
+                            data.type = 'danger'
+                        } else {
+                            data.show = false
+                            data.type = 'default'
+                        }
+                    })
+                    break;
+                case 5:
+                    console.log(5)
+                    orderBtu.forEach(data => {
+                        if (data.state < 4 && data.state > 1) {
+                            data.show = true
+                        } else if (data.state < 9 && data.state > 6) {
+                            data.show = true
+                            if (data.state === 8) {
+                                data.type = 'danger'
+                            } else {
+                                data.type = 'default'
+                            }
+                        } else {
+                            data.show = false
+                        }
+                    })
+                    break;
+                case 6:
+                    console.log(6)
+                    if (userInfo.identityDifference == 1) {
                         orderBtu.forEach(data => {
                             if (data.state < 4 && data.state > 1) {
                                 data.show = true
@@ -261,90 +326,7 @@ Component({
                                 data.show = false
                             }
                         })
-                        break
-                    case 7:
-                        orderBtu.forEach(data => {
-                            if (data.state < 4 && data.state > 1) {
-                                data.show = true
-                            } else if (data.state === 7 || data.state === 12) {
-                                data.show = true
-                                if (data.state === 12) {
-                                    data.type = 'danger'
-                                } else {
-                                    data.type = 'default'
-                                }
-                            } else {
-                                data.show = false
-                            }
-                        })
-                        break
-                    case 8:
-                        orderBtu.forEach(data => {
-                            if (data.state === 9) {
-                                data.show = true
-                                data.type = 'default'
-                            } else {
-                                data.show = false
-                                data.type = 'default'
-                            }
-                        })
-
-                        break
-                }
-
-            } else if (userInfo.cargo) {
-                switch (orderdetail.status) {
-                    case 1:
-                        orderBtu.forEach(data => {
-                            if (data.state === 3 || data.state === 5) {
-                                data.show = true
-                                if (data.state === 5) {
-                                    data.type = 'danger'
-                                } else {
-                                    data.type = 'default'
-                                }
-                            } else {
-                                data.show = false
-                            }
-                        })
-
-                        break
-                    case 3:
-                        orderBtu.forEach(data => {
-                            if (data.state < 4 || data.state === 10) {
-                                data.show = true
-                                if (data.state === 10) {
-                                    data.type = 'danger'
-                                } else {
-                                    data.type = 'default'
-                                }
-                            } else {
-                                data.show = false;
-                            }
-                        })
-
-                        break
-                    case 4:
-                        orderBtu.forEach(data => {
-                            if (data.state < 4 && data.state > 1) {
-                                data.show = true
-                            } else if (data.state === 8) {
-                                data.show = true
-                                data.type = 'danger'
-                            } else {
-                                data.show = false
-                                data.type = 'default'
-                            }
-                        })
-
-                        break
-                    case 5:
-                        console.log(5)
-                        orderBtu.forEach(data => {
-                            console.log(data)
-                        })
-                        break
-                    case 6:
+                    } else {
                         orderBtu.forEach(data => {
                             if (data.state < 4 && data.state > 1) {
                                 data.show = true
@@ -359,9 +341,27 @@ Component({
                                 data.show = false
                             }
                         })
+                    }
 
-                        break
-                    case 7:
+                    break;
+                case 7:
+                    console.log(7)
+                    if (userInfo.identityDifference == 1) {
+                        orderBtu.forEach(data => {
+                            if (data.state < 4 && data.state > 1) {
+                                data.show = true
+                            } else if (data.state === 7 || data.state === 12) {
+                                data.show = true
+                                if (data.state === 12) {
+                                    data.type = 'danger'
+                                } else {
+                                    data.type = 'default'
+                                }
+                            } else {
+                                data.show = false
+                            }
+                        })
+                    } else {
                         orderBtu.forEach(data => {
                             if (data.state < 4 && data.state > 1) {
                                 data.show = true
@@ -376,22 +376,21 @@ Component({
                                 data.show = false
                             }
                         })
+                    }
 
-                        break
-                    case 8:
-                        orderBtu.forEach(data => {
-                            if (data.state === 9) {
-                                data.show = true
-                                data.type = 'default'
-                            } else {
-                                data.show = false
-                                data.type = 'default'
-                            }
-                        })
-
-                        break
-                }
-
+                    break;
+                case 8:
+                    console.log(8)
+                    orderBtu.forEach(data => {
+                        if (data.state === 9) {
+                            data.show = true
+                            data.type = 'default'
+                        } else {
+                            data.show = false
+                            data.type = 'default'
+                        }
+                    })
+                    break;
             }
 
             console.log(orderBtu)
@@ -424,11 +423,11 @@ Component({
                     })
                     break;
                 case 3:
-                    if (userInfo.cargo) {
+                    if (userInfo.identityDifference == 2) {
                         wx.navigateTo({
                             url: '/views/chat/chat?senderid=' + usercargoid + '&receiverid=' + usershipid,
                         })
-                    } else if (userInfo.ship) {
+                    } else {
                         wx.navigateTo({
                             url: '/views/chat/chat?senderid=' + usershipid + '&receiverid=' + usercargoid,
                         })
@@ -455,17 +454,22 @@ Component({
                     break;
                 case 6:
                     console.log('船到装货港')
+                    wx.navigateTo({
+                        url: '/views/OrderShipment/OrderShipment?id=' + shippingOrderId,
+                    })
                     break;
                 case 7:
                     console.log('承运轨迹')
+                    wx.navigateTo({
+                        url: '/views/OrderTracking/OrderTracking?id=' + shippingOrderId,
+                    })
                     break
                 case 8:
-                    console.log('确认价格')
-                    if (userInfo.cargo) {
+                    if (userInfo.identityDifference == 2) {
                         this.setData({
                             moneyShow1: true
                         })
-                    } else if (userInfo.ship) {
+                    } else {
                         this.setData({
                             shipmoneyShow: true
                         })

@@ -1,5 +1,3 @@
-<!--views/OrderInformation/OrderInformation.wxml-->
-
 <!-- 订单信息 -->
 
 <view class="box">

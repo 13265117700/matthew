@@ -6,11 +6,6 @@
     border-top-right-radius: 10px;
 }
 
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
 
 .header .subtitle {
     font-family: PingFang-SC-Bold;
@@ -31,13 +26,33 @@
     left: 0;
 }
 
-.header .search {}
+.header .search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.header .search .wrap{
+    display: flex;
+    align-items: center;
+}
+.header .search input{
+    background: #F3F3F3;
+    border-radius: 15px;
+    width: 110px;
+    padding: 4px 0;
+    text-align: center;
+    font-size: 12px;
+}
+.header .search .divider{
+    margin: 0 5px;
+}
 
 .main {}
 
 .trend-list {
     padding-top: 19.5px;
-    border-top: 0.5px solid #EEEEEE;
+    /* border-top: 0.5px solid #EEEEEE; */
 }
 
 .trend-item {
@@ -82,4 +97,8 @@
     font-weight: Medium;
     color: #009EEB;
     font-size: 14px;
+}
+
+.trend-status.active {
+    color: #E3211F;
 }

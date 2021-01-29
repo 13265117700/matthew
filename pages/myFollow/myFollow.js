@@ -41,13 +41,13 @@ Page({
         }
         User.userInfo(params).then(res => {
             let user = res.data.data;
-            if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+            if (user.identityDifference == 2) {
                 console.log('货主')
                 user.cargo = true
-            } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+            } else if (user.identityDifference == 3) {
                 console.log('车主')
                 user.car = true
-            } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+            } else if (user.identityDifference == 1) {
                 console.log('船东')
                 user.ship = true
             }

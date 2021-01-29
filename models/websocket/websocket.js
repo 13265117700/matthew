@@ -31,7 +31,6 @@ const webSocket = {
         this.data.senderId = options.senderId;
         this.data.receiverId = options.receiverId;
        
-
         socketOpen = false;
         socketClose = false;
         socketMsgQueue = [];
@@ -62,7 +61,6 @@ const webSocket = {
 
         return new Promise((resolve, reject) => {
             if(socketOpen){
-                console.log(123)
                 wx.sendSocketMessage({
                     data: JSON.stringify(dataContent),
                     success:(res) => {
@@ -139,6 +137,7 @@ const webSocket = {
         let chatMsg = new startWebSocket.ChatMsg(senderId,receiverId,msg,null);//构建chatMsg
         let dataContent = new startWebSocket.DataContent(action, chatMsg, null);// 构建DataContent
 
+        console.log(action)
         if(socketOpen){
             wx.sendSocketMessage({
               data: JSON.stringify(dataContent),

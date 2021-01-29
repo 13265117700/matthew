@@ -4,11 +4,76 @@
             <text>资金流水单</text>
         </view>
         <view class="search">
-            <van-search value="{{ value }}" shape="round" background="#FFF" placeholder="搜索" />
+            <view class="wrap">
+                <input type="number" placeholder="最低吨" placeholder-style="color: #DCDCDC;"
+                    bindinput="handleMinValue" />
+                <view class="divider">-</view>
+                <input type="number" placeholder="最高吨" placeholder-style="color: #DCDCDC;"
+                    bindinput="handleMaxValue" />
+            </view>
+            <view class="btn">
+                <van-button round type="danger" size="small" bind:click="handlesearch">搜索</van-button>
+            </view>
         </view>
     </view>
     <vew class="main">
-        <van-tabs active="{{active}}" bind:change="onTabs">
+        <view class="trend-list">
+            <view class="trend-item" wx:for="{{trend}}" wx:key="index" wx:for-item="trendItem">
+                <view class="trend-info">
+                    <view class="trend-amount">
+                        <view class="trend-amount_subtitle">
+                            <text>金额：</text>
+                        </view>
+                        <view class="trend-amount_number">
+                            <text>￥{{trendItem.amount}}</text>
+                        </view>
+                    </view>
+                    <view class="trend-date">
+                        <text>{{trendItem.createTime}}</text>
+                    </view>
+                </view>
+                <view class="trend-status {{trendItem.status == 0 ? 'active':''}}">
+                    <text>{{trendItem.status == 0 ? '失败':'成功'}}</text>
+                </view>
+            </view>
+            <!-- <view class="trend-item">
+                <view class="trend-info">
+                    <view class="trend-amount">
+                        <view class="trend-amount_subtitle">
+                            <text>充值金额：</text>
+                        </view>
+                        <view class="trend-amount_number">
+                            <text>￥1220.00</text>
+                        </view>
+                    </view>
+                    <view class="trend-date">
+                        <text>2020-08-22 16:22</text>
+                    </view>
+                </view>
+                <view class="trend-status">
+                    <text>充值成功</text>
+                </view>
+            </view>
+            <view class="trend-item">
+                <view class="trend-info">
+                    <view class="trend-amount">
+                        <view class="trend-amount_subtitle">
+                            <text>充值金额：</text>
+                        </view>
+                        <view class="trend-amount_number">
+                            <text>￥1220.00</text>
+                        </view>
+                    </view>
+                    <view class="trend-date">
+                        <text>2020-08-22 16:22</text>
+                    </view>
+                </view>
+                <view class="trend-status">
+                    <text>充值成功</text>
+                </view>
+            </view> -->
+        </view>
+        <!-- <van-tabs active="{{active}}" bind:change="onTabs">
             <van-tab wx:for="{{tabs}}" wx:key="index" wx:for-item="tabitem" title="{{tabitem.title}}"
                 name="{{tabitem.status}}">
                 <view class="trend-list">
@@ -68,6 +133,6 @@
                     </view>
                 </view>
             </van-tab>
-        </van-tabs>
+        </van-tabs> -->
     </vew>
 </view>

@@ -4,7 +4,7 @@
       <text>可申请发票金额</text>
     </view>
     <view class="amount">
-      <text>10000.00</text>
+      <text>{{mtWallet.invoiceAmount}}</text>
       <view class="unit">
         <text>元</text>
       </view>

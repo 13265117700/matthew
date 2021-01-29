@@ -41,20 +41,26 @@ Page({
     console.log(transportStatus)
     switch (transportStatus) {
       case 0:
+        wx.setNavigationBarTitle({
+          title: '船抵达装货港',
+        })
         this.setData({
-          navbartitle: '船抵达装货港',
           btutitle: '确认船到装货港'
         })
         break
       case 1:
+        wx.setNavigationBarTitle({
+          title: '上传订单跟踪',
+        })
         this.setData({
-          navbartitle: '上传订单跟踪',
           btutitle: '确认装好货'
         })
         break
       case 3:
+        wx.setNavigationBarTitle({
+          title: '上传订单跟踪',
+        })
         this.setData({
-          navbartitle: '上传订单跟踪',
           btutitle: '确认卸货完成'
         })
         break
@@ -100,28 +106,44 @@ Page({
     let Authorization = wx.getStorageSync('Authorization');
     let processImg = [...(this.data.processImg.map(data => data.url))];
     let processContent = this.data.processContent;
+    console.log(processImg)
+    if (processImg.length == 0) {
+      wx.showToast({
+        title: '请上传照片',
+        icon: 'none'
+      })
+      return
+    }
+    if (!processContent) {
+      wx.showToast({
+        title: '请填写补充说明',
+        icon: 'none'
+      })
+      return
+    }
     let params = {
       id,
       Authorization,
       processImg: processImg.toString(),
       processContent
     }
-    console.log(params)
+
     User.UserShipUploadProcess(params).then(res => {
-      console.log(res)
       if (res.data.state === 200) {
         if (transportStatus != 3) {
           let pages = getCurrentPages();
           let prevPage = pages[pages.length - 2];
-          prevPage.setData({
-            processShow: true
+          wx.showLoading({
+            title: '上传成功',
           })
+          prevPage.getstepsPro()
           setTimeout(function () {
+            wx.hideLoading()
             wx.navigateBack({
               delta: 1,
-            }, 1000)
-          })
-        }else{
+            })
+          }, 1000)
+        } else {
           wx.navigateBack({
             delta: 1,
           })

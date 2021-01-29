@@ -51,11 +51,11 @@ Page({
 
     //点击底部导航
     handleClickTabbar(event) {
-        console.log(event)
+
         this.setData({
             activeIndex: event.detail
         })
-        console.log(this.data.activeIndex)
+
         let activeIndex = this.data.activeIndex;
         if (activeIndex === 0) {
             wx.setNavigationBarTitle({
@@ -325,12 +325,12 @@ Page({
 
     // 打开聊天对话
     BeganToChat(e) {
-        console.log(e)
         let receiverid = e.currentTarget.dataset.receiverid; //好友的ID
         let senderid = e.currentTarget.dataset.senderid; //我的ID
-        console.log(receiverid, senderid)
+        let action = 1; //第一次连接聊天
+        let msg = ''; //
         wx.navigateTo({
-            url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid,
+            url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid + '&action=' + action + '&msg=' + msg,
         })
     },
 

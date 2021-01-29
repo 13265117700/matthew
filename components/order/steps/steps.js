@@ -14,32 +14,10 @@ Component({
     },
     data: {
         userInfo: {},
-        stepsummary: [{
-            title: '船到装货港',
-            describe: '待船东上传船到港图片',
-            show: true,
-            index: 0,
-        }, {
-            title: '装好货',
-            describe: '待船东上传装好货图片',
-            show: false,
-            index: 1,
-        }, {
-            title: '运输中',
-            describe: '请等待船东确认到达目的地',
-            show: false,
-            index: 2,
-        }, {
-            title: '到达目的港',
-            describe: '待船东上传到港图片',
-            show: false,
-            index: 3,
-        }, {
-            title: '卸货完成',
-            describe: '卸货完成',
-            show: false,
-            index: 4,
-        }],
+        stepsummary: {
+            title: '',
+            describe: ''
+        },
         steps: [{
             title: '船到装货港',
             status: 'success',
@@ -96,12 +74,18 @@ Component({
     },
     methods: {
         getUserInfo() {
-            let userInfo = App.globalData.userInfo
-            this.setData({
-                userInfo: userInfo
+            let Authorization = wx.getStorageSync('Authorization');
+            User.userInfo({
+                Authorization
+            }).then(res => {
+                let userInfo = res.data.data;
+                this.setData({
+                    userInfo
+                })
             })
         },
         getOrderInfo() {
+            console.log(123)
             let id = this.properties.orderID;
             let Authorization = wx.getStorageSync('Authorization');
             let params = {
@@ -120,15 +104,13 @@ Component({
         btnStatus(rows) {
             let stepsbtn = this.data.stepsbtn;
             let stepsummary = this.data.stepsummary;
+            let index = 0;
+
             switch (rows.transportStatus) {
                 case 0:
-                    stepsummary.forEach(data => {
-                        if (data.index == 0) {
-                            data.show = true
-                        } else {
-                            data.show = false
-                        }
-                    })
+                    stepsummary.title = '正在去往装货港';
+                    stepsummary.describe = '正在去往装货港';
+                    index = 0;
                     stepsbtn.forEach(data => {
                         if (data.state === 1) {
                             data.show = true
@@ -136,20 +118,12 @@ Component({
                             data.show = false
                         }
                     })
-                    this.setData({
-                        stepsummary,
-                        stepsbtn,
-                        index: 0
-                    })
+                    
                     break;
                 case 1:
-                    stepsummary.forEach(data => {
-                        if (data.index == 1) {
-                            data.show = true
-                        } else {
-                            data.show = false
-                        }
-                    })
+                    stepsummary.title = '船到装货港';
+                    stepsummary.describe = '待船东上传船到港图片';
+                    index = 0;
                     stepsbtn.forEach(data => {
                         if (data.state === 2) {
                             data.show = true
@@ -158,19 +132,11 @@ Component({
                         }
                     })
 
-                    this.setData({
-                        stepsbtn,
-                        index: 0
-                    })
                     break;
                 case 2:
-                    stepsummary.forEach(data => {
-                        if (data.index == 2) {
-                            data.show = true
-                        } else {
-                            data.show = false
-                        }
-                    })
+                    stepsummary.title = '装好货';
+                    stepsummary.describe = '待船东上传装好货图片';
+                    index = 1;
                     stepsbtn.forEach(data => {
                         if (data.state === 3) {
                             data.show = true
@@ -179,19 +145,11 @@ Component({
                         }
                     })
 
-                    this.setData({
-                        stepsbtn,
-                        index: 1
-                    })
                     break;
                 case 3:
-                    stepsummary.forEach(data => {
-                        if (data.index == 3) {
-                            data.show = true
-                        } else {
-                            data.show = false
-                        }
-                    })
+                    stepsummary.title = '运输中';
+                    stepsummary.describe = '请等待船东确认到达目的地';
+                    index = 2;
                     stepsbtn.forEach(data => {
                         if (data.state === 4) {
                             data.show = true
@@ -200,19 +158,11 @@ Component({
                         }
                     })
 
-                    this.setData({
-                        stepsbtn,
-                        index: 2
-                    })
                     break;
                 case 4:
-                    stepsummary.forEach(data => {
-                        if (data.index == 4) {
-                            data.show = true
-                        } else {
-                            data.show = false
-                        }
-                    })
+                    stepsummary.title = '到达目的港';
+                    stepsummary.describe = '待船东上传到港图片';
+                    index = 3;
                     stepsbtn.forEach(data => {
                         if (data.state === 5) {
                             data.show = true
@@ -221,19 +171,11 @@ Component({
                         }
                     })
 
-                    this.setData({
-                        stepsbtn,
-                        index: 3
-                    })
                     break;
                 case 5:
-                    stepsummary.forEach(data => {
-                        if (data.index == 4) {
-                            data.show = true
-                        } else {
-                            data.show = false
-                        }
-                    })
+                    stepsummary.title = '卸货完成';
+                    stepsummary.describe = '卸货完成';
+                    index = 4;
                     stepsbtn.forEach(data => {
                         if (data.state === 6) {
                             data.show = true
@@ -242,60 +184,39 @@ Component({
                         }
                     })
 
-                    this.setData({
-                        stepsbtn,
-                        index: 4
-                    })
             }
 
+            this.setData({
+                stepsummary,
+                stepsbtn,
+                index
+            })
 
         },
 
         //船东订单状态按钮
         handleStepsBtn(e) {
             let state = e.currentTarget.dataset.state;
+            console.log(state)
             let id = this.properties.orderID;
             let Authorization = wx.getStorageSync('Authorization');
-            switch (state) {
-                case 1:
-                    wx.navigateTo({
-                        url: '/views/OrderShipment/OrderShipment?id=' + id,
-                    })
-                    break;
-                case 2:
-                    wx.navigateTo({
-                        url: '/views/OrderShipment/OrderShipment?id=' + id,
-                    })
-                    break;
-                case 3:
-                    User.UserShipUploadProcess({
-                        Authorization,
-                        id
-                    }).then(res => {
-                        if (res.data.state === 200) {
-                            this.getOrderDetails()
-                        }
-                    })
-                    break;
-                case 4:
-                    wx.navigateTo({
-                        url: '/views/OrderShipment/OrderShipment?id=' + id,
-                    })
-                    break;
-                case 5:
-                    User.UserShipUploadProcess({
-                        Authorization,
-                        id
-                    }).then(res => {
-                        if (res.data.state === 200) {
-                            this.getOrderDetails()
-                        }
-                    })
-                    break;
-                case 6:
-                    console.log(1)
-                    break;
-
+            if (state < 3 || state == 4) {
+                wx.navigateTo({
+                    url: '/views/OrderShipment/OrderShipment?id=' + id,
+                })
+            } else if (state == 6) {
+                wx.navigateTo({
+                    url: '/views/OrderTracking/OrderTracking?id=' + id,
+                })
+            } else {
+                User.UserShipUploadProcess({
+                    Authorization,
+                    id
+                }).then(res => {
+                    if (res.data.state === 200) {
+                        this.getOrderInfo()
+                    }
+                })
             }
         },
 
@@ -305,6 +226,6 @@ Component({
             wx.navigateTo({
                 url: '/views/OrderTracking/OrderTracking?id=' + id,
             })
-        }
+        },
     }
 })

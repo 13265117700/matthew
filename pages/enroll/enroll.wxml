@@ -19,7 +19,7 @@
     </view>
     <view class="enroll-btn-container">
         <view class="enroll-btn">
-            <vtu-btn v-class="form-btn" type="danger" round="true" disabled="{{active}}" bind:click="handleConfirm">
+            <vtu-btn v-class="form-btn" type="danger" round="true" disabled="{{active == 1 ? true:false}}" bind:click="handleConfirm">
                 注册</vtu-btn>
         </view>
         <view class="enroll-summary">

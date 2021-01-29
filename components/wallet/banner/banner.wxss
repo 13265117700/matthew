@@ -71,7 +71,7 @@
 .wrap-up .btn {
   flex: 1;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
 
 .wrap-down {

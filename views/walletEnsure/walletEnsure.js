@@ -10,4 +10,9 @@ Page({
     onShow: function () {
         
     },
+    handlewithdrawal(){
+        wx.navigateTo({
+          url: '/views/walletAmountExtract/walletAmountExtract',
+        })
+    }
 })

@@ -4,17 +4,16 @@
             <view class="steps-summary_icon">
                 <image src="/images/order/dww.png"></image>
             </view>
-            <view class="steps-summary_info" wx:for="{{stepsummary}}" wx:key="index" wx:for-item="stepsummaryindex"
-                wx:if="{{stepsummaryindex.show}}">
-                <view class="steps-summary_info_text">{{stepsummaryindex.title}}</view>
-                <view class="steps-summary_info_describe">{{stepsummaryindex.describe}}</view>
+            <view class="steps-summary_info">
+                <view class="steps-summary_info_text">{{stepsummary.title}}</view>
+                <view class="steps-summary_info_describe">{{stepsummary.describe}}</view>
             </view>
         </view>
-        <view class="steps-btu" wx:for="{{stepsbtn}}" wx:key="index" wx:for-item="btnItem" wx:if="{{btnItem.show && userInfo.ship}}"
+        <view class="steps-btu" wx:for="{{stepsbtn}}" wx:key="index" wx:for-item="btnItem" wx:if="{{btnItem.show && userInfo.identityDifference == 1}}"
             data-state="{{btnItem.state}}" bindtap="handleStepsBtn">
             <text>{{btnItem.title}}</text>
         </view>
-        <view class="steps-btu" wx:if="{{userInfo.cargo}}" bindtap="handCargoStepsBtu">
+        <view class="steps-btu" wx:if="{{userInfo.identityDifference == 2}}" bindtap="handCargoStepsBtu">
             <text>订单轨迹</text>
         </view>
     </view>

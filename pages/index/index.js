@@ -94,13 +94,14 @@ Page({
     }
     User.userInfo(params).then(res => {
       let user = res.data.data;
-      if (user.mtCargoOwner.idNumber != null && user.mtCargoOwner.idNumber != ' ') {
+      console.log(user)
+      if (user.identityDifference == 2) {
         console.log('货主')
         user.cargo = true
-      } else if (user.mtOwner.idNumber != null && user.mtOwner.idNumber != ' ') {
+      } else if (user.identityDifference == 3) {
         console.log('车主')
         user.car = true
-      } else if (user.mtShipowner.idNumber != null && user.mtShipowner.idNumber != ' ') {
+      } else if (user.identityDifference == 1) {
         console.log('船东')
         user.ship = true
       }
@@ -196,7 +197,6 @@ Page({
 
   //进入船、货源信息
   gotoResourcesList(e) {
-    console.log(e)
     let Authorization = wx.getStorageSync('Authorization');
     if (Authorization) {
       let id = e.currentTarget.dataset.id;
@@ -204,7 +204,7 @@ Page({
       let userInfo = this.data.userInfo;
       switch (id) {
         case 9999998:
-          if (userInfo.cargo) {
+          if (userInfo.identityDifference == 2) {
             wx.showToast({
               title: '您当前是货主',
               icon: 'loading'
@@ -218,7 +218,7 @@ Page({
           break;
 
         case 9999999:
-          if (userInfo.ship) {
+          if (userInfo.identityDifference == 1) {
             wx.showToast({
               title: '您当前是船东',
               icon: 'loading'

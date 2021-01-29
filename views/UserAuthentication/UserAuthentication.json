@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "筛选",
   "usingComponents": {
     "vtu-imgPicker": "/miniprogram_npm/vtuweapp/imgPicker/vtu-imgPicker",
     "i-radio-group": "/miniprogram_npm/iview-weapp/radio-group/index",

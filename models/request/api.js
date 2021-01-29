@@ -20,6 +20,14 @@ export default {
     userForgotPassword:`${PREFIX}/user/information/forgetPassword`,//设置登录密码/忘记密码
     userEditorPassword:`${PREFIX}/user/information/changePassword`,//用户修改密码
     userEditorNickName:`${PREFIX}/user/information/modifyUserInformation`,//用户修改昵称/头像
+    UserRegistered:`${PREFIX}/login/register`,//用户注册
+
+
+    //用户流水
+    UserFundTrendList:`${PREFIX}/user/flowingWater/mtNameGoodsFriends`,//用户流水列表
+    moneyFunItem:`${PREFIX}/user/flowingWater/findByFlowingWaterId`,//资金流水单号查询
+
+
 
 
 
@@ -83,6 +91,8 @@ export default {
     UserShipConfirmOrderMoney: `${PREFIX}/user/shippingOrder/shipConfirmationAmount`, //船东确认订单金额
     UserShipUploadProcess: `${PREFIX}/user/shippingOrder/transportationProcess`, //船东上传运输流程
     UserCargoConfirmOrderMoney: `${PREFIX}/user/shippingOrder/cargoConfirmationAmount`, //货主确认订单金额
+    UserCargoEvaluation:`${PREFIX}/user/shippingOrder/cargoEvaluation`,//货主评价
+    UserShipEvaluation:`${PREFIX}/user/shippingOrder/shipEvaluation`,//船东评价
 
 
     //用户维权管理
