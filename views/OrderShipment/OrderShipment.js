@@ -106,7 +106,7 @@ Page({
     let Authorization = wx.getStorageSync('Authorization');
     let processImg = [...(this.data.processImg.map(data => data.url))];
     let processContent = this.data.processContent;
-    console.log(processImg)
+
     if (processImg.length == 0) {
       wx.showToast({
         title: '请上传照片',

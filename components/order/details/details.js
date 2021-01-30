@@ -113,9 +113,13 @@ Component({
             type: 'danger'
         }],
 
-        orderPrice: '',
-        delayedCost: '',
-        loss: '',
+        delayedCostValue: 0, //滞期值
+        lossValue: 0, //亏损值
+        inputValue: 0, //最终值
+
+        orderPrice: '', //最终价格
+        delayedCost: '', //滞期费
+        loss: '', //亏损
     },
     methods: {
         //获取用户
@@ -610,8 +614,12 @@ Component({
         },
         //滞期费输入框
         handledemurrage(e) {
-            let value = e.detail.value;
-            let price = Math.round(parseFloat(value) * 100) / 100;
+            let delayedCostValue = Number(e.detail.value);
+            let lossValue = Number(this.data.lossValue);
+            let existingValue = this.data.orderdetail.mtCargo.freightAmount;
+            let value = existingValue + delayedCostValue - lossValue;
+
+            let price = Math.round(parseFloat(delayedCostValue) * 100) / 100;
             let xsd = price.toString().split(".");
             if (xsd.length == 1) {
                 price = price.toString() + ".00";
@@ -621,16 +629,35 @@ Component({
                     price = price.toString() + "0";
                 }
             }
+
+            let total = Math.round(parseFloat(value) * 100) / 100;
+            let ln = total.toString().split(".");
+            if (ln.length == 1) {
+                total = total.toString() + ".00"
+            }
+            if (ln.length > 1) {
+                if (ln[1].length < 2) {
+                    total = total.toString() + "0";
+                }
+            }
+
             this.setData({
-                delayedCost: price
+                delayedCost: price,
+                orderPrice: total,
+                delayedCostValue,
+                inputValue:value
             })
 
         },
         //亏损费输入框
         handleloss(e) {
-            let value = e.detail.value;
+            let lossValue = Number(e.detail.value);
+            let delayedCostValue = Number(this.data.delayedCostValue);
+            let existingValue = this.data.orderdetail.mtCargo.freightAmount;
+            let value = existingValue + delayedCostValue - lossValue;
 
-            let price = Math.round(parseFloat(value) * 100) / 100;
+
+            let price = Math.round(parseFloat(lossValue) * 100) / 100;
             let xsd = price.toString().split(".");
             if (xsd.length == 1) {
                 price = price.toString() + ".00";
@@ -641,8 +668,22 @@ Component({
                 }
             }
 
+            let total = Math.round(parseFloat(value) * 100) / 100;
+            let ln = total.toString().split(".");
+            if (ln.length == 1) {
+                total = total.toString() + ".00"
+            }
+            if (ln.length > 1) {
+                if (ln[1].length < 2) {
+                    total = total.toString() + "0";
+                }
+            }
+
             this.setData({
-                loss: price
+                loss: price,
+                orderPrice: total,
+                lossValue,
+                inputValue:value
             })
         },
         //货主确认价钱弹框按钮
