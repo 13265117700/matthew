@@ -83,4 +83,16 @@
             <text>如需要修改发票信息请联系在线客服</text>
         </view>
     </view>
+    <view class="info-group {{state ? 'active':''}}" wx:if="{{state}}">
+        <view class="info-note">
+            <text>申请发票即表示同意</text>
+            <navigator url="/views/InvoiceAgreement/InvoiceAgreement">发票协议</navigator>
+        </view>
+        <view class="info-btn">
+            <van-button type="danger" size="large" custom-style="{{btnstyle}}" bind:click="onShowDialog">申请发票
+            </van-button>
+        </view>
+        <van-dialog use-slot title="确定申请发票吗？" show="{{ show }}" show-cancel-button bind:close="onClose" bind:confirm="oninvoiceapply">
+        </van-dialog>
+    </view>
 </view>

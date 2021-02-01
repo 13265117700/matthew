@@ -1,27 +1,18 @@
-.container {
-    height: 100%;
-    background: #fff;
-}
+.page-container{
 
-.primary {
+}
+.header{
     text-align: center;
     padding: 40px 0 45px;
     font-family: PingFang-SC-Bold;
     font-weight: bold;
     color: #191919;
 }
-
-.suntitle {
-    font-size: 15px;
-    margin-bottom: 19px;
-}
-
-.amount {
+.amount{
     font-size: 30px;
     margin-bottom: 15px;
 }
-
-.status {
+.status{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,36 +21,47 @@
     color: #666666;
     font-size: 14px;
 }
-
-.status .icon {
+.status-icon{
     width: 15px;
     height: 15px;
     margin-right: 8px;
 }
-
-.status .icon image {
+.status-icon image{
     width: 15px;
     height: 15px;
 }
+.status-text{
 
-.text {}
+}
 
-.list {}
-
-.item {
+.main{
+    background: #fff;
+    margin: 0 15px;
+    padding: 15px 15px 0;
+    border-radius: 10px;
+}
+.detail-item{
+    padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
-    padding: 0 30px;
     font-size: 15px;
-    font-weight: Medium;
     font-family: PingFang-SC-Medium;
-    margin-bottom: 21px;
+    font-weight: Medium;
 }
-
-.list .item .subtitle {
+.detail-subtitle{
     color: #929292;
 }
-
-.list .item .text {
+.detail-text{
     color: #212221;
 }
+.detail-item.active{
+    border-bottom: 0.5px solid #E5E5E5;
+}
+.detail-item.checked{
+    flex-direction: column;
+    padding-top: 20px;
+}
+.detail-item.checked .detail-subtitle{
+    margin-bottom: 14px;
+}
+

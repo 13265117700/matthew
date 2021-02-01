@@ -1,0 +1,9 @@
+{
+    "component": true,
+    "usingComponents": {
+        "van-search": "/miniprogram_npm/@vant/weapp/search/index",
+        "van-image": "/miniprogram_npm/@vant/weapp/image/index",
+        "vtu-avatar": "/miniprogram_npm/vtuweapp/avatar/vtu-avatar",
+        "van-divider": "/miniprogram_npm/@vant/weapp/divider/index"
+    }
+}

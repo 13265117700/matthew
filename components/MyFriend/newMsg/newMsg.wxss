@@ -1,0 +1,60 @@
+.user-search{
+    display: flex;
+    align-items: center;
+    /* padding: 0 15px; */
+    background: #fff;
+}
+.user-search.friend-search{
+    margin-top: 15px;
+}
+van-search{
+    flex: 1;
+}
+.user-search_btu{
+    height: 54px;
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+.user-search_btu image{
+    width: 24px;
+    height: 20px;
+}
+.user-list{
+    flex: 1;
+    margin-top: 10px;
+    padding-bottom: 50px;
+}
+.user-item{
+    display: flex;
+    align-items: center;
+    padding: 11.5px 15px;
+    border-bottom: 1px solid #E5E5E5;
+    background: #fff;
+}
+.user-item:last-child{
+    border: none;
+}
+.user-avatar{
+    margin-right: 10px;
+}
+.user-info{
+    flex: 1;
+    display: flex;
+}
+.user-info_or{
+    flex: 1;
+}
+.user-name{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #191919;
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+.user-msg{
+    font-family: PingFang-SC-Medium;
+    font-weight: Medium;
+    color: #B3B3B3;
+    font-size: 13px;
+}

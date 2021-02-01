@@ -7,7 +7,7 @@ export default {
         return request.get(api.UserFundTrendList, data)
     },
     //资金流水单号查询
-    moneyFunItem: function (data) {
-        return request.get(api.moneyFunItem, data)
+    UserFundTrendDetail: function (data) {
+        return request.get(api.UserFundTrendDetail, data)
     }
 }

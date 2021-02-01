@@ -34,6 +34,10 @@ export default {
     UserRegistered: function (data) {
         return request.post(api.UserRegistered, data)
     },
+    //用户添加银行卡信息
+    UserAddBankCardInfo: function (data) {
+        return request.post(api.UserAddBankCardInfo, data)
+    },
 
 
 

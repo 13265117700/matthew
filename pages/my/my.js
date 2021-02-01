@@ -303,6 +303,12 @@ Page({
             url: '/views/wallet/wallet',
           })
           break;
+        case 1:
+          wx.showToast({
+            title: '功能正在建设中',
+            icon:'loading'
+          })
+          break;
         case 2:
           wx.navigateTo({
             url: '/views/BankCard/BankCard',

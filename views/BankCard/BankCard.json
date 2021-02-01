@@ -2,6 +2,7 @@
   "navigationBarTitleText": "银行卡",
   "usingComponents": {
     "van-swipe-cell": "/miniprogram_npm/@vant/weapp/swipe-cell/index",
-    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index"
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index",
+    "van-divider": "/miniprogram_npm/@vant/weapp/divider/index"
   }
 }

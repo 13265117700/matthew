@@ -1,7 +1,9 @@
 {
     "pages": [
+        
         "pages/index/index",
         "pages/logs/logs",
+        "pages/enroll/enroll",
         "pages/myFollow/myFollow",
         "pages/deliver/deliver",
         "pages/order/order",
@@ -38,10 +40,10 @@
         "views/userShipDateDetail/userShipDateDetail",
         "views/MyAddressAdd/MyAddressAdd",
         "views/invoiceInfo/invoiceInfo",
-        "views/Screening/Screening",
-        "views/Preferences/Preferences",
         "views/InvoiceAdmin/InvoiceAdmin",
         "views/InvoiceAgreement/InvoiceAgreement",
+        "views/Screening/Screening",
+        "views/Preferences/Preferences",
         "views/creditQuery/creditQuery",
         "views/OrderEvaluate/OrderEvaluate",
         "views/MyAddress/MyAddress",
@@ -54,7 +56,6 @@
         "views/walletExtractDetail/walletExtractDetail",
         "views/BankCard/BankCard",
         "views/BankCardAdd/BankCardAdd",
-        "pages/enroll/enroll",
         "views/walletEnsure/walletEnsure",
         "views/top-up/top-up",
         "views/UserForgotPassword/UserForgotPassword"

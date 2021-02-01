@@ -1,66 +1,42 @@
-// views/walletTrendDetail/walletTrendDetail.js
+import FundTrend from "../../models/user/fundTrend";
+
+
+
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        trendDetail: {},
+        success:'https://img.gdmatt.com/images/2021/01/25/16115584651559959.png',
+        error:'https://img.gdmatt.com/images/2021/02/01/16121464394081266.png'
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
-
+        this.handleTrendDeatil(options.id)
     },
+    handleTrendDeatil(id) {
+        console.log(id)
+        let Authorization = wx.getStorageSync('Authorization');
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
+        FundTrend.UserFundTrendDetail({
+            Authorization,
+            id
+        }).then(res => {
+            let rows = res.data.data;
+            let price = Math.round(parseFloat(rows.amount) * 100) / 100;
+            let xsd = price.toString().split(".");
+            if (xsd.length == 1) {
+                price = price.toString() + ".00";
+            }
+            if (xsd.length > 1) {
+                if (xsd[1].length < 2) {
+                    price = price.toString() + "0";
+                }
+            }
+            
+            rows.amount = price
 
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+            console.log(rows)
+            this.setData({
+                trendDetail:rows
+            })
+        })
     }
 })

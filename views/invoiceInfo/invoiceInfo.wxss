@@ -1,11 +1,15 @@
 .page-container {
-  padding-top: 20px;
+  /* padding-top: 20px; */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .info-group:first-child {
   background: #fff;
-  padding: 0 15px 20px;
+  padding: 0px 15px 20px;
   border-radius: 10px;
+  margin-top: 20px;
 }
 
 .info-item {
@@ -84,7 +88,9 @@
   left: 0;
 }
 
-.info-group:last-child {}
+.info-group:nth-child(3) {
+  flex: 1;
+}
 
 .info-summary {
   font-family: PingFang-SC-Medium;
@@ -92,4 +98,21 @@
   color: #999999;
   font-size: 14px;
   padding: 22px 14px 0;
+}
+
+
+.info-group.active {}
+
+.info-group.active .info-note {
+  display: flex;
+  margin-left: 16px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #868686;
+}
+
+navigator {
+  color: #5C92D0;
 }

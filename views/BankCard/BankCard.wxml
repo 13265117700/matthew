@@ -1,7 +1,56 @@
 <view class="page-container">
   <view class="background"></view>
   <view class="card-container">
-    <view class="card-wrap">
+    <view class="card-info" wx:if="{{bankCard}}">
+      <view class="card-item">
+        <view class="card-subtitle">
+          <text>持卡人</text>
+        </view>
+        <view class="card-text">
+          <text>{{bankCard.contacts}}</text>
+        </view>
+      </view>
+      <view class="card-item">
+        <view class="card-subtitle">
+          <text>联系电话</text>
+        </view>
+        <view class="card-text">
+          <text>{{bankCard.contactInformation}}</text>
+        </view>
+      </view>
+      <view class="card-item">
+        <view class="card-subtitle">
+          <text>银行卡号</text>
+        </view>
+        <view class="card-text">
+          <text>{{bankCard.bankAccount}}</text>
+        </view>
+      </view>
+      <view class="card-item">
+        <view class="card-subtitle">
+          <text>开户银行</text>
+        </view>
+        <view class="card-text">
+          <text>{{bankCard.bankDeposit}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="card-Empty" wx:if="{{!bankCard}}">
+      <van-divider contentPosition="center">暂无添加银行卡信息</van-divider>
+    </view>
+    <view class="card-btn" wx:if="{{!bankCard}}">
+      <vtu-btn v-class="btn-class" bg-color="#4ABDF3" font-color="#fff" bind:click="noAddBtn">
+        <view class="card-btn-wrap">
+          <view class="card-btn_icon">
+            <image src="https://img.gdmatt.com/images/2021/01/25/16115853669535604.png"></image>
+          </view>
+          <view class="caed-btn_text">
+            <text>添加银行卡</text>
+          </view>
+        </view>
+      </vtu-btn>
+    </view>
+    <!-- <view class="card-wrap">
       <view class="card-title">
         <text>我的卡</text>
       </view>
@@ -82,11 +131,14 @@
           </view>
         </view>
       </vtu-btn>
-    </view>
+    </view> -->
   </view>
-  <view class="dialog-container">
+  <view class="page-msg">
+    <text>如需要修改结款信息请人工联系平台客服进行修改</text>
+  </view>
+  <!-- <view class="dialog-container">
     <van-dialog title="确定解除绑定码？" show="{{ show }}" show-cancel-button 
       bind:close="onClose" bind:confirm="onConfirmDel">
     </van-dialog>
-  </view>
+  </view> -->
 </view>

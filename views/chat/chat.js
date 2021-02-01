@@ -1,6 +1,7 @@
 import User from '../../models/user/user';
 import WebSocket from '../../models/websocket/websocket';
-import mtWharf from '../../models/frontEnd/mtWharf'
+import mtWharf from '../../models/frontEnd/mtWharf';
+import userFriend from '../../models/userFriend/userFriend';
 
 const App = getApp();
 
@@ -9,23 +10,22 @@ Page({
         receiverid: null, //接收者ID
         senderid: null, //发送者ID
         msg: '', //聊天信息
-        action:null,//连接枚举动作
+        action: null, //连接枚举动作
         bottom: 0,
         value: '', //文本框内容
         talkContent: [], //聊天内容
         userInfo: null,
         state: false,
-        resourcesID:null,//资源ID
+        resourcesID: null, //资源ID
         // id:null,//货源ID
     },
 
     onLoad: function (options) {
-        console.log(options)
         this.setData({
             receiverid: options.receiverid,
             senderid: options.senderid,
-            msg:options.msg,
-            action:options.action
+            msg: options.msg,
+            action: options.action
         })
         this.WebSocketInit()
     },
@@ -58,10 +58,10 @@ Page({
                             Authorization,
                             receiverId,
                             senderId,
-                            msg:talkContent,
+                            msg: talkContent,
                             action
                         }
-                        
+
                         WebSocket.sendSocketMessage(params).then(data => {
                             console.log(data)
                         })
@@ -86,7 +86,7 @@ Page({
                         Authorization,
                         receiverId,
                         senderId,
-                        msg:talkContent,
+                        msg: talkContent,
                         action
                     }
                     WebSocket.sendSocketMessage(params)
@@ -141,17 +141,44 @@ Page({
             uId: senderId
         };
         User.userInfo(params).then(res => {
-            console.log(res)
             let userInfo = res.data.data;
             talkContent.push({
                 img: userInfo.faceImage,
                 text: msg,
                 isMine: false
             })
-            this.setData({
-                talkContent
-            })
 
+            let chat = wx.getStorageSync('chatList')
+            if (!chat) {
+                let chatList = [];
+                let usertalkContent = {
+                    id: senderId,
+                    talkContent
+                }
+                chatList.push(usertalkContent)
+                wx.setStorageSync('chatList', chatList)
+                this.setData({
+                    talkContent
+                })
+            } else {
+                chat.forEach(data => {
+                    if (data.id == senderId) {
+                        data.talkContent.push({
+                            img: userInfo.faceImage,
+                            text: msg,
+                            isMine: false
+                        })
+
+                        this.setData({
+                            talkContent: data.talkContent
+                        })
+
+                    }
+                })
+
+                wx.setStorageSync('chatList', chat)
+            }
+            console.log(chat)
         })
 
     },
@@ -159,6 +186,7 @@ Page({
 
     onShow: function () {
         this.getUserInfo();
+        this.gettalkContent();
     },
 
     //获取用户信息
@@ -166,7 +194,10 @@ Page({
         let Authorization = wx.getStorageSync('Authorization');
         let uId = '';
         let receiverid = this.data.receiverid;
-        let params = {Authorization,uId}
+        let params = {
+            Authorization,
+            uId
+        }
         User.userInfo(params).then(res => {
             let user = res.data.data;
             if (user.identityDifference == 2) {
@@ -182,14 +213,31 @@ Page({
 
         })
 
-        console.log(receiverid)
-        User.userInfo({Authorization,uId:receiverid}).then(res => {
-            console.log(res)
+        User.userInfo({
+            Authorization,
+            uId: receiverid
+        }).then(res => {
             let rows = res.data.data;
             wx.setNavigationBarTitle({
                 title: rows.nickName,
             })
         })
+
+    },
+    gettalkContent() {
+        let chatList = wx.getStorageSync('chatList');
+        let id = this.data.receiverid;
+        console.log(chatList, id)
+        if (chatList) {
+            chatList.forEach(data => {
+                if (data.id == id) {
+                    console.log(data.talkContent)
+                    this.setData({
+                        talkContent: data.talkContent
+                    })
+                }
+            })
+        }
 
     },
 
@@ -226,9 +274,8 @@ Page({
             msg,
             action
         }
-        console.log(params)
+
         WebSocket.sendSocketMessage(params).then(data => {
-            console.log(data)
             User.userInfo({
                 Authorization,
                 uId: data.senderId
@@ -240,12 +287,47 @@ Page({
                     text: msg,
                     isMine: true
                 })
-                console.log(talkContent)
-                this.setData({
-                    talkContent,
-                    value: '',
-                    msg:''
-                })
+
+                let chat = wx.getStorageSync('chatList');
+
+                if (!chat) {
+                    let chatList = [];
+                    let usertalkContent = {
+                        id: receiverId,
+                        talkContent
+                    }
+                    chatList.push(usertalkContent)
+                    wx.setStorageSync('chatList', chatList)
+                    this.setData({
+                        talkContent,
+                        value: '',
+                        msg: ''
+                    })
+                } else {
+                    chat.forEach(data => {
+                        if (data.id == receiverId) {
+                            data.talkContent.push({
+                                img: userInfo.faceImage,
+                                text: msg,
+                                isMine: true
+                            })
+                            this.setData({
+                                talkContent: data.talkContent,
+                                value: '',
+                                msg: ''
+                            })
+                        } else {
+                            chat.push({
+                                id: receiverId,
+                                talkContent
+                            })
+                        }
+                    })
+                    console.log(chat)
+
+                    wx.setStorageSync('chatList', chat)
+                }
+                console.log(chat)
             })
         })
 
@@ -256,7 +338,7 @@ Page({
         let senderid = this.data.senderid;
         let receiverid = this.data.receiverid;
         this.setData({
-            action:4
+            action: 4
         })
         this.WebSocketInit()
         if (userInfo.cargo === true) {

@@ -49,6 +49,12 @@
 
 .card-item {
   margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  color: #929292;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
 }
 
 .card-item .wrap {
@@ -121,3 +127,35 @@ van-swipe-cell {
   width: 43px;
   height: 43px;
 }
+
+.card-info{
+
+}
+.card-subtitle{
+
+}
+.card-text{
+  color: #212221;
+}
+.card-Empty{
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.page-msg{
+  width: 85%;
+  margin: 60px auto 0;
+  font-size: 13px;
+  color: #E3211F;
+}
+/* .card-item:nth-child(3){
+  padding-bottom: 15px;
+  border-bottom: 0.5px solid #E5E5E5;
+} */
+/* .card-item:last-child{
+  flex-direction: column;
+}
+.card-item:last-child .card-text{
+  margin-top: 10px;
+} */

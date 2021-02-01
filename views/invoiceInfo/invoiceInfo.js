@@ -1,9 +1,19 @@
 import User from "../../models/user/user";
+import Invoice from "../../models/user/invoice";
 
 
 Page({
     data: {
-        mtUserInvoice: {}
+        mtUserInvoice: {},
+        btnstyle: 'border-top-left-radius: 10px;border-top-right-radius: 10px; height: 50px;font-size: 17px;',
+        state: null,
+        mtWallet: {},
+        show: false,
+    },
+    onLoad: function (options) {
+        this.setData({
+            state: options.state
+        })
     },
     onShow: function () {
         this.getUserInfo()
@@ -19,14 +29,51 @@ Page({
         };
 
         User.userInfo(params).then(res => {
+            console.log(res)
+            let mtWallet = res.data.data.mtWallet;
             let mtUserInvoice = res.data.data.mtUserInvoice;
-            console.log(mtUserInvoice)
             let contactInformation = mtUserInvoice.contactInformation.substr(0, 3) + "****" + mtUserInvoice.contactInformation.substr(7);
             mtUserInvoice.contactInformation = contactInformation
-            console.log(contactInformation)
             this.setData({
-                mtUserInvoice
+                mtUserInvoice,
+                mtWallet
             })
+        })
+    },
+    onShowDialog() {
+        this.setData({
+            show: true
+        })
+    },
+    onClose() {
+        this.setData({
+            show: false
+        })
+    },
+    oninvoiceapply() {
+        let Authorization = wx.getStorageSync('Authorization');
+        let amount = this.data.mtWallet.invoiceAmount;
+        console.log(amount)
+        Invoice.UserInvoiceApply({
+            Authorization,
+            amount
+        }).then(res => {
+            console.log(res)
+            if (res.data.state == 200) {
+                wx.showLoading({
+                    title: '申请成功',
+                })
+                setTimeout(function () {
+                    wx.hideLoading()
+                    wx.navigateBack({
+                        delta: 1,
+                    })
+                }, 1000)
+            } else {
+                wx.showToast({
+                  title: res.data.message,
+                })
+            }
         })
     }
 })

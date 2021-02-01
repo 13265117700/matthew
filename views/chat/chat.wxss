@@ -1,17 +1,18 @@
 .page-container{
     height: 100%;
+    /* display: flex;
+    flex-direction: column; */
+}
+.page-main{
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
-.page-main{
-    flex: 1;
-    /* display: flex;
-    flex-direction: column; */
-    position: relative;
-    margin: 0 15px;
-}
 .chat-box{
     flex: 1;
+    /* height: 100vh; */
+    overflow-x: hidden;
+    padding: 0 15px 45px;
 }
 .chat-item{
     display: flex;
@@ -40,7 +41,8 @@
     border-radius: 5px;
 }
 .chat-input{
-   
+    /* padding-left: 10px;
+    background: #fff; */
 }
 vtu-input{
     padding-left: 10px;
@@ -49,6 +51,10 @@ vtu-input{
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+.chat-input_hd{
+    width: 10px;
+    height: 40px;
 }
 
 .dialog-icon{

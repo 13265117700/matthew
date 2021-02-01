@@ -355,13 +355,13 @@
             <view class="dialog-input">
                 <view class="dialog-input_item">
                     <vtu-input placeholder="请输入滞期费" value="{{delayedCost}}" type="input" text-align="left"
-                        input-type="digit" bind:confirm="handledemurrage">
+                        input-type="digit" bind:blur="handledemurrage">
                         <view slot="after" class="amount">元</view>
                     </vtu-input>
                 </view>
                 <view class="dialog-input_item">
                     <vtu-input placeholder="请输入亏损扣费金额" value="{{loss}}" type="input" text-align="left"
-                        input-type="digit" bind:confirm="handleloss">
+                        input-type="digit" bind:blur="handleloss">
                         <view slot="after" class="amount">元</view>
                     </vtu-input>
                 </view>

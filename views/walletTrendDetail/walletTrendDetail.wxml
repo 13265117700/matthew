@@ -1,36 +1,49 @@
-<view class="container">
-    <view class="primary">
-        <view class="suntitle">
-            <text>充值</text>
-        </view>
+<view class="page-container">
+    <view class="header">
         <view class="amount">
-            <text>￥1500.00</text>
+            <text>￥{{trendDetail.amount}}</text>
         </view>
         <view class="status">
-            <view class="icon hd">
-                <image src="https://img.gdmatt.com/images/2021/01/25/16115584651559959.png"></image>
+            <view class="status-icon">
+                <image src="{{trendDetail.status == 0 ? error:success}}"></image>
             </view>
-            <view class="text">
-                <text>充值成功</text>
+            <view class="status-text">
+                <text>{{trendDetail.status == 0 ? '失败':'成功'}}</text>
             </view>
         </view>
     </view>
-    <veiw class="list">
-        <view class="item">
-            <view class="subtitle">
-                <text>充值时间</text>
+    <view class="main">
+        <view class="detail-item" wx:if="{{trendDetail.mtShippingOrder}}">
+            <view class="detail-subtitle">
+                <text>订单编号</text>
             </view>
-            <view class="text">
-                <text>2020-12-19 13.00</text>
-            </view>
-        </view>
-        <view class="item">
-            <view class="subtitle">
-                <text>充值时间</text>
-            </view>
-            <view class="text">
-                <text>2020-12-19 13.00</text>
+            <view class="detail-text">
+                <text>{{trendDetail.mtShippingOrder}}</text>
             </view>
         </view>
-    </veiw>
+        <view class="detail-item">
+            <view class="detail-subtitle">
+                <text>业务类型</text>
+            </view>
+            <view class="detail-text">
+                <text>{{trendDetail.businessNotes}}</text>
+            </view>
+        </view>
+        <view class="detail-item {{trendDetail.failureNotes ? 'active':''}}">
+            <view class="detail-subtitle">
+                <text>业务时间</text>
+            </view>
+            <view class="detail-text">
+                <text>{{trendDetail.createTime}}</text>
+            </view>
+        </view>
+        <view class="detail-item {{trendDetail.status == 0 ? 'checked':''}}" wx:if="{{trendDetail.failureNotes}}">
+            <view class="detail-subtitle">
+                <text>失败原因</text>
+            </view>
+            <view class="detail-text">
+                <text>{{trendDetail.failureNotes}}</text>
+            </view>
+        </view>
+    </view>
 </view>

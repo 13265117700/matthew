@@ -21,11 +21,16 @@ export default {
     userEditorPassword:`${PREFIX}/user/information/changePassword`,//用户修改密码
     userEditorNickName:`${PREFIX}/user/information/modifyUserInformation`,//用户修改昵称/头像
     UserRegistered:`${PREFIX}/login/register`,//用户注册
+    UserAddBankCardInfo:`${PREFIX}/user/information/updateUserCollection`,//用户添加银行卡信息
 
 
     //用户流水
     UserFundTrendList:`${PREFIX}/user/flowingWater/mtNameGoodsFriends`,//用户流水列表
-    moneyFunItem:`${PREFIX}/user/flowingWater/findByFlowingWaterId`,//资金流水单号查询
+    UserFundTrendDetail:`${PREFIX}/user/flowingWater/findByFlowingWaterId`,//资金流水单号查询
+
+    //用户发票管理
+    UserInvoiceApply:`${PREFIX}/user/invoiceApplication/invoiceApplicationSave`,//用户发票申请
+
 
 
 

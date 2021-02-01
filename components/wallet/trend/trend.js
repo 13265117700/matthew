@@ -1,4 +1,3 @@
-import fundTrend from "../../../models/user/fundTrend";
 import FundTrend from "../../../models/user/fundTrend";
 
 
@@ -85,13 +84,20 @@ Component({
         rows
       }
 
-      fundTrend.UserFundTrendList(params).then(res => {
+      FundTrend.UserFundTrendList(params).then(res => {
         let rows = res.data.data.rows;
         this.setData({
-          trend:rows
+          trend: rows
         })
       })
 
+    },
+    ontrenddetail(e) {
+      console.log(e)
+      let id = e.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: '/views/walletTrendDetail/walletTrendDetail?id=' + id,
+      })
     }
   }
 })

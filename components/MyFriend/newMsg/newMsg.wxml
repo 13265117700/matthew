@@ -1,0 +1,21 @@
+<view class="user-chat">
+    <view class="user-search">
+        <van-search input-align="center" clearable shape="round" background="#fff" placeholder="请输入搜索关键词" />
+    </view>
+    <view class="user-list">
+        <view class="user-item" wx:for="{{ unreadChatInfo }}" wx:key="index" wx:for-item="unreadChat"
+            data-receiverId="{{ unreadChat.senderId }}" data-senderId="{{ unreadChat.receiverId }}"
+            bindtap="BeganToChat">
+            <view class="user-avatar">
+                <vtu-avatar src="{{ unreadChat.sendUserId.faceImage }}" circle></vtu-avatar>
+            </view>
+            <view class="user-info">
+                <view class="user-info_or">
+                    <view class="user-name">{{ unreadChat.sendUserId.nickName }}</view>
+                    <view class="user-msg">{{ unreadChat.msg }}</view>
+                </view>
+                <view class="user-info_so">刚刚</view>
+            </view>
+        </view>
+    </view>
+</view>

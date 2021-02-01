@@ -39,5 +39,11 @@ Component({
         })
       })
     },
+    oninvoiceapply() {
+      let state = 1;
+      wx.navigateTo({
+        url: '/views/invoiceInfo/invoiceInfo?state=' + state,
+      })
+    }
   }
 })
