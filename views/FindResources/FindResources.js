@@ -102,10 +102,13 @@ Page({
                                 shipList
                             })
                         })
+
+                        
                     })
 
-
                 })
+
+
             })
         }
 
@@ -113,6 +116,7 @@ Page({
     },
     //获取货源列表
     getCargoList(nameVessel) {
+        console.log(nameVessel)
         let id = this.data.id;
         if (id == '9999998') {
             let Authorization = wx.getStorageSync('Authorization');
@@ -123,14 +127,16 @@ Page({
                 rows
             }
             if (nameVessel) params = {
-                nameVessel,
+                name:nameVessel,
                 page,
                 rows
             };
 
-
+            console.log(params)
             mtWharf.frontDeskCargoFocusOn(params).then(res => {
+                console.log(res)
                 let rows = res.data.data.rows;
+
                 let cargoList = [];
                 rows.forEach(data => {
                     let collegeId = data.id;

@@ -1,9 +1,8 @@
 <view class="page-container">
     <view class="page-main">
-        <view class="chat-box" id="chat-record">
+        <!-- <view class="chat-box" id="chat-record">
             <view class="chat-item {{ chatTalk.isMine === true ? 'active':'' }}" wx:for="{{ talkContent }}"
                 wx:key="index" wx:for-item="chatTalk">
-                <!-- <view class="chat-item"> -->
                 <view class="chat-avatar">
                     <van-image round width="40px" height="40px" src="{{ chatTalk.img }}" />
                 </view>
@@ -51,7 +50,59 @@
                     </view>
                 </view>
             </view>
-        </view>
+        </view> -->
+        <scroll-view class="chat-box" id="chat-record" style='height: {{windowHeight - 50}}px' scroll-y="true"
+            scroll-top="{{scrollTop}}">
+            <view class="chat-item {{ chatTalk.isMine === true ? 'active':'' }}" wx:for="{{ talkContent }}"
+                wx:key="index" wx:for-item="chatTalk">
+                <view class="chat-avatar">
+                    <van-image round width="40px" height="40px" src="{{ chatTalk.img }}" />
+                </view>
+                <view class="chat-text" wx:if="{{ !chatTalk.cargoItem && !chatTalk.shipItem }}">{{ chatTalk.text }}
+                </view>
+                <view class="chat-cargo" wx:if="{{ chatTalk.cargoItem }}">
+                    <view class="cargo-subtitle">
+                        <view class="cargo-subtitle_text">装货期 {{chatTalk.cargoItem.loadingDate}}</view>
+                    </view>
+                    <view class="cargo-routes">
+                        <view class="cargo-routes_left">
+                            <view class="cargo-routes_left_img">
+                                <image src="/images/my/MyFriend/c1@3x.png"></image>
+                            </view>
+                            <view class="cargo-routes_left_icon">
+                                <image src="/images/my/MyFriend/c@3x.png"></image>
+                            </view>
+                        </view>
+                        <view class="cargo-routes_right">
+                            <view class="cargo-routes_right_begin">{{chatTalk.cargoItem.portArrivalAddress}}</view>
+                            <view class="cargo-routes_right_end">{{chatTalk.cargoItem.portDepartureAddress}}</view>
+                        </view>
+                    </view>
+                    <view class="cargo-info">
+                        <view class="cargo-name">{{chatTalk.cargoItem.name}}</view>
+                        <view class="cargo-number">{{chatTalk.cargoItem.number}}吨</view>
+                    </view>
+                </view>
+                <view class="chat-ship" wx:if="{{ chatTalk.shipItem }}">
+                    <view class="ship-top">
+                        <view class="ship-top_icon">
+                            <image src="/images/my/MyFriend/chuan@3x.png"></image>
+                        </view>
+                        <view class="ship-top_subtitle">
+                            <text>{{chatTalk.shipItem.mtShip.nameVessel}}</text>
+                        </view>
+                    </view>
+                    <view class="ship-bottom">
+                        <view class="ship-bottom_subtitle">
+                            <text>空船期</text>
+                        </view>
+                        <view class="ship-bottom_date">
+                            <text>{{chatTalk.shipItem.emptyDate}} ±1天</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </scroll-view>
         <view class="chat-input">
             <vtu-input text-align="left" adjust-position="{{ false }}" value="{{value}}" placeholder="请输入聊天内容"
                 type="input" input-type="text" style="bottom:{{bottom}}rpx" bind:focus="focusEven" bind:blur="blurEven"

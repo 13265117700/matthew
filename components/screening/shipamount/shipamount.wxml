@@ -4,13 +4,13 @@
     </view>
     <view class="wrap">
         <view class="input">
-            <input type="number" placeholder="最低吨" placeholder-style="color: #DCDCDC;" value="{{minValue}}" bindconfirm="handleMinValue" />
+            <input type="number" placeholder="最低吨" placeholder-style="color: #DCDCDC;" value="{{minValue}}" bindinput="handleMinValue" />
         </view>
         <view class="icon">
             <text>-</text>
         </view>
         <view class="input">
-            <input type="number" placeholder="最高吨" placeholder-style="color: #DCDCDC;" value="{{maxValue}}" bindconfirm="handleMaxValue" />
+            <input type="number" placeholder="最高吨" placeholder-style="color: #DCDCDC;" value="{{maxValue}}" bindinput="handleMaxValue" />
         </view>
     </view>
 </view>

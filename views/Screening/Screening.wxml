@@ -37,7 +37,7 @@
             <van-button type="warning" size="large" custom-style="{{buttonStyle}}" bind:click="handleremove">重置</van-button>
         </view>
         <view class="btn">
-            <van-button type="danger" size="large" custom-style="{{buttonStyle}}">确认</van-button>
+            <van-button type="danger" size="large" custom-style="{{buttonStyle}}" bind:click="handleconfirm">确认</van-button>
         </view>
     </view>
 </view>

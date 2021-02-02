@@ -1,6 +1,6 @@
 import User from '../../models/user/user';
 import mtWharf from '../../models/frontEnd/mtWharf'
-const App = getApp();
+
 Page({
     data: {
         // idenID:null,
@@ -91,7 +91,6 @@ Page({
     },
     //发送船源
     handleConfirm(e) {
-
         let id = e.currentTarget.dataset.id;
         wx.navigateTo({
             url: '/views/chat/chat?id=' + id,

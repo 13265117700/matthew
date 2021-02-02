@@ -3,10 +3,11 @@ import WebSocket from '../../models/websocket/websocket';
 import mtWharf from '../../models/frontEnd/mtWharf';
 import userFriend from '../../models/userFriend/userFriend';
 
-const App = getApp();
 
 Page({
     data: {
+        scrollTop: 0, //控制上滑距离
+        windowHeight: 0, //页面高度
         receiverid: null, //接收者ID
         senderid: null, //发送者ID
         msg: '', //聊天信息
@@ -17,7 +18,6 @@ Page({
         userInfo: null,
         state: false,
         resourcesID: null, //资源ID
-        // id:null,//货源ID
     },
 
     onLoad: function (options) {
@@ -27,14 +27,45 @@ Page({
             msg: options.msg,
             action: options.action
         })
-        this.WebSocketInit()
+        this.gettalkContent();
+    },
+
+    onShow: function () {
+        this.getUserInfo();
+        this.WebSocketInit();
+    },
+    onHide: function () {
+        WebSocket.closeSocket()
+    },
+
+    onReady: function () {
+        let height = wx.getSystemInfoSync().windowHeight;
+        this.setData({
+            windowHeight: height
+        })
+        this.pageScrollToBottom()
+    },
+
+    // 获取容器高度，使页面滚动到容器底部
+    pageScrollToBottom: function () {
+        let that = this;
+        let height = wx.getSystemInfoSync().windowHeight;
+        wx.createSelectorQuery().select('#chat-record').boundingClientRect(function (rect) {
+            if (rect) {
+                that.setData({
+                    windowHeight: height,
+                    scrollTop: rect.height
+                })
+            }
+        }).exec()
+
     },
 
 
     //发送货源信息
     getSendMsg() {
         let id = this.data.resourcesID;
-        let userInfo = App.globalData.userInfo;
+        let userInfo = this.data.userInfo;
         let talkContent = this.data.talkContent;
         let receiverId = this.data.receiverid;
         let senderId = this.data.senderid;
@@ -42,60 +73,102 @@ Page({
         let Authorization = wx.getStorageSync('Authorization');
 
 
-        if (id) {
-            if (userInfo.identityDifference == 2) {
-                User.UserMtCargoQueryInfo({
-                    id
-                }).then(cargo => {
-                    Promise.all([cargo]).then(result => {
-                        let cargoItem = result[0].data.data;
-                        talkContent.push({
-                            img: userInfo.faceImage,
-                            isMine: true,
-                            cargoItem
-                        })
-                        let params = {
-                            Authorization,
-                            receiverId,
-                            senderId,
-                            msg: talkContent,
-                            action
-                        }
+        if (userInfo.identityDifference == 2) {
+            User.UserMtCargoQueryInfo({
+                id
+            }).then(cargo => {
+                Promise.all([cargo]).then(result => {
+                    let cargoItem = result[0].data.data;
 
-                        WebSocket.sendSocketMessage(params).then(data => {
-                            console.log(data)
-                        })
-                        this.setData({
-                            talkContent
-                        })
-                    })
-                })
-            } else {
-                mtWharf.frontDeskShipPeriodItem({
-                    id
-                }).then(res => {
-                    let shipItem = res.data.data;
-                    let emptyDate = new Date(shipItem.emptyDate).toLocaleDateString();
-                    shipItem.emptyDate = emptyDate.replace(/\//g, "-");
-                    talkContent.push({
-                        img: userInfo.faceImage,
-                        isMine: true,
-                        shipItem
-                    })
+                    let obj = {
+                        loadingDate: cargoItem.loadingDate,
+                        portArrivalAddress: cargoItem.portArrivalAddress,
+                        portDepartureAddress: cargoItem.portDepartureAddress,
+                        name: cargoItem.mtNameGoods.name,
+                        number: cargoItem.number
+                    }
+
                     let params = {
-                        Authorization,
                         receiverId,
                         senderId,
-                        msg: talkContent,
+                        msg: JSON.stringify(obj),
                         action
                     }
+
+                    talkContent.push({
+                        img: userInfo.faceImage,
+                        cargoItem: obj,
+                        isMine: true,
+                    })
+
                     WebSocket.sendSocketMessage(params)
+
                     this.setData({
                         talkContent
                     })
+
+                    this.pageScrollToBottom() //聊天始终显示最底部
+                    this.SaveChatLogs()
+
                 })
-            }
+            })
         }
+        // WebSocket.sendSocketMessage(params)
+        // console.log(userInfo)
+        // if (id) {
+        //     if (userInfo.identityDifference == 2) {
+        //         User.UserMtCargoQueryInfo({
+        //             id
+        //         }).then(cargo => {
+        //             Promise.all([cargo]).then(result => {
+        //                 let cargoItem = result[0].data.data;
+        //                 talkContent.push({
+        //                     img: userInfo.faceImage,
+        //                     isMine: true,
+        //                     cargoItem
+        //                 })
+        //                 let params = {
+        //                     Authorization,
+        //                     receiverId,
+        //                     senderId,
+        //                     msg: talkContent,
+        //                     action
+        //                 }
+
+        //                 WebSocket.sendSocketMessage(params).then(data => {
+        //                     console.log(data)
+        //                 })
+        //                 this.setData({
+        //                     talkContent
+        //                 })
+        //             })
+        //         })
+        //     } else {
+        //         mtWharf.frontDeskShipPeriodItem({
+        //             id
+        //         }).then(res => {
+        //             let shipItem = res.data.data;
+        //             let emptyDate = new Date(shipItem.emptyDate).toLocaleDateString();
+        //             shipItem.emptyDate = emptyDate.replace(/\//g, "-");
+        //             talkContent.push({
+        //                 img: userInfo.faceImage,
+        //                 isMine: true,
+        //                 shipItem
+        //             })
+        //             let params = {
+        //                 Authorization,
+        //                 receiverId,
+        //                 senderId,
+        //                 msg: talkContent,
+        //                 action
+        //             }
+        //             WebSocket.sendSocketMessage(params)
+        //             this.setData({
+        //                 talkContent
+        //             })
+        //         })
+        //     }
+        // }
     },
 
     //指定船东后弹出提示框
@@ -119,7 +192,7 @@ Page({
             msg,
             action
         }
-        console.log(params)
+
         WebSocket.connectSocket(params)
         WebSocket.onSocketMessageCallback = this.onSocketMessageCallback;
     },
@@ -150,6 +223,11 @@ Page({
 
             let chat = wx.getStorageSync('chatList')
             if (!chat) {
+                talkContent.push({
+                    img: userInfo.faceImage,
+                    text: msg,
+                    isMine: false
+                })
                 let chatList = [];
                 let usertalkContent = {
                     id: senderId,
@@ -161,6 +239,7 @@ Page({
                     talkContent
                 })
             } else {
+                let chatitem = [];
                 chat.forEach(data => {
                     if (data.id == senderId) {
                         data.talkContent.push({
@@ -168,35 +247,47 @@ Page({
                             text: msg,
                             isMine: false
                         })
-
                         this.setData({
-                            talkContent: data.talkContent
+                            talkContent: data.talkContent,
                         })
 
+                        chatitem = data
                     }
                 })
+
+                if (chatitem.id != senderId) {
+                    talkContent.push({
+                        img: userInfo.faceImage,
+                        text: msg,
+                        isMine: false
+                    })
+                    chat.push({
+                        id: senderId,
+                        talkContent
+                    })
+
+                    this.setData({
+                        talkContent
+                    })
+                }
 
                 wx.setStorageSync('chatList', chat)
             }
             console.log(chat)
+            this.pageScrollToBottom()
         })
 
     },
 
 
-    onShow: function () {
-        this.getUserInfo();
-        this.gettalkContent();
-    },
+
 
     //获取用户信息
     getUserInfo() {
         let Authorization = wx.getStorageSync('Authorization');
-        let uId = '';
         let receiverid = this.data.receiverid;
         let params = {
             Authorization,
-            uId
         }
         User.userInfo(params).then(res => {
             let user = res.data.data;
@@ -224,20 +315,44 @@ Page({
         })
 
     },
+    //初始化聊天记录
     gettalkContent() {
         let chatList = wx.getStorageSync('chatList');
+        let Authorization = wx.getStorageSync('Authorization');
         let id = this.data.receiverid;
-        console.log(chatList, id)
-        if (chatList) {
-            chatList.forEach(data => {
-                if (data.id == id) {
-                    console.log(data.talkContent)
-                    this.setData({
-                        talkContent: data.talkContent
-                    })
-                }
-            })
+        let params = {
+            Authorization,
+            page: 1,
+            rows: 10,
+            senderId: id
         }
+
+        userFriend.UserFriendChatMsg(params).then(res => {
+            let rows = res.data.data.rows;
+
+            if (chatList) {
+                chatList.forEach(data => {
+                    if (data.id == id) {
+                        rows.forEach(a => {
+                            data.talkContent.push({
+                                img: a.sendUserId.faceImage,
+                                text: a.msg,
+                                isMine: false
+                            })
+                        })
+                        this.setData({
+                            talkContent: data.talkContent
+                        })
+
+                    }
+                })
+            }
+
+            this.pageScrollToBottom()
+        })
+
+
+
 
     },
 
@@ -280,7 +395,6 @@ Page({
                 Authorization,
                 uId: data.senderId
             }).then(res => {
-                console.log(res)
                 let userInfo = res.data.data;
                 talkContent.push({
                     img: userInfo.faceImage,
@@ -288,59 +402,26 @@ Page({
                     isMine: true
                 })
 
-                let chat = wx.getStorageSync('chatList');
+                this.setData({
+                    talkContent,
+                    value: '',
+                    msg: ''
+                })
 
-                if (!chat) {
-                    let chatList = [];
-                    let usertalkContent = {
-                        id: receiverId,
-                        talkContent
-                    }
-                    chatList.push(usertalkContent)
-                    wx.setStorageSync('chatList', chatList)
-                    this.setData({
-                        talkContent,
-                        value: '',
-                        msg: ''
-                    })
-                } else {
-                    chat.forEach(data => {
-                        if (data.id == receiverId) {
-                            data.talkContent.push({
-                                img: userInfo.faceImage,
-                                text: msg,
-                                isMine: true
-                            })
-                            this.setData({
-                                talkContent: data.talkContent,
-                                value: '',
-                                msg: ''
-                            })
-                        } else {
-                            chat.push({
-                                id: receiverId,
-                                talkContent
-                            })
-                        }
-                    })
-                    console.log(chat)
+                this.pageScrollToBottom() //聊天始终显示最底部
+                this.SaveChatLogs()
 
-                    wx.setStorageSync('chatList', chat)
-                }
-                console.log(chat)
+                this.pageScrollToBottom()
+
+
             })
         })
-
 
     },
     gotoCrewList(e) {
         let userInfo = this.data.userInfo;
         let senderid = this.data.senderid;
         let receiverid = this.data.receiverid;
-        this.setData({
-            action: 4
-        })
-        this.WebSocketInit()
         if (userInfo.cargo === true) {
             wx.navigateTo({
                 url: '/views/cargoPeriod/cargoPeriod?senderid=' + senderid + '&receiverid=' + receiverid,
@@ -351,5 +432,38 @@ Page({
             })
         }
         // WebSocket.closeSocket()
+    },
+
+    //储存聊天记录
+    SaveChatLogs() {
+        let chat = wx.getStorageSync('chatList');
+        let talkContent = this.data.talkContent;
+        let receiverId = this.data.receiverid;
+        let usertalkContent = {
+            id: receiverId,
+            talkContent
+        }
+
+        if (!chat) {
+            let chatList = [];
+            chatList.push(usertalkContent)
+            wx.setStorageSync('chatList', chatList)
+        } else {
+            let chatitem = {}
+            chat.forEach(data => {
+                if (data.id == receiverId) {
+                    data.talkContent = talkContent
+                    chatitem = data
+                }
+            })
+
+            console.log(chatitem)
+            if (chatitem.id != receiverId) {
+                chat.push(usertalkContent)
+            }
+
+            wx.setStorageSync('chatList', chat)
+        }
+
     }
 })
