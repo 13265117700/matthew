@@ -1,66 +1,75 @@
-// views/walletExtractDetail/walletExtractDetail.js
+import ExtractMoney from "../../models/user/extractMoney";
+
+
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
-
+        id: null,
+        extractDetail: {},
     },
-
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad: function (options) {
-
+        this.setData({
+            id: options.id
+        })
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
     onShow: function () {
-
+        this.handleExtractMoney()
     },
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
+    //提现记录详情
+    handleExtractMoney() {
+        let id = this.data.id;
+        let Authorization = wx.getStorageSync('Authorization');
+        console.log(id)
+        ExtractMoney.UserExtractMoneyItem({
+            Authorization,
+            id
+        }).then(res => {
+            let extractDetail = res.data.data;
+            let bankAccount = extractDetail.mtUser.mtUserCollection.bankAccount;
+            let reg = /^(\d{4})\d+(\d{4})$/;
+            bankAccount = bankAccount.replace(reg, "$1 **** **** $2");
+            extractDetail.mtUser.mtUserCollection.bankAccount = bankAccount
 
-    },
+            switch (extractDetail.status) {
+                case 0:
+                    wx.setNavigationBarTitle({
+                        title: '提现中',
+                    })
+                    extractDetail.icon = 'https://img.gdmatt.com/images/2021/02/03/16123490930788194.png';
+                    extractDetail.color = 'current'
+                    extractDetail.text = '审核中'
+                    break;
+                case 1:
+                    wx.setNavigationBarTitle({
+                        title: '打款中',
+                    })
+                    extractDetail.icon = 'https://img.gdmatt.com/images/2021/02/03/16123483867365663.png';
+                    extractDetail.color = 'hover';
+                    extractDetail.text = '打款中'
+                    break;
+                case 2:
+                    wx.setNavigationBarTitle({
+                        title: '提现失败',
+                    })
+                    extractDetail.icon = 'https://img.gdmatt.com/images/2021/02/03/1612348644484579.png';
+                    extractDetail.color = 'fail';
+                    extractDetail.text = '审核失败'
+                    break;
+                case 3:
+                    wx.setNavigationBarTitle({
+                        title: '提现成功',
+                    })
+                    extractDetail.icon = 'https://img.gdmatt.com/images/2021/01/25/16115584651559959.png';
+                    extractDetail.color = 'success';
+                    extractDetail.text = '提现完成'
+                    break;
+            }
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
-    },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
+            console.log(extractDetail)
+            this.setData({
+                extractDetail
+            })
+        })
     }
 })

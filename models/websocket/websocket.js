@@ -59,6 +59,11 @@ const webSocket = {
         let chatMsg = new startWebSocket.ChatMsg(senderId,receiverId,msg,null);//构建chatMsg
         let dataContent = new startWebSocket.DataContent(action, chatMsg, null);// 构建DataContent
 
+        this.data.action = action;
+        this.data.msg = msg;
+        this.data.receiverId = receiverId;
+        this.data.senderId = senderId;
+
         return new Promise((resolve, reject) => {
             if(socketOpen){
                 wx.sendSocketMessage({
@@ -145,6 +150,7 @@ const webSocket = {
                 console.log('心跳成功')
                   if(heart){
                     heartBeatTimeOut = setTimeout(() => {
+                        this.data.msg = ''
                         this.heartBeat()
                     },7000)
                   }

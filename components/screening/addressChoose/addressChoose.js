@@ -59,24 +59,12 @@ Component({
                 rows,
                 sortInt
             }
-            console.log(addressName)
+
             if (addressName.length <= 3) {
                 if (addressName.length === 2) {
-                    // addressName.splice(1,1)
                     addressName.push(address[index]);
-
-                    console.log(addressName)
                 } else {
                     addressName.push(address[index]);
-                    // if (addressName.length === 3) {
-                    //     console.log(addressName)
-                    //     // addressName.splice(2, 1, address[index])
-                    //     // addressName.push({
-                    //     //     name: '请选择码头'
-                    //     // })
-                    // } else {
-                    //     addressName.push(address[index]);
-                    // }
                 }
                 addressName.forEach(a => a.active = false);
                 address.forEach(b => b.active = false)
@@ -119,7 +107,8 @@ Component({
         },
         handleConfirmPicker(e) {
             let state = this.properties.porState;
-            let value = e.detail.value;
+            let address = this.data.address;
+            let index = e.detail.index;
             let popupInputValue = this.data.popupInputValue;
             if (popupInputValue != null) {
                 this.triggerEvent('onaddress', {
@@ -132,11 +121,11 @@ Component({
                 })
             } else {
                 this.triggerEvent('onaddress', {
-                    onMyEvent: value,
+                    onMyEvent: address[index],
                     state
                 })
                 this.setData({
-                    cellValue: value,
+                    cellValue: address[index].name,
                     popupShow: false
                 })
             }
@@ -145,11 +134,9 @@ Component({
 
         //点击面包屑
         clickCrumbs(e) {
-            console.log(e)
             let addressName = this.data.addressName;
             let number = e.currentTarget.dataset.index;
             let index = number - 1;
-            console.log(index)
             if (index < 0) {
                 let pId = 0;
                 let page = 1;

@@ -1,23 +1,16 @@
-.detail-section {
-    background: #fff;
-    margin-top: 10px;
-    border-radius: 10px;
-    padding-bottom: 26px;
-}
+.page-container {}
 
 .primary {
     text-align: center;
-    padding: 30px 0;
-    border-bottom: 0.5px solid #E5E5E5;
-    margin: 0 15px;
-}
-
-.suntitle {
-    font-size: 18px;
-    margin-bottom: 14px;
+    padding: 40px 0 45px;
     font-family: PingFang-SC-Bold;
     font-weight: bold;
     color: #191919;
+}
+
+.summary {
+    font-size: 15px;
+    margin-bottom: 19px;
 }
 
 .amount {
@@ -26,59 +19,70 @@
 }
 
 .status {
-    margin-bottom: 15px;
-}
-
-.status image {
-    height: 60px;
-    width: 60px;
-}
-
-.describe {
-    color: #999999;
-    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
+    color: #666666;
+    font-size: 14px;
+}
+
+.status-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+}
+
+.status-icon image {
+    width: 15px;
+    height: 15px;
+}
+
+.status-text.current {
+    color: #FF9900;
+}
+.status-text.hover{
+    color: #FF7849;
+}
+.status-text.fail{
+    color: #E3211F;
+}
+.status-text.success{
+    color: #666666;
 }
 
 .secondary {
-    padding: 25px 16px 0;
+    background: #fff;
+    margin: 0 15px;
+    padding: 15px 15px 0;
+    border-radius: 10px;
 }
 
 .secondary-item {
+    padding-bottom: 15px;
     display: flex;
     justify-content: space-between;
     font-size: 15px;
-    margin-bottom: 20px;
-}
-.secondary-item:last-child{
-    margin: 0;
-}
-
-.secondary-item .subtitle {
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
-    color: #999999;
 }
 
-.secondary-item .text {
-    font-family: PingFang-SC-Bold;
-    font-weight: bold;
-    color: #191919;
+.subtitle {
+    color: #929292;
 }
 
-
-
-.btn-section {
-    width: 300px;
-    margin: 15% auto;
-    height: 50px;
+.text {
+    color: #212221;
 }
 
-.btn-class {
-    height: 100%;
-    line-height: 25px !important;
-    font-family: PingFang-SC-Bold;
-    font-weight: bold !important;
-    font-size: 18px !important;
+/* .secondary-item.active{
+    border-bottom: 0.5px solid #E5E5E5;
 }
+.secondary-item.checked{
+    flex-direction: column;
+    padding-top: 20px;
+}
+.secondary-item.checked .subtitle{
+    margin-bottom: 14px;
+} */

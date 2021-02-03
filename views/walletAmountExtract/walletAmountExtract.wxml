@@ -3,11 +3,11 @@
         <view class="title">
             <text>到账银行</text>
         </view>
-        <view class="bankCard-info" bindtap="noShowPopup">
+        <view class="bankCard-info">
             <view class="icon">
                 <image src="https://img.gdmatt.com/images/2021/01/25/16115607561043485.png"></image>
             </view>
-            <van-cell center title="中国工商银行  储蓄卡" label="**************6078" is-link />
+            <van-cell center title="{{userInfo.mtUserCollection.bankDeposit}}" label="{{userInfo.mtUserCollection.bankAccount}}" />
         </view>
     </view>
     <view class="submit-section">
@@ -18,20 +18,20 @@
             <view class="icon">
                 <text>￥</text>
             </view>
-            <input type="number" bindinput="noInput" />
+            <input type="number" placeholder="请输入需要提现的金额" placeholder-class="input-placeholder" value="{{value}}" bindinput="noInput" />
         </view>
         <view class="msg">
-            <text>可提现金额：￥860000.00</text>
-            <view class="tips">
+            <text>可提现金额：￥{{userInfo.mtWallet.withdrawalAmount}}</text>
+            <view class="tips" bindtap="onAllExtract">
                 <text>全部提现</text>
             </view>
         </view>
         <view class="btn">
-            <vtu-btn disabled="{{!input ? true:false}}" v-class="btn-class" bg-color="{{!input ? '#EEEEEE':'#E3211F'}}"
-                font-color="{{!input ? '#C1C1C1':'#FFFFFF'}}" bind:click="onSubmit">立即提现</vtu-btn>
+            <vtu-btn disabled="{{!value ? true:false}}" v-class="btn-class" bg-color="{{!value ? '#EEEEEE':'#E3211F'}}"
+                font-color="{{!value ? '#C1C1C1':'#FFFFFF'}}" bind:click="onSubmit">立即提现</vtu-btn>
         </view>
     </view>
-    <view class="popup-section">
+    <!-- <view class="popup-section">
         <van-popup show="{{ show }}" closeable position="bottom" bind:close="onClose">
             <view class="wrap">
                 <view class="item">
@@ -58,5 +58,5 @@
                 </view>
             </view>
         </van-popup>
-    </view>
+    </view> -->
 </view>

@@ -30,6 +30,8 @@ Page({
         User.userInfo({Authorization}).then(res => {
             console.log(res)
             let bankCard = res.data.data.mtUserCollection;
+            let reg = /^(\d{4})\d+(\d{4})$/;
+            bankCard.bankAccount = bankCard.bankAccount.replace(reg,"$1 **** **** $2");
             this.setData({
                 bankCard
             })

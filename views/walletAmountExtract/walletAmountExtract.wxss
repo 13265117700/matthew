@@ -62,6 +62,11 @@ van-cell {
     min-width: 45px;
 }
 
+.input-placeholder{
+    font-size: 18px;
+    color: #999999;
+}
+
 .submit-section .msg {
     display: flex;
     font-family: PingFang-SC-Medium;

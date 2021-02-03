@@ -12,6 +12,20 @@ Page({
         shipList: [],
         cargoList: [],
         // focusStatus:false
+        typeShip: null, //船类型
+        mtWharfId: null, //空船港ID
+        tonnageLarge: null, //船最小值
+        tonnageSmall: null, //船最大值
+        emptyDateLarge: null, //空船期最小值
+        emptyDateSmall: null, //空船期最大值
+
+
+        cargoName: null, //货物名
+        numberLarge: null, //货物最小值
+        numberSmall: null, //货物最大值
+        portArrivalId: null, //到达港
+        portDepartureId: null, //起运港
+        state: null,
     },
     onLoad: function (options) {
         console.log(options)
@@ -72,6 +86,14 @@ Page({
             let Authorization = wx.getStorageSync('Authorization');
             let page = 1;
             let rows = 10;
+            let state = this.data.state;
+            let typeShip = this.data.typeShip;
+            let mtWharfId = this.data.mtWharfId;
+            let tonnageLarge = this.data.tonnageLarge;
+            let tonnageSmall = this.data.tonnageSmall;
+            let emptyDateLarge = this.data.emptyDateLarge;
+            let emptyDateSmall = this.data.emptyDateSmall;
+
             let params = {
                 page,
                 rows
@@ -81,6 +103,68 @@ Page({
                 page,
                 rows
             };
+
+
+            if (state) {
+                if (typeShip) {
+                    mtWharfId = null;
+                    tonnageLarge = null;
+                    tonnageSmall = null;
+                    emptyDateLarge = null;
+                    emptyDateSmall = null;
+                    params = {
+                        typeShip: typeShip.name,
+                        page,
+                        rows
+                    }
+                } else if (mtWharfId) {
+                    typeShip = null;
+                    tonnageLarge = null;
+                    tonnageSmall = null;
+                    emptyDateLarge = null;
+                    emptyDateSmall = null;
+                    params = {
+                        mtWharfId,
+                        page,
+                        rows
+                    }
+                } else if (tonnageLarge || tonnageSmall) {
+                    typeShip = null;
+                    mtWharfId = null;
+                    emptyDateLarge = null;
+                    emptyDateSmall = null;
+                    params = {
+                        tonnageLarge,
+                        tonnageSmall,
+                        page,
+                        rows
+                    }
+                } else if (emptyDateLarge || emptyDateSmall) {
+                    typeShip = null;
+                    mtWharfId = null;
+                    tonnageLarge = null;
+                    tonnageSmall = null;
+                    params = {
+                        emptyDateLarge,
+                        emptyDateSmall,
+                        page,
+                        rows
+                    }
+                } else {
+                    params = {
+                        typeShip: typeShip.name,
+                        mtWharfId,
+                        tonnageLarge,
+                        tonnageSmall,
+                        emptyDateLarge,
+                        emptyDateSmall,
+                        page,
+                        rows
+                    }
+                }
+            }
+
+            console.log(params)
 
             mtWharf.frontDeskShipPeriodList(params).then(res => {
                 let rows = res.data.data.rows;
@@ -103,7 +187,7 @@ Page({
                             })
                         })
 
-                        
+
                     })
 
                 })
@@ -116,46 +200,102 @@ Page({
     },
     //获取货源列表
     getCargoList(nameVessel) {
-        console.log(nameVessel)
         let id = this.data.id;
+
         if (id == '9999998') {
             let Authorization = wx.getStorageSync('Authorization');
             let page = 1;
             let rows = 10;
+            let state = this.data.state;
+            let cargoName = this.data.cargoName;
+            let numberLarge = this.data.numberLarge;
+            let numberSmall = this.data.numberSmall;
+            let portArrivalId = this.data.portArrivalId;
+            let portDepartureId = this.data.portDepartureId;
+
             let params = {
                 page,
                 rows
             }
+
             if (nameVessel) params = {
-                name:nameVessel,
+                name: nameVessel,
                 page,
                 rows
             };
 
-            console.log(params)
-            mtWharf.frontDeskCargoFocusOn(params).then(res => {
-                console.log(res)
-                let rows = res.data.data.rows;
+            if (state) {
+                if (cargoName) {
+                    numberLarge = null;
+                    numberSmall = null;
+                    portArrivalId = null;
+                    portDepartureId = null;
+                    params = {
+                        name: cargoName.name,
+                        page,
+                        rows
+                    }
+                } else if (numberLarge || numberSmall) {
+                    cargoName = null;
+                    portArrivalId = null;
+                    portDepartureId = null;
+                    params = {
+                        numberLarge,
+                        numberSmall,
+                        page,
+                        rows
+                    }
+                } else if (portArrivalId || portDepartureId) {
+                    cargoName = null;
+                    numberLarge = null;
+                    numberSmall = null;
+                    params = {
+                        portArrivalId,
+                        portDepartureId,
+                        page,
+                        rows
+                    }
+                } else {
+                    params = {
+                        name: cargoName.name,
+                        numberLarge,
+                        numberSmall,
+                        portArrivalId,
+                        portDepartureId,
+                        page,
+                        rows
+                    }
+                }
+            }
 
+            mtWharf.frontDeskCargoFocusOn(params).then(res => {
+                let rows = res.data.data.rows;
                 let cargoList = [];
-                rows.forEach(data => {
-                    let collegeId = data.id;
-                    User.UserCargoFocusOn({
-                        Authorization,
-                        collegeId
-                    }).then(focus => {
-                        console.log(focus)
-                        Promise.all([focus]).then(result => {
-                            let focusStatus = result[0].data.data;
-                            data.focusStatus = focusStatus;
-                            cargoList.push(data)
-                            this.setData({
-                                cargoList
+                if (rows.length != 0) {
+                    rows.forEach(data => {
+                        let collegeId = data.id;
+                        User.UserCargoFocusOn({
+                            Authorization,
+                            collegeId
+                        }).then(focus => {
+                            console.log(focus)
+                            Promise.all([focus]).then(result => {
+                                let focusStatus = result[0].data.data;
+                                data.focusStatus = focusStatus;
+                                cargoList.push(data)
+                                this.setData({
+                                    cargoList
+                                })
+                                console.log(cargoList)
                             })
-                            console.log(cargoList)
                         })
                     })
-                })
+                } else {
+                    this.setData({
+                        cargoList: rows
+                    })
+                }
+
             })
         }
 
@@ -291,6 +431,9 @@ Page({
     handleSearch(e) {
         let nameVessel = e.detail;
         let id = this.data.id;
+        this.setData({
+            state: null
+        })
         switch (id) {
             case '9999999':
                 this.getShipList(nameVessel)
@@ -307,5 +450,7 @@ Page({
         wx.navigateTo({
             url: '/views/Screening/Screening?id=' + id,
         })
-    }
+    },
+
+
 })

@@ -1,8 +1,9 @@
-.wrap{
+.wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .img {
   width: 40px;
   height: 40px;
@@ -13,7 +14,7 @@
 }
 
 .img.hd {
-  background: #FF7849;
+  background: #49ACFF;
 }
 
 .img.bd {
@@ -25,8 +26,8 @@
 }
 
 .img.hd image {
-  width: 17px;
-  height: 18px;
+  width: 19px;
+  height: 16.5px;
 }
 
 .img.bd image {
@@ -46,6 +47,6 @@
   color: #191919;
 }
 
-.btn-class{
+.btn-class {
   opacity: 0.5;
 }

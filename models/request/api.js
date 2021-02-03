@@ -30,6 +30,14 @@ export default {
 
     //用户发票管理
     UserInvoiceApply:`${PREFIX}/user/invoiceApplication/invoiceApplicationSave`,//用户发票申请
+    UserInvoiceRecord:`${PREFIX}/user/invoiceApplication/invoiceApplicationFindAll`,//用户发票记录
+
+    //用户提现管理
+    UserExtractMoneyApply:`${PREFIX}/user/invoiceApplication/saveWithdrawal`,//用户提现申请
+    UserExtractMoneyList:`${PREFIX}/user/invoiceApplication/mtWithdrawalsFindAll`,//用户提现列表
+    UserExtractMoneyItem:`${PREFIX}/user/invoiceApplication/userWithdrawalId`,//用户提现详情
+
+
 
 
 

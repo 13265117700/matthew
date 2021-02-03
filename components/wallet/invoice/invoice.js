@@ -5,15 +5,15 @@ Component({
   },
   data: {
     list: [{
-      img: 'https://img.gdmatt.com/images/2021/01/24/16115008291998222.png',
-      text: '充值记录',
-      bgColor: 'hd',
-      index: 0
-    }, {
       img: 'https://img.gdmatt.com/images/2021/01/24/16115008425214560.png',
       text: '银行卡',
       bgColor: 'bd',
       index: 1
+    }, {
+      img: 'https://img.gdmatt.com/images/2021/02/03/16123372310612666.png',
+      text: '发票记录',
+      bgColor: 'hd',
+      index: 0
     }, {
       img: 'https://img.gdmatt.com/images/2021/01/24/16115008765248344.png',
       text: '提现记录',

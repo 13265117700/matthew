@@ -27,7 +27,7 @@ Page({
             msg: options.msg,
             action: options.action
         })
-        this.gettalkContent();
+        // this.gettalkContent();
     },
 
     onShow: function () {

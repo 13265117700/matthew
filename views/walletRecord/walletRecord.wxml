@@ -1,60 +1,25 @@
 <view class="container">
     <van-tabs active="{{active}}" bind:change="onTabs">
         <van-tab wx:for="{{tabs}}" wx:key="index" wx:for-item="tabitem" title="{{tabitem.title}}"
-            name="{{tabitem.index}}" wx:if="{{tabitem.show}}">
+            name="{{tabitem.status}}">
             <view class="trend-list">
-                <view class="trend-item" hover-class="btn-class" hover-stay-time="0" bindtap="onDetail">
+                <view class="trend-item" hover-class="btn-class" hover-stay-time="0" wx:for="{{textList}}"
+                    wx:key="index" wx:for-item="textItem" data-id="{{textItem.id}}" bindtap="onDetail">
                     <view class="trend-info">
                         <view class="trend-amount">
                             <view class="trend-amount_subtitle">
-                                <text>充值金额：</text>
+                                <text>开票金额：</text>
                             </view>
                             <view class="trend-amount_number">
-                                <text>￥1220.00</text>
+                                <text>￥{{textItem.amount}}</text>
                             </view>
                         </view>
-                        <view class="trend-date">
-                            <text>2020-08-22 16:22</text>
+                        <view class="trend-date" wx:if="{{textItem.createTime}}">
+                            <text>{{textItem.createTime}}</text>
                         </view>
                     </view>
-                    <view class="trend-status">
-                        <text>充值成功</text>
-                    </view>
-                </view>
-                <view class="trend-item">
-                    <view class="trend-info">
-                        <view class="trend-amount">
-                            <view class="trend-amount_subtitle">
-                                <text>充值金额：</text>
-                            </view>
-                            <view class="trend-amount_number">
-                                <text>￥1220.00</text>
-                            </view>
-                        </view>
-                        <view class="trend-date">
-                            <text>2020-08-22 16:22</text>
-                        </view>
-                    </view>
-                    <view class="trend-status">
-                        <text>充值成功</text>
-                    </view>
-                </view>
-                <view class="trend-item">
-                    <view class="trend-info">
-                        <view class="trend-amount">
-                            <view class="trend-amount_subtitle">
-                                <text>充值金额：</text>
-                            </view>
-                            <view class="trend-amount_number">
-                                <text>￥1220.00</text>
-                            </view>
-                        </view>
-                        <view class="trend-date">
-                            <text>2020-08-22 16:22</text>
-                        </view>
-                    </view>
-                    <view class="trend-status">
-                        <text>充值成功</text>
+                    <view class="trend-status {{textItem.color}}">
+                        <text>{{textItem.text}}</text>
                     </view>
                 </view>
             </view>

@@ -48,8 +48,27 @@
 .trend-status {
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
-    color: #009EEB;
     font-size: 14px;
+}
+
+.trend-status.hover {
+    color: #FFC82C;
+}
+
+.trend-status.checked {
+    color: #009EEB;
+}
+
+.trend-status.success {
+    color: #009EEB;
+}
+
+.trend-status.fail {
+    color: #E3211F;
+}
+
+.trend-status.current {
+    color: #FF7849;
 }
 
 .btn-class {
