@@ -1,0 +1,80 @@
+.page-container {}
+
+.primary {
+  text-align: center;
+  padding: 40px 0 45px;
+  font-family: PingFang-SC-Bold;
+  font-weight: bold;
+  color: #191919;
+}
+
+.summary {
+  font-size: 15px;
+  margin-bottom: 19px;
+}
+
+.amount {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #666666;
+  font-size: 14px;
+}
+
+.status-icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 8px;
+}
+
+.status-icon image {
+  width: 15px;
+  height: 15px;
+}
+
+.status-text.current {
+  color: #FF9900;
+}
+
+.status-text.hover {
+  color: #FF7849;
+}
+
+.status-text.fail {
+  color: #E3211F;
+}
+
+.status-text.success {
+  color: #666666;
+}
+
+.secondary {
+  background: #fff;
+  margin: 0 15px;
+  padding: 15px 15px 0;
+  border-radius: 10px;
+}
+
+.secondary-item {
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+}
+
+.subtitle {
+  color: #929292;
+}
+
+.text {
+  color: #212221;
+}

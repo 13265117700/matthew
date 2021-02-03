@@ -9,5 +9,9 @@ export default {
     //用户发票记录
     UserInvoiceRecord: function (data) {
         return request.get(api.UserInvoiceRecord, data)
+    },
+    //用户发票详情
+    UserInvoiceDetail: function (data) {
+        return request.get(api.UserInvoiceDetail, data)
     }
 }

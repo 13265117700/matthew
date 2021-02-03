@@ -11,6 +11,7 @@ Page({
             id: options.id
         })
     },
+    
 
     onShow: function () {
         this.handleExtractMoney()

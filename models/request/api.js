@@ -31,6 +31,7 @@ export default {
     //用户发票管理
     UserInvoiceApply:`${PREFIX}/user/invoiceApplication/invoiceApplicationSave`,//用户发票申请
     UserInvoiceRecord:`${PREFIX}/user/invoiceApplication/invoiceApplicationFindAll`,//用户发票记录
+    UserInvoiceDetail:`${PREFIX}/user/invoiceApplication/findByCargoId`,//用户发票详情
 
     //用户提现管理
     UserExtractMoneyApply:`${PREFIX}/user/invoiceApplication/saveWithdrawal`,//用户提现申请

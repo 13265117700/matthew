@@ -148,9 +148,7 @@ Page({
             }
         }
 
-        console.log(params)
         ExtractMoney.UserExtractMoneyList(params).then(res => {
-            console.log(res)
             let textList = res.data.data.rows;
             textList.forEach(data => {
                 console.log(data)
@@ -179,12 +177,12 @@ Page({
         })
     },
     onDetail(e) {
-        console.log(e)
         let index = this.data.index;
+        console.log(index)
         let id = e.currentTarget.dataset.id;
         if (index == 0) {
             wx.navigateTo({
-                url: '/views/walletExtractDetail/walletExtractDetail?id=' + id,
+                url: '/views/walletInvoiceDetail/walletInvoiceDetail?id=' + id,
             })
         } else {
             wx.navigateTo({
