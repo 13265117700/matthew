@@ -57,7 +57,7 @@ Page({
             resourcesID:id,
             senderid,
             receiverid,
-            action:2
+            // action:2
         })
 
         wx.navigateBack({

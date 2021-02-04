@@ -22,7 +22,6 @@ Page({
         this.getUserInfo()
     },
     getUserInfo() {
-
         let Authorization = wx.getStorageSync('Authorization');
         let uid = '';
         let params = {
@@ -47,13 +46,20 @@ Page({
             this.setData({
                 userInfo: user
             })
-            console.log(user)
-            this.getShipList()
+
+            this.getShipList(user)
         })
 
     },
-    getShipList() {
-        let uId = this.data.receiverid;
+    getShipList(user) {
+        console.log(user)
+        let uId = ''
+        if (user.identityDifference == 2) {
+            uId = this.data.receiverid;
+        } else {
+            uId = this.data.senderid;
+        }
+        console.log(uId)
         let page = 1;
         let rows = 10;
         let params = {

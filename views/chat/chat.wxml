@@ -58,7 +58,7 @@
                 <view class="chat-avatar">
                     <van-image round width="40px" height="40px" src="{{ chatTalk.img }}" />
                 </view>
-                <view class="chat-text" wx:if="{{ !chatTalk.cargoItem && !chatTalk.shipItem }}">{{ chatTalk.text }}
+                <view class="chat-text" wx:if="{{ chatTalk.text }}">{{ chatTalk.text }}
                 </view>
                 <view class="chat-cargo" wx:if="{{ chatTalk.cargoItem }}">
                     <view class="cargo-subtitle">

@@ -12,12 +12,13 @@
     flex: 1;
     /* height: 100vh; */
     overflow-x: hidden;
-    padding: 0 15px 45px;
+    padding-bottom: 50px;
 }
 .chat-item{
     display: flex;
     align-items: center;
     margin-top: 15px;
+    padding: 0 15px;
 }
 .chat-item.active{
     flex-flow: row-reverse;

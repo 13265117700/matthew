@@ -73,6 +73,7 @@
 
 .subtitle {
   color: #929292;
+  min-width: 114px;
 }
 
 .text {

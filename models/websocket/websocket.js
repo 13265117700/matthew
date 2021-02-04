@@ -17,156 +17,153 @@ let heartBeatTimeOut = null;
 let connectSocketTimeOut = null;
 
 const webSocket = {
-    data:{
-        action:null,//枚举动作
-        msg:null,//发送的消息
-        senderId:null,//自己的ID
-        receiverId:null//对方的ID
+    data: {
+        action: null, //枚举动作
+        msg: null, //发送的消息
+        senderId: null, //自己的ID
+        receiverId: null //对方的ID
     },
     // 创建一个 WebSocket 连接
-    connectSocket:function(options){
+    connectSocket: function (options) {
         console.log(options)
         this.data.action = options.action;
         this.data.msg = options.msg;
         this.data.senderId = options.senderId;
         this.data.receiverId = options.receiverId;
-       
+
         socketOpen = false;
         socketClose = false;
         socketMsgQueue = [];
         wx.connectSocket({
-          url: API.UserFriendChat,
-          success:(res) => {
-              if(options){
-                options.success && options.success(res);
-              }
-          },
-          fail:(err) => {
-              if(options){
-                options.fail && options.fail(res);
-              }
-          }
+            url: API.UserFriendChat,
+            success: (res) => {
+                if (options) {
+                    options.success && options.success(res);
+                }
+            },
+            fail: (err) => {
+                if (options) {
+                    options.fail && options.fail(res);
+                }
+            }
         })
     },
 
     //发送消息
-    sendSocketMessage:function(data){
-        console.log(data)
-        let senderId = data.senderId;//自己的ID
-        let receiverId = data.receiverId;//对方的ID
+    sendSocketMessage: function (data) {
+        let senderId = data.senderId; //自己的ID
+        let receiverId = data.receiverId; //对方的ID
         let msg = data.msg;
         let action = data.action;
-        let chatMsg = new startWebSocket.ChatMsg(senderId,receiverId,msg,null);//构建chatMsg
-        let dataContent = new startWebSocket.DataContent(action, chatMsg, null);// 构建DataContent
+        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, null); //构建chatMsg
+        let dataContent = new startWebSocket.DataContent(action, chatMsg, null); // 构建DataContent
+        
+        console.log(action)
 
-        this.data.action = action;
-        this.data.msg = msg;
-        this.data.receiverId = receiverId;
-        this.data.senderId = senderId;
+        this.data.action = action
 
         return new Promise((resolve, reject) => {
-            if(socketOpen){
+            if (socketOpen) {
                 wx.sendSocketMessage({
                     data: JSON.stringify(dataContent),
-                    success:(res) => {
+                    success: (res) => {
                         resolve(chatMsg)
                     },
-                    fail:(err) => {
+                    fail: (err) => {
                         reject(err)
                     }
                 })
-            }else{
+            } else {
                 socketMsgQueue.push(data)
             }
         })
     },
 
     // 关闭 WebSocket 连接
-    closeSocket:function(options){
-        if(connectSocketTimeOut){
+    closeSocket: function (options) {
+        if (connectSocketTimeOut) {
             clearTimeout(connectSocketTimeOut);
             connectSocketTimeOut = null;
         }
         socketClose = true;
         this.stopHeartBeat();
         wx.closeSocket({
-          success:(res) => {
-            console.log('websocket已关闭')
-            if(options){
-                options.success && options.success(res)
+            success: (res) => {
+                console.log('websocket已关闭')
+                if (options) {
+                    options.success && options.success(res)
+                }
+            },
+            fail: (err) => {
+                if (options) {
+                    options.success && options.success(err)
+                }
             }
-          },
-          fail:(err) => {
-            if(options){
-                options.success && options.success(err)
-            }
-          }
         })
     },
 
     // 收到消息回调
-    onSocketMessageCallback:function(msg){
+    onSocketMessageCallback: function (msg) {
         console.log(msg)
     },
 
     //开始心跳
-    startHeartBeat:function(){
+    startHeartBeat: function () {
         heart = 'heart';
         this.heartBeat()
     },
 
     //结束心跳
-    stopHeartBeat:function(){
+    stopHeartBeat: function () {
         console.log('socket结束心跳');
         heart = '';
-        if(heartBeatTimeOut){
+        if (heartBeatTimeOut) {
             clearTimeout(heartBeatTimeOut);
             heartBeatTimeOut = null;
         }
-        if(connectSocketTimeOut){
+        if (connectSocketTimeOut) {
             clearTimeout(connectSocketTimeOut);
             connectSocketTimeOut = null;
         }
     },
 
     //心跳
-    heartBeat:function(){
-        if(!heart){
+    heartBeat: function () {
+        if (!heart) {
             return
         }
 
-        let senderId = this.data.senderId;//自己的ID
-        let receiverId = this.data.receiverId;//对方的ID
+        let senderId = this.data.senderId; //自己的ID
+        let receiverId = this.data.receiverId; //对方的ID
         let msg = this.data.msg;
         let action = this.data.action;
-        let chatMsg = new startWebSocket.ChatMsg(senderId,receiverId,msg,null);//构建chatMsg
-        let dataContent = new startWebSocket.DataContent(action, chatMsg, null);// 构建DataContent
+        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, null); //构建chatMsg
+        let dataContent = new startWebSocket.DataContent(action, chatMsg, null); // 构建DataContent
 
         console.log(action)
-        if(socketOpen){
+        if (socketOpen) {
             wx.sendSocketMessage({
-              data: JSON.stringify(dataContent),
-              success:(res) => {
-                console.log('心跳成功')
-                  if(heart){
-                    heartBeatTimeOut = setTimeout(() => {
-                        this.data.msg = ''
-                        this.heartBeat()
-                    },7000)
-                  }
-              },
-              fail:(err) => {
-                console.log('socket心跳失败');
-                if(heartBeatFailCount  > 2){
-                    this.connectSocket();
+                data: JSON.stringify(dataContent),
+                success: (res) => {
+                    console.log('心跳成功')
+                    if (heart) {
+                        heartBeatTimeOut = setTimeout(() => {
+                            this.heartBeat()
+                        }, 7000)
+                    }
+                },
+                fail: (err) => {
+                    console.log('socket心跳失败');
+                    if (heartBeatFailCount > 2) {
+                        this.connectSocket();
+                    }
+                    if (heart) {
+                        heartBeatTimeOut = setTimeout(() => {
+                            this.heartBeat()
+                        }, 7000);
+                    }
+                    heartBeatFailCount++
                 }
-                if(heart){
-                    heartBeatTimeOut = setTimeout(() => {
-                        this.heartBeat()
-                    },7000);
-                }
-                heartBeatFailCount++
-              }
             })
         }
     }
@@ -174,9 +171,9 @@ const webSocket = {
 
 //监听连接打开
 wx.onSocketOpen((result) => {
-    if(socketClose){
+    if (socketClose) {
         webSocket.closeSocket();
-    }else{
+    } else {
         socketOpen = true;
     }
     socketMsgQueue = [];
@@ -196,11 +193,11 @@ wx.onSocketMessage((result) => {
 //监听关闭
 wx.onSocketClose((result) => {
     console.log('WebSocket 已关闭！')
-    if(!socketClose){
+    if (!socketClose) {
         clearTimeout(connectSocketTimeOut)
         connectSocketTimeOut = setTimeout(() => {
             webSocket.connectSocket()
-        },3000)
+        }, 3000)
     }
 })
 
