@@ -10,7 +10,6 @@ Page({
     },
     onShow: function () {
         this.tabBarTitle()
-        //   this.onMyEvent()
     },
 
     tabBarTitle() {

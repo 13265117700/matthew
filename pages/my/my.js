@@ -296,7 +296,17 @@ Page({
   seeItem: function (event) {
     let Authorization = wx.getStorageSync('Authorization');
     let index = event.detail.index;
+    let user = this.data.userInfo;
+    console.log(user)
+
     if (Authorization) {
+      if (user.identityDifference == 0) {
+        wx.showToast({
+          title: '请进行身份认证',
+          icon: 'none'
+        })
+        return
+      }
       switch (index) {
         case 0:
           wx.navigateTo({
@@ -306,7 +316,7 @@ Page({
         case 1:
           wx.showToast({
             title: '功能正在建设中',
-            icon:'loading'
+            icon: 'loading'
           })
           break;
         case 2:
@@ -333,6 +343,13 @@ Page({
     console.log(id)
     let Authorization = wx.getStorageSync('Authorization');
     if (Authorization) {
+      if (userInfo.identityDifference == 0 && id != 112 && id != 113) {
+        wx.showToast({
+          title: '请进行身份认证',
+          icon: 'none'
+        })
+        return
+      }
       switch (id) {
         // 身份认证
         case '101':

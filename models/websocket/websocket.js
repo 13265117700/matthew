@@ -51,16 +51,14 @@ const webSocket = {
 
     //发送消息
     sendSocketMessage: function (data) {
+        console.log(data)
         let senderId = data.senderId; //自己的ID
         let receiverId = data.receiverId; //对方的ID
         let msg = data.msg;
         let action = data.action;
-        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, null); //构建chatMsg
+        let msgId = data.msgId;
+        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, msgId); //构建chatMsg
         let dataContent = new startWebSocket.DataContent(action, chatMsg, null); // 构建DataContent
-        
-        console.log(action)
-
-        this.data.action = action
 
         return new Promise((resolve, reject) => {
             if (socketOpen) {
@@ -135,12 +133,12 @@ const webSocket = {
 
         let senderId = this.data.senderId; //自己的ID
         let receiverId = this.data.receiverId; //对方的ID
-        let msg = this.data.msg;
-        let action = this.data.action;
-        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, null); //构建chatMsg
+        let msg = null;
+        let msgId = null;
+        let action = 4;
+        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, msgId); //构建chatMsg
         let dataContent = new startWebSocket.DataContent(action, chatMsg, null); // 构建DataContent
 
-        console.log(action)
         if (socketOpen) {
             wx.sendSocketMessage({
                 data: JSON.stringify(dataContent),

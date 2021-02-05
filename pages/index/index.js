@@ -230,7 +230,7 @@ Page({
             })
           }
           break;
-          
+
       }
 
     } else {
@@ -259,6 +259,14 @@ Page({
 
   //进入查看全部订单
   toviewOrder() {
+    let user = this.data.userInfo;
+    if (user.identityDifference == 0) {
+      wx.showToast({
+        title: '请到我得页面进行认证',
+        icon: 'none'
+      })
+      return
+    }
     wx.navigateTo({
       url: '/views/UserOrderList/UserOrderList',
     })

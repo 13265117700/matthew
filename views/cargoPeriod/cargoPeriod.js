@@ -57,12 +57,10 @@ Page({
             resourcesID:id,
             senderid,
             receiverid,
-            // action:2
         })
 
         wx.navigateBack({
           success:()=>{
-            // prevPage.WebSocketInit();
             prevPage.getSendMsg()
           }
         })

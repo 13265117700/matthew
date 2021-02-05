@@ -3,7 +3,6 @@ import mtWharf from '../../models/frontEnd/mtWharf'
 
 Page({
     data: {
-        // idenID:null,
         cargoId: null,
         shipList: [],
         receiverid: null,
@@ -52,7 +51,6 @@ Page({
 
     },
     getShipList(user) {
-        console.log(user)
         let uId = ''
         if (user.identityDifference == 2) {
             uId = this.data.receiverid;
@@ -80,26 +78,23 @@ Page({
                 })
             })
         })
-        // User.UserShipPeriodList(params).then(res => {
-        //     let rows = res.data.data.rows;
-        //     console.log(rows)
-        //     let shipList = []
-        //     rows.forEach(data => {
-        //         let emptyDate = new Date(data.emptyDate).toLocaleDateString();
-        //         data.emptyDate = emptyDate.replace(/\//g,"-");
-        //         shipList.push(data)
-        //     })
-        //     console.log(shipList)
-        //     this.setData({
-        //         shipList
-        //     })
-        // })
     },
     //发送船源
     handleConfirm(e) {
         let id = e.currentTarget.dataset.id;
-        wx.navigateTo({
-            url: '/views/chat/chat?id=' + id,
+        let senderid = this.data.senderid;
+        let receiverid = this.data.receiverid;
+        let pages = getCurrentPages()
+        let prevPage = pages[pages.length - 2];
+        prevPage.setData({
+            resourcesID: id,
+            senderid,
+            receiverid,
+        })
+        wx.navigateBack({
+            success: () => {
+                prevPage.getShipSenMsg()
+            }
         })
     },
     handleCheckDetails(e) {
@@ -108,7 +103,6 @@ Page({
     },
     //货主发起任务
     handleCargoHairTask(e) {
-        console.log(this.data.shipList)
         let Authorization = wx.getStorageSync('Authorization');
         let cargoId = this.data.cargoId;
         let shipId = e.currentTarget.dataset.id;

@@ -41,7 +41,7 @@
             </view>
             <view class="info-group-image">
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!idenJust}}" bindtap="justAfterRead">
+                    <view class="item-upload" wx:if="{{!corporateId}}" bindtap="justAfterRead">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -49,16 +49,17 @@
                             <text>上传身份证正面</text>
                         </view>
                     </view>
-                    <view class="item-upload" wx:if="{{idenJust}}">
-                        <image mode="aspectFill" src="{{idenJust}}" data-url="{{ idenJust }}"
-                            catchtap="handleIdenJustImage"></image>
+                    <view class="item-upload" wx:if="{{corporateId}}">
+                        <image mode="aspectFill" src="{{corporateId}}" data-url="{{ corporateId }}"
+                            catchtap="handleOpenImg"></image>
                     </view>
-                    <view class="item-text" wx:if="{{idenJust}}" bindtap="justAfterRead">
+                    <view class="item-text" wx:if="{{corporateId}}" bindtap="justAfterRead">
                         <text>上传身份证正面</text>
                     </view>
                 </view>
+
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!idenBack}}" bindtap="backAfterRead">
+                    <view class="item-upload" wx:if="{{!backViewIdCard}}" bindtap="backAfterRead">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -66,11 +67,11 @@
                             <text>上传身份证反面</text>
                         </view>
                     </view>
-                    <view class="item-upload" wx:if="{{idenBack}}">
-                        <image mode="aspectFill" src="{{idenBack}}" data-url="{{ idenBack }}"
-                            catchtap="handleIdenBackImage"></image>
+                    <view class="item-upload" wx:if="{{backViewIdCard}}">
+                        <image mode="aspectFill" src="{{backViewIdCard}}" data-url="{{ backViewIdCard }}"
+                            catchtap="handleOpenImg"></image>
                     </view>
-                    <view class="item-text" wx:if="{{idenBack}}" bindtap="backAfterRead">
+                    <view class="item-text" wx:if="{{backViewIdCard}}" bindtap="backAfterRead">
                         <text>上传身份证反面</text>
                     </view>
                 </view>
@@ -85,8 +86,8 @@
                 <view class="info-group-title_text">上传船长证</view>
             </view>
             <view class="info-group-image">
-                <van-uploader preview-size="120px" file-list="{{ traitList }}" max-count="9" bind:after-read="handTrait"
-                    bind:delete="traitListDel" />
+                <van-uploader preview-size="120px" file-list="{{ captainFeatures }}" max-count="9"
+                    bind:after-read="handTrait" bind:delete="traitListDel" />
             </view>
         </vtu-input-group>
     </view>
@@ -123,7 +124,7 @@
                     </view>
                     <view class="item-upload" wx:if="{{aisCertificate}}">
                         <image src="{{aisCertificate}}" mode="aspectFill" data-url="{{ aisCertificate }}"
-                            catchtap="handleAisImage"></image>
+                            catchtap="handleOpenImg"></image>
                     </view>
                     <view class="item-text" wx:if="{{aisCertificate}}" bindtap="aisUpload">
                         <text>上传AIS证书</text>
@@ -140,7 +141,7 @@
                     </view>
                     <view class="item-upload" wx:if="{{hanoiCertificate }}">
                         <image src="{{hanoiCertificate }}" mode="aspectFill" data-url="{{ hanoiCertificate }}"
-                            catchtap="hanoiCertificateImage"></image>
+                            catchtap="handleOpenImg"></image>
                     </view>
                     <view class="item-text" wx:if="{{hanoiCertificate }}" bindtap="hanoiCertificateUpload">
                         <text>上传河内适航证书</text>
@@ -158,7 +159,7 @@
             </view>
             <view class="info-group-image">
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!shipOperationCertificate}}" bindtap="handShipOperationCertificate">
+                    <view class="item-upload" wx:if="{{!operationCertificate}}" bindtap="handleOperationCertificate">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -166,16 +167,16 @@
                             <text>上传运营证书</text>
                         </view>
                     </view>
-                    <view class="item-upload" wx:if="{{shipOperationCertificate}}">
-                        <image src="{{shipOperationCertificate}}" mode="aspectFill"
-                            data-url="{{ shipOperationCertificate }}" catchtap="OperationCertificateImage"></image>
+                    <view class="item-upload" wx:if="{{operationCertificate}}">
+                        <image src="{{operationCertificate}}" mode="aspectFill" data-url="{{ operationCertificate }}"
+                            catchtap="handleOpenImg"></image>
                     </view>
-                    <view class="item-text" wx:if="{{shipOperationCertificate}}" bindtap="handShipOperationCertificate">
+                    <view class="item-text" wx:if="{{operationCertificate}}" bindtap="handleOperationCertificate">
                         <text>上传运营证书</text>
                     </view>
                 </view>
                 <view class="info-group-image_item">
-                    <view class="item-upload" wx:if="{{!shipAnnualCertificate }}" bindtap="handShipAnnualCertificate">
+                    <view class="item-upload" wx:if="{{!annualCertificate }}" bindtap="handleAnnualCertificate">
                         <view class="item-upload_icon">
                             <image src="/images/my/tjzs@3x.png"></image>
                         </view>
@@ -183,11 +184,11 @@
                             <text>上传船舶年审证书</text>
                         </view>
                     </view>
-                    <view class="item-upload" wx:if="{{shipAnnualCertificate }}">
-                        <image src="{{shipAnnualCertificate }}" mode="aspectFill" data-url="{{ shipAnnualCertificate }}"
-                            catchtap="AnnualCertificateImage"></image>
+                    <view class="item-upload" wx:if="{{annualCertificate }}">
+                        <image src="{{annualCertificate }}" mode="aspectFill" data-url="{{ annualCertificate }}"
+                            catchtap="handleOpenImg"></image>
                     </view>
-                    <view class="item-text" wx:if="{{shipAnnualCertificate }}" bindtap="handShipAnnualCertificate">
+                    <view class="item-text" wx:if="{{annualCertificate }}" bindtap="handShipAnnualCertificate">
                         <text>上传运营证书</text>
                     </view>
                 </view>
@@ -202,8 +203,8 @@
                 <view class="info-group-title_text">上传船舶检验证书</view>
             </view>
             <view class="info-group-image">
-                <van-uploader preview-size="120px" file-list="{{ shipTestCertificate }}" max-count="9"
-                    bind:after-read="handShipTestCertificate" bind:delete="shipTestCertificateDel" />
+                <van-uploader preview-size="120px" file-list="{{ certificateInspection }}" max-count="9"
+                    bind:after-read="handcertificateInspection" bind:delete="shipTestCertificateDel" />
             </view>
         </vtu-input-group>
     </view>
@@ -413,8 +414,8 @@
                 <view class="info-group-title_text">添加船图片</view>
             </view>
             <view class="info-group-image">
-                <van-uploader preview-size="120px" file-list="{{ shipChart }}" max-count="9" bind:after-read="handShipChartUpload"
-                    bind:delete="shipChartDel" />
+                <van-uploader preview-size="120px" file-list="{{ shipChart }}" max-count="9"
+                    bind:after-read="handShipChartUpload" bind:delete="shipChartDel" />
             </view>
         </vtu-input-group>
     </view>

@@ -219,7 +219,7 @@ Component({
         aisCertificate: '', // AIS证书
         hanoiCertificate: '', // 内河证书
         operationCertificate: '', // 船运营证书
-        annualCertificate : '', // 船年审证书
+        annualCertificate: '', // 船年审证书
         certificateInspection: [], // 船检验证书
         closure: '', //封仓设备
         ageShip: '', //船龄
@@ -244,9 +244,6 @@ Component({
             this.frontDeskShipTypeList()
         }
     },
-    /**
-     * 组件的方法列表
-     */
     methods: {
         //获取船舶类型
         frontDeskShipTypeList() {
@@ -369,7 +366,13 @@ Component({
         },
 
 
-
+        handleOpenImg(e) {
+            let url = e.currentTarget.dataset.url;
+            wx.previewImage({
+                current: url,
+                urls: [url]
+            })
+        },
 
         // 身份证正面
         justAfterRead() {
@@ -386,14 +389,7 @@ Component({
                 })
             })
         },
-        //点开身份正面图片
-        handlecorporateIdImage(e) {
-            let url = e.currentTarget.dataset.url;
-            wx.previewImage({
-                current: url,
-                urls: [url]
-            })
-        },
+
 
         // 身份证反面
         backAfterRead() {
@@ -404,14 +400,7 @@ Component({
                 })
             })
         },
-        //打开身份证反面图面
-        handlebackViewIdCardImage(e) {
-            let url = e.currentTarget.dataset.url;
-            wx.previewImage({
-                current: url,
-                urls: [url]
-            })
-        },
+
 
         //船长特征
         handTrait(event) {
@@ -478,14 +467,7 @@ Component({
                 })
             })
         },
-        //打开AIS证书图片
-        handleAisImage(e) {
-            let url = e.currentTarget.dataset.url;
-            wx.previewImage({
-                current: url,
-                urls: [url]
-            })
-        },
+
 
         //河内证书上传
         hanoiCertificateUpload() {
@@ -496,17 +478,9 @@ Component({
                 })
             })
         },
-        //打开河内证书图片
-        hanoiCertificateImage(e) {
-            let url = e.currentTarget.dataset.url;
-            wx.previewImage({
-                current: url,
-                urls: [url]
-            })
-        },
 
         // 船运营证书
-        handoperationCertificate() {
+        handleOperationCertificate() {
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
@@ -514,32 +488,20 @@ Component({
                 })
             })
         },
-        //打开运营证书
-        OperationCertificateImage(e) {
-            let url = e.currentTarget.dataset.url;
-            wx.previewImage({
-                current: url,
-                urls: [url]
-            })
-        },
+
 
         //船年审证书
-        handannualCertificate () {
+        handleAnnualCertificate() {
+            console.log(123123)
             upload.upload.chooseImage().then(res => {
                 console.log(res)
                 this.setData({
-                    annualCertificate : res
+                    annualCertificate: res
                 })
             })
         },
-        //打开年审证书
-        AnnualCertificateImage(e) {
-            let url = e.currentTarget.dataset.url;
-            wx.previewImage({
-                current: url,
-                urls: [url]
-            })
-        },
+
+    
         // 船检验证书
         handcertificateInspection(event) {
             const {
@@ -780,29 +742,7 @@ Component({
                 })
             })
         },
-        // handlePreviewVideo(e) {
-        //     console.log(e)
-        //     let id = e.currentTarget.dataset.id;
-        //     console.log(id)
-        //     let videoCtx = wx.createVideoContext(id);
-        //     let fullScreen = this.data.fullScreen;
-        //     console.log(videoCtx)
-        //     if (fullScreen) {
-        //         console.log(1)
-        //         videoCtx.pause();
-        //         videoCtx.exitFullScreen();
-        //         this.setData({
-        //             fullScreen: false
-        //         })
-        //     } else {
-        //         console.log(2)
-        //         videoCtx.requestFullScreen();
-        //         videoCtx.play();
-        //         this.setData({
-        //             fullScreen: true
-        //         })
-        //     }
-        // },
+
         handleSubmit() {
             let captainFeatures = [...(this.data.captainFeatures.map(data => data.url))];
             let mainItemsShip = [...(this.data.mainItemsShip.map(data => data.url))];
@@ -815,7 +755,7 @@ Component({
                 ladenA: this.data.ladenA,
                 ladenB: this.data.ladenB,
                 ais: this.data.ais,
-                typeShip: this.data.typeShip,
+                // typeShip: this.data.typeShip,
                 captainName: this.data.captainName,
                 captainPhone: this.data.captainPhone,
                 corporateId: this.data.corporateId,
@@ -825,7 +765,7 @@ Component({
                 aisCertificate: this.data.aisCertificate,
                 hanoiCertificate: this.data.hanoiCertificate,
                 operationCertificate: this.data.operationCertificate,
-                annualCertificate : this.data.annualCertificate ,
+                annualCertificate: this.data.annualCertificate,
                 certificateInspection: certificateInspection.toString(),
                 closure: this.data.closure,
                 ageShip: this.data.ageShip,
@@ -852,7 +792,7 @@ Component({
                 !this.data.ladenA ||
                 !this.data.ladenB ||
                 !this.data.ais ||
-                !this.data.typeShip ||
+                // !this.data.typeShip ||
                 !this.data.captainName ||
                 !this.data.captainPhone ||
                 !this.data.corporateId ||
@@ -862,7 +802,7 @@ Component({
                 !this.data.aisCertificate ||
                 !this.data.hanoiCertificate ||
                 !this.data.operationCertificate ||
-                !this.data.annualCertificate  ||
+                !this.data.annualCertificate ||
                 !this.data.certificateInspection ||
                 !this.data.closure ||
                 !this.data.ageShip ||
@@ -900,9 +840,9 @@ Component({
                             delta: 1,
                         })
                     }, 1000)
-                }else{
+                } else {
                     wx.showToast({
-                      title: '服务器出错',
+                        title: '服务器出错',
                     })
                 }
             })
