@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "任务订单确认",
   "usingComponents": {
-    "van-dialog":"/miniprogram_npm/@vant/weapp/dialog/index"
+    "van-dialog":"/miniprogram_npm/@vant/weapp/dialog/index",
+    "van-empty": "/miniprogram_npm/@vant/weapp/empty/index"
   }
 }

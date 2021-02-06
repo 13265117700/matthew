@@ -51,7 +51,6 @@
             </view> -->
         </view>
 
-        <vtu-empty icon="iconfont icon-kong" fill-screen icon-color="orange" icon-size="50px" label="暂时没有待接订单"
-            wx:if="{{total === 0}}"></vtu-empty>
+        <van-empty wx:if="{{total == 0}}" description="暂时还没有订单" />
     </view>
 </view>

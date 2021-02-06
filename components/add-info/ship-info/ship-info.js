@@ -4,17 +4,12 @@ import mtWharf from "../../../models/frontEnd/mtWharf";
 import User from "../../../models/user/user";
 
 Component({
-    /**
-     * 组件的属性列表
-     */
     properties: {
 
     },
 
-    /**
-     * 组件的初始数据
-     */
     data: {
+        repeat:true,
         //信息分组1
         infoGroupOne: [{
             title: '船舶名称：',
@@ -298,9 +293,9 @@ Component({
                     console.log(value)
                     let AISlength = value.split("").length;
                     console.log(AISlength)
-                    if (AISlength >= 11) {
+                    if (AISlength >= 9) {
                         wx.showToast({
-                            title: '最长输入11个字符串',
+                            title: '最长输入9个字符串',
                         })
                     }
                     this.setData({
@@ -501,7 +496,7 @@ Component({
             })
         },
 
-    
+
         // 船检验证书
         handcertificateInspection(event) {
             const {
@@ -744,6 +739,7 @@ Component({
         },
 
         handleSubmit() {
+            let repeat = this.data.repeat;
             let captainFeatures = [...(this.data.captainFeatures.map(data => data.url))];
             let mainItemsShip = [...(this.data.mainItemsShip.map(data => data.url))];
             let certificateInspection = [...(this.data.certificateInspection.map(data => data.url))];
@@ -785,8 +781,6 @@ Component({
                 dump: this.data.dump
             }
 
-            console.log(params)
-
             if (
                 !this.data.nameVessel ||
                 !this.data.ladenA ||
@@ -827,7 +821,19 @@ Component({
                 }, 2000)
                 return
             }
-
+            console.log(repeat)
+            if (repeat) {
+                this.setData({
+                    repeat:false
+                })
+            } else {
+                wx.showToast({
+                  title: '正在为您添加船舶,不要着急',
+                  icon:'none'
+                })
+                return
+            }
+            
             User.UserShipAdd(params).then(res => {
                 console.log(res)
                 if (res.data.state == 200) {
@@ -841,11 +847,15 @@ Component({
                         })
                     }, 1000)
                 } else {
+                    this.setData({
+                        repeat:true
+                    })
                     wx.showToast({
                         title: '服务器出错',
                     })
                 }
             })
+
         }
     }
 })

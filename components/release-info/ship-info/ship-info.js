@@ -56,7 +56,7 @@ Component({
                     wharfId,
                     addressShow:false
                 })
-                console.log(this.data.inputList)
+
             }
         },
         onCloseAddress(){
@@ -133,19 +133,7 @@ Component({
                 popupShow:false
             })
         },
-
-        /**
-         * handleConfirmShip(e){
-            console.log(e)
-            this.setData({
-                popupShow:false
-            })
-        },
-         * 
-         * @param {*} e 
-         */
-        
-        
+       
         // 时间弹框确认按钮
         handleconfirm(e){
             let index = e.currentTarget.dataset.index;

@@ -113,6 +113,7 @@ Component({
             state: 13, //按钮状态
         }],
         orderList: [],
+        total:0
     },
     methods: {
         getUserInfo() {
@@ -419,7 +420,8 @@ Component({
             this.setData({
                 orderBtu,
                 orderList,
-                tabsActive
+                tabsActive,
+                total:data.orderList.length
             })
 
         },

@@ -87,7 +87,8 @@
             </view>
             <view class="info-group-image">
                 <van-uploader preview-size="120px" file-list="{{ captainFeatures }}" max-count="9"
-                    bind:after-read="handTrait" bind:delete="traitListDel" />
+                    bind:after-read="handTrait" bind:delete="captainFeaturesDel" />
+                    
             </view>
         </vtu-input-group>
     </view>
@@ -204,7 +205,7 @@
             </view>
             <view class="info-group-image">
                 <van-uploader preview-size="120px" file-list="{{ certificateInspection }}" max-count="9"
-                    bind:after-read="handcertificateInspection" bind:delete="shipTestCertificateDel" />
+                    bind:after-read="handcertificateInspection" bind:delete="certificateInspectionDel" />
             </view>
         </vtu-input-group>
     </view>

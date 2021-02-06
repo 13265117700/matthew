@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "van-empty": "/miniprogram_npm/@vant/weapp/empty/index",
-    "resources-info":"/components/resources-info/resources-info"
+    "resources-info":"/components/resources-info/resources-info",
+    "van-dialog": "/miniprogram_npm/@vant/weapp/dialog/index"
   }
 }

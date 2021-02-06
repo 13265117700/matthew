@@ -56,8 +56,7 @@ const webSocket = {
         let receiverId = data.receiverId; //对方的ID
         let msg = data.msg;
         let action = data.action;
-        let msgId = data.msgId;
-        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, msgId); //构建chatMsg
+        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, null); //构建chatMsg
         let dataContent = new startWebSocket.DataContent(action, chatMsg, null); // 构建DataContent
 
         return new Promise((resolve, reject) => {
@@ -134,11 +133,11 @@ const webSocket = {
         let senderId = this.data.senderId; //自己的ID
         let receiverId = this.data.receiverId; //对方的ID
         let msg = null;
-        let msgId = null;
-        let action = 4;
-        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, msgId); //构建chatMsg
+        let action = this.data.action;
+        let chatMsg = new startWebSocket.ChatMsg(senderId, receiverId, msg, null); //构建chatMsg
         let dataContent = new startWebSocket.DataContent(action, chatMsg, null); // 构建DataContent
 
+        console.log(action)
         if (socketOpen) {
             wx.sendSocketMessage({
                 data: JSON.stringify(dataContent),
@@ -147,7 +146,7 @@ const webSocket = {
                     if (heart) {
                         heartBeatTimeOut = setTimeout(() => {
                             this.heartBeat()
-                        }, 7000)
+                        }, 2000)
                     }
                 },
                 fail: (err) => {
@@ -158,7 +157,7 @@ const webSocket = {
                     if (heart) {
                         heartBeatTimeOut = setTimeout(() => {
                             this.heartBeat()
-                        }, 7000);
+                        }, 2000);
                     }
                     heartBeatFailCount++
                 }

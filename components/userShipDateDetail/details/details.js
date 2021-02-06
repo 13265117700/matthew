@@ -106,15 +106,22 @@ Component({
                         let focusStatus = result[0].data.data;
                         rows.focusStatus = focusStatus;
 
-                        //船图片
-                        let shipChart = rows.mtShip.shipChart.split(',');
-                        let array = []
-                        shipChart.forEach(data => {
-                            let arr = {}
-                            arr.url = data
-                            array.push(arr)
-                        })
-                        rows.shipChart = array
+
+                        if (rows.mtShip.shipChart) {
+                            //船图片
+                            let shipChart = rows.mtShip.shipChart.split(',');
+                            let array = []
+                            shipChart.forEach(data => {
+                                let arr = {}
+                                arr.url = data
+                                array.push(arr)
+                            })
+                            this.setData({
+                                image: shipChart,
+                            })
+                            rows.shipChart = array
+                        }
+
 
                         //船龄
                         let nowYears = new Date().getFullYear(); //当前年
@@ -138,6 +145,7 @@ Component({
                         //按钮
                         let btn = this.data.btn;
                         if (user.uid === rows.mtUser.uid) {
+                            console.log(btn)
                             btn.forEach(data => {
                                 console.log(data)
                                 if (data.id < 3) {
@@ -161,7 +169,7 @@ Component({
                         this.setData({
                             userInfo: user,
                             detail: rows,
-                            image: shipChart,
+
                             btn
                         })
 
@@ -254,7 +262,9 @@ Component({
                     this.shelvesDelete()
                     break;
                 case 2:
-                    console.log(2)
+                    wx.navigateTo({
+                        url: '/views/shipDateEdit/shipDateEdit?id=' + shippingOrderId,
+                    })
                     break;
                 case 3:
                     console.log('投诉')

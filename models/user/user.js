@@ -79,6 +79,10 @@ export default {
     UserShipPeriodDel: function (data) {
         return request.post(api.UserShipPeriodDel, data)
     },
+    //用户船期修改
+    UserShipDateEdit: function (data) {
+        return request.post(api.UserShipDateEdit, data)
+    },
 
 
 

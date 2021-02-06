@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "我的关注",
   "usingComponents": {
+    "van-empty": "/miniprogram_npm/@vant/weapp/empty/index"
   }
 }

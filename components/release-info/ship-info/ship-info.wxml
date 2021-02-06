@@ -31,7 +31,7 @@
             </view>
             <van-popup
                 show="{{ addressShow }}"
-                custom-style="height: 100%;width: 100%;padding-top:60px;border-radius: 0;"
+                custom-style="height: 100%;width: 100%;border-radius: 0;"
                 round
                 position="right">
                 <view class="region-title-close" bindtap="onCloseAddress">
@@ -67,7 +67,7 @@
             </van-popup>
         </vtu-input-group>
     </view>
-    <view class="info-group">
+    <!-- <view class="info-group">
         <vtu-input-group>
             <vtu-input 
                 v-class="info-input"
@@ -79,7 +79,7 @@
                 show-max-label="{{false}}"
                 bind:input="handleNote"></vtu-input>
         </vtu-input-group>
-    </view>
+    </view> -->
     <view class="info-group">
         <van-button 
             type="danger" 

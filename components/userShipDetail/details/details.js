@@ -92,7 +92,7 @@ Component({
                 id,
                 Authorization
             }).then(res => {
-                console.log(res)
+
                 let rows = res.data.data;
                 let params = {
                     Authorization,
@@ -105,14 +105,21 @@ Component({
                         rows.focusStatus = focusStatus;
 
                         //船图片
-                        let shipChart = rows.shipChart.split(',');
-                        let array = []
-                        shipChart.forEach(data => {
-                            let arr = {}
-                            arr.url = data
-                            array.push(arr)
-                        })
-                        rows.shipChart = array
+                        if (rows.shipChart) {
+                            let shipChart = rows.shipChart.split(',');
+                            let array = []
+                            shipChart.forEach(data => {
+                                let arr = {}
+                                arr.url = data
+                                array.push(arr)
+                            })
+                            this.setData({
+                                image:shipChart
+                            })
+                            rows.shipChart = array
+                        }
+
+
 
                         //船龄
                         let nowYears = new Date().getFullYear(); //当前年
@@ -133,18 +140,11 @@ Component({
                             rows.ageShip = age + '年'
                         }
 
-                        console.log(rows)
-
-
                         //按钮
                         let btn = this.data.btn;
                         if (user.uid === rows.mtUser.uid) {
                             btn.forEach(data => {
-                                if (data.id < 3) {
-                                    data.show = true
-                                } else {
-                                    data.show = false
-                                }
+                                data.show = false
                             })
                         } else {
                             btn.forEach(data => {
@@ -159,7 +159,7 @@ Component({
                         this.setData({
                             userInfo: user,
                             detail: rows,
-                            image: shipChart,
+                            // image: shipChart,
                             btn
                         })
 
@@ -312,6 +312,6 @@ Component({
             wx.navigateTo({
                 url: '/views/UserSpecifiedShip/UserSpecifiedShip',
             })
-        }
+        },
     }
 })
