@@ -1,7 +1,6 @@
 import User from '../../models/user/user';
 import WebSocket from '../../models/websocket/websocket';
 import mtWharf from '../../models/frontEnd/mtWharf';
-import userFriend from '../../models/userFriend/userFriend';
 
 
 Page({
@@ -19,6 +18,7 @@ Page({
         state: false,
         resourcesID: null, //资源ID
         total: [], //未读
+        EmployeeInformation:null,//员工信息
     },
 
     onLoad: function (options) {
@@ -266,6 +266,7 @@ Page({
             } else if (user.identityDifference == 1) {
                 user.ship = true
             }
+
             this.setData({
                 userInfo: user
             })
@@ -277,9 +278,14 @@ Page({
             uId: receiverid
         }).then(res => {
             let rows = res.data.data;
+            console.log(rows)
             wx.setNavigationBarTitle({
                 title: rows.nickName,
             })
+            this.setData({
+                EmployeeInformation:rows.mtEmployeeInformation
+            })
+            console.log(this.data.EmployeeInformation)
         })
 
     },

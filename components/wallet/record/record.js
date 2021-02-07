@@ -12,6 +12,7 @@ Component({
   },
   data: {
     btnStyle: 'background: #E3211F;border-radius: 20px;border: 1px solid #F2511A;width: 100px;height: 40px;',
+    user: {},
     mtWallet: {},
   },
   methods: {
@@ -20,7 +21,8 @@ Component({
       User.userInfo({
         Authorization
       }).then(res => {
-        let mtWallet = res.data.data.mtWallet;
+        let user = res.data.data;
+        let mtWallet = user.mtWallet;
         console.log(mtWallet)
         let invoiceAmount = Math.round(parseFloat(mtWallet.invoiceAmount) * 100) / 100;
         let xsdinvoiceAmount = invoiceAmount.toString().split(".");
@@ -35,15 +37,25 @@ Component({
 
         mtWallet.invoiceAmount = invoiceAmount
         this.setData({
+          user,
           mtWallet
         })
       })
     },
     oninvoiceapply() {
-      let state = 1;
-      wx.navigateTo({
-        url: '/views/invoiceInfo/invoiceInfo?state=' + state,
-      })
+      console.log(this.data.user)
+      let user = this.data.user;
+      if (user.mtUserInvoice) {
+        let state = 1;
+        wx.navigateTo({
+          url: '/views/invoiceInfo/invoiceInfo?state=' + state,
+        })
+      } else {
+        wx.navigateTo({
+          url: '/views/InvoiceAdmin/InvoiceAdmin',
+        })
+      }
+
     }
   }
 })

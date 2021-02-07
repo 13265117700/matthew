@@ -6,12 +6,12 @@ Page({
         userInfo: {},
         btnTitle: '保存',
         inputList: [{
-            title:'手机号码',
+            title: '手机号码',
             value: '12321321321',
             state: 7,
             type: 'default',
             show: true
-        },{
+        }, {
             title: '昵称',
             placeholder: '请输入昵称',
             state: 1,
@@ -47,7 +47,7 @@ Page({
             state: 3,
             type: 'input',
             show: true,
-            sms:true
+            sms: true
         }],
         name: '',
         phone: '',
@@ -95,6 +95,9 @@ Page({
             case 1:
                 inputList.forEach(data => {
                     if (data.state == 1) {
+                        if (user.nickName) {
+                            data.placeholder = user.nickName
+                        }
                         data.show = true
                     } else {
                         data.show = false
@@ -152,7 +155,7 @@ Page({
                     inputList.forEach(data => {
                         if (data.state > 2) {
                             data.show = true
-                            if(data.state == 7){
+                            if (data.state == 7) {
                                 data.value = user.phone
                             }
                         } else {
@@ -354,6 +357,7 @@ Page({
             } else {
                 wx.showToast({
                     title: res.data.message,
+                    icon:'none'
                 })
             }
         })

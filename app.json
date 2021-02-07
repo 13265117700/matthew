@@ -59,7 +59,8 @@
         "views/top-up/top-up",
         "views/UserForgotPassword/UserForgotPassword",
         "views/walletInvoiceDetail/walletInvoiceDetail",
-        "views/shipDateEdit/shipDateEdit"
+        "views/shipDateEdit/shipDateEdit",
+        "views/HelpCenter/HelpCenter"
     ],
     "window": {
         "backgroundTextStyle": "dark",

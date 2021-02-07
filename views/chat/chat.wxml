@@ -110,12 +110,13 @@
                 <vtu-btn slot="after" type="success" size="medium" wx:if="{{msg}}" bind:click="handleChatSend">发送
                 </vtu-btn>
                 <vtu-btn slot="after" type="primary" size="medium"
-                    wx:if="{{ !msg && userInfo.identityDifference == 2 }}" bind:click="gotoCrewList">选择货源</vtu-btn>
+                    wx:if="{{ !msg && userInfo.identityDifference == 2 && !EmployeeInformation }}"
+                    bind:click="gotoCrewList">选择货源</vtu-btn>
                 <vtu-btn slot="after" type="primary" size="medium"
-                    wx:if="{{ !msg && userInfo.identityDifference == 1 }}" bind:click="gotoCrewList">选择船源</vtu-btn>
+                    wx:if="{{ !msg && userInfo.identityDifference == 1 && !EmployeeInformation }}"
+                    bind:click="gotoCrewList">选择船源</vtu-btn>
                 <view slot="after" class="chat-input_hd"></view>
             </vtu-input>
-
         </view>
         <vtu-dialog id="Vtu-Custom-Dialog" show="{{state}}" user-content-slot>
             <view class="dialog-icon">

@@ -18,7 +18,7 @@
                 <text>订单编号</text>
             </view>
             <view class="detail-text">
-                <text>{{trendDetail.mtShippingOrder}}</text>
+                <text>{{trendDetail.mtShippingOrder.shippingOrderId}}</text>
             </view>
         </view>
         <view class="detail-item">

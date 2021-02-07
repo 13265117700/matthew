@@ -2,7 +2,7 @@
   <view class="page-main">
     <van-tabs active="{{upAndDownState}}" bind:click="switchButton">
       <van-tab wx:for="{{ statusList }}" wx:key="index" wx:for-item="statusItem" name="{{ statusItem.status }}"
-        title="{{statusItem.title}}">
+        title="{{statusItem.title}}" wx:if="{{statusItem.show}}">
         <view class="release-list">
           <!-- 船源列表 -->
           <view class="release-item" wx:for="{{ shipList }}" wx:key="index" wx:for-item="shipItem"
@@ -23,7 +23,8 @@
                       bind:click="UserShipUnderFrame">下架船源
                     </vtu-btn>
                   </view>
-                  <view class="del" wx:if="{{ shipItem.status === 0 }}" data-id="{{ shipItem.id }}" bindtap="UserShipDel">
+                  <view class="del" wx:if="{{ shipItem.status === 0 }}" data-id="{{ shipItem.id }}"
+                    bindtap="UserShipDel">
                     <image src="/images/myFollow/sc@3x.png"></image>
                   </view>
                 </view>
@@ -57,6 +58,11 @@
                   <text>{{cargoItem.mtNameGoods.name}}</text><text class="number">{{cargoItem.number}}吨</text>
                 </view>
                 <view class="release-cell_btu">
+                  <view class="why" wx:if="{{ cargoItem.status === 1 }}">
+                    <vtu-btn plain="true" type="danger" round="true" size="small" data-id="{{ cargoItem.id }}"
+                      bind:click="UserCargoAuditInformation">
+                      查看原因</vtu-btn>
+                  </view>
                   <view class="shelf" wx:if="{{ cargoItem.status === 2 }}">
                     <vtu-btn plain="true" type="danger" round="true" size="small" data-id="{{ cargoItem.id }}"
                       bind:click="UserCargoOnFrame">
@@ -133,6 +139,22 @@
     <view class="addButton" bindtap="addButton">
       <view class="addButton-Semicircle"></view>
       {{ addButton }}
+    </view>
+
+    <!-- 弹框部分 -->
+    <view class="dialog-section">
+      <!-- 查看失败原因 -->
+      <van-dialog use-slot show="{{ show }}" show-confirm-button="{{false}}">
+        <view class="dialog-title">
+          <text>失败原因</text>
+        </view>
+        <view class="dialog-text">
+          <text>{{auditInformation}}</text>
+        </view>
+        <view class="dialog-btn">
+          <van-button type="danger" custom-style="{{dialogStyle}}" bind:click="onClose">确定</van-button>
+        </view>
+      </van-dialog>
     </view>
   </view>
 </view>

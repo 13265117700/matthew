@@ -1,33 +1,38 @@
 import mtWharf from '../../models/frontEnd/mtWharf';
 Component({
     properties: {
-        propID:String
+        propID: String
     },
-    lifetimes:{
-        attached:function(){
+    lifetimes: {
+        attached: function () {
             this.getAddress();
         }
     },
     data: {
-        buttonStyle:'border-top-left-radius: 10px;border-top-right-radius: 10px;',
-        addressName:[],//面包屑
-        crumbsLength:null,//面包屑长度
-        address:[],//每次获取的列表
-        cellValue:'请选择码头',
-        popupShow:false,//弹框显示/隐藏
-        popupInputValue:null,//弹框input输入框
-        pickerList:[],//选择列表
-        detailedAddress:null,//详细地址
-        wharfID:null,//地址ID
+        buttonStyle: 'border-top-left-radius: 10px;border-top-right-radius: 10px;',
+        addressName: [], //面包屑
+        crumbsLength: null, //面包屑长度
+        address: [], //每次获取的列表
+        cellValue: '请选择码头',
+        popupShow: false, //弹框显示/隐藏
+        popupInputValue: null, //弹框input输入框
+        pickerList: [], //选择列表
+        detailedAddress: null, //详细地址
+        wharfID: null, //地址ID
     },
     methods: {
         //获取地区
-        getAddress(){
+        getAddress() {
             let pId = 0;
             let page = 1;
             let rows = 10;
             let sortInt = 1;
-            let params = { pId,page,rows,sortInt };
+            let params = {
+                pId,
+                page,
+                rows,
+                sortInt
+            };
             mtWharf.frontDeskWharfList(params).then(res => {
                 let rows = res.data.data.rows;
                 let address = [];
@@ -40,7 +45,7 @@ Component({
                 })
             })
         },
-        getAddressChild(e){
+        getAddressChild(e) {
             console.log(e)
             let index = e.currentTarget.dataset.index;
             let address = this.data.address;
@@ -49,20 +54,29 @@ Component({
             let page = 1;
             let rows = 10;
             let sortInt = 1;
-            let params = { pId,page,rows,sortInt }
+            let params = {
+                pId,
+                page,
+                rows,
+                sortInt
+            }
             console.log(addressName)
-            if(addressName.length <= 3){
-                if(addressName.length === 2){
+            if (addressName.length <= 3) {
+                if (addressName.length === 2) {
                     // addressName.splice(1,1)
-                    addressName.push(address[index],{name:'请选择码头'});
-                    
+                    addressName.push(address[index], {
+                        name: '请选择码头'
+                    });
+
                     console.log(addressName)
-                }else{
-                    if(addressName.length === 3){
+                } else {
+                    if (addressName.length === 3) {
                         console.log(addressName)
-                        addressName.splice(2,1,address[index])
-                        addressName.push({name:'请选择码头'})
-                    }else{
+                        addressName.splice(2, 1, address[index])
+                        addressName.push({
+                            name: '请选择码头'
+                        })
+                    } else {
                         addressName.push(address[index]);
                     }
                 }
@@ -71,147 +85,163 @@ Component({
                 address[index].active = !address[index].active;
                 mtWharf.frontDeskWharfList(params).then(res => {
                     let rows = res.data.data.rows;
-                    let pro =[]
+                    let pro = []
                     rows.forEach(data => {
                         data.active = false;
                         pro.push(data)
                     })
                     this.setData({
-                        address:pro,
+                        address: pro,
                         addressName,
-                        crumbsLength:addressName.length
+                        crumbsLength: addressName.length
                     })
                 })
             }
         },
 
         // 获取码头列表
-        getWharfList(){
+        getWharfList() {
             let address = this.data.address;
             let pickerList = address.map(data => data.name);
             this.setData({
                 pickerList,
-                popupShow:true
+                popupShow: true
             })
 
         },
-        onClose(){
+        onClose() {
             this.setData({
-                popupShow:false
+                popupShow: false
             })
         },
-        handlePopupInput(e){
+        handlePopupInput(e) {
             this.setData({
-                popupInputValue:e.detail
+                popupInputValue: e.detail
             })
         },
-        handleConfirmPicker(e){
+        handleConfirmPicker(e) {
             console.log(e)
             let index = e.detail.index;
             let value = e.detail.value;
             let popupInputValue = this.data.popupInputValue;
             let addressName = this.data.addressName;
             let address = this.data.address;
-            console.log(address[index])
-            if(popupInputValue != null && popupInputValue != ''){
-                if(addressName.length > 3){
-                    addressName.splice(3,1)
+            console.log(addressName)
+            console.log(popupInputValue)
+            if (popupInputValue != null && popupInputValue != '') {
+                if (addressName.length > 3) {
+                    addressName.splice(3, 1)
                 }
-                addressName.push({name:popupInputValue});
+                addressName.push({
+                    name: popupInputValue
+                });
                 let array = addressName.map(data => data.name);
-                let detailedAddress = array.toString().replace(/,/g,'');
+                let detailedAddress = array.toString().replace(/,/g, '');
+                if (address[index]) {
+                    this.setData({
+                        wharfID: address[index].id,
+                    })
+                }
                 this.setData({
                     detailedAddress,
-                    cellValue:popupInputValue,
-                    wharfID:address[index].id,
-                    popupShow:false
+                    cellValue: popupInputValue,
+                    popupShow: false
                 })
-            }else{
-                if(addressName.length > 3){
-                    addressName.splice(3,1)
+            } else {
+                if (addressName.length > 3) {
+                    addressName.splice(3, 1)
                 }
                 addressName.push(address[index])
                 let array = addressName.map(data => data.name);
-                let detailedAddress = array.toString().replace(/,/g,'');
+                let detailedAddress = array.toString().replace(/,/g, '');
+                if (address[index]) {
+                    this.setData({
+                        wharfID: address[index].id,
+                    })
+                }
                 this.setData({
                     detailedAddress,
-                    cellValue:value,
-                    wharfID:address[index].id,
-                    popupShow:false
+                    cellValue: value,
+                    popupShow: false
                 })
             }
         },
 
         //点击面包屑
-        clickCrumbs(e){
+        clickCrumbs(e) {
             console.log(e)
             let addressName = this.data.addressName;
             let number = e.currentTarget.dataset.index;
-            let index = number-1;
+            let index = number - 1;
             console.log(index)
-            if(index < 0){
+            if (index < 0) {
                 let pId = 0;
                 let page = 1;
                 let rows = 10;
                 let sortInt = 1;
-                let params = { pId,page,rows,sortInt };
+                let params = {
+                    pId,
+                    page,
+                    rows,
+                    sortInt
+                };
                 mtWharf.frontDeskWharfList(params).then(res => {
                     let rows = res.data.data.rows;
                     let address = [];
                     rows.forEach(data => {
-                        if(data.id === addressName[number].id){
+                        if (data.id === addressName[number].id) {
                             data.active = true
-                        }else{
+                        } else {
                             data.active = false
                         }
                         address.push(data)
                     })
-                    
+
                     this.setData({
                         address,
-                        addressName:[],
-                        crumbsLength:0
+                        addressName: [],
+                        crumbsLength: 0
                     })
                 })
-            }else if(number === 1){
+            } else if (number === 1) {
                 let mtWharfList = addressName[index].mtWharfList;
                 console.log(1)
                 mtWharfList.forEach(data => {
-                    if(data.id === addressName[number].id){
+                    if (data.id === addressName[number].id) {
                         data.active = true
-                    }else{
+                    } else {
                         data.active = false
                     }
                 })
-                addressName.splice(1,3)
+                addressName.splice(1, 3)
                 this.setData({
-                    address:mtWharfList,
+                    address: mtWharfList,
                     addressName,
-                    crumbsLength:addressName.length
+                    crumbsLength: addressName.length
                 })
-            }else if(number === 2){
+            } else if (number === 2) {
                 let mtWharfList = addressName[index].mtWharfList;
                 mtWharfList.forEach(data => {
-                    if(data.id === addressName[number].id){
+                    if (data.id === addressName[number].id) {
                         data.active = true
-                    }else{
+                    } else {
                         data.active = false
                     }
                 })
-                addressName.splice(3,1)
+                addressName.splice(3, 1)
                 this.setData({
-                    address:mtWharfList,
+                    address: mtWharfList,
                     addressName,
-                    crumbsLength:addressName.length
+                    crumbsLength: addressName.length
                 })
                 console.log(mtWharfList)
             }
             this.setData({
-                cellValue:'请选择码头',
+                cellValue: '请选择码头',
             })
         },
 
-        bindleConfirm(){
+        bindleConfirm() {
             let detailedAddress = this.data.detailedAddress;
             let propID = this.data.propID;
             let wharfID = this.data.wharfID;
@@ -220,14 +250,19 @@ Component({
                 propID,
                 wharfID
             }
-            this.triggerEvent('myevent',onMyEvent)
+            this.triggerEvent('myevent', onMyEvent)
 
-            if(detailedAddress != null){
+            if (detailedAddress != null) {
                 let pId = 0;
                 let page = 1;
                 let rows = 10;
                 let sortInt = 1;
-                let params = { pId,page,rows,sortInt };
+                let params = {
+                    pId,
+                    page,
+                    rows,
+                    sortInt
+                };
                 mtWharf.frontDeskWharfList(params).then(res => {
                     let rows = res.data.data.rows;
                     let address = [];
@@ -237,11 +272,11 @@ Component({
                     });
                     this.setData({
                         address,
-                        addressName:[],
-                        crumbsLength:null,
-                        cellValue:'请选择码头',
-                        detailedAddress:null,
-                        wharfID:null
+                        addressName: [],
+                        crumbsLength: null,
+                        cellValue: '请选择码头',
+                        detailedAddress: null,
+                        wharfID: null
                     })
                 })
             }

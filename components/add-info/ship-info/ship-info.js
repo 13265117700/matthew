@@ -35,7 +35,7 @@ Component({
             title: 'AIS码：',
             placeholder: '请输入AIS码',
             type: 'input',
-            maxlength: 11,
+            maxlength: 9,
             arrow: false,
         }, {
             title: '船舶类型：',
@@ -445,11 +445,13 @@ Component({
         },
         //删除船舶项目图片
         mainItemsShipDel(e) {
+            console.log(e)
             let index = e.detail.index;
-            let captainFeatures = this.data.captainFeatures;
-            captainFeatures.splice(index, 1)
+            let mainItemsShip = this.data.mainItemsShip;
+            console.log(mainItemsShip)
+            mainItemsShip.splice(index, 1)
             this.setData({
-                captainFeatures
+                mainItemsShip
             })
         },
 
@@ -518,10 +520,10 @@ Component({
         //删除船舶检验证书
         certificateInspectionDel(e) {
             let index = e.detail.index;
-            let captainFeatures = this.data.captainFeatures;
-            captainFeatures.splice(index, 1)
+            let certificateInspection = this.data.certificateInspection;
+            certificateInspection.splice(index, 1)
             this.setData({
-                captainFeatures
+                certificateInspection
             })
         },
 
@@ -719,10 +721,10 @@ Component({
         //删除船图片
         shipChartDel(e) {
             let index = e.detail.index;
-            let captainFeatures = this.data.captainFeatures;
-            captainFeatures.splice(index, 1)
+            let shipChart = this.data.shipChart;
+            shipChart.splice(index, 1)
             this.setData({
-                captainFeatures
+                shipChart
             })
         },
 

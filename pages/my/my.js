@@ -300,6 +300,9 @@ Page({
   // 人工智能服务
   userAi: function () {
     console.log('人工智能服务')
+    wx.navigateTo({
+      url: '/views/HelpCenter/HelpCenter',
+    })
   },
   // 用户查看信息item
   seeItem: function (event) {

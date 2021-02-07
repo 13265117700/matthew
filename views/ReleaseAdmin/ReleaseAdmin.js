@@ -6,13 +6,26 @@ Page({
     buttonStyle: 'border-top-left-radius: 10px;border-top-right-radius: 10px;',
     id: null,
     statusList: [{
+      status: 0,
+      title: '审核中',
+      show: true
+    }, {
+      status: 1,
+      title: '未通过',
+      show: true
+    }, {
       status: 3,
-      title: '上架中'
+      title: '上架中',
+      show: true
     }, {
       status: 2,
-      title: '已下架'
+      title: '已下架',
+      show: true
     }],
-    upAndDownState: 3,
+    auditInformation: null, //审核信息
+    show: false, //审核失败原因
+    dialogStyle: 'width: 100%;height: 35px;border-radius: 20px;',
+    upAndDownState: 0,
     // active:3,
     cargoList: [], //货源列表
     shipList: [], //船期列表
@@ -66,7 +79,7 @@ Page({
   //船源管理
   shipSourceAdmin(state) {
     console.log(state)
-    if (state === 3) {
+    if (state === 3 ) {
       let status = 1;
       let Authorization = wx.getStorageSync('Authorization');
       let page = 1;
@@ -78,7 +91,6 @@ Page({
         status
       }
       User.UserShipPeriodList(params).then(res => {
-        console.log(res)
         let rows = res.data.data.rows;
         let shipList = [];
         rows.forEach(data => {
@@ -122,7 +134,17 @@ Page({
         })
       })
     }
-
+    let statusList = this.data.statusList;
+    statusList.forEach(data => {
+      if (data.status < 2) {
+        data.show = false
+      }
+    })
+    console.log(statusList)
+    this.setData({
+      statusList,
+      upAndDownState:2
+    })
   },
   //用户船源上架
   UserShipOnFrame(e) {
@@ -310,6 +332,27 @@ Page({
     })
   },
 
+
+  //查看失败原因
+  UserCargoAuditInformation(e) {
+    let Authorization = wx.getStorageSync('Authorization');
+    let id = e.currentTarget.dataset.id;
+    User.UserMtCargoQueryInfo({
+      Authorization,
+      id
+    }).then(res => {
+      let auditInformation = res.data.data.auditInformation;
+      this.setData({
+        auditInformation,
+        show: true
+      })
+    })
+  },
+  onClose() {
+    this.setData({
+      show: false
+    })
+  },
 
 
   //车源管理

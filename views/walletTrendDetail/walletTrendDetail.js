@@ -1,8 +1,6 @@
 import FundTrend from "../../models/user/fundTrend";
 
 
-
-
 Page({
     data: {
         trendDetail: {},
