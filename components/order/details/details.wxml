@@ -371,7 +371,7 @@
                 </view>
                 <view class="dialog-input_item">
                     <vtu-input placeholder="可手动修改最终订单金额" value="{{orderPrice}}" type="input" text-align="left"
-                        input-type="digit" bind:confirm="handleOrderPrice">
+                        input-type="digit" bind:blur="handleOrderPrice">
                         <view slot="after" class="amount">元</view>
                     </vtu-input>
                 </view>

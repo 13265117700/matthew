@@ -191,7 +191,7 @@ van-checkbox-group{
     overflow-y: auto;
 }
 van-checkbox{
-    width: 185px;
+    width: 50%;
     margin-bottom: 23px;
     font-size: 16px;
     color: #191919FF;

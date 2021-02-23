@@ -33,20 +33,17 @@
                     <view class="audit-item-title">企业名称：</view>
                     <view class="audit-item-text">{{trialList.nameEnterprise}}</view>
                 </view>
-                <view class="audit-item">
+                <view class="audit-item" wx:if="{{trialList.corporateId && trialList.backViewIdCard}}">
                     <view class="audit-item-title">身份证照片：</view>
                     <van-tag plain type="primary" size="large">已上传</van-tag>
-                    <!-- <view class="audit-item-text">{{trialList.IDphoto}}</view> -->
                 </view>
-                <view class="audit-item" wx:if="{{trialList.status === 1}}">
+                <view class="audit-item" wx:if="{{trialList.businessLicense}}">
                     <view class="audit-item-title">营业执照：</view>
                     <van-tag plain type="primary" size="large">已上传</van-tag>
-                    <!-- <view class="audit-item-text">{{trialList.BsLs}}</view> -->
                 </view>
                 <view class="audit-item" wx:if="{{trialList.transportPermit}}">
                     <view class="audit-item-title">道路运输许可证：</view>
                     <van-tag plain type="primary" size="large">已上传</van-tag>
-                    <!-- <view class="audit-item-text">{{trialList.RTP}}</view> -->
                 </view>
                 <view class="audit-item" wx:if="{{trialList.status === 3}}">
                     <view class="audit-item-title">不通过原因：</view>

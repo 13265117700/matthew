@@ -1,39 +1,47 @@
-.page-container{
+.page-container {
     height: 100%;
     /* display: flex;
     flex-direction: column; */
 }
-.page-main{
+
+.page-main {
     height: 100%;
     display: flex;
     flex-direction: column;
 }
-.chat-box{
+
+.chat-box {
     flex: 1;
     /* height: 100vh; */
     overflow-x: hidden;
     padding-bottom: 50px;
 }
-.chat-item{
+
+.chat-item {
     display: flex;
     align-items: center;
     margin-top: 15px;
     padding: 0 15px;
 }
-.chat-item.active{
+
+.chat-item.active {
     flex-flow: row-reverse;
 }
-.chat-item.active .chat-text{
+
+.chat-item.active .chat-text {
     background: #EC6A72;
     color: #fff;
 }
-.chat-item.active .chat-avatar{
+
+.chat-item.active .chat-avatar {
     margin: 0 0 0 10px;
 }
-.chat-avatar{
+
+.chat-avatar {
     margin: 0 10px 0 0;
 }
-.chat-text{
+
+.chat-text {
     height: 44px;
     line-height: 44px;
     margin: 0 10px;
@@ -41,44 +49,49 @@
     padding: 0 10px;
     border-radius: 5px;
 }
-.chat-input{
-    /* padding-left: 10px;
-    background: #fff; */
+
+.chat-input {
+
 }
-vtu-input{
+
+vtu-input {
     padding-left: 10px;
     background: #fff;
     border-radius: 5px;
     position: absolute;
     bottom: 0;
+    left: 0;
     width: 100%;
 }
-.chat-input_hd{
+
+.chat-input_hd {
     width: 10px;
     height: 40px;
 }
 
-.dialog-icon{
+.dialog-icon {
     text-align: center;
     width: 70%;
     margin: 0 auto;
 }
-.dialog-icon image{
+
+.dialog-icon image {
     width: 30px;
     height: 30px;
 }
 
-.dialog-subtitle{
+.dialog-subtitle {
     color: #229BF0;
     font-family: PingFang-SC-Bold;
     font-weight: bold;
     text-align: center;
     font-size: 18px;
-    padding: 15px 0 ;
+    padding: 15px 0;
     width: 70%;
     margin: 0 auto;
 }
-.dialog-describe{
+
+.dialog-describe {
     font-size: 12px;
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
@@ -86,55 +99,61 @@ vtu-input{
     width: 70%;
     margin: 0 auto;
     text-align: center;
-    white-space:pre-line
+    white-space: pre-line
 }
-.dialog-btu{
+
+.dialog-btu {
     margin: 10% auto 0;
     width: 50%;
 }
 
-.chat-cargo{
+.chat-cargo {
     /* flex: 1; */
     width: 60%;
     background: #EC6A72;
     padding: 12px 12px 15px;
     border-radius: 5px;
 }
-.cargo-subtitle{
+
+.cargo-subtitle {
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
     color: #fff;
     font-size: 16px;
     margin-bottom: 15px;
 }
-.cargo-subtitle_text{
 
-}
-.cargo-routes{
+.cargo-subtitle_text {}
+
+.cargo-routes {
     display: flex;
     align-items: center;
 }
-.cargo-routes_left{
+
+.cargo-routes_left {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 }
-.cargo-routes_left_img{
+
+.cargo-routes_left_img {
     margin-bottom: 3.5px;
 }
-.cargo-routes_left_img image{
+
+.cargo-routes_left_img image {
     width: 15px;
     height: 15px;
 }
-.cargo-routes_left_icon{
 
-}
-.cargo-routes_left_icon image{
+.cargo-routes_left_icon {}
+
+.cargo-routes_left_icon image {
     width: 6px;
     height: 25px;
 }
-.cargo-routes_right{
+
+.cargo-routes_right {
     font-family: PingFang-SC-Medium;
     font-weight: Medium;
     font-size: 14px;
@@ -146,17 +165,20 @@ vtu-input{
     justify-content: space-between;
     width: 100px;
 }
-.cargo-routes_right_begin{
+
+.cargo-routes_right_begin {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.cargo-routes_right_end{
+
+.cargo-routes_right_end {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.cargo-info{
+
+.cargo-info {
     display: flex;
     align-items: center;
     color: #fff;
@@ -164,7 +186,8 @@ vtu-input{
     font-weight: Medium;
     margin-top: 17px;
 }
-.cargo-name{
+
+.cargo-name {
     width: 40px;
     height: 17px;
     text-align: center;
@@ -173,34 +196,40 @@ vtu-input{
     border-radius: 8.5px;
     margin-right: 15px;
 }
-.cargo-number{
+
+.cargo-number {
     font-size: 15px;
 }
 
-.chat-ship{
+.chat-ship {
     width: 60%;
     background: #EC6A72;
     padding: 12px 12px 15px;
     border-radius: 5px;
 }
-.ship-top{
+
+.ship-top {
     display: flex;
     align-items: center;
 }
-.ship-top_icon{
+
+.ship-top_icon {
     margin-right: 6%;
 }
-.ship-top_icon image{
+
+.ship-top_icon image {
     width: 15px;
     height: 14px;
 }
-.ship-top_subtitle{
+
+.ship-top_subtitle {
     font-family: PingFang-SC-Bold;
     font-weight: bold;
     font-size: 16px;
     color: #fff;
 }
-.ship-bottom{
+
+.ship-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -208,9 +237,7 @@ vtu-input{
     color: #fff;
     margin-top: 3%;
 }
-.ship-bottom_subtitle{
 
-}
-.ship-bottom_date{
+.ship-bottom_subtitle {}
 
-}
+.ship-bottom_date {}

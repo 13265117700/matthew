@@ -1,0 +1,16 @@
+<view class="page-container">
+    <view class="user-setUp">
+        <view class="user-setUp_list">
+            <view class="user-setUp_item" wx:for="{{setUpList}}" wx:key="index" wx:if="{{item.show}}"
+                data-index="{{index}}" data-id="{{item.id}}" bindtap="handSetUp">
+                <view class="item-icon">
+                    <image src="{{item.icon}}"></image>
+                </view>
+                <view class="item-title">{{item.title}}</view>
+                <view class="item-tag">
+                    <image src="/images/my/ck@3x.png"></image>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

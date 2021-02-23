@@ -55,6 +55,8 @@ export default {
     UserShipDateInfoQuery: `${PREFIX}/user/releaseShipSource/findByReleaseShipSourceId`, //用户船期详情
     UserShipPeriodOnUnderFrame: `${PREFIX}/user/releaseShipSource/upAndDownUpdate`, //用户船期上下架
     UserShipPeriodDel: `${PREFIX}/user/releaseShipSource/deleteDownUpdate`, //用户船期删除
+    UserShipDateEdit:`${PREFIX}/user/releaseShipSource/updateReleaseShipSource`,//用户船期修改
+
 
     //用户船关注管理
     UserShipWhetherFocusOn: `${PREFIX}/user/focusShips/shipYouConcerned`, //查询船是否已关注

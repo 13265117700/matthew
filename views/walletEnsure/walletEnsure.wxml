@@ -5,7 +5,7 @@
     <view class="ensure-amount">
         <view class="ensure-left">
             <view class="ensure-left_money">
-                <text>0</text>元
+                <text>{{user.mtWallet.margin}}</text>元
             </view>
             <view class="ensure-left_text">
                 <text>保证金可随时提现</text>
@@ -31,7 +31,7 @@
                 <text>银行卡账号</text>
             </view>
             <view class="pay-text">
-                <text>621 723 360 200 141 9288</text>
+                <text>{{user.mtUserCollection.bankAccount}}</text>
             </view>
         </view>
         <view class="pay-item">
@@ -39,7 +39,7 @@
                 <text>开户银行</text>
             </view>
             <view class="pay-text">
-                <text>工商银行</text>
+                <text>{{user.mtUserCollection.bankDeposit}}</text>
             </view>
         </view>
         <view class="pay-item">

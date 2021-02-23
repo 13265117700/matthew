@@ -2,7 +2,6 @@ import User from '../../models/user/user'
 Page({
     data: {
         userInfo: {},
-        // activeIndex: 0,
         tabsList: [{
             id: 1011002,
             title: '关注船源',
@@ -10,9 +9,9 @@ Page({
             id: 1011003,
             title: '关注货源',
         }],
-        // id: 1011001,
         shipList: [],
         cargoList: [],
+        total: null,
     },
 
     onLoad: function (options) {},
@@ -33,6 +32,7 @@ Page({
 
     //获取用户
     getUserInfo() {
+        let emptyTEXT = null;
         let Authorization = wx.getStorageSync('Authorization');
         let uid = ''
         let params = {
@@ -102,7 +102,9 @@ Page({
 
             this.setData({
                 shipList: rows,
+                total: rows.length
             })
+
         })
     },
     //获取已关注货源列表
@@ -119,7 +121,8 @@ Page({
             let rows = res.data.data.rows;
 
             this.setData({
-                cargoList: rows
+                cargoList: rows,
+                total: rows.length
             })
         })
     },
@@ -186,5 +189,20 @@ Page({
         wx.navigateTo({
             url: '/views/cargoDateDetails/cargoDateDetails?id=' + id,
         })
+    },
+    gotoFocus() {
+        let user = this.data.userInfo;
+        if (user.identityDifference === 1) {
+            let id = '9999998'
+            wx.navigateTo({
+                url: '/views/FindResources/FindResources?id=' + id,
+            })
+        }
+        if (user.identityDifference === 2) {
+            let id = '9999999';
+            wx.navigateTo({
+                url: '/views/FindResources/FindResources?id=' + id,
+            })
+        }
     }
 })

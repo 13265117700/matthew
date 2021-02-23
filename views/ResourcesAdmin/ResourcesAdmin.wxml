@@ -9,7 +9,8 @@
               <view class="resources-title">{{ resourcesItem.nameVessel }}</view>
               <view class="resources-inner" data-id="{{ resourcesItem.id }}" wx:if="{{resourcesItem.status != 1}}"
                 bindtap="getResourcesItem"></view>
-              <view class="resources-describe" wx:if="{{ resourcesItem.status == 1 }}">查看原因</view>
+              <view class="resources-describe" wx:if="{{ resourcesItem.status == 1 }}" data-id="{{ resourcesItem.id }}"
+                bindtap="onwhy">查看原因</view>
               <view class="resources-icon">
                 <image src="/images/my/ck@3x.png"></image>
               </view>
@@ -33,5 +34,10 @@
       <view class="addButton-Semicircle"></view>
       {{addButtonText}}
     </view>
+  </view>
+  <view class="dialog">
+    <van-dialog use-slot title="失败原因" show="{{ show }}">
+      <view class="dialog">{{returnInformation}}</view>
+    </van-dialog>
   </view>
 </view>

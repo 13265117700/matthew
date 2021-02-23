@@ -1,7 +1,6 @@
 import User from '../../models/user/user';
 import WebSocket from '../../models/websocket/websocket';
 import mtWharf from '../../models/frontEnd/mtWharf';
-import userFriend from '../../models/userFriend/userFriend';
 
 
 Page({
@@ -19,6 +18,7 @@ Page({
         state: false,
         resourcesID: null, //资源ID
         total: [], //未读
+        EmployeeInformation:null,//员工信息
     },
 
     onLoad: function (options) {
@@ -28,7 +28,7 @@ Page({
             msg: options.msg,
             action: options.action
         })
-    //    this.gettalkContent()
+        this.gettalkContent()
     },
 
     onShow: function () {
@@ -266,6 +266,7 @@ Page({
             } else if (user.identityDifference == 1) {
                 user.ship = true
             }
+
             this.setData({
                 userInfo: user
             })
@@ -277,9 +278,14 @@ Page({
             uId: receiverid
         }).then(res => {
             let rows = res.data.data;
+            console.log(rows)
             wx.setNavigationBarTitle({
                 title: rows.nickName,
             })
+            this.setData({
+                EmployeeInformation:rows.mtEmployeeInformation
+            })
+            console.log(this.data.EmployeeInformation)
         })
 
     },
@@ -287,85 +293,80 @@ Page({
     //初始化聊天记录
     gettalkContent() {
         let Authorization = wx.getStorageSync('Authorization');
+        let chatList = wx.getStorageSync('chatList');
         let id = this.data.receiverid;
-        let senderId = this.data.senderid;
+        // let senderId = this.data.senderid;
         let page = 1;
-        console.log(Authorization)
-        let total = []
-        User.userInfo({
-            Authorization,
-            uId: id
-        }).then(res => {
-            let user = res.data.data;
 
-            userFriend.UserFriendChatMsg({
-                Authorization,
-                page,
-                rows: 10,
-                senderId: id
-            }).then(unread => {
-                Promise.all([unread]).then(result => {
-                    let rows = result[0].data.data.rows;
-                    let msgId = rows.map(a => a.id);
-                    console.log(msgId)
-                    // let params = {
-                    //     receiverId:id,
-                    //     senderId,
-                    //     msg:null,
-                    //     msgId:msgId,
-                    //     action: 3
-                    // }
-                    // WebSocket.sendSocketMessage(params)
-                    rows.forEach(data => {
-                        if (data.msg) {
-                            let msg = data.msg;
-                            // console.log(total)
-                            // console.log(data)
-                            try {
-                                if (typeof JSON.parse(msg) == 'object') {
-                                    msg = JSON.parse(msg)
-                                }
-                            } catch (e) {
-
-                            }
-                            chatList.forEach(chat => {
-                                if (chat.id == data.senderId) {
-                                    let state = typeof msg == 'object';
-                                    if (state) {
-                                        if (msg.emptyDate) {
-                                            chat.talkContent.push({
-                                                img: user.faceImage,
-                                                shipItem: msg,
-                                                isMine: false
-                                            })
-                                        } else {
-                                            chat.talkContent.push({
-                                                img: user.faceImage,
-                                                cargoItem: msg,
-                                                isMine: false
-                                            })
-                                        }
-                                    } else {
-                                        chat.talkContent.push({
-                                            img: user.faceImage,
-                                            text: msg,
-                                            isMine: false
-                                        })
-                                    }
-                                }
-                            })
-
-                        }
-                    })
-
-                    // console.log(rows)
-                    // console.log(chatList)
-                    this.pageScrollToBottom()
+        chatList.forEach(chat => {
+            if (chat.id == id) {
+                console.log(chat)
+                this.setData({
+                    talkContent: chat.talkContent
                 })
-
-            })
-
+            }
         })
+
+        // User.userInfo({
+        //     Authorization,
+        //     uId: id
+        // }).then(res => {
+        //     let user = res.data.data;
+
+        //     userFriend.UserFriendChatMsg({
+        //         Authorization,
+        //         page,
+        //         rows: 10,
+        //         senderId: id
+        //     }).then(unread => {
+        //         Promise.all([unread]).then(result => {
+        //             let rows = result[0].data.data.rows;
+        //             rows.forEach(data => {
+        //                 if (data.msg) {
+        //                     let msg = data.msg;
+        //                     try {
+        //                         if (typeof JSON.parse(msg) == 'object') {
+        //                             msg = JSON.parse(msg)
+        //                         }
+        //                     } catch (e) {
+
+        //                     }
+        //                     chatList.forEach(chat => {
+        //                         if (chat.id == data.senderId) {
+        //                             let state = typeof msg == 'object';
+        //                             if (state) {
+        //                                 if (msg.emptyDate) {
+        //                                     chat.talkContent.push({
+        //                                         img: user.faceImage,
+        //                                         shipItem: msg,
+        //                                         isMine: false
+        //                                     })
+        //                                 } else {
+        //                                     chat.talkContent.push({
+        //                                         img: user.faceImage,
+        //                                         cargoItem: msg,
+        //                                         isMine: false
+        //                                     })
+        //                                 }
+        //                             } else {
+        //                                 chat.talkContent.push({
+        //                                     img: user.faceImage,
+        //                                     text: msg,
+        //                                     isMine: false
+        //                                 })
+        //                             }
+        //                         }
+        //                     })
+
+        //                 }
+        //             })
+
+        //             this.pageScrollToBottom()
+        //         })
+
+        //     })
+
+        // })
 
 
 

@@ -1,22 +1,25 @@
-.page-container{
+.page-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-.page-main{
+.page-main {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-van-tabs{
+
+van-tabs {
   flex: 1;
 }
-.release-list{
+
+.release-list {
   margin-top: 10px;
   /* padding: 0 20px; */
 }
-.release-item{
+
+.release-item {
   background: #ffffff;
   padding: 20px 20px 15px;
   margin-bottom: 10px;
@@ -24,87 +27,101 @@ van-tabs{
   display: flex;
   align-items: center;
 }
-.release-container{
+
+.release-container {
   flex: 1;
 }
 
 
-.release-item .release-image{
+.release-item .release-image {
   margin-right: 10px;
   border: 0.5px solid #efe7e7;
   padding: 5px;
 }
-.release-item .release-image image{
+
+.release-item .release-image image {
   width: 50px;
   height: 50px;
 }
-.release-cell{
+
+.release-cell {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.release-cell:first-child{
+
+.release-cell:first-child {
   padding-bottom: 10px;
   border-bottom: 1px solid #E5E5E5;
   font-family: PingFang-SC-Bold;
   font-weight: Bold;
   color: #191919;
 }
-.release-cell_title{
-  font-size: 16px;  
+
+.release-cell_title {
+  font-size: 16px;
 }
-.release-cell_title .number{
+
+.release-cell_title .number {
   font-size: 14px;
   margin-left: 14px;
 }
-.release-cell_btu{
+
+.release-cell_btu {
   display: flex;
 }
-.release-cell_btu .del{
+
+.release-cell_btu .del {
   margin-left: 20.5px;
 }
-.release-cell_btu .del image{
+
+.release-cell_btu .del image {
   width: 12px;
   height: 12px;
 }
 
 
 
-.release-cell-container{
+.release-cell-container {
   width: 100%;
 }
-.release-cell_item{
+
+.release-cell_item {
   display: flex;
   height: 45px;
   line-height: 45px;
 }
-.release-cell_item_hd{
+
+.release-cell_item_hd {
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #878787;
   font-size: 15px;
-  margin-right: 22.5px;  
+  margin-right: 22.5px;
 }
-.release-cell_item_bd{
+
+.release-cell_item_bd {
   flex: 1;
-  font-family: PingFang-SC-Medium;
-  font-weight: Medium;
-  color: #191919;
-  font-size: 15px;  
-}
-.release-cell_item_ft{
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
   color: #191919;
   font-size: 15px;
 }
 
-.release-cell_item .start{
+.release-cell_item_ft {
+  font-family: PingFang-SC-Medium;
+  font-weight: Medium;
+  color: #191919;
+  font-size: 15px;
+}
+
+.release-cell_item .start {
   display: flex;
   align-items: center;
   max-width: 100px;
 }
-.release-cell_item .start .start-icon{
+
+.release-cell_item .start .start-icon {
   width: 24px;
   height: 16px;
   line-height: 16px;
@@ -114,7 +131,8 @@ van-tabs{
   color: #fff;
   margin-right: 5px;
 }
-.start-subtitle{
+
+.start-subtitle {
   font-size: 12px;
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
@@ -123,12 +141,14 @@ van-tabs{
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.release-cell_item .end{
+
+.release-cell_item .end {
   display: flex;
   align-items: center;
   max-width: 100px;
 }
-.release-cell_item .end .end-icon{
+
+.release-cell_item .end .end-icon {
   width: 24px;
   height: 16px;
   line-height: 16px;
@@ -138,7 +158,8 @@ van-tabs{
   color: #fff;
   margin-right: 5px;
 }
-.release-cell_item .end .end-subtitle{
+
+.release-cell_item .end .end-subtitle {
   font-size: 12px;
   font-family: PingFang-SC-Medium;
   font-weight: Medium;
@@ -147,19 +168,20 @@ van-tabs{
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.release-cell_item .arrow{
+
+.release-cell_item .arrow {
   flex: 1;
   text-align: center;
 }
 
 
-.arrow-img{
+.arrow-img {
   max-width: 55px;
   height: 7.5px;
 }
 
 
-.addButton{
+.addButton {
   height: 50px;
   line-height: 50px;
   border-top-left-radius: 10px;
@@ -172,7 +194,8 @@ van-tabs{
   text-align: center;
   position: relative;
 }
-.addButton-Semicircle{
+
+.addButton-Semicircle {
   width: 60px;
   height: 30px;
   background: #E3211FFF;
@@ -182,17 +205,19 @@ van-tabs{
   left: 50%;
   transform: translateX(-50%);
 }
-.addButton-Semicircle::after{
+
+.addButton-Semicircle::after {
   content: '';
   height: 17px;
   width: 3px;
   background: #FFFFFFFF;
   position: absolute;
-  top:20px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
 }
-.addButton-Semicircle::before{
+
+.addButton-Semicircle::before {
   content: '';
   width: 17px;
   height: 3px;
@@ -201,4 +226,23 @@ van-tabs{
   top: 27px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.dialog-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px 0;
+}
+
+.dialog-text {
+  text-align: center;
+  font-size: 16px;
+  padding: 0 20px 20px;
+}
+
+.dialog-btn {
+  width: 70%;
+  height: 35px;
+  margin: 0 auto 20px;
 }

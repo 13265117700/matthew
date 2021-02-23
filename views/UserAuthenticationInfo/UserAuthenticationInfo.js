@@ -21,7 +21,6 @@ Page({
         let uId = '';
         User.userInfo({Authorization,uId}).then(res => {
             let user = res.data.data;
-            console.log(user)
             if(user.identityDifference == 2){
                 user.cargo = true;
                 user.status = user.mtCargoOwner.status;
@@ -51,10 +50,9 @@ Page({
     },
     // 展示用户信息
     showUserInfo(){
-        // console.log(this.data.trialList)
         let trialList = this.data.trialList;
         let userInfo = this.data.userInfo;
-        console.log(userInfo)
+        console.log(trialList)
         if(userInfo.ship === true){
             if(trialList.status === 0){
                 let describe = '您的船东认证正在审核中';
@@ -128,4 +126,5 @@ Page({
             statusText:'认证失败'
         })
     }
+
 })

@@ -17,6 +17,8 @@ Page({
         }],
         resourcesList: [], //资源列表
         resourcesShow: false,
+        show:false,
+        returnInformation:null,//船审核失败备注
         total: 0,
 
     },
@@ -140,6 +142,22 @@ Page({
         wx.navigateTo({
             url: '/views/userShipDetail/userShipDetail?id=' + id,
         })
+    },
+    onwhy(e){
+        let Authorization = wx.getStorageSync('Authorization');
+        let id = e.currentTarget.dataset.id;
+        User.UserShipInfoQuery({
+            Authorization,
+            id
+        }).then(res => {
+            console.log(res)
+            let rows = res.data.data;
+            this.setData({
+                returnInformation:rows.returnInformation,
+                show:true,
+            })
+        })
+        
     },
     onClosePopup() {
         this.setData({

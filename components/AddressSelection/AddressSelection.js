@@ -19,7 +19,10 @@ Component({
         pickerList: [], //选择列表
         detailedAddress: null, //详细地址
         wharfID: null, //地址ID
+<<<<<<< HEAD
         value: null,
+=======
+>>>>>>> 1da1d0fb8c0bb0c78ede7cacaff7b003f7e2ab9e
     },
     methods: {
         //获取地区
@@ -111,17 +114,31 @@ Component({
 
         },
         onClose() {
+<<<<<<< HEAD
             this.setData({
                 popupShow: false
             })
         },
         handleChangePicker(e) {
+=======
+            this.setData({
+                popupShow: false
+            })
+        },
+        handlePopupInput(e) {
+            this.setData({
+                popupInputValue: e.detail
+            })
+        },
+        handleConfirmPicker(e) {
+>>>>>>> 1da1d0fb8c0bb0c78ede7cacaff7b003f7e2ab9e
             console.log(e)
             let index = e.detail.index;
             let value = e.detail.value;
 
             let addressName = this.data.addressName;
             let address = this.data.address;
+<<<<<<< HEAD
 
             if (addressName.length > 3) {
                 addressName.splice(3, 1)
@@ -180,6 +197,44 @@ Component({
                 console.log(confirm)
                 this.setData({
                     cellValue: confirm,
+=======
+            console.log(addressName)
+            console.log(popupInputValue)
+            if (popupInputValue != null && popupInputValue != '') {
+                if (addressName.length > 3) {
+                    addressName.splice(3, 1)
+                }
+                addressName.push({
+                    name: popupInputValue
+                });
+                let array = addressName.map(data => data.name);
+                let detailedAddress = array.toString().replace(/,/g, '');
+                if (address[index]) {
+                    this.setData({
+                        wharfID: address[index].id,
+                    })
+                }
+                this.setData({
+                    detailedAddress,
+                    cellValue: popupInputValue,
+                    popupShow: false
+                })
+            } else {
+                if (addressName.length > 3) {
+                    addressName.splice(3, 1)
+                }
+                addressName.push(address[index])
+                let array = addressName.map(data => data.name);
+                let detailedAddress = array.toString().replace(/,/g, '');
+                if (address[index]) {
+                    this.setData({
+                        wharfID: address[index].id,
+                    })
+                }
+                this.setData({
+                    detailedAddress,
+                    cellValue: value,
+>>>>>>> 1da1d0fb8c0bb0c78ede7cacaff7b003f7e2ab9e
                     popupShow: false
                 })
             }

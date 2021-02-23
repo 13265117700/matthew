@@ -54,12 +54,16 @@ Component({
                 }
             }
         ],
+
     },
     lifetimes: {
+        attached: function () {
 
+        }
     },
     methods: {
         onChange(e) {
+            console.log(e)
             let index = e.detail.current;
             let Authorization = wx.getStorageSync('Authorization');
             if (index != 0 && index != 4) {

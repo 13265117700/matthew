@@ -20,7 +20,7 @@ Page({
             number: '**************1451'
         }],
         show: false,
-        bankCard:{}
+        bankCard:null
     },
     onShow: function () {
         this.getUserInfo()
@@ -28,8 +28,8 @@ Page({
     getUserInfo() {
         let Authorization = wx.getStorageSync('Authorization');
         User.userInfo({Authorization}).then(res => {
-            console.log(res)
             let bankCard = res.data.data.mtUserCollection;
+            console.log(bankCard)
             let reg = /^(\d{4})\d+(\d{4})$/;
             bankCard.bankAccount = bankCard.bankAccount.replace(reg,"$1 **** **** $2");
             this.setData({

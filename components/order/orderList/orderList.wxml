@@ -40,13 +40,14 @@
             <view class="order-bottom">
                 <view class="order-btu" wx:for="{{ orderBtu }}" wx:key="index" wx:for-item="btuItem"
                     wx:if="{{ btuItem.show }}">
-                    <van-button round size="small" disabled="{{btuItem.disabled}}" type="{{btuItem.type}}" data-state="{{ btuItem.state }}"
-                        data-status="{{ OrderItem.status }}" data-userShipId="{{ OrderItem.userShipId }}"
-                        data-id="{{ OrderItem.id }}" data-userCargoId="{{ OrderItem.userCargoId }}"
-                        bind:click="handleButton">
+                    <van-button round size="small" disabled="{{btuItem.disabled}}" type="{{btuItem.type}}"
+                        data-state="{{ btuItem.state }}" data-status="{{ OrderItem.status }}"
+                        data-userShipId="{{ OrderItem.userShipId }}" data-id="{{ OrderItem.id }}"
+                        data-userCargoId="{{ OrderItem.userCargoId }}" bind:click="handleButton">
                         {{btuItem.title}}</van-button>
                 </view>
             </view>
         </view>
     </view>
+    <van-empty wx:if="{{total == 0}}" description="暂时还没有订单" />
 </view>

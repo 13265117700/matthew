@@ -1,4 +1,4 @@
-<view class="container">
+<view class="my-container {{iPhone8Plus ? 'bottom_distance':''}}">
     <view class="page-header">
         <view class="user-info">
             <view class="user-info_item">

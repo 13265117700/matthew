@@ -7,6 +7,7 @@ const {
 
 Page({
   data: {
+    iPhone8Plus: false,
     userInfo: null,
     // 身份认证开关
     visible: false,
@@ -199,6 +200,14 @@ Page({
   },
 
   showtabBar: function () {
+    let res = wx.getSystemInfoSync();
+    console.log(res)
+    if (res.model == 'iPhone 8 Plus (GSM+CDMA)<iPhone10,2>') {
+      console.log(11)
+      this.setData({
+        iPhone8Plus: true
+      })
+    }
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({
         activeIndex: 4
@@ -291,6 +300,9 @@ Page({
   // 人工智能服务
   userAi: function () {
     console.log('人工智能服务')
+    wx.navigateTo({
+      url: '/views/HelpCenter/HelpCenter',
+    })
   },
   // 用户查看信息item
   seeItem: function (event) {

@@ -1,4 +1,4 @@
-<view class="paeg-container">
+<view class="order-container">
     <orderList></orderList>
     <view class="page-footer"></view>
 </view>

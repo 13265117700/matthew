@@ -1,4 +1,4 @@
-<view class="container">
+<view class="focus-container">
     <view class="tabs-list">
 
         <view class="tabs-item" wx:for="{{cargoList}}" wx:key="index" wx:for-item="cargoItem"
@@ -67,5 +67,11 @@
                 </view>
             </view>
         </view>
+
+        <van-empty description="您还没有关注资源" wx:if="{{total == 0}}">
+            <van-button round type="danger" custom-class="bottom-button" bind:click="gotoFocus">
+                前往关注
+            </van-button>
+        </van-empty>
     </view>
 </view>

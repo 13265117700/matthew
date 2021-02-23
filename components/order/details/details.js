@@ -700,12 +700,12 @@ Component({
                     break;
                 case 2:
                     console.log('最终价格')
-                    let compensation = this.data.delayedCost;
+                    let delayedCost = this.data.delayedCost;
                     let loss = this.data.loss;
                     let freightPayable = this.data.orderPrice;
                     let id = this.properties.orderID;
                     let Authorization = wx.getStorageSync('Authorization');
-                    if (!compensation || !loss || !freightPayable) {
+                    if (!delayedCost || !loss || !freightPayable) {
                         wx.showToast({
                             title: '文本框必填',
                             icon: 'none',
@@ -717,9 +717,10 @@ Component({
                         id,
                         freightPayable,
                         loss,
-                        compensation
+                        delayedCost
                     }
                     console.log(params)
+
                     User.UserCargoConfirmOrderMoney(params).then(res => {
                         console.log(res)
                         if (res.data.state === 200) {
