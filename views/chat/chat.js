@@ -403,7 +403,6 @@ Page({
             msg,
             action: 2
         }
-        console.log(params)
 
         WebSocket.sendSocketMessage(params).then(data => {
             User.userInfo({

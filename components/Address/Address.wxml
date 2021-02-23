@@ -1,7 +1,4 @@
 <view class="address-container">
-    <view class="address-title">
-        <text>请选择地区</text>
-    </view>
     <view class="address-crumbs">
         <view class="address-crumbs_item {{ addressNameItem.active ? 'active':'' }}"
             wx:for="{{ addressName }}"

@@ -22,7 +22,7 @@
             <!-- 选择货名 -->
             <van-popup show="{{ cargoNameShow }}" round position="bottom">
                 <view class="popup-selector">
-                    <van-picker default-index="0" show-toolbar title="请选择货名" columns="{{ cargoNameList }}"
+                    <van-picker default-index="0" show-toolbar title="请选择货名" columns="{{ cargoNameList }}" active-class="pickerAcitve"
                         bind:cancel="onClose" bind:confirm="handObtainGoods" />
                 </view>
             </van-popup>
@@ -91,7 +91,7 @@
                     <view class="item-input-child" wx:if="{{ GroupThree.list }}">
                         <view class="input-child-wrap">
                             <view class="item-input-child_text">
-                                <text>{{ GroupThree.off === true ? '请设置货物赔偿约定' : '不约定' }}</text>
+                                <!-- <text>{{ GroupThree.off === true ? '请设置货物赔偿约定' : '不约定' }}</text> -->
                             </view>
                             <view class="item-input-child_off">
                                 <vtu-switch checked="{{ GroupThree.off }}" type="circle" size="small" active-color="red"
@@ -109,10 +109,10 @@
                     </view>
                     <view class="item-input-child" wx:if="{{ GroupThree.on }}">
                         <view class="input-child-wrap">
-                            <vtu-input placeholder="请输入" type="input" text-align="center" bind:input="vesselMinimum">
+                            <vtu-input placeholder="最小值" type="input" text-align="center" bind:input="vesselMinimum">
                             </vtu-input>
-                            至
-                            <vtu-input type="input" text-align="center" bind:input="vesselMaximum"></vtu-input>
+                            --
+                            <vtu-input placeholder="最大值"  type="input" text-align="center" bind:input="vesselMaximum"></vtu-input>
                             吨
                         </view>
                     </view>

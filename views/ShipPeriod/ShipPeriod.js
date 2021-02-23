@@ -99,7 +99,7 @@ Page({
     },
     handleCheckDetails(e) {
         let id = e.currentTarget.dataset.id;
-
+        console.log(id)
     },
     //货主发起任务
     handleCargoHairTask(e) {

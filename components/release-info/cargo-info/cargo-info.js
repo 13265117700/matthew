@@ -31,14 +31,14 @@ Component({
         }, {
             id: 1000004,
             rate: true,
-            title: '起运港：',
+            title: '装货港：',
             placeholder: '请选择装货地',
             type: 'default',
             arrow: true
         }, {
             id: 1000005,
             rate: true,
-            title: '达到港：',
+            title: '目的港：',
             placeholder: '请选择目的港',
             type: 'default',
             arrow: true
@@ -124,13 +124,13 @@ Component({
             rate: true,
             title: '货物赔偿约定：',
             off: true,
-            placeholder: '请设置货物赔偿约定',
+            // placeholder: '请设置货物赔偿约定',
             list: {
                 input: [{
                     subTitle: '货损≤：',
                     type: 'input',
                     placeholder: '请输入货损',
-                    msg: '%'
+                    msg: '‰'
                 }, {
                     subTitle: '按：',
                     type: 'input',
@@ -190,8 +190,6 @@ Component({
 
         visible: false, //提示框
         specifiedShow: false, //指定船东弹框
-
-        // infoGroupOneIndex:null,//分组1弹框当前项
 
         nameGoodsId: null, //货名ID
         number: 0, //数量(吨)
@@ -476,6 +474,7 @@ Component({
         //船舶最小值
         vesselMinimum(e) {
             console.log(e)
+
             this.setData({
                 vesselMinimum: e.detail.value
             })
@@ -483,6 +482,7 @@ Component({
         //船舶最大值
         vesselMaximum(e) {
             console.log(e)
+
             this.setData({
                 vesselMaximum: e.detail.value
             })
@@ -623,31 +623,15 @@ Component({
             })
         },
 
+
         //添加按钮
         handleCargoRelease() {
-            this.setData({
-                visible: true
-            });
-        },
-        handleconfirmButton(e) {
-            console.log(e)
-            let index = e.currentTarget.dataset.index;
-            if (index === 0) {
-                this.handNospecified()
-            } else {
-                this.handspecified()
-            }
-        },
-        // 不指定船东
-        handNospecified() {
             let params = {
                 Authorization: wx.getStorageSync('Authorization'),
                 nameGoodsId: this.data.nameGoodsId,
                 number: this.data.number,
                 portDepartureAddress: this.data.portDepartureAddress,
-                portDepartureId: this.data.portDepartureId,
                 portArrivalAddress: this.data.portArrivalAddress,
-                portArrivalId: this.data.portArrivalId,
                 loadingDate: this.data.loadingDate,
                 freightRate: this.data.freightRate,
                 freightAmount: this.data.freightAmount,
@@ -669,6 +653,12 @@ Component({
                 loadingMethod: this.data.loadingMethod,
                 unloadingMode: this.data.unloadingMode,
                 remarks: this.data.remarks
+            }
+            if (this.data.portDepartureId) {
+                params.portDepartureId = this.data.portDepartureId
+            }
+            if (this.data.portArrivalId) {
+                params.portArrivalId = this.data.portArrivalId
             }
             console.log(params)
             User.UserMtCargoSave(params).then(res => {
@@ -694,15 +684,94 @@ Component({
                     });
                 }
             })
+
         },
-        // 指定船东
-        handspecified() {
-            this.setData({
-                visible: false,
-            })
-            wx.navigateTo({
-                url: '/views/UserSpecifiedShip/UserSpecifiedShip',
-            })
-        }
+
+        // //添加按钮
+        // handleCargoRelease() {
+        //     this.setData({
+        //         visible: true
+        //     });
+        // },
+        // handleconfirmButton(e) {
+        //     console.log(e)
+        //     let index = e.currentTarget.dataset.index;
+        //     if (index === 0) {
+        //         this.handNospecified()
+        //     } else {
+        //         this.handspecified()
+        //     }
+        // },
+        // 不指定船东
+        // handNospecified() {
+        //     let params = {
+        //         Authorization: wx.getStorageSync('Authorization'),
+        //         nameGoodsId: this.data.nameGoodsId,
+        //         number: this.data.number,
+        //         portDepartureAddress: this.data.portDepartureAddress,
+        //         portArrivalAddress: this.data.portArrivalAddress,
+        //         loadingDate: this.data.loadingDate,
+        //         freightRate: this.data.freightRate,
+        //         freightAmount: this.data.freightAmount,
+        //         otherExpenses: this.data.otherExpenses,
+        //         lagPeriodType: this.data.lagPeriodType,
+        //         delayedLoading: this.data.delayedLoading,
+        //         delayedDischarge: this.data.delayedDischarge,
+        //         delayedCost: this.data.delayedCost,
+        //         lagPeriodType: this.data.lagPeriodType,
+        //         typeShip: this.data.typeShip,
+        //         mtTypeShipId: this.data.mtTypeShipId,
+        //         deliveryGoods: this.data.deliveryGoods,
+        //         compensation: this.data.compensation,
+        //         lossGoods: this.data.lossGoods,
+        //         goodsDamages: this.data.goodsDamages,
+        //         vesselMinimum: this.data.vesselMinimum,
+        //         vesselMaximum: this.data.vesselMaximum,
+        //         warehouse: this.data.warehouse,
+        //         loadingMethod: this.data.loadingMethod,
+        //         unloadingMode: this.data.unloadingMode,
+        //         remarks: this.data.remarks
+        //     }
+        //     if (this.data.portDepartureId) {
+        //         params.portDepartureId = this.data.portDepartureId
+        //     }
+        //     if (this.data.portArrivalId) {
+        //         params.portArrivalId = this.data.portArrivalId
+        //     }
+        //     console.log(params)
+        //     User.UserMtCargoSave(params).then(res => {
+        //         console.log(res)
+        //         if (res.data.state === 200) {
+        //             wx.showLoading({
+        //                 title: '添加成功,请等待审核通过',
+        //             })
+        //             setTimeout(function () {
+        //                 wx.hideLoading()
+        //                 wx.navigateBack({
+        //                     data: 1
+        //                 })
+        //             }, 1000)
+
+        //         } else {
+        //             wx.showToast({
+        //                 title: res.data.message,
+        //                 icon: 'loading'
+        //             })
+        //             this.setData({
+        //                 visible: false
+        //             });
+        //         }
+        //     })
+
+        // },
+        // // 指定船东
+        // handspecified() {
+        //     this.setData({
+        //         visible: false,
+        //     })
+        //     wx.navigateTo({
+        //         url: '/views/UserSpecifiedShip/UserSpecifiedShip',
+        //     })
+        // }
     }
 })

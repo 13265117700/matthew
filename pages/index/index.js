@@ -73,7 +73,7 @@ Page({
     }],
   },
   onShow() {
-    this.showtabBar()
+    this.showtabBar();
     this.getUserInfo();
   },
   showtabBar: function () {

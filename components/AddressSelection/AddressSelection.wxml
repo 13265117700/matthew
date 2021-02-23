@@ -1,7 +1,4 @@
 <view class="address-container">
-    <view class="address-title">
-        <text>请选择地区</text>
-    </view>
     <view class="address-crumbs">
         <view class="address-crumbs_item {{ addressNameItem.active ? 'active':'' }}"
             wx:for="{{ addressName }}"
@@ -41,14 +38,15 @@
                     show-toolbar
                     columns="{{ pickerList }}" 
                     bind:cancel="onClose"
-                    bind:confirm="handleConfirmPicker" />
+                    bind:change="handleChangePicker"
+                    bind:confirm="onPickerConfirm" />
             </view>
             <view class="popup-input">
                 <van-field
                     label="其它："
                     label-class="popup-input_label"
                     input-class="popup-input_text"
-                    value="{{addvalue}}"
+                    value="{{popupInputValue}}"
                     type="textarea"
                     placeholder="如以上没有您需要的选项请在此输入"
                     border="{{ false }}"

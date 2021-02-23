@@ -1,7 +1,7 @@
-import User from "../models/user/user"
+import User from "../models/user/user";
+
 Component({
     data: {
-        user: {},
         activeIndex: 0,
         tabBar: [{
                 pagePath: '/pages/index/index',
@@ -62,59 +62,57 @@ Component({
         onChange(e) {
             let index = e.detail.current;
             let Authorization = wx.getStorageSync('Authorization');
-
-            User.userInfo({
-                Authorization
-            }).then(res => {
-                let user = res.data.data;
-                if (index != 0 && index != 4) {
-                    if (!Authorization) {
-                        wx.navigateTo({
-                            url: '/pages/logs/logs',
-                        })
-                        return
-                    }
-                    if (user.identityDifference == 0 && index != 1) {
-                        wx.showToast({
-                            title: '请前往我的页面进行认证',
-                            icon: 'none'
-                        })
-                        return
-                    }
-                }
-                if (index === 2) {
-                    this.onRelease(user)
+            if (index != 0 && index != 4) {
+                if (Authorization) {
+                    User.userInfo({
+                        Authorization
+                    }).then(res => {
+                        let user = res.data.data;
+                        if (index == 2) {
+                            this.onRelease(user)
+                        }
+                        
+                        if (user.identityDifference == 0) {
+                            wx.showToast({
+                                title: '请前往我的页面进行认证',
+                                icon: 'none'
+                            })
+                        } else {
+                            wx.switchTab({
+                                url: this.data.tabBar[index].pagePath,
+                            })
+                        }
+                    })
                 } else {
-                    wx.switchTab({
-                        url: this.data.tabBar[index].pagePath,
+                    wx.navigateTo({
+                        url: '/pages/logs/logs',
                     })
                 }
-            })
+            } else {
+                wx.switchTab({
+                    url: this.data.tabBar[index].pagePath,
+                })
+            }
 
         },
 
         onRelease(user) {
-            console.log(user)
-            if (user.identityDifference == 2) {
-                console.log('货主')
-                wx.navigateTo({
-                    url: '/views/ResourceAdd/ResourceAdd?id=' + '855',
-                })
-            } else if (user.identityDifference == 3) {
-                console.log('车主')
-                wx.navigateTo({
-                    url: '/views/ResourceAdd/ResourceAdd?id=' + '609',
-                })
-            } else if (user.identityDifference == 1) {
-                console.log('船东')
-                wx.navigateTo({
-                    url: '/views/ResourceAdd/ResourceAdd?id=' + '567',
-                })
-            } else {
-                wx.showToast({
-                    title: '请前往我的页面进行认证',
-                    icon: 'none'
-                })
+            switch (user.identityDifference) {
+                case 1:
+                    wx.navigateTo({
+                        url: '/views/ResourceAdd/ResourceAdd?id=' + '567',
+                    })
+                    break;
+                case 2:
+                    wx.navigateTo({
+                        url: '/views/ResourceAdd/ResourceAdd?id=' + '855',
+                    })
+                    break;
+                case 3:
+                    wx.navigateTo({
+                        url: '/views/ResourceAdd/ResourceAdd?id=' + '609',
+                    })
+                    break;
             }
         }
     }

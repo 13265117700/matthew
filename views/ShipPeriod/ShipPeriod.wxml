@@ -47,6 +47,7 @@
                 </view>
             </view>
         </view>
+        
         <view class="rightsidebar" wx:if="{{cargoId}}"><text>发起聊天</text></view>
     </view>
 </view>
