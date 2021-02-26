@@ -166,38 +166,63 @@ Page({
   },
   // 同意承运
   handleConfirm() {
-    let userInfo = this.data.userInfo;
+    // let userInfo = this.data.userInfo;
     let Authorization = wx.getStorageSync('Authorization');
     let status = this.data.status;
     let id = this.data.id;
-    if (userInfo.ship) {
-      console.log('船东')
-      let params = {
-        Authorization,
-        status,
-        id
-      }
-      User.UserShipOrderAgreeOrRefused(params).then(res => {
-        if (res.data.state === 200) {
-          wx.showLoading({
-            title: '成功同意承运',
-          })
-          setTimeout(function () {
-            wx.hideLoading()
-            wx.navigateTo({
-              url: '/views/UserOrderList/UserOrderList',
-            })
-          }, 2000)
-        }
-      })
-
-
-    } else {
-      console.log('货主')
-
+    let params = {
+      Authorization,
+      status,
+      id
     }
+    User.UserShipOrderAgreeOrRefused(params).then(res => {
+      if (res.data.state === 200) {
+        wx.showLoading({
+          title: '成功同意承运',
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+          wx.navigateTo({
+            url: '/views/UserOrderList/UserOrderList',
+          })
+        }, 2000)
+      }
+    })
+    // if (userInfo.ship) {
+    //   console.log('船东')
+
+
+
+    // } else {
+    //   console.log('货主')
+
+    // }
 
   },
+  // onClose() {
+  //   console.log(12312)
+  //   let Authorization = wx.getStorageSync('Authorization');
+  //   let id = this.data.id;
+  //   let params = {
+  //     Authorization,
+  //     status:2,
+  //     id
+  //   }
+  //   User.UserShipOrderAgreeOrRefused(params).then(res => {
+  //     if (res.data.state === 200) {
+  //       wx.showLoading({
+  //         title: '不同意承运',
+  //       })
+  //       setTimeout(function () {
+  //         wx.hideLoading()
+  //         wx.navigateBack({
+  //           delta: 1,
+  //         })
+  //       }, 2000)
+  //     }
+  //   })
+
+  // },
 
   //货主发起聊天
   handleCargoBtu(e) {

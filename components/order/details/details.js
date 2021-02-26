@@ -726,6 +726,7 @@ Component({
                         if (res.data.state === 200) {
                             wx.showToast({
                                 title: '订单最终价格确认完成,请等待船东再次确认',
+                                icon:'none'
                             })
                             setTimeout(function () {
                                 this.setData({
@@ -739,6 +740,7 @@ Component({
                         } else {
                             wx.showToast({
                                 title: res.data.message,
+                                icon:'none'
                             })
 
                             setTimeout(function () {

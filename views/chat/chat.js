@@ -7,7 +7,7 @@ Page({
     data: {
         scrollTop: 0, //控制上滑距离
         windowHeight: 0, //页面高度
-        receiverid: null, //接收者ID
+        receiverid: null, //好友ID
         senderid: null, //发送者ID
         msg: '', //聊天信息
         action: null, //连接枚举动作
@@ -18,26 +18,31 @@ Page({
         state: false,
         resourcesID: null, //资源ID
         total: [], //未读
-        EmployeeInformation:null,//员工信息
+        EmployeeInformation: null, //员工信息
     },
 
     onLoad: function (options) {
+        console.log(options)
         this.setData({
             receiverid: options.receiverid,
             senderid: options.senderid,
-            msg: options.msg,
-            action: options.action
         })
-        this.gettalkContent()
+        // this.setData({
+        //     receiverid: options.receiverid,
+        //     senderid: options.senderid,
+        //     msg: options.msg,
+        //     action: options.action
+        // })
+        // this.gettalkContent()
     },
 
     onShow: function () {
         this.getUserInfo();
         this.WebSocketInit();
     },
-    onHide: function () {
-        WebSocket.closeSocket()
-    },
+    // onHide: function () {
+    //     WebSocket.closeSocket()
+    // },
 
     onReady: function () {
         let height = wx.getSystemInfoSync().windowHeight;
@@ -170,24 +175,23 @@ Page({
 
     //监听websocket连接与接收信息
     WebSocketInit: function () {
+        let receiverId = this.data.receiverid; //好友ID
         let senderId = this.data.senderid; //自己的ID
-        let receiverId = this.data.receiverid; //对方的ID
-        let msg = this.data.msg;
         let params = {
             senderId,
             receiverId,
-            msg,
-            action: 1
+            msg:null,
+            action: 5
         }
-
-        WebSocket.connectSocket(params)
+        console.log(params)
+        WebSocket.sendSocketMessage(params)
         WebSocket.onSocketMessageCallback = this.onSocketMessageCallback;
     },
 
-    //关闭websocket连接
-    onUnload: function () {
-        WebSocket.closeSocket()
-    },
+    // //关闭websocket连接
+    // onUnload: function () {
+    //     WebSocket.closeSocket()
+    // },
 
     //websocket通信接收信息
     onSocketMessageCallback: function (data) {
@@ -283,7 +287,7 @@ Page({
                 title: rows.nickName,
             })
             this.setData({
-                EmployeeInformation:rows.mtEmployeeInformation
+                EmployeeInformation: rows.mtEmployeeInformation
             })
             console.log(this.data.EmployeeInformation)
         })

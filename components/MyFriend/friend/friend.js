@@ -234,11 +234,15 @@ Component({
         BeganToChat(e) {
             let receiverid = e.currentTarget.dataset.receiverid; //好友的ID
             let senderid = e.currentTarget.dataset.senderid; //我的ID
-            let action = 1; //第一次连接聊天
-            let msg = ''; //
+
             wx.navigateTo({
-                url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid + '&action=' + action + '&msg=' + msg,
+                url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid,
             })
+            // let action = 1; //第一次连接聊天
+            // let msg = ''; //
+            // wx.navigateTo({
+            //     url: '/views/chat/chat?receiverid=' + receiverid + '&senderid=' + senderid + '&action=' + action + '&msg=' + msg,
+            // })
         },
     }
 })

@@ -48,6 +48,7 @@ const webSocket = {
             }
         })
     },
+    
 
     //发送消息
     sendSocketMessage: function (data) {

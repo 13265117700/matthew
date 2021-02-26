@@ -147,6 +147,7 @@ Component({
 
         //获取订单
         getUserOrderList(data) {
+            console.log(data)
             let Authorization = wx.getStorageSync('Authorization');
             let params = {
                 Authorization,
@@ -172,6 +173,7 @@ Component({
 
                 } else {
                     orderList.forEach(data => {
+                        console.log(data)
                         data.mtCargo.loadingDate = formatTime(new Date(data.mtCargo.loadingDate));
                         if (data.status < 4) {
                             data.start = '预计装货时间：' + data.mtCargo.loadingDate

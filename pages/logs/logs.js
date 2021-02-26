@@ -1,3 +1,4 @@
+const app = getApp();
 import UserLogin from '../../models/login/login'
 
 Page({
@@ -42,10 +43,11 @@ Page({
         wx.switchTab({
           url: '/pages/index/index',
         })
+        app.onLaunch()
       } else {
         wx.showToast({
           title: res.data.codeMsg,
-          icon:'loading'
+          icon: 'loading'
         })
       }
     })
@@ -84,6 +86,12 @@ Page({
                     wx.setStorageSync('Authorization', Authorization)
                     wx.switchTab({
                       url: '/pages/index/index',
+                    })
+                    app.onLaunch()
+                  } else {
+                    wx.showToast({
+                      title: res.data.data.message,
+                      icon:'none'
                     })
                   }
                 })

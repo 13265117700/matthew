@@ -1,20 +1,11 @@
 <view class="page-container">
     <view class="main">
         <view class="resources-search">
-            <van-search 
-                value="{{ value }}" 
-                shape="round"
-                background="#ffffff"
-                input-align="center" 
+            <van-search value="{{ value }}" shape="round" background="#ffffff" input-align="center"
                 placeholder="请输入船名/AIS名" />
         </view>
         <view class="resources-list">
-            <view 
-                class="resources-item" 
-                wx:for="{{ shipList }}" 
-                wx:key="index" 
-                wx:for-item="shipItem"
-                >
+            <view class="resources-item" wx:for="{{ shipList }}" wx:key="index" wx:for-item="shipItem">
                 <view class="resources-top">
                     <view class="resources-icon">
                         <image src="/images/myFollow/chuan@3x.png"></image>
@@ -23,8 +14,10 @@
                         <text>{{shipItem.mtShip.nameVessel}}</text>
                     </view>
                     <view class="resources-active">
-                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.id }}" wx:if="{{ userInfo.ship }}" bind:click="handleConfirm">发送船源</vtu-btn>
-                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.mtShip.id }}" wx:if="{{ userInfo.cargo }}" bind:click="handleCargoHairTask">发起任务</vtu-btn>
+                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.id }}"
+                            wx:if="{{ userInfo.ship }}" bind:click="handleConfirm">发送船源</vtu-btn>
+                        <vtu-btn plain="true" type="danger" size="small" round="true" data-id="{{ shipItem.mtShip.id }}"
+                            wx:if="{{ userInfo.cargo }}" bind:click="handleCargoHairTask">发起任务</vtu-btn>
                     </view>
                 </view>
                 <view class="resources-bottom" data-id="{{ shipItem.id }}" bindtap="handleCheckDetails">
@@ -47,7 +40,7 @@
                 </view>
             </view>
         </view>
-        
-        <view class="rightsidebar" wx:if="{{cargoId}}"><text>发起聊天</text></view>
+
+        <view class="rightsidebar" wx:if="{{cargoId}}" bindtap="onInitiateChat"><text>发起聊天</text></view>
     </view>
 </view>

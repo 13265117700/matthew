@@ -22,8 +22,8 @@
             <!-- 选择货名 -->
             <van-popup show="{{ cargoNameShow }}" round position="bottom">
                 <view class="popup-selector">
-                    <van-picker default-index="0" show-toolbar title="请选择货名" columns="{{ cargoNameList }}" active-class="pickerAcitve"
-                        bind:cancel="onClose" bind:confirm="handObtainGoods" />
+                    <van-picker default-index="0" show-toolbar title="请选择货名" columns="{{ cargoNameList }}"
+                        active-class="pickerAcitve" bind:cancel="onClose" bind:confirm="handObtainGoods" />
                 </view>
             </van-popup>
 
@@ -66,7 +66,7 @@
                             </van-radio>
                         </van-radio-group>
                         <view class="input-child-wrap" wx:for="{{ GroupTwo.list.input }}" wx:key="index"
-                            wx:for-item="groupTwoInput">
+                            wx:for-item="groupTwoInput" wx:if="{{groupTwoInput.show}}">
                             <view class="input-child-wrap_subTitle" wx:if="{{ groupTwoInput.subTitle }}">
                                 {{ groupTwoInput.subTitle }}</view>
                             <vtu-input placeholder="{{ groupTwoInput.placeholder }}" type="{{ groupTwoInput.type }}"
@@ -112,7 +112,8 @@
                             <vtu-input placeholder="最小值" type="input" text-align="center" bind:input="vesselMinimum">
                             </vtu-input>
                             --
-                            <vtu-input placeholder="最大值"  type="input" text-align="center" bind:input="vesselMaximum"></vtu-input>
+                            <vtu-input placeholder="最大值" type="input" text-align="center" bind:input="vesselMaximum">
+                            </vtu-input>
                             吨
                         </view>
                     </view>
@@ -142,11 +143,13 @@
         <van-popup show="{{ handlePickerShow }}" round position="bottom">
             <view class="popup-selector">
                 <van-picker default-index="0" show-toolbar columns="{{ pickerList }}" value-key="{{ pickerListRows }}"
-                    bind:cancel="onClose" bind:confirm="handlePickerConfirm" />
+                    active-class="pickerAcitve" bind:cancel="onClose" bind:change="handlePickerChange"
+                    bind:confirm="handlePickerConfirm" />
             </view>
             <view class="popup-input">
                 <van-field label="其它：" label-class="popup-input_label" input-class="popup-input_text" type="textarea"
-                    placeholder="如以上没有您需要的选项请在此输入" border="{{ false }}" bind:input="handlePickerInput" autosize />
+                    value="{{ handlePickerInput }}" placeholder="如以上没有您需要的选项请在此输入" border="{{ false }}"
+                    bind:input="handlePickerInput" autosize />
             </view>
         </van-popup>
     </view>

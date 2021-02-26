@@ -67,6 +67,7 @@ Page({
         }
         mtWharf.frontDeskShipPeriodList(params).then(res => {
             let rows = res.data.data.rows;
+            console.log(rows)
             let shipList = []
             rows.forEach(data => {
                 let emptyDate = new Date(data.emptyDate).toLocaleDateString();
@@ -122,9 +123,17 @@ Page({
                 setTimeout(function () {
                     wx.hideLoading()
                     let state = false;
-                    wx.navigateTo({
-                        url: '/views/chat/chat?state=' + state + '&receiverid=' + receiverid + '&senderid=' + senderid,
+                    let page = getCurrentPages();
+                    let prPage = page[page.length - 3];
+                    prPage.setData({
+                        state
                     })
+                    wx.navigateBack({
+                      delta: 2,
+                    })
+                    // wx.navigateTo({
+                    //     url: '/views/chat/chat?state=' + state + '&receiverid=' + receiverid + '&senderid=' + senderid,
+                    // })
                 }, 2000)
 
             } else {
@@ -134,5 +143,15 @@ Page({
             }
         })
 
+    },
+    onInitiateChat() {
+        console.log(123)
+        // let page = getCurrentPages();
+        // let prPage = page[page.length - 3];
+        // console.log(prPage)
+        // prPage.onLoad();
+        wx.navigateBack({
+            delta: 2,
+        })
     }
 })

@@ -1,26 +1,33 @@
-App({
-  onLaunch: function () {},
+import WebSocket from "./models/websocket/websocket";
+import User from "./models/user/user";
 
-  watch: function (ctx, obj) {
-    Object.keys(obj).forEach(key => {
-      this.observer(ctx.data, key, ctx.data[key], function (value) {
-        obj[key].call(ctx, value)
-      })
-    })
+App({
+  onLaunch: function () {
+    // this.WebSocketInit()
   },
-  observer: function (data, key, val, fn) {
-    Object.defineProperty(data, key, {
-      configurable: true,
-      enumerable: true,
-      get: function () {
-        return val
-      },
-      set: function () {
-        if (newVal === val) return
-        fn && fn(newVal)
-        val = newVal
-      }
-    })
+  WebSocketInit: function () {
+    console.log(123)
+    let Authorization = wx.getStorageSync('Authorization');
+    let params = {
+      Authorization
+    }
+    if (Authorization) {
+      User.userInfo(params).then(res => {
+        console.log(res)
+        let rows = res.data.data;
+        let senderid = rows.uid;
+        WebSocket.connectSocket({
+          senderid,
+          action: 1
+        })
+        WebSocket.onSocketMessageCallback = this.onSocketMessageCallback;
+      })
+
+    }
+  },
+  onSocketMessageCallback: function (data) {
+    console.log(data)
+
   },
 
   globalData: {

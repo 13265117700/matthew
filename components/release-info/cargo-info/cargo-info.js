@@ -67,15 +67,29 @@ Component({
                     id: 555,
                     type: 'input',
                     placeholder: '请输入运费单价',
-                    msg: '元/吨'
+                    msg: '元/吨',
+                    show: true
                 }]
             }
         }, {
-            rate: true,
+            rate: false,
             title: '其它费用：',
-            placeholder: '其它费用',
-            type: 'input',
-            arrow: false
+            radioValue: '1',
+            list: {
+                radio: [{
+                    name: '其它',
+                    number: '1'
+                }, {
+                    name: '无',
+                    number: '2'
+                }],
+                input: [{
+                    id: 233,
+                    type: 'input',
+                    placeholder: '请输入其它费用',
+                    show: true
+                }]
+            }
         }, {
             rate: true,
             title: '滞期约定：',
@@ -92,17 +106,20 @@ Component({
                     id: 111,
                     type: 'input',
                     placeholder: '请输入装货天数',
-                    msg: '天'
+                    msg: '天',
+                    show: true
                 }, {
                     id: 222,
                     type: 'input',
                     placeholder: '请输入卸货天数',
-                    msg: '天'
+                    msg: '天',
+                    show: true
                 }, {
                     id: 333,
                     subTitle: '滞期单价 ：￥',
                     type: 'input',
-                    msg: '元  天/吨'
+                    msg: '元  天/吨',
+                    show: true
                 }]
             }
         }, {
@@ -110,14 +127,17 @@ Component({
             rate: true,
             title: '船舶类型：',
             placeholder: '请选择船舶类型',
+            value: '',
             type: 'default',
             arrow: true
         }, {
+            id: 101,
             rate: true,
             title: '货物交接：',
             placeholder: '请输入货物交接',
-            type: 'input',
-            arrow: false
+            value: '',
+            type: 'default',
+            arrow: true
         }],
         //信息分组3
         infoGroupThree: [{
@@ -143,16 +163,19 @@ Component({
             rate: true,
             title: '船舶大小：',
         }, {
+            id: 202,
             rate: true,
             title: '封仓要求：',
             placeholder: '请输入封仓要求',
-            type: 'input',
-            arrow: false
+            value: '',
+            type: 'default',
+            arrow: true
         }, {
             id: 888,
             rate: true,
             title: '装货方式：',
             placeholder: '请选择装货方式',
+            value: '',
             type: 'default',
             arrow: true
         }, {
@@ -160,6 +183,7 @@ Component({
             rate: true,
             title: '卸货方式：',
             placeholder: '请选择卸货方式',
+            value: '',
             type: 'default',
             arrow: true
         }],
@@ -170,7 +194,7 @@ Component({
         pickerListRows: [], //弹框Picker所有数据
         pickerList: [], //弹框Picker列表
         pickerItemId: null, //弹框Picker当前项ID
-        handlePickerInput: null, //弹框Picker输入框值
+        handlePickerInput: '', //弹框Picker输入框值
         handlePickerShow: false, //弹框Picker显示开关
 
         cargoNameList: [], //货名name列表
@@ -178,18 +202,18 @@ Component({
         cargoCode: null, //货物代码
 
         //确认按钮
-        confirmButton: [{
-            name: '不指定',
-            active: false,
-            id: '0'
-        }, {
-            name: '指定船东',
-            active: true,
-            id: '1'
-        }],
+        // confirmButton: [{
+        //     name: '不指定',
+        //     active: false,
+        //     id: '0'
+        // }, {
+        //     name: '指定船东',
+        //     active: true,
+        //     id: '1'
+        // }],
 
-        visible: false, //提示框
-        specifiedShow: false, //指定船东弹框
+        // visible: false, //提示框
+        // specifiedShow: false, //指定船东弹框
 
         nameGoodsId: null, //货名ID
         number: 0, //数量(吨)
@@ -200,7 +224,7 @@ Component({
         loadingDate: null, //装货日期(时间戳)
         freightRate: 1, //运价类型
         freightAmount: 0, //运价金额
-        otherExpenses: 0, //其它费用
+        otherExpenses: null, //其它费用
         lagPeriodType: 1, //滞期约定类型 1.天 2.小时
         delayedLoading: 0, //滞期装货(天/小时)
         delayedDischarge: 0, //滞期卸货(天/小时)
@@ -352,45 +376,49 @@ Component({
         onChangeRadio(e) {
             console.log(e)
             let index = e.currentTarget.dataset.index;
-            // let infoGroupTwo = this.data.infoGroupTwo;
             this.setData({
                 [`infoGroupTwo[${index}].radioValue`]: e.detail
             })
-            if (index === 1) {
-                if (e.detail != '1') {
-                    // let freightRate = infoGroupTwo[index].list.radio[1].name;
-                    console.log(2)
+            switch (index) {
+                case 1:
+                    if (e.detail != '1') {
+                        this.setData({
+                            [`infoGroupTwo[${index}].list.input[0].msg`]: '元/船',
+                            freightRate: 2
+                        })
+                    } else {
+                        this.setData({
+                            [`infoGroupTwo[${index}].list.input[0].msg`]: '元/吨',
+                            freightRate: 1
+                        })
+                    }
+                    break;
+                case 2:
+                    let input = this.data.infoGroupTwo[index].list.input[0].show;
+                    let show = input = !input
                     this.setData({
-                        [`infoGroupTwo[${index}].list.input[0].msg`]: '元/船',
-                        freightRate: 2
+                        [`infoGroupTwo[${index}].list.input[0].show`]: show
                     })
-                } else {
-                    // let freightRate = infoGroupTwo[index].list.radio[0].name;
-                    console.log(1)
-                    this.setData({
-                        [`infoGroupTwo[${index}].list.input[0].msg`]: '元/吨',
-                        freightRate: 1
-                    })
-                }
-            } else {
-                if (e.detail != '1') {
-                    console.log('小时')
-                    this.setData({
-                        [`infoGroupTwo[${index}].list.input[0].msg`]: '小时',
-                        [`infoGroupTwo[${index}].list.input[1].msg`]: '小时',
-                        [`infoGroupTwo[${index}].list.input[2].msg`]: '元  小时/吨',
-                        lagPeriodType: 2
-                    })
-                } else {
-                    console.log('天')
-                    this.setData({
-                        [`infoGroupTwo[${index}].list.input[0].msg`]: '天',
-                        [`infoGroupTwo[${index}].list.input[1].msg`]: '天',
-                        [`infoGroupTwo[${index}].list.input[2].msg`]: '元  天/吨',
-                        lagPeriodType: 1
-                    })
-                }
+                    break;
+                case 3:
+                    if (e.detail != '1') {
+                        this.setData({
+                            [`infoGroupTwo[${index}].list.input[0].msg`]: '小时',
+                            [`infoGroupTwo[${index}].list.input[1].msg`]: '小时',
+                            [`infoGroupTwo[${index}].list.input[2].msg`]: '元  小时/吨',
+                            lagPeriodType: 2
+                        })
+                    } else {
+                        this.setData({
+                            [`infoGroupTwo[${index}].list.input[0].msg`]: '天',
+                            [`infoGroupTwo[${index}].list.input[1].msg`]: '天',
+                            [`infoGroupTwo[${index}].list.input[2].msg`]: '元  天/吨',
+                            lagPeriodType: 1
+                        })
+                    }
+                    break;
             }
+
         },
         //分组2内列表Input
         infoGroupTwoListInput(e) {
@@ -420,27 +448,32 @@ Component({
                     this.setData({
                         delayedCost: e.detail.value
                     })
-                    break
+                    break;
+                case 233:
+                    this.setData({
+                        otherExpenses:e.detail.value
+                    })
+                    break;
             }
         },
-        //分组2输入框
-        infoGroupTwoInput(e) {
-            console.log(e)
-            let index = e.currentTarget.dataset.index;
-            if (index === 2) {
-                this.setData({
-                    otherExpenses: e.detail.value
-                })
-            } else if (index === 5) {
-                this.setData({
-                    deliveryGoods: e.detail.value
-                })
-            } else {
-                this.setData({
-                    warehouse: e.detail.value
-                })
-            }
-        },
+        // //分组2输入框
+        // infoGroupTwoInput(e) {
+        //     console.log(e)
+        //     let index = e.currentTarget.dataset.index;
+        //     if (index === 2) {
+        //         this.setData({
+        //             otherExpenses: e.detail.value
+        //         })
+        //     } else if (index === 5) {
+        //         this.setData({
+        //             deliveryGoods: e.detail.value
+        //         })
+        //     } else {
+        //         this.setData({
+        //             warehouse: e.detail.value
+        //         })
+        //     }
+        // },
 
 
 
@@ -503,7 +536,13 @@ Component({
                     break
                 case 777:
                     this.unloadingMode(id);
-                    break
+                    break;
+                case 101:
+                    this.theGoodsDelivery(id)
+                    break;
+                case 202:
+                    this.storageRequirements(id)
+                    break;
             }
         },
         //总弹框输入框
@@ -513,15 +552,19 @@ Component({
                 handlePickerInput: e.detail
             })
         },
+        handlePickerChange(e) {
+            console.log(e)
+            this.setData({
+                handlePickerInput: ''
+            })
+        },
         //总弹框确认按钮
         handlePickerConfirm(e) {
             let pickerItemId = this.data.pickerItemId;
-            console.log(pickerItemId)
-            console.log(this.data.infoGroupThree)
             let handlePickerInput = this.data.handlePickerInput;
             let value = e.detail.value;
             let index = e.detail.index;
-            if (handlePickerInput != null && handlePickerInput != '') {
+            if (handlePickerInput) {
                 switch (pickerItemId) {
                     case 999:
                         let pickerListRows = this.data.pickerListRows;
@@ -530,6 +573,7 @@ Component({
                             typeShip: handlePickerInput,
                             mtTypeShipId: pickerListRows[index].id,
                             ['infoGroupTwo[4].placeholder']: handlePickerInput,
+                            ['infoGroupTwo[4].value']: handlePickerInput,
                             handlePickerShow: false
                         })
                         break
@@ -537,6 +581,7 @@ Component({
                         this.setData({
                             loadingMethod: handlePickerInput,
                             ['infoGroupThree[3].placeholder']: handlePickerInput,
+                            ['infoGroupThree[3].value']: handlePickerInput,
                             handlePickerShow: false
                         })
                         break
@@ -544,9 +589,26 @@ Component({
                         this.setData({
                             unloadingMode: handlePickerInput,
                             ['infoGroupThree[4].placeholder']: handlePickerInput,
+                            ['infoGroupThree[4].value']: handlePickerInput,
                             handlePickerShow: false
                         })
-                        break
+                        break;
+                    case 101:
+                        this.setData({
+                            deliveryGoods: handlePickerInput,
+                            ['infoGroupTwo[5].placeholder']: handlePickerInput,
+                            ['infoGroupTwo[5].value']: handlePickerInput,
+                            handlePickerShow: false
+                        })
+                        break;
+                    case 202:
+                        this.setData({
+                            warehouse: handlePickerInput,
+                            ['infoGroupThree[2].placeholder']: handlePickerInput,
+                            ['infoGroupThree[2].value']: handlePickerInput,
+                            handlePickerShow: false
+                        })
+                        break;
                 }
             } else {
                 switch (pickerItemId) {
@@ -573,6 +635,20 @@ Component({
                             handlePickerShow: false
                         })
                         break
+                    case 101:
+                        this.setData({
+                            deliveryGoods: value,
+                            ['infoGroupTwo[5].placeholder']: value,
+                            handlePickerShow: false
+                        })
+                        break;
+                    case 202:
+                        this.setData({
+                            warehouse: value,
+                            ['infoGroupThree[2].placeholder']: value,
+                            handlePickerShow: false
+                        })
+                        break;
                 }
             }
         },
@@ -580,6 +656,8 @@ Component({
         frontDeskShipTypeList(id) {
             let page = 1;
             let rows = 10;
+            let infoGroupTwo = this.data.infoGroupTwo;
+            console.log(infoGroupTwo)
             mtWharf.frontDeskShipTypeList({
                 page,
                 rows
@@ -590,24 +668,49 @@ Component({
                 this.setData({
                     pickerList: shipTypeList,
                     pickerItemId: id,
-                    pickerListRows: rows
+                    pickerListRows: rows,
+                    handlePickerInput: infoGroupTwo[4].value
                 })
+            })
+        },
+        // 货物交接
+        theGoodsDelivery(id) {
+            let pickerList = ['水路货物运单', '卸货实收数量', '包船商定数', '量方', '件数', '量水尺', '封舱（盖印/封条）'];
+            let infoGroupTwo = this.data.infoGroupTwo;
+            this.setData({
+                pickerItemId: id,
+                pickerList,
+                handlePickerInput: infoGroupTwo[5].value
+            })
+        },
+        //封仓要求
+        storageRequirements(id) {
+            let pickerList = ['雨布', '帆布', '灌装', '无']
+            let infoGroupThree = this.data.infoGroupThree;
+            this.setData({
+                pickerItemId: id,
+                pickerList,
+                handlePickerInput: infoGroupThree[2].value
             })
         },
         //装货方式
         loadingMethod(id) {
-            let pickerList = ['挖机', '汽车自卸', '传输带', '自卸船', '过驳', '岸吊']
+            let pickerList = ['挖机', '汽车自卸', '传输带', '自卸船', '过驳', '岸吊'];
+            let infoGroupThree = this.data.infoGroupThree;
             this.setData({
                 pickerItemId: id,
-                pickerList
+                pickerList,
+                handlePickerInput: infoGroupThree[3].value
             })
         },
         //卸货方式
         unloadingMode(id) {
-            let pickerList = ['挖机', '汽车自卸', '传输带', '自卸船', '过驳', '岸吊']
+            let pickerList = ['挖机', '汽车自卸', '传输带', '自卸船', '过驳', '岸吊'];
+            let infoGroupThree = this.data.infoGroupThree;
             this.setData({
                 pickerItemId: id,
-                pickerList
+                pickerList,
+                handlePickerInput: infoGroupThree[4].value
             })
         },
 
@@ -635,7 +738,7 @@ Component({
                 loadingDate: this.data.loadingDate,
                 freightRate: this.data.freightRate,
                 freightAmount: this.data.freightAmount,
-                otherExpenses: this.data.otherExpenses,
+                // otherExpenses: this.data.otherExpenses,
                 lagPeriodType: this.data.lagPeriodType,
                 delayedLoading: this.data.delayedLoading,
                 delayedDischarge: this.data.delayedDischarge,
@@ -653,6 +756,9 @@ Component({
                 loadingMethod: this.data.loadingMethod,
                 unloadingMode: this.data.unloadingMode,
                 remarks: this.data.remarks
+            }
+            if (this.data.otherExpenses) {
+                params.otherExpenses = this.data.otherExpenses
             }
             if (this.data.portDepartureId) {
                 params.portDepartureId = this.data.portDepartureId

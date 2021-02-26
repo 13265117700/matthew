@@ -41,7 +41,8 @@
             <view class="item-iden-photo_img">
               <image mode="aspectFit" wx:if="{{corporateId}}" src="{{corporateId}}" data-url="{{ corporateId }}"
                 catchtap="handleIdenBackImage"></image>
-              <image mode="aspectFit" wx:if="{{!corporateId}}" src="/images/my/sfzzm@3x.png"></image>
+              <image mode="aspectFit" wx:if="{{!corporateId}}" src="/images/my/sfzzm@3x.png" bindtap="IdJustUpload">
+              </image>
             </view>
             <view class="item-iden-photo_text" bindtap="IdJustUpload">上传正面</view>
           </view>
@@ -49,7 +50,8 @@
             <view class="item-iden-photo_img">
               <image mode="aspectFit" wx:if="{{backViewIdCard}}" src="{{backViewIdCard}}"
                 data-url="{{ backViewIdCard }}" catchtap="handleIdenBackImage"></image>
-              <image mode="aspectFit" wx:if="{{!backViewIdCard}}" src="/images/my/sfzfm@3x.png"></image>
+              <image mode="aspectFit" wx:if="{{!backViewIdCard}}" src="/images/my/sfzfm@3x.png" bindtap="IdBackUpload">
+              </image>
             </view>
             <view class="item-iden-photo_text" bindtap="IdBackUpload">上传反面</view>
           </view>
@@ -65,7 +67,8 @@
         </view>
         <view class="item-license">
           <view class="item-license-img">
-            <image mode="aspectFit" wx:if="{{!businessLicense}}" src="/images/my/yyzzyb@3x.png"></image>
+            <image mode="aspectFit" wx:if="{{!businessLicense}}" src="/images/my/yyzzyb@3x.png"
+              bindtap="businessLicenseUpload"></image>
             <image mode="aspectFit" wx:if="{{businessLicense}}" src="{{businessLicense}}"
               data-url="{{ businessLicense }}" catchtap="handleIdenBackImage"></image>
           </view>
