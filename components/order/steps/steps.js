@@ -45,7 +45,7 @@ Component({
             name: 5
         }],
         stepsbtn: [{
-            title: '上传货到港图片',
+            title: '上传装货港图片',
             show: true,
             state: 1
         }, {

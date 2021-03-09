@@ -87,6 +87,7 @@ Component({
             show: false,
             state: 14, //按钮状态
         }],
+        show: false,
         // 货主确认价钱弹框按钮
         moneyDialogBtn: [{
             title: '取消',
@@ -116,6 +117,8 @@ Component({
         delayedCostValue: 0, //滞期值
         lossValue: 0, //亏损值
         inputValue: 0, //最终值
+        freightAmount: 0, //运价
+        unitPrice: 0, //单价
 
         orderPrice: '', //最终价格
         delayedCost: '', //滞期费
@@ -525,12 +528,19 @@ Component({
                 orderPrice: price
             })
         },
-        //货主发起合同
+
         handleHairContract() {
+            this.setData({
+                show: true
+            })
+        },
+        //货主发起合同
+        handleConfirm() {
             let orderID = this.data.orderID;
             let cargoOrderInfo = this.data.orderdetail;
             let Authorization = wx.getStorageSync('Authorization');
-            let freightAmount = this.data.orderPrice;
+            let freightAmount = this.data.freightAmount;
+            let unitPrice = Number(this.data.unitPrice);
             let compensation = cargoOrderInfo.mtCargo.compensation;
             let delayedCost = cargoOrderInfo.mtCargo.delayedCost;
             let delayedDischarge = cargoOrderInfo.mtCargo.delayedDischarge;
@@ -559,6 +569,7 @@ Component({
             let params = {
                 Authorization,
                 freightAmount,
+                unitPrice,
                 compensation,
                 delayedCost,
                 delayedDischarge,
@@ -584,7 +595,7 @@ Component({
                 portArrivalId,
                 portDepartureId
             }
-
+            console.log(params)
             User.UserCargoUpdate(params).then(res => {
                 if (res.data.state) {
                     wx.navigateTo({
@@ -598,6 +609,10 @@ Component({
         handleOrderPrice(e) {
             console.log(e)
             let value = e.detail.value;
+            let orderdetail = this.data.orderdetail;
+            let freightAmount = orderdetail.mtCargo.number * value;
+            orderdetail.mtCargo.freightAmount = freightAmount
+
             let price = Math.round(parseFloat(value) * 100) / 100;
             let xsd = price.toString().split(".");
             if (xsd.length == 1) {
@@ -609,15 +624,20 @@ Component({
                 }
             }
             this.setData({
-                orderPrice: price
+                orderPrice: price,
+                orderdetail,
+                freightAmount,
+                unitPrice: value
             })
         },
         //滞期费输入框
         handledemurrage(e) {
             let delayedCostValue = Number(e.detail.value);
             let lossValue = Number(this.data.lossValue);
-            let existingValue = this.data.orderdetail.mtCargo.freightAmount;
-            let value = existingValue + delayedCostValue - lossValue;
+            // let existingValue = this.data.orderdetail.mtCargo.freightAmount;
+            let unitPrice = this.data.orderdetail.mtCargo.unitPrice;
+            let number = this.data.orderdetail.mtCargo.number;
+            let value = (unitPrice * number) + delayedCostValue - lossValue;
 
             let price = Math.round(parseFloat(delayedCostValue) * 100) / 100;
             let xsd = price.toString().split(".");
@@ -645,7 +665,7 @@ Component({
                 delayedCost: price,
                 orderPrice: total,
                 delayedCostValue,
-                inputValue:value
+                inputValue: value
             })
 
         },
@@ -653,8 +673,11 @@ Component({
         handleloss(e) {
             let lossValue = Number(e.detail.value);
             let delayedCostValue = Number(this.data.delayedCostValue);
-            let existingValue = this.data.orderdetail.mtCargo.freightAmount;
-            let value = existingValue + delayedCostValue - lossValue;
+            // let existingValue = this.data.orderdetail.mtCargo.freightAmount;
+            let unitPrice = this.data.orderdetail.mtCargo.unitPrice;
+            let number = this.data.orderdetail.mtCargo.number;
+            let value = (unitPrice * number) + delayedCostValue - lossValue;
+            console.log(value)
 
 
             let price = Math.round(parseFloat(lossValue) * 100) / 100;
@@ -683,7 +706,7 @@ Component({
                 loss: price,
                 orderPrice: total,
                 lossValue,
-                inputValue:value
+                inputValue: value
             })
         },
         //货主确认价钱弹框按钮
@@ -726,7 +749,7 @@ Component({
                         if (res.data.state === 200) {
                             wx.showToast({
                                 title: '订单最终价格确认完成,请等待船东再次确认',
-                                icon:'none'
+                                icon: 'none'
                             })
                             setTimeout(function () {
                                 this.setData({
@@ -740,7 +763,7 @@ Component({
                         } else {
                             wx.showToast({
                                 title: res.data.message,
-                                icon:'none'
+                                icon: 'none'
                             })
 
                             setTimeout(function () {
@@ -756,6 +779,7 @@ Component({
             }
 
         },
+
 
         //货主充值弹框按钮
         handlelinesbtn(e) {

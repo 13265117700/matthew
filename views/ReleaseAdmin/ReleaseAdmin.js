@@ -372,8 +372,8 @@ Page({
   addButton() {
     let id = this.data.id;
     console.log(id)
-    wx.navigateTo({
-      url: '/views/ResourceAdd/ResourceAdd?id=' + id,
-    })
+    // wx.navigateTo({
+    //   url: '/views/ResourceAdd/ResourceAdd?id=' + id,
+    // })
   }
 })

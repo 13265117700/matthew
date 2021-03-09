@@ -18,6 +18,13 @@
           bind:input="handnameEnterprise"></vtu-input>
       </vtu-input-group>
     </view>
+    <!-- 企业地址 -->
+    <view class="identit-form-item" wx:if="{{identity === '1'}}">
+      <vtu-input-group>
+        <vtu-input title="企业地址:" must border placeholder="请输入地址" type="input" text-align="left"
+          bind:input="handnameEnterpriseAddress"></vtu-input>
+      </vtu-input-group>
+    </view>
     <!-- 列表输入框 -->
     <view class="identit-form-item">
       <vtu-input-group>
@@ -141,7 +148,7 @@
           <navigator url="">《马太货运网用户协议》</navigator>
         </view>
         <view class="item-submit-button" bindtap="handleSubmit">
-          <text>提交货主认证</text>
+          <text>提交{{btnTitle}}</text>
         </view>
       </view>
     </view>

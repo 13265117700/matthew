@@ -353,6 +353,7 @@ Component({
                 specifiedShow: false
             })
             this.triggerEvent('myevent', '发布货源');
+
         },
 
 

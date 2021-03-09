@@ -69,14 +69,14 @@ Page({
     minValue: function (e) {
         console.log(e)
         this.setData({
-            numberSmall: e.detail.minValue
+            numberLarge: e.detail.minValue
         })
     },
     //装货最大值
     maxValue: function (e) {
         console.log(e)
         this.setData({
-            numberLarge: e.detail.maxValue
+            numberSmall: e.detail.maxValue
         })
     },
     //类型

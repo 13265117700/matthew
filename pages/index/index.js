@@ -1,6 +1,5 @@
 //index.js
 //获取应用实例
-const app = getApp()
 import User from "../../models/user/user"
 
 Page({
@@ -25,25 +24,25 @@ Page({
       mode: "widthFix"
     }],
     cardList: [{
-      tips: 'index',
       id: 9999999,
       url: 'https://img.gdmatt.com/images/2021/01/26/16116504535152481.png',
-      text: '船源信息'
+      text: '船源信息',
+      show: true
     }, {
       id: 9999998,
-      tips: 'index',
       url: 'https://img.gdmatt.com/images/2021/01/26/16116504834364982.png',
-      text: '船运货源'
+      text: '船运货源',
+      show: true
     }, {
       id: 9999997,
-      tips: 'index',
       url: 'https://img.gdmatt.com/images/2021/01/26/16116505013535769.png',
-      text: '车运货源'
+      text: '车运货源',
+      show: true
     }, {
-      tips: 'index',
       id: 9999996,
       url: 'https://img.gdmatt.com/images/2021/01/26/16116505123198852.png',
-      text: '车辆信息'
+      text: '车辆信息',
+      show: true
     }],
     orderList: [],
     serviceList: [{
@@ -94,20 +93,23 @@ Page({
     }
     User.userInfo(params).then(res => {
       let user = res.data.data;
-      console.log(user)
-      if (user.identityDifference == 2) {
-        console.log('货主')
-        user.cargo = true
-      } else if (user.identityDifference == 3) {
-        console.log('车主')
-        user.car = true
-      } else if (user.identityDifference == 1) {
-        console.log('船东')
-        user.ship = true
-      }
+      let cardList = this.data.cardList;
+      cardList.forEach((data, index) => {
+        if (user.identityDifference == 1) {
+          if (index == 0 || index == 3) {
+            data.show = false
+          }
+        }
+        if (user.identityDifference == 2 || user.identityDifference == 3) {
+          if (index == 1 || index == 2) {
+            data.show = false
+          }
+        }
+      })
 
       this.setData({
-        userInfo: user
+        userInfo: user,
+        cardList
       })
       this.getOrderList(user)
 
@@ -122,7 +124,7 @@ Page({
     let page = 1;
     let rows = 10;
     let Authorization = wx.getStorageSync('Authorization');
-    if (user.ship) {
+    if (user.identityDifference == 1) {
       identity = 2
     };
 
@@ -200,39 +202,36 @@ Page({
     let Authorization = wx.getStorageSync('Authorization');
     if (Authorization) {
       let id = e.currentTarget.dataset.id;
-      let data = e.currentTarget.dataset.data;
-      let userInfo = this.data.userInfo;
       switch (id) {
-        case 9999998:
-          if (userInfo.identityDifference == 2) {
-            wx.showToast({
-              title: '您当前是货主',
-              icon: 'loading'
-            })
-            return
-          } else {
-            wx.navigateTo({
-              url: '/views/FindResources/FindResources?id=' + id + '&data=' + data,
-            })
-          }
-          break;
-
         case 9999999:
-          if (userInfo.identityDifference == 1) {
-            wx.showToast({
-              title: '您当前是船东',
-              icon: 'loading'
-            })
-            return
-          } else {
-            wx.navigateTo({
-              url: '/views/FindResources/FindResources?id=' + id + '&data=' + data,
-            })
-          }
+          wx.navigateTo({
+            url: '/views/shipSourceList/shipSourceList?id=' + id,
+          })
+          break;
+        case 9999998:
+          wx.navigateTo({
+            url: '/views/cargoSourceList/cargoSourceList?id=' + id,
+          })
+          break;
+        case 9999996:
+          console.log(2323)
+          wx.showToast({
+            title: '努力建设中',
+            icon: 'loading'
+          })
+          // wx.navigateTo({
+          //   url: '/views/carSourceList/carSourceList?id=' + id,
+          // })
+          break;
+        case 9999997:
+          console.log('aaaa')
+          wx.showToast({
+            title: '努力建设中',
+            icon: 'loading'
+          })
           break;
 
       }
-
     } else {
       wx.navigateTo({
         url: '/pages/logs/logs',

@@ -1,4 +1,3 @@
-
 <view class="home-container">
     <view class="banner-section">
         <vtu-swiper list="{{imageList}}" height="{{200}}px" dot-type="round" indicator-active-color="#F0222F"
@@ -8,7 +7,7 @@
     <view class="card-section">
         <view class="card-list">
             <view class="card-item" wx:for="{{cardList}}" wx:key="index" data-data="{{ item.tips }}"
-                data-id="{{ item.id }}" bindtap="gotoResourcesList">
+                data-id="{{ item.id }}" wx:if="{{item.show}}" bindtap="gotoResourcesList">
                 <image src="{{item.url}}"></image>
                 <view class="card-item-tag">{{item.text}}</view>
             </view>
@@ -27,7 +26,8 @@
             </view>
         </view>
         <view class="order-list">
-            <view class="order-item" wx:for="{{orderList}}" wx:key="index" wx:for-item="orderItem" data-id="{{orderItem.id}}" bindtap="goOrderDetail">
+            <view class="order-item" wx:for="{{orderList}}" wx:key="index" wx:for-item="orderItem"
+                data-id="{{orderItem.id}}" bindtap="goOrderDetail">
                 <view class="order-item-top">
                     <view class="order-item-img">
                         <image src="/images/index/order_img3.png"></image>

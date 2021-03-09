@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "车源信息",
+  "usingComponents": {
+    "van-search": "/miniprogram_npm/@vant/weapp/search/index"
+  }
+}

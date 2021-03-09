@@ -11,6 +11,7 @@ Page({
     // disabled: false,
     checked: false,
     classState: null,
+    btnTitle:'船东认证',
 
     idenID: null, //认证身份ID
     identity: null, //认证方式ID
@@ -28,7 +29,6 @@ Page({
     transportPermit: '', //道路许可证照片
   },
   onLoad: function (options) {
-    console.log(options)
     this.setData({
       idenID: options.idenID,
       identity: options.identity
@@ -38,15 +38,24 @@ Page({
         wx.setNavigationBarTitle({
           title: '申请船东认证',
         })
+        this.setData({
+          btnTitle:'船东认证'
+        })
         break;
       case '151':
         wx.setNavigationBarTitle({
           title: '申请货主认证',
         })
+        this.setData({
+          btnTitle:'货主认证'
+        })
         break;
       case '152':
         wx.setNavigationBarTitle({
           title: '申请车主认证',
+        })
+        this.setData({
+          btnTitle:'车主认证'
         })
         break;
     }
@@ -54,8 +63,6 @@ Page({
   onShow: function () {
     let idenID = this.data.idenID;
     let identity = this.data.identity;
-    console.log(idenID)
-    console.log(identity)
     if (idenID == '152' && identity == '0') {
       this.setData({
         classState: 'current'
@@ -86,12 +93,16 @@ Page({
       creditCode
     })
   },
+
   //企业名称input
   handnameEnterprise(e) {
     let nameEnterprise = e.detail.value;
     this.setData({
       nameEnterprise
     })
+  },
+  handnameEnterpriseAddress(e) {
+    console.log(12312)
   },
   // 姓名input
   handContacts(e) {

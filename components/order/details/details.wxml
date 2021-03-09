@@ -272,16 +272,32 @@
     </view>
 
     <!-- 订单价钱输入 -->
-    <view class="order-group" wx:if="{{ orderdetail.status == 1 }}">
+    <view class="order-group input" wx:if="{{ orderdetail.status == 1 }}">
         <view class="info-item">
             <view class="info-subtitle">
-                <text class="info-rate">*</text>单价：
+                <text class="info-rate">*</text>单价确认：
             </view>
             <view class="info-input">
                 <vtu-input placeholder="请输入单价" value="{{orderPrice}}" type="input" text-align="left"
                     bind:confirm="handleOrderPrice">
                     <view class="unit" slot="after">元</view>
                 </vtu-input>
+            </view>
+        </view>
+        <view class="info-item">
+            <view class="info-subtitle">
+                <text class="info-rate">*</text>运输费：
+            </view>
+            <view class="info-text">
+                <view class="info-freight">
+                    <text>￥{{orderdetail.mtCargo.freightAmount}}</text>
+                    <view class="tab">
+                        <text>元</text>
+                    </view>
+                </view>
+                <view class="info-msg">
+                    <text>运输费=吨数 x 运费单价</text>
+                </view>
             </view>
         </view>
     </view>
@@ -354,13 +370,13 @@
             </view>
             <view class="dialog-input">
                 <view class="dialog-input_item">
-                    <vtu-input placeholder="请输入滞期费" value="{{delayedCost}}" type="input" text-align="left"
+                    <vtu-input placeholder="滞期费" value="{{delayedCost}}" type="input" text-align="left"
                         input-type="digit" bind:blur="handledemurrage">
                         <view slot="after" class="amount">元</view>
                     </vtu-input>
                 </view>
                 <view class="dialog-input_item">
-                    <vtu-input placeholder="请输入亏损扣费金额" value="{{loss}}" type="input" text-align="left"
+                    <vtu-input placeholder="货损费" value="{{loss}}" type="input" text-align="left"
                         input-type="digit" bind:blur="handleloss">
                         <view slot="after" class="amount">元</view>
                     </vtu-input>

@@ -33,7 +33,7 @@
 .region-title-close{
     position: absolute;
     right: 20px;
-    top: 75px;
+    top: 20px;
 }
 .region-title-close image{
     width: 16px;

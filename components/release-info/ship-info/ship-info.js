@@ -4,105 +4,105 @@ Component({
 
     },
     data: {
-        buttonStyle:'border-top-left-radius: 10px;border-top-right-radius: 10px;',
-        inputList:[{
-            id:2000001,
-            type:'default',
-            title:'选择船舶',
-            placeholder:'请选择船舶',
-            border:true,
-        },{
-            id:2000002,
-            type:'default',
-            title:'空船港',
-            placeholder:'请选择空船港',
-            border:true,
-        },{
-            id:2000003,
-            type:'picker',
-            mode:'date',
-            title:'空船期',
-            pickerDate:null,
-            placeholder:'如2020-08-12 ±1天',
-            border:false,
+        buttonStyle: 'border-top-left-radius: 10px;border-top-right-radius: 10px;',
+        inputList: [{
+            id: 2000001,
+            type: 'default',
+            title: '选择船舶',
+            placeholder: '请选择船舶',
+            border: true,
+        }, {
+            id: 2000002,
+            type: 'default',
+            title: '空船港',
+            placeholder: '请选择空船港',
+            border: true,
+        }, {
+            id: 2000003,
+            type: 'picker',
+            mode: 'date',
+            title: '空船期',
+            pickerDate: null,
+            placeholder: '如2020-08-12 ±1天',
+            border: false,
         }],
-        popupShow:false,
-        addressShow:false,
-        popupStyle:{},
-        shipNameList:[],//船名字列表
-        shipList:[],//船列表
-        terminalList:[],
-        id:null,
-        detailedAddress:null,
+        popupShow: false,
+        addressShow: false,
+        popupStyle: {},
+        shipNameList: [], //船名字列表
+        shipList: [], //船列表
+        terminalList: [],
+        id: null,
+        detailedAddress: null,
 
 
-        shipId:null,//船ID
-        wharfId:null,//港口id
-        emptyDate:null,//船期时间戳
-        note:null,//备注
+        shipId: null, //船ID
+        wharfId: null, //港口id
+        emptyDate: null, //船期时间戳
+        note: null, //备注
     },
     methods: {
         //港口选择
-        onMyEvent(e){
+        onMyEvent(e) {
             console.log(e)
             let detailedAddress = e.detail.detailedAddress;
             // let propID = e.detail.propID;
             let wharfId = e.detail.wharfID;
             console.log(wharfId)
-            if(detailedAddress != null){
+            if (detailedAddress != null) {
                 this.setData({
-                    ['inputList[1].placeholder']:detailedAddress,
+                    ['inputList[1].placeholder']: detailedAddress,
                     detailedAddress,
                     wharfId,
-                    addressShow:false
+                    addressShow: false
                 })
 
             }
         },
-        onCloseAddress(){
+        onCloseAddress() {
             this.setData({
-                addressShow:false,
+                addressShow: false,
             })
-            this.triggerEvent('myevent','发布货源');
+            this.triggerEvent('myevent', '发布货源');
         },
 
 
-        handleOpenPopup(e){
+        handleOpenPopup(e) {
             // console.log(e)
             let index = e.currentTarget.dataset.index;
             let id = e.currentTarget.dataset.id;
             console.log(index)
-            if(index === 0){
+            if (index === 0) {
                 let popupStyle = {
-                    position:'bottom',
-                    closeable:false,
-                    closeIcon:'close'
+                    position: 'bottom',
+                    closeable: false,
+                    closeIcon: 'close'
                 }
                 this.setData({
                     popupStyle,
-                    popupShow:true
+                    popupShow: true
                 })
                 this.getShipInfo()
-            }else{
+            } else {
                 this.setData({
                     id,
-                    addressShow:true
+                    addressShow: true
                 })
-                this.triggerEvent('myevent','选择空船港');
+                this.triggerEvent('myevent', '选择空船港');
             }
         },
-        getShipInfo(){
+        getShipInfo() {
             let params = {
-                Authorization:wx.getStorageSync('Authorization'),
-                page:1,
-                rows:10,
+                Authorization: wx.getStorageSync('Authorization'),
+                page: 1,
+                rows: 10,
             }
             User.UserShipQuery(params).then(res => {
                 let rows = res.data.data.rows;
                 console.log(rows)
                 let ship = [];
                 rows.forEach(data => {
-                    if(data.status === 2){
+                    if (data.status === 2) {
                         ship.push(data)
                     }
                 })
@@ -110,17 +110,17 @@ Component({
 
                 this.setData({
                     shipNameList,
-                    shipList:ship
+                    shipList: ship
                 })
             })
         },
-        onClose(){
+        onClose() {
             this.setData({
-                popupShow:false
+                popupShow: false
             })
         },
         //确定船舶
-        handlePickerItem(e){
+        handlePickerItem(e) {
             // console.log(e)
             let index = e.detail.index;
             let shipList = this.data.shipList;
@@ -128,48 +128,61 @@ Component({
             let shipId = shipList[index].id;
             console.log(shipId)
             this.setData({
-                ['inputList[0].placeholder']:e.detail.value,
+                ['inputList[0].placeholder']: e.detail.value,
                 shipId,
-                popupShow:false
+                popupShow: false
             })
         },
-       
+
         // 时间弹框确认按钮
-        handleconfirm(e){
+        handleconfirm(e) {
             let index = e.currentTarget.dataset.index;
             console.log(index)
-            if(index === 2){
+            if (index === 2) {
                 let value = e.detail.value;
                 console.log(value)
                 let emptyDate = new Date(value).getTime();
                 this.setData({
-                    [`inputList[${index}].pickerDate`]:value + '±1天',
+                    [`inputList[${index}].pickerDate`]: value + '±1天',
                     emptyDate
                 })
             }
-            
+
         },
         //备注
-        handleNote(e){
+        handleNote(e) {
             console.log(e)
             this.setData({
-                note:e.detail.value
+                note: e.detail.value
             })
         },
-        handleRelease(){
+        handleRelease() {
             let Authorization = wx.getStorageSync('Authorization');
             let shipId = this.data.shipId;
             let wharfId = this.data.wharfId;
             let emptyDate = this.data.emptyDate;
             let note = this.data.note;
-            let params = { Authorization, shipId, wharfId ,emptyDate, note }
+            let params = {
+                Authorization,
+                shipId,
+                wharfId,
+                emptyDate,
+                note
+            }
             console.log(params)
             User.UserShipPeriodAdd(params).then(res => {
                 console.log(res)
-                if(res.data.state === 200){
-                    wx.navigateBack({
-                      delta: 1,
+                if (res.data.state === 200) {
+                    wx.showLoading({
+                        title: '发布成功',
                     })
+                    setTimeout(function () {
+                        wx.hideLoading()
+                        wx.navigateBack({
+                            delta: 1,
+                        })
+                    }, 1000)
+
                 }
             })
         }
