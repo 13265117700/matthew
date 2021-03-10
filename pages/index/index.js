@@ -93,6 +93,7 @@ Page({
     }
     User.userInfo(params).then(res => {
       let user = res.data.data;
+      console.log(user)
       let cardList = this.data.cardList;
       cardList.forEach((data, index) => {
         if (user.identityDifference == 1) {

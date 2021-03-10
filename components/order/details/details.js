@@ -766,12 +766,12 @@ Component({
                                 icon: 'none'
                             })
 
-                            setTimeout(function () {
-                                that.setData({
-                                    moneyShow1: false,
-                                    linesShow: true
-                                })
-                            }, 1000)
+                            // setTimeout(function () {
+                            //     that.setData({
+                            //         moneyShow1: false,
+                            //         linesShow: true
+                            //     })
+                            // }, 1000)
                         }
                     })
 
@@ -781,18 +781,18 @@ Component({
         },
 
 
-        //货主充值弹框按钮
-        handlelinesbtn(e) {
-            console.log(e)
-            let state = e.currentTarget.dataset.state;
-            if (state === 1) {
-                this.setData({
-                    linesShow: false
-                })
-            } else {
-                console.log('充值')
-            }
-        },
+        // //货主充值弹框按钮
+        // handlelinesbtn(e) {
+        //     console.log(e)
+        //     let state = e.currentTarget.dataset.state;
+        //     if (state === 1) {
+        //         this.setData({
+        //             linesShow: false
+        //         })
+        //     } else {
+        //         console.log('充值')
+        //     }
+        // },
 
 
         //船东二次确认价格按钮

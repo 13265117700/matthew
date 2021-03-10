@@ -396,6 +396,11 @@ Component({
                     break;
                 case 2:
                     let input = this.data.infoGroupTwo[index].list.input[0].show;
+                    if (e.detail == 2) {
+                        this.setData({
+                            otherExpenses:'无'
+                        })
+                    }
                     let show = input = !input
                     this.setData({
                         [`infoGroupTwo[${index}].list.input[0].show`]: show
@@ -452,7 +457,7 @@ Component({
                     break;
                 case 233:
                     this.setData({
-                        otherExpenses:e.detail.value
+                        otherExpenses: e.detail.value
                     })
                     break;
             }

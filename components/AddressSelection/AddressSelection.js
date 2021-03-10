@@ -110,7 +110,7 @@ Component({
                     addressName,
                     address,
                     detailedAddress,
-                    wharfID:address[index].id,
+                    wharfID: address[index].id,
                     show: false
                 })
             }
@@ -157,29 +157,43 @@ Component({
         },
         handlePopupInput(e) {
             let addressName = this.data.addressName;
-            if (addressName.length > 3) {
-                addressName.splice(3, 1)
+            let wharfID = null;
+            let state = addressName.every(data => data.id > 0)
+            if (state) {
+                addressName.push({
+                    name: e.detail
+                })
+            } else {
+                addressName.pop()
+                addressName.push({
+                    name: e.detail
+                })
             }
-            addressName.push({
-                name: e.detail
-            });
+
+
+            addressName.forEach((data, index) => {
+                if (!data.id) {
+                    console.log(index)
+                    wharfID = addressName[index - 1].id;
+                }
+            })
+            console.log(addressName)
             let array = addressName.map(data => data.name);
             let detailedAddress = array.toString().replace(/,/g, '');
             this.setData({
                 detailedAddress,
+                wharfID,
                 value: e.detail
             })
         },
         onPickerConfirm(e) {
             console.log(e)
             let confirm = this.data.value;
+            let index = e.detail.index;
+            let value = e.detail.value;
+            let addressName = this.data.addressName;
+            let address = this.data.address;
             if (!confirm) {
-                let index = e.detail.index;
-                let value = e.detail.value;
-
-                let addressName = this.data.addressName;
-                let address = this.data.address;
-
                 if (addressName.length > 3) {
                     addressName.splice(3, 1)
                 }
@@ -195,6 +209,10 @@ Component({
                 })
             } else {
                 console.log(confirm)
+                console.log(addressName)
+                console.log(address)
+                console.log(index)
+
                 this.setData({
                     cellValue: confirm,
                     popupShow: false
@@ -278,6 +296,7 @@ Component({
                 propID,
                 wharfID
             }
+            console.log(onMyEvent)
             this.triggerEvent('myevent', onMyEvent)
 
             if (detailedAddress != null) {

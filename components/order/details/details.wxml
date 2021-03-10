@@ -210,6 +210,13 @@
             </view>
         </view>
         <view class="info-item">
+            <view class="info-subtitle">运价(含税):</view>
+            <view class="info-text">
+                <text>运费单价</text>
+                <text>{{orderdetail.mtCargo.unitPrice}}元/吨</text>
+            </view>
+        </view>
+        <view class="info-item">
             <view class="info-subtitle">其它费用:</view>
             <view class="info-text">
                 <text>{{orderdetail.mtCargo.otherExpenses}}</text>
@@ -400,7 +407,7 @@
         </van-dialog>
 
         <!-- 余额不足弹框 -->
-        <van-dialog use-slot show="{{ linesShow }}" show-confirm-button="{{false}}">
+        <!-- <van-dialog use-slot show="{{ linesShow }}" show-confirm-button="{{false}}">
             <view class="dialog-text">
                 <view class="dialog-subtitle">余额不足以支付本次订单金额</view>
                 <view class="dialog-msg">请前往充值</view>
@@ -410,7 +417,7 @@
                     wx:for-item="linesbtn" wx:if="{{linesbtn.show === true}}" custom-style="min-width: 96px;"
                     data-state="{{linesbtn.btnstate}}" bind:click="handlelinesbtn">{{linesbtn.title}}</van-button>
             </view>
-        </van-dialog>
+        </van-dialog> -->
 
         <!-- 船东确认价钱弹框 -->
         <van-dialog use-slot show="{{ shipmoneyShow }}" show-confirm-button="{{false}}">

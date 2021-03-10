@@ -95,7 +95,7 @@
 .info-item {
   /* margin-bottom: 19px; */
   display: flex;
-  align-items: center;
+  align-items: baseline;
   min-width: 130px;
   /* line-height: 42px; */
 }
@@ -119,6 +119,9 @@
   color: #191919;
   font-size: 14px;
   flex: 1;
+}
+.info-text text{
+  margin-right: 15px;
 }
 
 .order-group.active .info-item:nth-child(12) {

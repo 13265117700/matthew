@@ -1,4 +1,5 @@
-import User from "../../models/user/user"
+import User from "../../models/user/user";
+
 Page({
   data: {
     navBarTitle: '我发布的船源',
@@ -24,6 +25,7 @@ Page({
     }],
     auditInformation: null, //审核信息
     show: false, //审核失败原因
+    shipShow: false, //未添加船舶
     dialogStyle: 'width: 100%;height: 35px;border-radius: 20px;',
     upAndDownState: 0,
     // active:3,
@@ -65,12 +67,21 @@ Page({
 
     switch (id) {
       case '567':
+        wx.setNavigationBarTitle({
+          title: '船源管理',
+        })
         this.shipSourceAdmin(status)
         break
       case '855':
+        wx.setNavigationBarTitle({
+          title: '货源管理',
+        })
         this.cargoSourceAdmin(status)
         break
       case '609':
+        wx.setNavigationBarTitle({
+          title: '车源管理',
+        })
         this.carSourceAdmin(status)
         break
     }
@@ -79,7 +90,7 @@ Page({
   //船源管理
   shipSourceAdmin(state) {
     console.log(state)
-    if (state === 3 ) {
+    if (state === 3) {
       let status = 1;
       let Authorization = wx.getStorageSync('Authorization');
       let page = 1;
@@ -143,7 +154,7 @@ Page({
     console.log(statusList)
     this.setData({
       statusList,
-      upAndDownState:2
+      upAndDownState: 2
     })
   },
   //用户船源上架
@@ -372,8 +383,67 @@ Page({
   addButton() {
     let id = this.data.id;
     console.log(id)
-    // wx.navigateTo({
-    //   url: '/views/ResourceAdd/ResourceAdd?id=' + id,
-    // })
+    if (id == 567) {
+      this.queryShip()
+    } else {
+      wx.navigateTo({
+        url: '/views/ResourceAdd/ResourceAdd?id=' + id,
+      })
+    }
+
+  },
+
+  //未添加船舶
+  queryShip() {
+    let Authorization = wx.getStorageSync('Authorization');
+    let params = {
+      Authorization,
+      page: 1,
+      rows: 10
+    }
+
+    User.UserShipQuery(params).then(res => {
+      let total = res.data.data.total;
+      if (total <= 0) {
+        this.setData({
+          shipShow: true
+        })
+      } else {
+        this.onQueryShip()
+      }
+    })
+
+  },
+  //等待船舶审核
+  onQueryShip() {
+    let Authorization = wx.getStorageSync('Authorization');
+    let params = {
+      Authorization,
+      page: 1,
+      rows: 10,
+      status: 2
+    }
+
+    User.UserShipQuery(params).then(res => {
+      let total = res.data.data.total;
+      if (total <= 0) {
+        wx.showToast({
+          title: '请等待船舶审核通过',
+          icon: 'none'
+        })
+      } else {
+        // let id = this.data.id;
+        // wx.navigateTo({
+        //   url: '/views/ResourceAdd/ResourceAdd?id=' + id,
+        // })
+      }
+    })
+
+  },
+  //前往添加船舶
+  toTravelTo() {
+    wx.navigateTo({
+      url: '/views/ResourcesAdmin/ResourcesAdmin?id=' + '115',
+    })
   }
 })
