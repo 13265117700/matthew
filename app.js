@@ -3,10 +3,9 @@ import User from "./models/user/user";
 
 App({
   onLaunch: function () {
-    // this.WebSocketInit()
+    this.WebSocketInit()
   },
   WebSocketInit: function () {
-    console.log(123)
     let Authorization = wx.getStorageSync('Authorization');
     let params = {
       Authorization

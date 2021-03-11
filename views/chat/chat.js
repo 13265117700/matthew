@@ -186,6 +186,7 @@ Page({
         console.log(params)
         WebSocket.sendSocketMessage(params)
         WebSocket.onSocketMessageCallback = this.onSocketMessageCallback;
+        
     },
 
     // //关闭websocket连接
